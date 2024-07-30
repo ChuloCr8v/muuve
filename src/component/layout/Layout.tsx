@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Watermark from '../../../public/mi-bg.png'
-import SideNav from './SideNav';
+import Sidenav from '../Nav/SideNav';
 import Header from './Header';
 
 
@@ -10,8 +10,8 @@ export default function Layout(props: { children: ReactNode }) {
   return (
     <div className="flex max-h-screen bg-gray-50 overflow-x-hidden w-[100vw] ">
      <div className=" flex w-screen ">
-        <div className='min-h-[100vh] bg-[#EFF7FB] hidden md:flex w-[230px] pb-10'>
-           <SideNav/>
+        <div className='max-h-[100vh] overflow-auto  bg-[#EFF7FB] hidden md:flex w-[230px] '>
+           <Sidenav/>
         </div>
       
       <div className="">
@@ -27,7 +27,7 @@ export default function Layout(props: { children: ReactNode }) {
                 <img className='absolute z-0 md:left-[40%] lg:bottom-[calc(100vh*0.2)] md:bottom-[calc(100vh*0.05)] bottom-[calc(100vh*0.3)] left-[20%] md:w-[400px] w-[60%] ' src={Watermark} />
         </div>
 
-        <div className='h-[50px] w-full md:w-[calc(100vw-230px)] items-center bg-white px-[24px] flex  justify-center md:justify-between'>
+        <div className='h-[50px] w-full md:w-[calc(100vw-230px)] text-[12px] text-[#777777] items-center bg-white px-[24px] flex  justify-center md:justify-between'>
           <span >Copyright ©2023 All Rights Reserved Zoracom</span>
           <div className='space-x-8 hidden md:flex'>
               <span className='cursor-pointer' >Terms</span>
