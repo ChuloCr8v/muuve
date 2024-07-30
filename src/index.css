@@ -2,4 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+/* hide default antd required label astericks icon */
 
+:where(.css-dev-only-do-not-override-1tj953w).ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
+  display: none;
+}
