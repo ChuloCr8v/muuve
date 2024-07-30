@@ -2,6 +2,7 @@ import { Button, Checkbox, ConfigProvider, Segmented } from "antd";
 import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
 import ProductIcon from "../../../public/product-icon.png";
 import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 const productsData = [
   {
@@ -100,7 +101,10 @@ const Children = () => {
         {productsData.map((product) => (
           <div
             onClick={() => handleSelection(product.label)}
-            className="flex items-center gap-4 border rounded py-5 px-6 w-[400px] bg-white capitalize relative hover:border-primary duration-200"
+            className={twMerge(
+              "flex items-center gap-4 border rounded py-5 px-6 w-[400px] bg-white capitalize relative hover:border-primary duration-200 cursor-pointer",
+              selectedProducts.includes(product.label) && "border-primary"
+            )}
             key={product.label}
           >
             <img src={ProductIcon} alt={product.label} />
