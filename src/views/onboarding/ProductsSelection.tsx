@@ -3,39 +3,7 @@ import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
 import ProductIcon from "../../../public/product-icon.png";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-
-const productsData = [
-  {
-    label: "Project Management",
-    monthly: 400000,
-    yearly: 300000 * 12,
-  },
-  {
-    label: "Billing System",
-    monthly: 400000,
-    yearly: 300000 * 12,
-  },
-  {
-    label: "Incident Management",
-    monthly: 580000,
-    yearly: 480000 * 12,
-  },
-  {
-    label: "Operations Management",
-    monthly: 320000,
-    yearly: 300000 * 12,
-  },
-  {
-    label: "Inventory System",
-    monthly: 480000,
-    yearly: 450000 * 12,
-  },
-  {
-    label: "Vendor Management",
-    monthly: 400000,
-    yearly: 380000 * 12,
-  },
-];
+import { productsData } from "../../dummy/productsData";
 
 const ProductsSelection = () => {
   return (
@@ -67,10 +35,7 @@ const Children = () => {
     } else {
       setSelectedProducts([...selectedProducts, value]);
     }
-    console.log(selectedProducts);
   };
-
-  console.log(selectedProducts);
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
@@ -128,7 +93,11 @@ const Children = () => {
           </div>
         ))}
       </div>
-      <Button className="place-self-end w-[144px]" type="primary">
+      <Button
+        className="place-self-end w-[144px]"
+        type="primary"
+        disabled={!selectedProducts.length}
+      >
         Proceed
       </Button>
     </div>
