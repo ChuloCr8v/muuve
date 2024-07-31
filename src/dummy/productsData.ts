@@ -1,4 +1,11 @@
-export const productsData = [
+export interface productsDataTypes {
+  id: string;
+  label: string;
+  monthly: number;
+  yearly: number;
+}
+
+export const productsData: Array<productsDataTypes> = [
   {
     id: "PM",
     label: "Project Management",

@@ -7,6 +7,7 @@ import VerifyOrgOTP from "./views/onboarding/VerifyOrgOTP";
 import OrganizationInformation from "./views/onboarding/OrganizationInformation";
 import Password from "./views/onboarding/Password";
 import ProductsSelection from "./views/onboarding/ProductsSelection";
+import ProductsCustomization from "./views/onboarding/ProductsCustomization";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
           <Route
             path="/org/onboarding/products"
             element={<ProductsSelection />}
+          />
+          <Route
+            path="/org/onboarding/customize-products"
+            element={<ProductsCustomization />}
           />
         </Routes>
       </BrowserRouter>

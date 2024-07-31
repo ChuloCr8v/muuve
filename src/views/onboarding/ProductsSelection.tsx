@@ -4,6 +4,7 @@ import ProductIcon from "../../../public/product-icon.png";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { productsData } from "../../dummy/productsData";
+import { useNavigate } from "react-router-dom";
 
 const ProductsSelection = () => {
   return (
@@ -37,6 +38,13 @@ const Children = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
+    navigate(`/org/onboarding/customize-products`);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center gap-6">
       <ConfigProvider
@@ -65,12 +73,12 @@ const Children = () => {
       <div className="grid grid-cols-2 gap-6">
         {productsData.map((product) => (
           <div
-            onClick={() => handleSelection(product.label)}
+            onClick={() => handleSelection(product.id)}
             className={twMerge(
               "flex items-center gap-4 border rounded py-5 px-6 w-[400px] bg-white capitalize relative hover:border-primary duration-200 cursor-pointer",
-              selectedProducts.includes(product.label) && "border-primary"
+              selectedProducts.includes(product.id) && "border-primary"
             )}
-            key={product.label}
+            key={product.id}
           >
             <img src={ProductIcon} alt={product.label} />
             <div className="">
@@ -88,12 +96,13 @@ const Children = () => {
             </div>
             <Checkbox
               className="absolute top-2 right-4"
-              checked={selectedProducts.includes(product.label)}
+              checked={selectedProducts.includes(product.id)}
             />
           </div>
         ))}
       </div>
       <Button
+        onClick={handleSubmit}
         className="place-self-end w-[144px]"
         type="primary"
         disabled={!selectedProducts.length}
