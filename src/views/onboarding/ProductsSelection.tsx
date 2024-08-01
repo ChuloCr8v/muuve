@@ -1,10 +1,9 @@
-import { Button, Checkbox, ConfigProvider, Segmented } from "antd";
+import { Button, ConfigProvider, Segmented } from "antd";
 import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import ProductIcon from "../../../public/product-icon.png";
 import { useState } from "react";
-import { twMerge } from "tailwind-merge";
-import { productsData } from "../../dummy/productsData";
+import { productsData, ProductsDataTypes } from "../../dummy/productsData";
 import { useNavigate } from "react-router-dom";
+import ProductSelectionCard from "../../component/onboarding/ProductSelectionCard";
 
 const ProductsSelection = () => {
   return (
@@ -25,23 +24,15 @@ export default ProductsSelection;
 
 const Children = () => {
   const [duration, setDuration] = useState("monthly");
-  const [selectedProducts, setSelectedProducts] = useState<Array<string>>([]);
-
-  const handleSelection = (value: string) => {
-    if (selectedProducts.includes(value)) {
-      const updatedSelection = selectedProducts.filter(
-        (product) => product !== value
-      );
-      setSelectedProducts(updatedSelection);
-    } else {
-      setSelectedProducts([...selectedProducts, value]);
-    }
-  };
+  const [selectedProducts, setSelectedProducts] = useState<
+    Array<ProductsDataTypes>
+  >([]);
 
   const navigate = useNavigate();
 
   const handleSubmit = () => {
     localStorage.setItem("selectedProducts", JSON.stringify(selectedProducts));
+    localStorage.setItem("duration", JSON.stringify(duration));
     navigate(`/org/onboarding/customize-products`);
   };
 
@@ -65,40 +56,19 @@ const Children = () => {
           className="rounded-full"
           onChange={(value) => {
             setDuration(value.slice(7));
-            console.log(duration);
           }}
           options={["Billed monthly", "Billed yearly"]}
         />
       </ConfigProvider>
       <div className="grid grid-cols-2 gap-6">
         {productsData.map((product) => (
-          <div
-            onClick={() => handleSelection(product.id)}
-            className={twMerge(
-              "flex items-center gap-4 border rounded py-5 px-6 w-[400px] bg-white capitalize relative hover:border-primary duration-200 cursor-pointer",
-              selectedProducts.includes(product.id) && "border-primary"
-            )}
+          <ProductSelectionCard
             key={product.id}
-          >
-            <img src={ProductIcon} alt={product.label} />
-            <div className="">
-              <p className="font-semibold text-lg">{product.label}</p>
-              <p className="text-grey">
-                Starting from{" "}
-                <span className="text-primary font-semibold">
-                  NGN{" "}
-                  {duration === "monthly"
-                    ? product.monthly.toLocaleString()
-                    : product.yearly.toLocaleString()}
-                </span>{" "}
-                / {duration === "monthly" ? "month" : "year"}
-              </p>
-            </div>
-            <Checkbox
-              className="absolute top-2 right-4"
-              checked={selectedProducts.includes(product.id)}
-            />
-          </div>
+            duration={duration}
+            selectedProducts={selectedProducts}
+            setSelectedProducts={setSelectedProducts}
+            data={product}
+          />
         ))}
       </div>
       <Button
