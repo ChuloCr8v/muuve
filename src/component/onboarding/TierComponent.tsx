@@ -4,8 +4,11 @@ import ProductHeading from "./ProductHeading";
 import SingleProductSummaryCard from "./SingleProductSummaryCard";
 
 type Props = {
+  selectedProducts: ProductsDataTypes[];
+  setSelectedProducts: (arg: ProductsDataTypes[]) => void;
   data: ProductsDataTypes;
   duration: string;
+  id: string;
 };
 
 const TierComponent = (props: Props) => {
@@ -24,11 +27,14 @@ const TierComponent = (props: Props) => {
   };
 
   return (
-    <div className="w-full flex items-start gap-8">
+    <div className="w-full h-full flex items-start gap-8">
       <div className="grid gap-4 border-t pt-4 ">
         <ProductHeading
           productLabel={props.data.label}
           subtitle={"Select any plan of choice"}
+          selectedProducts={props.selectedProducts}
+          setSelectedProducts={props.setSelectedProducts}
+          id={props.id}
         />
         <div className="flex items-center gap-4">
           {plans().map((plan) => (
@@ -36,7 +42,7 @@ const TierComponent = (props: Props) => {
               key={plan.label}
               className="group border rounded-lg p-4 w-[150px] grid gap-2 hover:border-primary cursor-pointer duration-200"
             >
-              <p className="font-semibold text-base">{plan.label}</p>
+              <p className="font-semibold text-base capitalize">{plan.label}</p>
               <p className="font-semibold text-primary">
                 NGN
                 {props.duration === "monthly"

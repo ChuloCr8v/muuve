@@ -1,5 +1,5 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import CustomLabel from "../../component/CustomLabel";
+import CustomLabel from "../../component/onboarding/CustomLabel";
 import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

@@ -5,8 +5,11 @@ import SingleProductSummaryCard from "./SingleProductSummaryCard";
 import { ProductsDataTypes } from "../../dummy/productsData";
 
 interface Props {
+  selectedProducts: ProductsDataTypes[];
+  setSelectedProducts: (arg: ProductsDataTypes[]) => void;
   data: ProductsDataTypes;
   duration: string;
+  id: string;
 }
 
 const BillingComponent = (props: Props) => {
@@ -20,6 +23,9 @@ const BillingComponent = (props: Props) => {
           subtitle={
             "The selected number of customer seats will determine the price."
           }
+          selectedProducts={props.selectedProducts}
+          setSelectedProducts={props.setSelectedProducts}
+          id={props.id}
         />
 
         <div className="w-full grid gap-4">

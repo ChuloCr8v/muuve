@@ -7,7 +7,7 @@ const SingleProductSummaryCard = () => {
 
   return (
     <div className="border rounded-md p-4 pb-2 w-[400px] h-full flex flex-col">
-      <div className="h-full space-y-1">
+      <div className="h-fit space-y-1">
         {summaryData.map((data) => (
           <div className="flex items-center justify-between" key={data.label}>
             <p className="text-grey">{data.label}</p>

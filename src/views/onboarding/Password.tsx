@@ -1,6 +1,6 @@
 import { Button, Form, Input } from "antd";
 import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import CustomLabel from "../../component/CustomLabel";
+import CustomLabel from "../../component/onboarding/CustomLabel";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

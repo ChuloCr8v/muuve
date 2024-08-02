@@ -113,38 +113,3 @@ export const productsData: Array<ProductsDataTypes> = [
     },
   },
 ];
-
-export const ProjectManagementCostData = [
-  {
-    label: "Basic",
-    price: 400000,
-  },
-  {
-    label: "Standard",
-    price: 400000,
-  },
-  {
-    label: "Premium",
-    price: 400000,
-  },
-];
-
-export const IncidentManagementCostData = [
-  {
-    label: "Basic",
-    price: 400000,
-  },
-  {
-    label: "Standard",
-    price: 400000,
-  },
-  {
-    label: "Premium",
-    price: 400000,
-  },
-];
-
-export const productsCostData = [
-  { id: "PM", label: "Project Management", data: ProjectManagementCostData },
-  { id: "IM", label: "Project Management", data: IncidentManagementCostData },
-];

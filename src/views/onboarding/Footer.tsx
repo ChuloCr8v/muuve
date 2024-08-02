@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="h-[50px] text-[14px] text-[#777777] w-full items-center bg-white px-8 flex  justify-center md:justify-between absolute bottom-0 left-0 border-t">
+    <div className="fixed bottom-0 left-0 h-[50px] text-[14px] text-[#777777] w-full items-center bg-white px-8 flex  justify-center md:justify-between  border-t">
       <span>
         Copyright ©{new Date().getFullYear()} All Rights Reserved Zoracom
       </span>

@@ -1,10 +1,10 @@
+import { LeftOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import { ReactNode } from "react";
-import MiroLogo from "../../../public/miro-color.png";
 import MiroBg from "../../../public/miro-bg.png";
+import MiroLogo from "../../../public/miro-color.png";
 import Footer from "../../views/onboarding/Footer";
 import FormHeading from "./FormHeading";
-import { Button } from "antd";
-import { LeftOutlined } from "@ant-design/icons";
 
 type Props = {
   children: ReactNode;
@@ -18,7 +18,7 @@ type Props = {
 
 const OnboardingLayout = (props: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-8 min-h-screen relative">
+    <div className="flex flex-col items-center justify-center gap-8 min-h-screen py-24 relative">
       {props.backButton !== false && (
         <Button
           onClick={() => window.history.back()}
@@ -49,6 +49,7 @@ const OnboardingLayout = (props: Props) => {
         alt="Miro Service Management"
         className="max-w-[444px] absolute left-0 bottom-20 -z-10"
       />
+
       <Footer />
     </div>
   );

@@ -1,5 +1,5 @@
 import { Button, Form, Input, Select } from "antd";
-import CustomLabel from "../../component/CustomLabel";
+import CustomLabel from "../../component/onboarding/CustomLabel";
 import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
 import { diallingCodes } from "../../dummy/diallingCodes";
 import { useState } from "react";

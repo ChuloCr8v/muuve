@@ -44,8 +44,6 @@ const ProductSelectionCard = (props: Props) => {
     }
   };
 
-  console.log(props.data.pricing);
-
   //Retrive least price from each duration(Monthly or Yearly)
   const price = (id: string) => {
     const product = productsData.find((product) => product.id === id);
