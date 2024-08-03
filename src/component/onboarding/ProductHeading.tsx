@@ -1,5 +1,6 @@
 import { MinusCircleOutlined } from "@ant-design/icons";
 import { ProductsDataTypes } from "../../dummy/productsData";
+import { SelectedProductSummaryType } from "./ProductsCustomizationComponent";
 
 interface Props {
   productLabel: string;
@@ -7,15 +8,23 @@ interface Props {
   selectedProducts: Array<ProductsDataTypes>;
   setSelectedProducts: (arg: Array<ProductsDataTypes>) => void;
   id: string;
+  selectedProductsSummary: Array<SelectedProductSummaryType>;
+  setSelectedProductsSummary: (arg: SelectedProductSummaryType[]) => void;
 }
 const ProductHeading = (props: Props) => {
-  //Remove Product
+  console.log(props.selectedProducts, props.selectedProductsSummary);
+  //Remove Product from list of selected products
   const removeProduct = () => {
     const updatedSelectedProducts = props.selectedProducts.filter(
       (product) => product.id !== props.id
     );
-
     props.setSelectedProducts(updatedSelectedProducts);
+
+    //Also remove product from list of products summary in order to reflect on the summary price
+    const updatedSelectedProductsSummary = props.selectedProductsSummary.filter(
+      (product) => product.productId !== props.id
+    );
+    props.setSelectedProductsSummary(updatedSelectedProductsSummary);
 
     localStorage.setItem(
       "selectedProducts",

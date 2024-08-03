@@ -1,19 +1,70 @@
-import { Slider, Input } from "antd";
+import { Slider, Input, SliderSingleProps } from "antd";
 import { useState } from "react";
 import ProductHeading from "./ProductHeading";
-import SingleProductSummaryCard from "./SingleProductSummaryCard";
 import { ProductsDataTypes } from "../../dummy/productsData";
+import { SelectedProductSummaryType } from "./ProductsCustomizationComponent";
 
 interface Props {
   selectedProducts: ProductsDataTypes[];
   setSelectedProducts: (arg: ProductsDataTypes[]) => void;
+  selectedProductsSummary: SelectedProductSummaryType[];
+  setSelectedProductsSummary: (arg: SelectedProductSummaryType[]) => void;
   data: ProductsDataTypes;
   duration: string;
   id: string;
 }
 
 const BillingComponent = (props: Props) => {
-  const [customerCount, setCustomerCount] = useState(0);
+  const [customerCount, setCustomerCount] = useState<number>(0);
+
+  const handleCustomerCountSelect = (value: number | number[]) => {
+    const numericValue = Array.isArray(value) ? value[0] : value;
+    setCustomerCount(numericValue);
+
+    // Calculate cost using the selected value
+    const cost = customerSeatsCost(numericValue);
+
+    const planDetails = {
+      productId: props.data.id,
+      product: props.data.label,
+      tierValue: cost,
+      tierLabel: numericValue,
+    };
+
+    const findProduct = props.selectedProductsSummary.find(
+      (product) => product.productId === props.data.id
+    );
+
+    if (findProduct) {
+      props.setSelectedProductsSummary((prev) =>
+        prev.map((item) =>
+          item.productId === props.data.id ? planDetails : item
+        )
+      );
+    } else {
+      props.setSelectedProductsSummary((prev) => [...prev, planDetails]);
+    }
+  };
+
+  // Calculate the cost of customer seats per 200 customers
+  const customerSeatsCost = (customerCount_: number) => {
+    const costPerCustomerBlock = 200000;
+    const customersPerBlock = 200;
+
+    const numberOfBlocks = Math.ceil(customerCount_ / customersPerBlock);
+    const cost = numberOfBlocks * costPerCustomerBlock;
+
+    return cost;
+  };
+
+  const marks: SliderSingleProps["marks"] = {
+    0: "0",
+    200: "200",
+    400: "400",
+    600: "600",
+    800: "800",
+    1000: "1000",
+  };
 
   return (
     <div className="flex items-center gap-8">
@@ -26,6 +77,8 @@ const BillingComponent = (props: Props) => {
           selectedProducts={props.selectedProducts}
           setSelectedProducts={props.setSelectedProducts}
           id={props.id}
+          setSelectedProductsSummary={props.setSelectedProductsSummary}
+          selectedProductsSummary={props.selectedProductsSummary}
         />
 
         <div className="w-full grid gap-4">
@@ -36,33 +89,32 @@ const BillingComponent = (props: Props) => {
             <Slider
               className="w-full"
               value={customerCount}
-              defaultValue={customerCount}
-              onChange={(value) => setCustomerCount(value)}
+              onChange={handleCustomerCountSelect}
               max={1000}
+              step={100}
+              marks={marks}
             />
             <Input
               min={0}
               className="w-fit"
               value={customerCount}
               type="number"
-              onChange={(e) => setCustomerCount(Number(e.target.value))}
+              onChange={(e) =>
+                handleCustomerCountSelect(Number(e.target.value))
+              }
             />
           </div>
           <div className="flex items-center justify-between font-semibold text-base">
             <p className="">Amount</p>
-            <p className="text-primary font-bold">
-              {customerCount > 0 && "NGN"}
-              {customerCount < 1
-                ? 0
-                : customerCount > 200
-                ? (400000).toLocaleString()
-                : props.data.pricing.monthly[0].value.toLocaleString()}
+            <p className="text-primary font-semibold">
+              {customerCount > 0 && "NGN"}{" "}
+              {customerSeatsCost(customerCount).toLocaleString()}
             </p>
           </div>
         </div>
       </div>
-      <SingleProductSummaryCard />
     </div>
   );
 };
+
 export default BillingComponent;

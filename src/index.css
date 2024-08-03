@@ -11,3 +11,14 @@
   )::before {
   display: none;
 }
+
+.tiers > * + *,
+.summary-cards > * + * {
+  border-top: 1px #e9eaeb solid;
+  padding-top: 24px;
+}
+
+.summary-cards > * + * {
+  padding-top: 16px;
+  margin-top: 16px;
+}

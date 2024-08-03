@@ -1,4 +1,5 @@
 export interface TierTypes {
+  id: number;
   label: string;
   value: number;
 }
@@ -20,14 +21,14 @@ export const productsData: Array<ProductsDataTypes> = [
     label: "Project Management",
     pricing: {
       monthly: [
-        { label: "basic", value: 400000 },
-        { label: "standard", value: 480000 },
-        { label: "premium", value: 550000 },
+        { id: 1, label: "basic", value: 400000 },
+        { id: 2, label: "standard", value: 480000 },
+        { id: 3, label: "premium", value: 550000 },
       ],
       yearly: [
-        { label: "basic", value: 350000 },
-        { label: "standard", value: 430000 },
-        { label: "premium", value: 500000 },
+        { id: 1, label: "basic", value: 350000 * 12 },
+        { id: 2, label: "standard", value: 430000 * 12 },
+        { id: 3, label: "premium", value: 500000 * 12 },
       ],
     },
   },
@@ -36,14 +37,14 @@ export const productsData: Array<ProductsDataTypes> = [
     label: "Billing System",
     pricing: {
       monthly: [
-        { label: "basic", value: 300000 },
-        { label: "standard", value: 380000 },
-        { label: "premium", value: 450000 },
+        { id: 1, label: "basic", value: 300000 },
+        { id: 2, label: "standard", value: 380000 },
+        { id: 3, label: "premium", value: 450000 },
       ],
       yearly: [
-        { label: "basic", value: 250000 },
-        { label: "standard", value: 330000 },
-        { label: "premium", value: 400000 },
+        { id: 1, label: "basic", value: 250000 * 12 },
+        { id: 2, label: "standard", value: 330000 * 12 },
+        { id: 3, label: "premium", value: 400000 * 12 },
       ],
     },
   },
@@ -52,31 +53,30 @@ export const productsData: Array<ProductsDataTypes> = [
     label: "Incident Management",
     pricing: {
       monthly: [
-        { label: "basic", value: 500000 },
-        { label: "standard", value: 580000 },
-        { label: "premium", value: 650000 },
+        { id: 1, label: "basic", value: 500000 },
+        { id: 2, label: "standard", value: 580000 },
+        { id: 3, label: "premium", value: 650000 },
       ],
       yearly: [
-        { label: "basic", value: 450000 },
-        { label: "standard", value: 530000 },
-        { label: "premium", value: 600000 },
+        { id: 1, label: "basic", value: 450000 * 12 },
+        { id: 2, label: "standard", value: 530000 * 12 },
+        { id: 3, label: "premium", value: 600000 * 12 },
       ],
     },
   },
   {
     id: "OM",
     label: "Operations Management",
-
     pricing: {
       monthly: [
-        { label: "basic", value: 400000 },
-        { label: "standard", value: 480000 },
-        { label: "premium", value: 550000 },
+        { id: 1, label: "basic", value: 400000 },
+        { id: 2, label: "standard", value: 480000 },
+        { id: 3, label: "premium", value: 550000 },
       ],
       yearly: [
-        { label: "basic", value: 350000 },
-        { label: "standard", value: 430000 },
-        { label: "premium", value: 500000 },
+        { id: 1, label: "basic", value: 350000 * 12 },
+        { id: 2, label: "standard", value: 430000 * 12 },
+        { id: 3, label: "premium", value: 500000 * 12 },
       ],
     },
   },
@@ -85,14 +85,14 @@ export const productsData: Array<ProductsDataTypes> = [
     label: "Inventory System",
     pricing: {
       monthly: [
-        { label: "basic", value: 300000 },
-        { label: "standard", value: 380000 },
-        { label: "premium", value: 450000 },
+        { id: 1, label: "basic", value: 300000 },
+        { id: 2, label: "standard", value: 380000 },
+        { id: 3, label: "premium", value: 450000 },
       ],
       yearly: [
-        { label: "basic", value: 250000 },
-        { label: "standard", value: 330000 },
-        { label: "premium", value: 400000 },
+        { id: 1, label: "basic", value: 250000 * 12 },
+        { id: 2, label: "standard", value: 330000 * 12 },
+        { id: 3, label: "premium", value: 400000 * 12 },
       ],
     },
   },
@@ -101,14 +101,14 @@ export const productsData: Array<ProductsDataTypes> = [
     label: "Vendor Management",
     pricing: {
       monthly: [
-        { label: "basic", value: 400000 },
-        { label: "standard", value: 480000 },
-        { label: "premium", value: 550000 },
+        { id: 1, label: "basic", value: 400000 },
+        { id: 2, label: "standard", value: 480000 },
+        { id: 3, label: "premium", value: 550000 },
       ],
       yearly: [
-        { label: "basic", value: 350000 },
-        { label: "standard", value: 430000 },
-        { label: "premium", value: 500000 },
+        { id: 1, label: "basic", value: 350000 * 12 },
+        { id: 2, label: "standard", value: 430000 * 12 },
+        { id: 3, label: "premium", value: 500000 * 12 },
       ],
     },
   },

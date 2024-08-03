@@ -49,14 +49,13 @@ const ProductSelectionCard = (props: Props) => {
     const product = productsData.find((product) => product.id === id);
     switch (props.duration) {
       case "monthly":
-        return product?.pricing.monthly[0].value;
+        return product?.pricing?.monthly[0].value;
       case "yearly":
         return (
-          product?.pricing.yearly[0].value &&
-          product?.pricing.yearly[0].value * 12
+          product?.pricing?.yearly[0].value && product?.pricing.yearly[0].value
         );
       default:
-        return product?.pricing.monthly[0].value;
+        return product?.pricing?.monthly[0].value;
     }
   };
 

@@ -4,9 +4,7 @@ import CustomLabel from "../../component/onboarding/CustomLabel";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-type Props = {};
-
-const Password = (props: Props) => {
+const Password = () => {
   return (
     <OnboardingLayout
       children={<Children />}

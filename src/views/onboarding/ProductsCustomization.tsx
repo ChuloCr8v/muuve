@@ -1,8 +1,6 @@
-import { Button, Empty } from "antd";
+import { useEffect, useState } from "react";
 import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
 import ProductsCustomizationComponent from "../../component/onboarding/ProductsCustomizationComponent";
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { ProductsDataTypes } from "../../dummy/productsData";
 
 const ProductsCustomization = () => {

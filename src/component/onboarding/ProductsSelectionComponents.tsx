@@ -10,6 +10,13 @@ const ProductsSelectionComponent = () => {
     Array<ProductsDataTypes>
   >([]);
 
+  const getDuration = localStorage.getItem("duration");
+  const storedDuration = getDuration ? JSON.parse(getDuration) : "monthly";
+
+  useEffect(() => {
+    setDuration(storedDuration);
+  }, [storedDuration]);
+
   const navigate = useNavigate();
 
   const handleSubmit = () => {
@@ -44,6 +51,7 @@ const ProductsSelectionComponent = () => {
         <Segmented
           itemProp="text-red-600"
           defaultValue="Billed monthly"
+          value={duration === "monthly" ? "Billed monthly" : "Billed yearly"}
           style={{ marginBottom: 8 }}
           className="rounded-full"
           onChange={(value) => {
