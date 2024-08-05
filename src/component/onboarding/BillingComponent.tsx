@@ -8,7 +8,7 @@ interface Props {
   selectedProducts: ProductsDataTypes[];
   setSelectedProducts: (arg: ProductsDataTypes[]) => void;
   selectedProductsSummary: SelectedProductSummaryType[];
-  setSelectedProductsSummary: (arg: SelectedProductSummaryType[]) => void;
+  setSelectedProductsSummary: any;
   data: ProductsDataTypes;
   duration: string;
   id: string;
@@ -36,13 +36,13 @@ const BillingComponent = (props: Props) => {
     );
 
     if (findProduct) {
-      props.setSelectedProductsSummary((prev) =>
-        prev.map((item) =>
+      props.setSelectedProductsSummary((prev: any) =>
+        prev.map((item: any) =>
           item.productId === props.data.id ? planDetails : item
         )
       );
     } else {
-      props.setSelectedProductsSummary((prev) => [...prev, planDetails]);
+      props.setSelectedProductsSummary((prev: any) => [...prev, planDetails]);
     }
   };
 
