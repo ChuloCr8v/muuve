@@ -10,8 +10,8 @@ type Props = {
   data: ProductsDataTypes;
   duration: string;
   id: string;
-  selectedProductsSummary: Array<SelectedProductSummaryType>;
-  setSelectedProductsSummary: (arg: SelectedProductSummaryType[]) => void;
+  selectedProductsSummary: SelectedProductSummaryType[];
+  setSelectedProductsSummary: any;
 };
 
 const TierComponent = (props: Props) => {
@@ -36,7 +36,7 @@ const TierComponent = (props: Props) => {
   ) => {
     // Find if the plan is already in the selected products summary
     const findPlan = props.selectedProductsSummary.find(
-      (item) => item.productId === productId
+      (item: any) => item.productId === productId
     );
 
     const planDetails = {
@@ -51,12 +51,12 @@ const TierComponent = (props: Props) => {
       // Plan exists already, so update it
       const updatedPlan = Object.assign(findPlan, planDetails);
 
-      props.setSelectedProductsSummary((prev) =>
+      props.setSelectedProductsSummary((prev: any[]) =>
         prev.map((item) => (item.productId === productId ? updatedPlan : item))
       );
     } else {
       // Plan does not exist, so add it to the summary
-      props.setSelectedProductsSummary((prev) => [...prev, planDetails]);
+      props.setSelectedProductsSummary((prev: any) => [...prev, planDetails]);
     }
   };
 
