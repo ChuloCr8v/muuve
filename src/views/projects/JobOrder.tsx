@@ -1,23 +1,14 @@
-import { Button, Drawer, Form, Input, Select, Table, Tabs, TabsProps } from "antd";
+import { Button, Input, Table, Tabs, TabsProps } from "antd";
 import { useState } from "react";
 import ActionPopup from "../../component/Global/ActionPopup";
 import Danger from '/public/dangerSvg.svg'
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 import Header from "../../component/Global/Header";
-import MultiUpload from "../../component/Global/MultipleUpload";
-import CustomSelect from "../../component/Global/CustomeSelect";
-import DynamicForm from "../../component/Global/DynamicForm";
-import FormPopup from "../../component/Global/FormPopup";
 
-const { TextArea } = Input;
-
-export default function Survey () {
-
+export default function JobOrder () {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentTab, setCurrentTab] = useState("1");
-    const [newSurvey, setNewSurvey] = useState(false)
-    const initialItems = ['Customer Survey'];
 
     const Count = (props: { title: string; count: number; id: string }) => {
       return (
@@ -95,7 +86,7 @@ export default function Survey () {
     return(
         <div className="space-y-[16px]">
           <div className="flex items-center justify-between">
-          <Header heading={"Survey"}/>
+          <Header heading={"Job Order"}/>
 
           <section className="flex items-center gap-[16px]">
                 <Input className="w-[400px]" prefix={<SearchOutlined/>}/>
@@ -103,10 +94,9 @@ export default function Survey () {
 
 
                 <Button
-                onClick={() => setNewSurvey(true)}
                 className="flex items-center spacex-2"
                   type="primary">
-                  <span>New Request</span>
+                  <span>New Job Order</span>
                   <PlusOutlined />
                 </Button>
             </section>
@@ -118,11 +108,9 @@ export default function Survey () {
             items={tabItems}
             onChange={handleTabChange}
           />
-          <div className="max-w-[calc(100vw-2rem)] bg-white rounded-lg border-t-[1.5px] border-[#E9EAEB]  shadow-sm shadow-[#E9EAEB] space-y-[24px]">
+          <div className="max-w-[calc(100vw-2rem)] bg-white rounded-lg border-t-[1.5px] border-[#5656561A]  shadow-sm shadow-[#5656561A] space-y-[24px]">
             <Table columns={columns}/>
           </div>
-
-          <FormPopup title={"New Survey Request"} open={newSurvey} close={() => setNewSurvey(false)} submitText={"Submit"}/>
           
            
 

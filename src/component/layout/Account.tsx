@@ -1,4 +1,4 @@
-import { DownOutlined } from "@ant-design/icons";
+import { CaretDownOutlined, DownOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, MenuProps } from "antd";
 
 export default function Account (props: {user: string, role: string}) {
@@ -32,7 +32,7 @@ export default function Account (props: {user: string, role: string}) {
                 <Avatar className="bg-[#EFF7FB] font-semibold  text-[#0A96CC]" >{props.user.slice(0,1)}</Avatar>
                <div className="flex space-x-3 items-center">
                   <span className="text-[12px] font-semibold text-[#262626] w-fit">{props.user}</span>
-                  <DownOutlined className="text-[12px] "/>
+                  <CaretDownOutlined  className={`text-[12px] text-[#777777] transform`} />
                </div>
             </div>
         </Dropdown>

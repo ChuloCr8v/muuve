@@ -10,7 +10,7 @@ export default function Layout(props: { children: ReactNode }) {
   return (
     <div className="flex max-h-screen bg-gray-50 overflow-x-hidden w-[100vw] ">
      <div className=" flex w-screen ">
-        <div className='max-h-[100vh] overflow-auto  bg-[#EFF7FB] hidden md:flex w-[230px] '>
+        <div className='max-h-[100vh] overflow-auto  bg-[#EFF7FB] hidden md:flex w-[250px] '>
            <Sidenav/>
         </div>
       
@@ -20,7 +20,7 @@ export default function Layout(props: { children: ReactNode }) {
         </div>
         
 
-        <div className='h-[calc(100vh-122px)]  w-[100vw] md:w-[calc(100vw-230px)] px-[24px] py-[32px] overflow-y-auto'>
+        <div className='h-[calc(100vh-122px)]  w-[100vw] md:w-[calc(100vw-250px)] px-[24px] py-[32px] overflow-y-auto'>
                <div className='relative z-10'>
                {props.children}
                </div>

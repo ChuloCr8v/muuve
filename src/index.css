@@ -3,3 +3,24 @@
 @tailwind utilities;
 
 
+.noBorder{
+    border: none;
+    outline: none;
+}
+
+.formPopuptitle{
+    font-size: 20px;
+    color: #262626;
+    font-weight: 600;
+}
+
+.between-align{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+:where(.css-dev-only-do-not-override-cxty).ant-form-item {
+    margin-bottom: 10px;
+}

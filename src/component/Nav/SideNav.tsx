@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { menuItems } from './MenuItems';
 import SubMenu from './Submenu';
 import Logo from '../../../public/miro-color.png';
-import { DownOutlined } from '@ant-design/icons';
+import { CaretDownOutlined, DownOutlined } from '@ant-design/icons';
 
 // types of menuitems and submenus
 interface Submenu {
@@ -55,7 +55,7 @@ const Sidenav: React.FC = () => {
                     {/* section header */}
                 <div className='px-[24px] mb-1 flex justify-between' onClick={() => toggleSection(item.title)}>
                   <span className={`text-[12px] font-semibold ${hasActiveSubmenu ? 'text-[#0A96CC] ' : 'text-[#595959]'}`}>{item.title.toUpperCase()}</span>
-                  <DownOutlined className={`text-[12px] transform ${expandedSections[item.title] ? 'rotate-180' : ''}`} />
+                  <CaretDownOutlined  className={`text-[12px]  transform ${expandedSections[item.title] ? 'rotate-180 ' : ''}  ${hasActiveSubmenu ? 'text-[#0A96CC] ' : 'text-[#777777]'}`} />
                 </div>
                 {/* submenu List */}
                 {expandedSections[item.title] && item.submenus.map((submenu, idx) => (
