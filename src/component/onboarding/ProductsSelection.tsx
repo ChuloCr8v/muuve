@@ -1,9 +1,9 @@
-import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import ProductsSelectionComponent from "../../component/onboarding/ProductsSelectionComponents";
+import OnboardingLayout from "./OnboardingLayout";
+import ProductsSelectionComponent from "./ProductsSelectionComponents";
 
 const ProductsSelection = () => {
   return (
-    <div>
+    <div className="overflow-y-scroll">
       <OnboardingLayout
         children={<ProductsSelectionComponent />}
         heading={"What products are you interested in?"}

@@ -1,53 +1,35 @@
 import { Checkbox } from "antd";
+import { useDispatch, useSelector } from "react-redux";
 import { twMerge } from "tailwind-merge";
 import ProductIcon from "../../../public/product-icon.png";
-import {
-  PricingTiersTypes,
-  productsData,
-  ProductsDataTypes,
-} from "../../dummy/productsData";
+import { productsData } from "../../dummy/productsData";
+import { addProduct, expandProductDetatails } from "../../redux/productsSlice";
+import { ProductsDataTypes, productsState } from "../../types";
 
 type Props = {
-  selectedProducts: Array<ProductsDataTypes>;
-  setSelectedProducts: (arg: Array<ProductsDataTypes>) => void;
-  data: { id: string; label: string; pricing: PricingTiersTypes };
-  duration: string;
+  data: ProductsDataTypes;
 };
 
 const ProductSelectionCard = (props: Props) => {
+  const { products, duration } = useSelector(
+    (state: productsState) => state.products
+  );
+
+  const dispatch = useDispatch();
+
   //check if product is selected already
-  const verifySelectedProducts = (value: string) => {
-    const checkIfProductIsCurrentlySelected = props.selectedProducts.find(
-      (item) => item.id === value
+  const verifySelectedProducts = (id: string) => {
+    const checkIfProductIsCurrentlySelected = products.find(
+      (product) => product.id === id
     );
 
     return checkIfProductIsCurrentlySelected;
   };
 
-  //Handle product selection
-  const handleSelection = (value: string) => {
-    if (verifySelectedProducts(value)) {
-      console.log(verifySelectedProducts(value));
-      //remove it if so
-      const updatedSelection = props.selectedProducts.filter(
-        (product) => product.id !== value
-      );
-      props.setSelectedProducts(updatedSelection);
-    } else {
-      //else add the product if it doesn't already exist
-      const product = productsData.find((product) => product.id === value);
-      if (product) {
-        props.setSelectedProducts([...props.selectedProducts, product]);
-      } else {
-        return props.selectedProducts;
-      }
-    }
-  };
-
   //Retrive least price from each duration(Monthly or Yearly)
   const price = (id: string) => {
     const product = productsData.find((product) => product.id === id);
-    switch (props.duration) {
+    switch (duration) {
       case "monthly":
         return product?.pricing?.monthly[0].value;
       case "yearly":
@@ -58,25 +40,28 @@ const ProductSelectionCard = (props: Props) => {
         return product?.pricing?.monthly[0].value;
     }
   };
-
+  console.log(props.data);
   return (
     <div
-      onClick={() => handleSelection(props.data.id)}
+      onClick={() => {
+        dispatch(expandProductDetatails(props.data.id));
+        dispatch(addProduct(props.data));
+      }}
       className={twMerge(
-        "flex items-center gap-4 border rounded py-5 px-6 w-[400px] bg-white capitalize relative hover:border-primary duration-200 cursor-pointer",
+        "flex flex-col items-start gap-4 border rounded p-5 w-[280px] bg-white capitalize relative hover:border-primary duration-200 cursor-pointer",
         verifySelectedProducts(props.data.id) && "border-primary"
       )}
       key={props.data.id}
     >
-      <img src={ProductIcon} alt={props.data.label} />
+      <img src={ProductIcon} alt={props.data.label} className="h-12 w-12" />
       <div className="">
-        <p className="font-semibold text-lg">{props.data.label}</p>
-        <p className="text-grey">
-          Starting from{" "}
+        <p className="font-semibold text-base">{props.data.label}</p>
+        <p className="text-grey text-sm">
+          Starts from{" "}
           <span className="text-primary font-semibold">
             NGN {price(props.data.id)?.toLocaleString()}
           </span>{" "}
-          / {props.duration === "monthly" ? "month" : "year"}
+          / {duration === "monthly" ? "month" : "year"}
         </p>
       </div>
       <Checkbox
