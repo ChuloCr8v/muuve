@@ -5,19 +5,20 @@ import Danger from '/public/dangerSvg.svg'
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 import Header from "../../component/Global/Header";
-import MultiUpload from "../../component/Global/MultipleUpload";
-import CustomSelect from "../../component/Global/CustomeSelect";
-import DynamicForm from "../../component/Global/DynamicForm";
-import FormPopup from "../../component/Global/FormPopup";
+import FormPopup, { Props } from "../../component/Global/FormPopup";
+import { columns } from "../../component/data/SurveyTable";
+// import { SurveyData } from "../../component/data/SurveyData";
 
-const { TextArea } = Input;
 
-export default function Survey () {
 
+export default function Survey (props: Props ) {
+  
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentTab, setCurrentTab] = useState("1");
     const [newSurvey, setNewSurvey] = useState(false)
-    const initialItems = ['Customer Survey'];
+    // const initialItems = ['Customer Survey'];
+
+    
 
     const Count = (props: { title: string; count: number; id: string }) => {
       return (
@@ -56,38 +57,40 @@ export default function Survey () {
       },
     ];
 
-    const columns = [
-      {
-        title: 'ID',
-        dataIndex: 'name',
-        key: 'name',
-      },
-      {
-        title: 'Name',
-        dataIndex: 'age',
-        key: 'age',
-      },
-      {
-        title: 'Service Type',
-        dataIndex: 'address',
-        key: 'address',
-      },
-      {
-        title: 'Status',
-        dataIndex: 'address',
-        key: 'address',
-      },
-      {
-        title: 'SLA',
-        dataIndex: 'address',
-        key: 'address',
-      },
-      {
-        title: 'Action',
-        dataIndex: 'address',
-        key: 'address',
-      },
-    ];
+    // const columns = [
+    //   {
+    //     title: 'ID',
+    //     dataIndex: 'name',
+    //     key: 'name',
+    //   },
+    //   {
+    //     title: 'Name',
+    //     dataIndex: 'age',
+    //     key: 'age',
+    //   },
+    //   {
+    //     title: 'Service Type',
+    //     dataIndex: 'address',
+    //     key: 'address',
+    //   },
+    //   {
+    //     title: 'Status',
+    //     dataIndex: 'address',
+    //     key: 'address',
+    //   },
+    //   {
+    //     title: 'SLA',
+    //     dataIndex: 'address',
+    //     key: 'address',
+    //   },
+    //   {
+    //     title: 'Action',
+    //     dataIndex: 'address',
+    //     key: 'address',
+    //   },
+    // ];
+
+  
 
     const handleTabChange = (key: string) => {
       setCurrentTab(key);
@@ -95,7 +98,7 @@ export default function Survey () {
     return(
         <div className="space-y-[16px]">
           <div className="flex items-center justify-between">
-          <Header heading={"Survey"}/>
+          <Header heading={"Survey"} />
 
           <section className="flex items-center gap-[16px]">
                 <Input className="w-[400px]" prefix={<SearchOutlined/>}/>
@@ -119,13 +122,17 @@ export default function Survey () {
             onChange={handleTabChange}
           />
           <div className="max-w-[calc(100vw-2rem)] bg-white rounded-lg border-t-[1.5px] border-[#E9EAEB]  shadow-sm shadow-[#E9EAEB] space-y-[24px]">
-            <Table columns={columns}/>
+            {/* <Table columns={columns}/> */}
+            
           </div>
 
-          <FormPopup title={"New Survey Request"} open={newSurvey} close={() => setNewSurvey(false)} submitText={"Submit"}/>
-          
-           
-
+          <FormPopup
+          title={"New Survey Request"}
+           open={newSurvey}
+           close={() => setNewSurvey(false)} 
+           submitText={"Submit"}
+           />
+        {/* <DynamicFormTable survey={} /> */}
       <ActionPopup
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
@@ -135,7 +142,11 @@ export default function Survey () {
         sendButtonStyle="bg-red-600">
         <p>Are you sure you want to proceed with this action?</p>
       </ActionPopup>
-
+      <Table 
+        
+        // dataSource={}
+        columns={columns}
+        />
 
         </div>
     )

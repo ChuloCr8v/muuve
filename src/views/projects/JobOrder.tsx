@@ -5,6 +5,7 @@ import Danger from '/public/dangerSvg.svg'
 import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 import Header from "../../component/Global/Header";
+import SurveyTable from "../../component/data/SurveyTable";
 
 export default function JobOrder () {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -109,11 +110,10 @@ export default function JobOrder () {
             onChange={handleTabChange}
           />
           <div className="max-w-[calc(100vw-2rem)] bg-white rounded-lg border-t-[1.5px] border-[#5656561A]  shadow-sm shadow-[#5656561A] space-y-[24px]">
-            <Table columns={columns}/>
+            {/* <Table columns={columns}/> */}
+            <SurveyTable />
           </div>
           
-           
-
       <ActionPopup
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
