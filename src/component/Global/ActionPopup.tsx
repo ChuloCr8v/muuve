@@ -30,7 +30,7 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
       closeIcon={null}
     
     >
-        <div   className="space-y-[24px]">
+        <div className="space-y-[24px]">
         <section className="space-y-[8px]">
         <div className="relative flex items-center space-x-[8px]">
          <img src={icon} alt="" />
