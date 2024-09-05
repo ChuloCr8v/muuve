@@ -2,6 +2,36 @@ import { DownOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
+import Surveys from "../../../public/nav-icons/surveys.svg";
+import SurveysActive from "../../../public/nav-icons/surveys-active.svg";
+import JobOrders from "../../../public/nav-icons/job-orders.svg";
+import JobOrdersActive from "../../../public/nav-icons/job-orders-active.svg";
+import StrategicRequests from "../../../public/nav-icons/strategic-requests.svg";
+import StrategicRequestsActive from "../../../public/nav-icons/strategic-requests-active.svg";
+import OperationalRequests from "../../../public/nav-icons/operational-requests.svg";
+import OperationalRequestsAtive from "../../../public/nav-icons/operational-requests-active.svg";
+import PerfomanceRrports from "../../../public/nav-icons/performance-reports.svg";
+import PerfomanceRrportsActive from "../../../public/nav-icons/performance-reports-active.svg";
+import BillingHistory from "../../../public/nav-icons/billing-history.svg";
+import BillingHistoryActive from "../../../public/nav-icons/billing-history-active.svg";
+import Incidents from "../../../public/nav-icons/incidents.svg";
+import IncidentsActive from "../../../public/nav-icons/incidents-active.svg";
+import Maintenance from "../../../public/nav-icons/maintenance.svg";
+import MaintenanceActive from "../../../public/nav-icons/maintenance-active.svg";
+import Changes from "../../../public/nav-icons/changes.png";
+import ChangesActive from "../../../public/nav-icons/changes.png";
+import Snag from "../../../public/nav-icons/snag.svg";
+import SnagActive from "../../../public/nav-icons/snag-active.svg";
+import Models from "../../../public/nav-icons/models.svg";
+import ModelsActive from "../../../public/nav-icons/models-active.svg";
+import Devices from "../../../public/nav-icons/devices.svg";
+import DevicesActive from "../../../public/nav-icons/devices-active.svg";
+import Tickets from "../../../public/nav-icons/tickets.svg";
+import TicketsActive from "../../../public/nav-icons/tickets-active.svg";
+import Staff from "../../../public/nav-icons/staff.svg";
+import StaffActive from "../../../public/nav-icons/staff-active.svg";
+import Customers from "../../../public/nav-icons/customers.svg";
+import CustomersActive from "../../../public/nav-icons/customers-active.svg";
 
 const menuItems = [
   {
@@ -11,22 +41,26 @@ const menuItems = [
       {
         title: "Surveys",
         url: "/projects/surveys",
-        icon: "",
+        icon: Surveys,
+        iconActive: SurveysActive,
       },
       {
         title: "Job Orders",
         url: "/projects/job-orders",
-        icon: "",
+        icon: JobOrders,
+        iconActive: JobOrdersActive,
       },
       {
         title: "Strategic Requests",
         url: "/projects/strategic-requests",
-        icon: "",
+        icon: StrategicRequests,
+        iconActive: StrategicRequestsActive,
       },
       {
         title: "Operational Requests",
         url: "/projects/operational-requests",
-        icon: "",
+        icon: OperationalRequests,
+        iconActive: OperationalRequestsAtive,
       },
     ],
   },
@@ -37,32 +71,38 @@ const menuItems = [
       {
         title: "Performance Reports",
         url: "/operations/performance-reports",
-        icon: "",
+        icon: PerfomanceRrports,
+        iconActive: PerfomanceRrportsActive,
       },
       {
         title: "Billing History",
         url: "/operations/billing-history",
-        icon: "",
+        icon: BillingHistory,
+        iconActive: BillingHistoryActive,
       },
       {
         title: "Incidents",
         url: "/operations/incidents",
-        icon: "",
+        icon: Incidents,
+        iconActive: IncidentsActive,
       },
       {
         title: "Maintenance",
         url: "/operations/maintenance",
-        icon: "",
+        icon: Maintenance,
+        iconActive: MaintenanceActive,
       },
       {
         title: "Changes",
         url: "/operations/changes",
-        icon: "",
+        icon: Changes,
+        iconActive: ChangesActive,
       },
       {
         title: "Snag Reports",
         url: "/operations/snag-reports",
-        icon: "",
+        icon: Snag,
+        iconActive: SnagActive,
       },
     ],
   },
@@ -73,12 +113,14 @@ const menuItems = [
       {
         title: "Models",
         url: "/inventory/models",
-        icon: "",
+        icon: Models,
+        iconActive: ModelsActive,
       },
       {
         title: "Devices",
         url: "/inventory/devices",
-        icon: "",
+        icon: Devices,
+        iconActive: DevicesActive,
       },
     ],
   },
@@ -89,7 +131,8 @@ const menuItems = [
       {
         title: "Tickets",
         url: "/ticketing/tickets",
-        icon: "",
+        icon: Tickets,
+        iconActive: TicketsActive,
       },
     ],
   },
@@ -100,17 +143,20 @@ const menuItems = [
       {
         title: "Surveys",
         url: "/sales/surveys",
-        icon: "",
+        icon: Surveys,
+        iconActive: SurveysActive,
       },
       {
         title: "Job Orders",
         url: "/sales/job-orders",
-        icon: "",
+        iconActive: JobOrdersActive,
+        icon: JobOrders,
       },
       {
         title: "Strategic Requests",
         url: "/sales/strategic-requests",
-        icon: "",
+        iconActive: StrategicRequestsActive,
+        icon: StrategicRequests,
       },
     ],
   },
@@ -121,12 +167,14 @@ const menuItems = [
       {
         title: "Staff",
         url: "/admin/staff",
-        icon: "",
+        iconActive: StaffActive,
+        icon: Staff,
       },
       {
         title: "Customers",
         url: "/admin/customers",
-        icon: "",
+        iconActive: CustomersActive,
+        icon: Customers,
       },
     ],
   },
@@ -143,14 +191,14 @@ const Menu = () => {
       {menuItems.map((menuItem) => (
         <div className="w-full">
           <div
-            className="flex items-center justify-between w-full px-6 py-2"
+            className="flex items-center justify-between w-full px-6 py-2 cursor-pointer"
             onClick={() =>
               setOpenMenuItem(openMenuItem === menuItem.id ? 0 : menuItem.id)
             }
           >
             <h2
               className={twMerge(
-                "font-semibold uppercase",
+                "font-semibold uppercase text-sm",
                 openMenuItem === menuItem.id && "text-primary"
               )}
             >
@@ -159,7 +207,7 @@ const Menu = () => {
 
             <DownOutlined
               className={twMerge(
-                "",
+                "text-xs",
                 openMenuItem === menuItem.id &&
                   "-rotate-180 duration-200 text-primary"
               )}
@@ -175,12 +223,20 @@ const Menu = () => {
               <Link
                 to={subMenuItem.url}
                 className={twMerge(
-                  "duration-200 px-6 py-2 block capitalize",
+                  "duration-200 px-6 py-2 capitalize flex items-center gap-2 border-l-4 border-transparent hover:text-primary",
                   currentPath.includes(subMenuItem.url) &&
-                    "text-primary border-l-4 border-primary font-bold"
+                    "text-primary border-primary "
                 )}
               >
-                {subMenuItem.icon}
+                <img
+                  src={
+                    currentPath.includes(subMenuItem.url)
+                      ? subMenuItem.iconActive
+                      : subMenuItem.icon
+                  }
+                  alt={subMenuItem.title}
+                  className="h-4"
+                />
                 <p className="">{subMenuItem.title}</p>
               </Link>
             ))}

@@ -25,7 +25,9 @@ export default function Layout(props: { children: ReactNode }) {
           </div>
 
           <div className="h-[50px] w-full md:w-[calc(100vw-230px)] items-center bg-white px-[24px] flex  justify-center md:justify-between">
-            <span>Copyright ©2023 All Rights Reserved Zoracom</span>
+            <span>
+              Copyright {new Date().getFullYear()} All Rights Reserved Zoracom
+            </span>
             <div className="space-x-8 hidden md:flex">
               <span className="cursor-pointer">Terms</span>
               <span className="cursor-pointer">Privacy Policy</span>
