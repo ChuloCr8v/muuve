@@ -12,7 +12,7 @@ import { SurveyData } from "../../component/data/SurveyData";
 
 
 
-export default function Survey (props: Props ) {
+export default function Snags (props: Props ) {
   
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [currentTab, setCurrentTab] = useState("1");
@@ -58,15 +58,15 @@ export default function Survey (props: Props ) {
       },
       {
         key: "2",
-        label: <Count title={"Active"} count={33} id={"2"} />,
+        label: <Count title={"Pending"} count={33} id={"2"} />,
       },
       {
         key: "3",
-        label: <Count title={"Deactivated"} count={48} id={"3"} />,
+        label: <Count title={"Rejected"} count={48} id={"3"} />,
       },
       {
         key: "4",
-        label: <Count title={"Expiring"} count={7} id={"4"} />,
+        label: <Count title={"Completed"} count={7} id={"4"} />,
       },
     ];
 
@@ -111,7 +111,7 @@ export default function Survey (props: Props ) {
     return(
         <div className="space-y-[16px]">
           <div className="flex items-center justify-between">
-          <Header heading={"Survey"} />
+          <Header heading={"Snags Report"} />
 
           <section className="flex items-center gap-[16px]">
                 <Input className="w-[400px]" prefix={<SearchOutlined/>}/>
@@ -120,10 +120,10 @@ export default function Survey (props: Props ) {
 
 
                 <Button
-                onClick={() => setNewSurvey(true)}
+                // onClick={() => setNewSurvey(true)}
                 className="flex items-center spacex-2"
                   type="primary">
-                  <span>New Request</span>
+                  <span>Repor Snag</span>
                   <PlusOutlined />
                 </Button>
             </section>
