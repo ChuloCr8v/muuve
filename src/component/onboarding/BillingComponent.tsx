@@ -1,21 +1,17 @@
-import { Slider, Input, SliderSingleProps } from "antd";
+import { Input, Slider, SliderSingleProps } from "antd";
 import { useState } from "react";
-import ProductHeading from "./ProductHeading";
-import { ProductsDataTypes } from "../../dummy/productsData";
-import { SelectedProductSummaryType } from "./ProductsCustomizationComponent";
-
+import { ProductsDataTypes } from "../../types";
+import SingleProductCustomization from "../SingleProductCustomization";
+import { useDispatch } from "react-redux";
+import { customizedProducts } from "../../redux/productsSlice";
 interface Props {
-  selectedProducts: ProductsDataTypes[];
-  setSelectedProducts: (arg: ProductsDataTypes[]) => void;
-  selectedProductsSummary: SelectedProductSummaryType[];
-  setSelectedProductsSummary: any;
   data: ProductsDataTypes;
-  duration: string;
   id: string;
 }
 
 const BillingComponent = (props: Props) => {
   const [customerCount, setCustomerCount] = useState<number>(0);
+  const dispatch = useDispatch();
 
   const handleCustomerCountSelect = (value: number | number[]) => {
     const numericValue = Array.isArray(value) ? value[0] : value;
@@ -31,19 +27,7 @@ const BillingComponent = (props: Props) => {
       tierLabel: numericValue,
     };
 
-    const findProduct = props.selectedProductsSummary.find(
-      (product) => product.productId === props.data.id
-    );
-
-    if (findProduct) {
-      props.setSelectedProductsSummary((prev: any) =>
-        prev.map((item: any) =>
-          item.productId === props.data.id ? planDetails : item
-        )
-      );
-    } else {
-      props.setSelectedProductsSummary((prev: any) => [...prev, planDetails]);
-    }
+    dispatch(customizedProducts(planDetails));
   };
 
   // Calculate the cost of customer seats per 200 customers
@@ -68,51 +52,42 @@ const BillingComponent = (props: Props) => {
 
   return (
     <div className="flex items-center gap-8">
-      <div className="grid gap-4 w-[480px]">
-        <ProductHeading
-          productLabel={props.data.label}
-          subtitle={
-            "The selected number of customer seats will determine the price."
-          }
-          selectedProducts={props.selectedProducts}
-          setSelectedProducts={props.setSelectedProducts}
-          id={props.id}
-          setSelectedProductsSummary={props.setSelectedProductsSummary}
-          selectedProductsSummary={props.selectedProductsSummary}
-        />
-
-        <div className="w-full grid gap-4">
-          <div className="w-full flex items-center gap-6">
-            <label htmlFor="" className="text-nowrap font-[500]">
-              Customer Seats
-            </label>
-            <Slider
-              className="w-full"
-              value={customerCount}
-              onChange={handleCustomerCountSelect}
-              max={1000}
-              step={100}
-              marks={marks}
-            />
-            <Input
-              min={0}
-              className="w-fit"
-              value={customerCount}
-              type="number"
-              onChange={(e) =>
-                handleCustomerCountSelect(Number(e.target.value))
-              }
-            />
-          </div>
-          <div className="flex items-center justify-between font-semibold text-base">
-            <p className="">Amount</p>
-            <p className="text-primary font-semibold">
-              {customerCount > 0 && "NGN"}{" "}
-              {customerSeatsCost(customerCount).toLocaleString()}
-            </p>
-          </div>
-        </div>
-      </div>
+      <SingleProductCustomization
+        data={props.data}
+        children={
+          <>
+            <div className="w-full flex items-center gap-6">
+              <label htmlFor="" className="text-nowrap font-[500]">
+                Customer Seats
+              </label>
+              <Slider
+                className="w-full"
+                value={customerCount}
+                onChange={handleCustomerCountSelect}
+                max={1000}
+                step={100}
+                marks={marks}
+              />
+              <Input
+                min={0}
+                className="w-fit"
+                value={customerCount}
+                type="number"
+                onChange={(e) =>
+                  handleCustomerCountSelect(Number(e.target.value))
+                }
+              />
+            </div>
+            <div className="flex items-center justify-between font-semibold text-base">
+              <p className="">Amount</p>
+              <p className="text-primary font-semibold">
+                {customerCount > 0 && "NGN"}{" "}
+                {customerSeatsCost(customerCount).toLocaleString()}
+              </p>
+            </div>
+          </>
+        }
+      />
     </div>
   );
 };
