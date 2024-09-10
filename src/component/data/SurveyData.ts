@@ -13,6 +13,9 @@ export const SurveyData: DataType[] = [
       state: 'New York',
       longitude: '180',
       latitude: '30',
+      sla: 'o work day',
+      due: '08 Nov, 2023',
+      status: 'Survey Ongoing'
     },
     {
       key: '2',
@@ -26,6 +29,9 @@ export const SurveyData: DataType[] = [
       state: 'Ottawa',
       longitude: '180',
       latitude: '30',
+      sla: 'o work day',
+      due: '08 Nov, 2023',
+      status: 'Survey Ongoing'
     },
     {
       key: '3',
@@ -39,6 +45,9 @@ export const SurveyData: DataType[] = [
       state: 'Texas',
       longitude: '180',
       latitude: '30',
+       sla: 'o work day',
+      due: '08 Nov, 2023',
+      status: 'Survey Ongoing'
     },
     {
       key: '4',
@@ -52,6 +61,9 @@ export const SurveyData: DataType[] = [
       state: 'Victoria',
       longitude: '180',
       latitude: '30',
+       sla: 'o work day',
+      due: '08 Nov, 2023',
+      status: 'Survey Ongoing'
     }
 
 

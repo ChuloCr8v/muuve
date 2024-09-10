@@ -24,3 +24,10 @@
 :where(.css-dev-only-do-not-override-cxty).ant-form-item {
     margin-bottom: 10px;
 }
+
+.text{
+    font-weight: 600;
+    font-size: 12px;
+    color: #777777;
+}
+

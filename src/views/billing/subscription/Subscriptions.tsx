@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "../../../component/Global/Header";
 import {
   DownOutlined,
   PlusOutlined,
@@ -19,7 +19,7 @@ import {
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import Data from "../../dummy/data";
+import dataList from "./data";
 import UpdDownAarrow from "/arrow-3.png";
 
 export default function Subscription() {
@@ -207,7 +207,7 @@ export default function Subscription() {
             <span className="btn-span">Refresh</span>
             <SyncOutlined />
           </Button>
-          <Link to="/add-sub">
+          <Link to="/billing/add-sub">
             <Button type="primary">
               <span className="btn-span">New Subscription</span>
               <PlusOutlined className="text-white" />
@@ -237,7 +237,7 @@ export default function Subscription() {
           scroll={{ x: 800 }}
           size="small"
           columns={column as any}
-          dataSource={Data}
+          dataSource={dataList}
         />
       </section>
     </div>

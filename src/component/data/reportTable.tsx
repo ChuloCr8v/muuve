@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
-import { Button, Dropdown, MenuProps, Table } from 'antd';
+import { Button, Dropdown, MenuProps, Table, Tag } from 'antd';
 // import Survey from '../../views/projects/Survey';
 import { SurveyData } from './SurveyData';
 import DataTable from '../Global/DataTable';
-import { CloseCircleOutlined, CloudUploadOutlined, DeleteOutlined, ExclamationCircleOutlined, EyeOutlined, UserAddOutlined, UserSwitchOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, CloseCircleOutlined, CloudUploadOutlined, DeleteOutlined, ExclamationCircleOutlined, EyeOutlined, UserAddOutlined, UserSwitchOutlined } from '@ant-design/icons';
 
 export interface DataType {
   key: string;
@@ -35,65 +35,65 @@ const Itemlabel = (props: { label: string; icon: ReactNode, onlick: () => void }
 const items: MenuProps['items'] = [
         {
           key: 1,
-          label: <Itemlabel label={'Edit Details'} icon={<EyeOutlined />} />,
+          label: <Itemlabel label={'Accept Report'} icon={<CheckCircleOutlined/>} />,
           // onClick: () => showModal('Edit Details', '/path/to/edit-icon.svg'),
         },
         {
           key: 2,
           label: (
-            <Itemlabel label={'Initiate Payment'} icon={<UserAddOutlined />} />
+            <Itemlabel label={'Reject Report'} icon={<CloseCircleOutlined />} />
           ),
           // onClick: (e) => {
           //   showModal('Assign Device', '/assign.svg'), e.stopPropagaton();
           // },
         },
 
-        {
-          key: 3,
-          label: (
-            <Itemlabel
-              label={'Upload Receipt'}
-              icon={<CloudUploadOutlined/>}
-            />
-          ),
-          // onClick: () => showModal('Report Fault', '/reportFault.svg'),
-        },
-        {
-          key: 4,
-          label: <Itemlabel label={'Assign Survey'} icon={<DeleteOutlined />} />,
-          // onClick: () => showModal('Delete', '/delete.svg'),
-        },
+        // {
+        //   key: 3,
+        //   label: (
+        //     <Itemlabel
+        //       label={'Upload Receipt'}
+        //       icon={<CloudUploadOutlined/>}
+        //     />
+        //   ),
+        //   // onClick: () => showModal('Report Fault', '/reportFault.svg'),
+        // },
+        // {
+        //   key: 4,
+        //   label: <Itemlabel label={'Assign Survey'} icon={<DeleteOutlined />} />,
+        //   // onClick: () => showModal('Delete', '/delete.svg'),
+        // },
     
-          {
-          key: 5,
-          label: (
-            <Itemlabel
-              label={'Reassign'}
-              icon={<UserSwitchOutlined/>}
-            />
-          ),
-          // onClick: () => showModal('Report Fault', '/reportFault.svg'),
-        },
-        {
-          key: 6,
-          label: (
-            <Itemlabel
-              label={'Reject Survey'}
-              icon={<CloseCircleOutlined />}
-            />
-          ),
-          // onClick: () => showModal('Report Fault', '/reportFault.svg'),
-        },
-        {
-          key: 5,
-          label: (
-            <Itemlabel
-              label={'Delete'}
-              icon={<DeleteOutlined/>}
-            />
-          ),
-          // onClick: () => showModal('Report Fault', '/reportFault.svg'),
-        },
+        //   {
+        //   key: 5,
+        //   label: (
+        //     <Itemlabel
+        //       label={'Reassign'}
+        //       icon={<UserSwitchOutlined/>}
+        //     />
+        //   ),
+        //   // onClick: () => showModal('Report Fault', '/reportFault.svg'),
+        // },
+        // {
+        //   key: 6,
+        //   label: (
+        //     <Itemlabel
+        //       label={'Reject Survey'}
+        //       icon={<CloseCircleOutlined />}
+        //     />
+        //   ),
+        //   // onClick: () => showModal('Report Fault', '/reportFault.svg'),
+        // },
+        // {
+        //   key: 5,
+        //   label: (
+        //     <Itemlabel
+        //       label={'Delete'}
+        //       icon={<DeleteOutlined/>}
+        //     />
+        //   ),
+        //   // onClick: () => showModal('Report Fault', '/reportFault.svg'),
+        // },
       ];
 
 
@@ -115,7 +115,7 @@ export const columns = [
     </div>
   },
   {
-    title: 'Service Type',
+    title: 'Date',
     dataIndex: 'serviceType',
     key: 'serviceType',
     width: 250,
@@ -126,18 +126,16 @@ export const columns = [
     key: 'serviceAddress',
     width: 250,
     render: (_, text:any) => <div>
-    <p className='text-[13px]'><span className=''>{text.status}</span></p>
-    <p className='text-[11px] text-[#595959]'>{text.manager}</p>
-  </div>
+    <Tag className='rounded-2xl text-[11px] font-semibold bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]'>1 of 8 Pending</Tag>
+    </div>
   },
   {
-    title: 'SLA',
+    title: 'Last Aaction',
     dataIndex: ['sla', 'due'],
     key: 'requestType',
     width: 200,
     render: (_, text: []) => <div>
-    <p className='text-[13px]'>SLA: <span className='text-[#22C55E] font-semibold'>{text.sla}</span></p>
-    <p className='text-[11px] text-[#595959]'>Due: {text.due}</p>
+    <p>Uploaded a minute ago</p>
   </div>
   },
   // {
@@ -176,8 +174,8 @@ export const columns = [
   },
 ];
 
-const SurveyTable: React.FC = () => {
+const ReportsTable: React.FC = () => {
   return <DataTable data={SurveyData} columns={columns} />;
 };
 
-export default SurveyTable;
+export default ReportsTable;
