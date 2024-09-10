@@ -1,4 +1,4 @@
-import { DownOutlined } from "@ant-design/icons";
+import { CaretDownFilled, DownOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
@@ -205,9 +205,9 @@ const Menu = () => {
               {menuItem.title}
             </h2>
 
-            <DownOutlined
+            <CaretDownFilled
               className={twMerge(
-                "text-xs",
+                "text-sm text-grey",
                 openMenuItem === menuItem.id &&
                   "-rotate-180 duration-200 text-primary"
               )}
