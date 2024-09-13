@@ -29,11 +29,15 @@ const OnboardingLayout = (props: Props) => {
           Back
         </Button>
       )}
-      <img
-        src={MiroLogo}
-        alt="Miro Service Management"
-        className="max-w-[86px]"
-      />
+      <div className="flex flex-col items-center ">
+        <img
+          src={MiroLogo}
+          alt="Miro Service Management"
+          className="max-w-[86px]"
+        />
+        <p className="text-sm">Service Management</p>
+      </div>
+
       <div className="grid gap-6 ">
         <FormHeading
           heading={props.heading}

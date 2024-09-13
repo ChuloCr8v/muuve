@@ -1,3 +1,6 @@
+import AuthLayout from "../../component/auth/AuthLayout";
+import LoginComponent from "../../component/auth/LoginComponent";
+
 export default function Login() {
-  return <div className="items center">Login works</div>;
+  return <AuthLayout formElement={<LoginComponent />} />;
 }

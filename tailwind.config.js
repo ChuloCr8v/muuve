@@ -8,6 +8,9 @@ export default {
         customBlack: " #262626",
         primary: "#0A96CC",
       },
+      boxShadow: {
+        logincard: "0px 4px 16px 0px rgba(0, 0, 0, 0.08)",
+      },
     },
   },
   plugins: [],

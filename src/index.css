@@ -29,31 +29,38 @@
   justify-content: center;
   align-items: center;
 }
-.noBorder{
-    border: none;
-    outline: none;
+.noBorder {
+  border: none;
+  outline: none;
 }
 
-.formPopuptitle{
-    font-size: 20px;
-    color: #262626;
-    font-weight: 600;
+.formPopuptitle {
+  font-size: 20px;
+  color: #262626;
+  font-weight: 600;
 }
 
-.between-align{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.between-align {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 
 :where(.css-dev-only-do-not-override-cxty).ant-form-item {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-.text{
-    font-weight: 600;
-    font-size: 12px;
-    color: #777777;
+.text {
+  font-weight: 600;
+  font-size: 12px;
+  color: #777777;
 }
 
+/* hide antd default required aestericks */
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
+  display: none;
+}

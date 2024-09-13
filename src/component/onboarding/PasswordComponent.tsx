@@ -1,7 +1,13 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import CustomLabel from "./CustomLabel";
+
+interface Props {
+  handleSubmit: (passwordData: {
+    password: string;
+    confirmPassword: string;
+  }) => void;
+}
 
 const validPasswordChecks = [
   {
@@ -22,14 +28,12 @@ const validPasswordChecks = [
   },
 ];
 
-const PasswordComponent = () => {
+const PasswordComponent = ({ handleSubmit }: Props) => {
   const [passwordData, setPasswordData] = useState({
     password: "",
     confirmPassword: "",
   });
   const [checked, setChecked] = useState<number[]>([]);
-
-  const navigate = useNavigate();
 
   const handleChange = (name: string, value: string) => {
     const minLength = /.{12,}/;
@@ -64,12 +68,12 @@ const PasswordComponent = () => {
       return true;
   };
 
-  const handleSubmit = () => {
-    navigate("/org/onboarding/products");
-  };
-
   return (
-    <Form className="w-[480px]" layout="vertical" onFinish={handleSubmit}>
+    <Form
+      className="max-w-[480px] w-full"
+      layout="vertical"
+      onFinish={() => handleSubmit(passwordData)}
+    >
       <Form.Item label={<CustomLabel label={"Password"} required />}>
         <Input.Password
           onChange={(e) => handleChange("password", e.target.value)}
