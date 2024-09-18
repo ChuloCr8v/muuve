@@ -4,6 +4,7 @@ import ForgotPasswordComponent from "../../component/auth/ForgotPasswordComponen
 const ForgotPassword = () => {
   return (
     <AuthLayout
+      showBackBtn={true}
       formElement={<ForgotPasswordComponent />}
       formHeading="Reset Password"
       formSubheading="Enter your email to reset your password"
