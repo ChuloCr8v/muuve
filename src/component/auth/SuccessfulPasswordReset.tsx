@@ -37,7 +37,7 @@ const SuccessfulPasswordReset = () => {
         </span>{" "}
         <Countdown
           className="text-primary"
-          date={Date.now() + 100005000}
+          date={Date.now() + 5000}
           onComplete={returnToLogin}
         />
       </div>

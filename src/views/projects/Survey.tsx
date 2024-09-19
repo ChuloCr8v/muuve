@@ -1,170 +1,75 @@
-import { Button, Drawer, Form, Input, Select, Table, Tabs, TabsProps } from "antd";
+import { OrderedListOutlined, WarningOutlined } from "@ant-design/icons";
+import { Drawer } from "antd";
 import { useState } from "react";
+import { FaBan } from "react-icons/fa";
+import { VscVmActive } from "react-icons/vsc";
 import ActionPopup from "../../component/Global/ActionPopup";
-import Danger from '/public/dangerSvg.svg'
-import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
-import { twMerge } from "tailwind-merge";
-import Header from "../../component/Global/Header";
-import FormPopup, { Props } from "../../component/Global/FormPopup";
-import { columns } from "../../component/data/SurveyTable";
+import FormPopup from "../../component/Global/FormPopup";
+import PageHeader from "../../component/Global/PageHeader";
+import SummaryCards from "../../component/Global/SummaryCards";
+import TableComponent from "../../component/Global/TableComponent";
 import { SurveyData } from "../../component/data/SurveyData";
-// import { SurveyData } from "../../component/data/SurveyData";
+import { columns } from "../../component/data/SurveyTable";
+import Danger from "/public/dangerSvg.svg";
 
+export default function Survey() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [newSurvey, setNewSurvey] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
+  const handleRowClick = (record: any) => {
+    setSelectedRowData(record); // Set the selected row data
+    setDrawerVisible(true); // Open the drawer
+  };
 
-export default function Survey (props: Props ) {
-  
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [currentTab, setCurrentTab] = useState("1");
-    const [newSurvey, setNewSurvey] = useState(false)
-    const [drawerVisible, setDrawerVisible] = useState(false);
-    const [selectedRowData, setSelectedRowData] = useState(null);
-    // const initialItems = ['Customer Survey'];
+  const closeDrawer = () => {
+    setDrawerVisible(false);
+    setSelectedRowData(null);
+  };
 
-    const handleRowClick = (record: any) => {
-      setSelectedRowData(record);  // Set the selected row data
-      setDrawerVisible(true);      // Open the drawer
-    };
+  const summaryData = [
+    {
+      label: "Total",
+      value: 22,
+      icon: <OrderedListOutlined />,
+    },
+    {
+      label: "Active",
+      value: 19,
+      icon: <VscVmActive />,
+    },
+    {
+      label: "Deactivated",
+      value: 2,
+      icon: <FaBan />,
+    },
+    {
+      label: "Expiring",
+      value: 1,
+      icon: <WarningOutlined />,
+    },
+  ];
 
-    const closeDrawer = () => {
-      setDrawerVisible(false);
-      setSelectedRowData(null);
-    };
+  return (
+    <div className="space-y-3">
+      <PageHeader
+        heading={"Surveys"}
+        onclick={() => console.log("first")}
+        handleRefresh={() => console.log("first")}
+        handleGenerateReport={() => console.log("first")}
+      />
 
-    
+      <SummaryCards summaryData={summaryData} />
 
-    const Count = (props: { title: string; count: number; id: string }) => {
-      return (
-        <div className="flex items-center gap-2 font-semibold">
-          <p className={twMerge("", currentTab === props.id && "")}>
-            {props.title}{" "}
-          </p>
-          <div
-            className={twMerge(
-              "bg-off_white text-light_gray flex items-center justify-center rounded-[2px] h-5 w-5 text-[10px] font-semibold",
-              currentTab === props.id && "bg-[#0A95CC] text-white "
-            )}
-          >
-            {props.count}
-          </div>
-        </div>
-      );
-    };
-
-    const tabItems: TabsProps["items"] = [
-      {
-        key: "1",
-        label: <Count title={"All"} count={22} id={"1"} />,
-      },
-      {
-        key: "2",
-        label: <Count title={"Active"} count={33} id={"2"} />,
-      },
-      {
-        key: "3",
-        label: <Count title={"Deactivated"} count={48} id={"3"} />,
-      },
-      {
-        key: "4",
-        label: <Count title={"Expiring"} count={7} id={"4"} />,
-      },
-    ];
-
-    // const columns = [
-    //   {
-    //     title: 'ID',
-    //     dataIndex: 'name',
-    //     key: 'name',
-    //   },
-    //   {
-    //     title: 'Name',
-    //     dataIndex: 'age',
-    //     key: 'age',
-    //   },
-    //   {
-    //     title: 'Service Type',
-    //     dataIndex: 'address',
-    //     key: 'address',
-    //   },
-    //   {
-    //     title: 'Status',
-    //     dataIndex: 'address',
-    //     key: 'address',
-    //   },
-    //   {
-    //     title: 'SLA',
-    //     dataIndex: 'address',
-    //     key: 'address',
-    //   },
-    //   {
-    //     title: 'Action',
-    //     dataIndex: 'address',
-    //     key: 'address',
-    //   },
-    // ];
-
-  
-
-    const handleTabChange = (key: string) => {
-      setCurrentTab(key);
-    };
-    return(
-        <div className="space-y-[16px]">
-          <div className="flex items-center justify-between">
-          <Header heading={"Survey"} />
-
-          <section className="flex items-center gap-[16px]">
-                <Input className="w-[400px]" prefix={<SearchOutlined/>}/>
-                <Button>Generate Report</Button>
-                <Button>Refresh</Button>
-
-
-                <Button
-                onClick={() => setNewSurvey(true)}
-                className="flex items-center spacex-2"
-                  type="primary">
-                  <span>New Request</span>
-                  <PlusOutlined />
-                </Button>
-            </section>
-
-          </div>
-
-          <Tabs
-            defaultActiveKey="1"
-            items={tabItems}
-            onChange={handleTabChange}
-          />
-          <div className="max-w-[calc(100vw-2rem)] bg-white rounded-lg border-t-[1.5px] border-[#E9EAEB]  shadow-sm shadow-[#E9EAEB] space-y-[24px]">
-            {/* <Table columns={columns}/> */}
-            
-          </div>
-
-          <FormPopup
-          title={"New Survey Request"}
-           open={newSurvey}
-           close={() => setNewSurvey(false)} 
-           submitText={"Submit"}
-           />
-
-      <ActionPopup
-        open={isModalVisible}
-        onCancel={() => setIsModalVisible(false)}
-        title="Action Required"
-        sendButtonText="Send"
-        icon={Danger}
-        sendButtonStyle="bg-red-600">
-        <p>Are you sure you want to proceed with this action?</p>
-      </ActionPopup>
-      <Table 
-        
-        // dataSource={}
-        columns={columns} dataSource={SurveyData}
+      <TableComponent
+        columns={columns}
+        dataSource={SurveyData}
+        scroll={600}
         onRow={(record) => ({
-          onClick: () => handleRowClick(record), // Handle row click
+          onClick: () => handleRowClick(record),
         })}
-
-        />
+      />
 
       <Drawer
         title="Survey Details"
@@ -179,6 +84,23 @@ export default function Survey (props: Props ) {
         {/* Add more fields as needed */}
       </Drawer>
 
-        </div>
-    )
+      <FormPopup
+        title={"New Survey Request"}
+        open={newSurvey}
+        close={() => setNewSurvey(false)}
+        submitText={"Submit"}
+      />
+
+      <ActionPopup
+        open={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        title="Action Required"
+        sendButtonText="Send"
+        icon={Danger}
+        sendButtonStyle="bg-red-600"
+      >
+        <p>Are you sure you want to proceed with this action?</p>
+      </ActionPopup>
+    </div>
+  );
 }

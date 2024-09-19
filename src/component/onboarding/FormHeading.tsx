@@ -15,7 +15,7 @@ const FormHeading = (props: {
         </p>
       )}
       <p className="text-xl font-semibold">{props.heading}</p>
-      <p className="text-sm text-gray -mt-1">{props.subheading}</p>
+      <p className="text-sm text-gray mt-1 text-grey">{props.subheading}</p>
     </div>
   );
 };

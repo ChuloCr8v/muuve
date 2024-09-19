@@ -15,6 +15,7 @@ import Summary from "./views/onboarding/Summary";
 import VerifyOrgOTP from "./views/onboarding/VerifyOrgOTP";
 import UserPages from "./views/UserPages";
 import SuccessfulPasswordReset from "./component/auth/SuccessfulPasswordReset";
+import OnboardingSuccessful from "./views/onboarding/OnboardingSuccessful";
 
 function App() {
   return (
@@ -55,10 +56,6 @@ function App() {
               {/* Onboarding */}
               <Route path="/org/onboarding" element={<OrgOnboarding />} />
               <Route
-                path="/org/onboarding/verify-otp/:email"
-                element={<VerifyOrgOTP />}
-              />
-              <Route
                 path="/org/onboarding/info/:email"
                 element={<OrganizationInformation />}
               />
@@ -66,6 +63,16 @@ function App() {
                 path="/org/onboarding/password/:email"
                 element={<Password />}
               />
+              <Route
+                path="/org/onboarding/verify-otp/:email"
+                element={<VerifyOrgOTP />}
+              />
+
+              <Route
+                path="/org/onboarding/successful/:email"
+                element={<OnboardingSuccessful />}
+              />
+
               <Route
                 path="/org/onboarding/products"
                 element={<ProductsDisplayComponent />}

@@ -13,9 +13,11 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
+import drawerSlice from "./drawerSlice";
 
 const rootReducer = combineReducers({
   products: productsReducer,
+  drawers: drawerSlice,
 });
 
 const persistConfig = {

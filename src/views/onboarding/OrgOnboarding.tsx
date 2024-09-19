@@ -53,7 +53,7 @@ const Children = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </Form.Item>
-      <Form.Item className="-mt-4">
+      <Form.Item className="-mt-2">
         <Checkbox
           checked={agreement}
           onChange={() => setAgreement(!agreement)}

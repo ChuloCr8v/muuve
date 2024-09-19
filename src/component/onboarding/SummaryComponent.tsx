@@ -15,13 +15,13 @@ const SummaryComponent = () => {
 
   console.log(subTotal);
   return (
-    <div className="grid grid-cols-2 justify-center w-full gap-10">
+    <div className="grid grid-cols-2 justify-center w-full gap-4">
       {
         //Check index.css for summary-cards extra style
       }
       <div className="border h-fit rounded-lg p-4 summary-cards">
         {allSelectedProducts.map((product: SelectedProductSummaryType) => (
-          <div className="grid gap-2">
+          <div className="grid gap-2" key={product.id}>
             <h3 className="font-semibold text-base">{product.product}</h3>
             <div className="text-sm flex justify-between items-center space-y-2">
               <p className="text-grey">

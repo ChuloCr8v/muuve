@@ -5,6 +5,7 @@ import MiroBg from "../../../public/miro-bg.png";
 import MiroLogo from "../../../public/miro-color.png";
 import Footer from "../../views/onboarding/Footer";
 import FormHeading from "./FormHeading";
+import FormLogoHeading from "../../views/onboarding/FormLogoHeading";
 
 type Props = {
   children: ReactNode;
@@ -18,27 +19,20 @@ type Props = {
 
 const OnboardingLayout = (props: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center gap-8 min-h-screen py-24 relative">
-      {props.backButton !== false && (
-        <Button
-          onClick={() => window.history.back()}
-          type="link"
-          className="text-grey text-base flex items-center justify-center absolute top-20 left-20"
-          icon={<LeftOutlined className="text-xs" />}
-        >
-          Back
-        </Button>
-      )}
-      <div className="flex flex-col items-center ">
-        <img
-          src={MiroLogo}
-          alt="Miro Service Management"
-          className="max-w-[86px]"
-        />
-        <p className="text-sm">Service Management</p>
-      </div>
+    <div className="flex flex-col items-center justify-center gap-4 min-h-screen py-24 relative">
+      <div className="grid gap-6">
+        {props.backButton !== false && (
+          <Button
+            onClick={() => window.history.back()}
+            type="link"
+            className="text-grey text-base flex items-center justify-start w-fit p-0"
+            icon={<LeftOutlined className="text-xs" />}
+          >
+            Back
+          </Button>
+        )}
 
-      <div className="grid gap-6 ">
+        <FormLogoHeading />
         <FormHeading
           heading={props.heading}
           subheading={props.subheading}

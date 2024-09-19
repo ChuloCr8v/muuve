@@ -40,7 +40,6 @@ const ProductSelectionCard = (props: Props) => {
         return product?.pricing?.monthly[0].value;
     }
   };
-  console.log(props.data);
   return (
     <div
       onClick={() => {

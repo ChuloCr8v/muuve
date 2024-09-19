@@ -12,6 +12,8 @@ const ResetPasswordOTP = () => {
   );
   return (
     <AuthLayout
+      showBackBtn
+      backURL="/forgot-password"
       formHeading="Verification Code"
       formSubheading={subheading}
       formElement={<ResetPasswordOTPComponent />}
