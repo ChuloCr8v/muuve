@@ -1,7 +1,11 @@
 import { ConfigProvider } from "antd";
 import { Provider } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "./redux/store";
+import ForgotPassword from "./views/auth/ForgotPassword";
+import ResetPassword from "./views/auth/ResetPassword";
+import ResetPasswordOTP from "./views/auth/ResetPasswordOTP";
 import Login from "./views/onboarding/Login";
 import OrganizationInformation from "./views/onboarding/OrganizationInformation";
 import OrgOnboarding from "./views/onboarding/OrgOnboarding";
@@ -10,22 +14,47 @@ import ProductsDisplayComponent from "./views/onboarding/ProductsDisplayComponen
 import Summary from "./views/onboarding/Summary";
 import VerifyOrgOTP from "./views/onboarding/VerifyOrgOTP";
 import UserPages from "./views/UserPages";
-import { PersistGate } from "redux-persist/integration/react";
+import SuccessfulPasswordReset from "./component/auth/SuccessfulPasswordReset";
+import OnboardingSuccessful from "./views/onboarding/OnboardingSuccessful";
 
 function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ConfigProvider theme={{ token: { colorPrimary: "#0A96CC" } }}>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#0A96CC",
+            },
+            components: {
+              Form: {
+                itemMarginBottom: 16,
+              },
+            },
+          }}
+        >
           <BrowserRouter>
             <Routes>
               <Route path="/*" element={<UserPages />} />
+
+              {/* Auth */}
               <Route path="/login" element={<Login />} />
-              <Route path="/org/onboarding" element={<OrgOnboarding />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route
-                path="/org/onboarding/verify-otp/:email"
-                element={<VerifyOrgOTP />}
+                path="/forgot-password/verify-otp/:email"
+                element={<ResetPasswordOTP />}
               />
+              <Route
+                path="/reset-password/:email"
+                element={<ResetPassword />}
+              />
+              <Route
+                path="/auth/successful-password-reset/:email"
+                element={<SuccessfulPasswordReset />}
+              />
+
+              {/* Onboarding */}
+              <Route path="/org/onboarding" element={<OrgOnboarding />} />
               <Route
                 path="/org/onboarding/info/:email"
                 element={<OrganizationInformation />}
@@ -34,6 +63,16 @@ function App() {
                 path="/org/onboarding/password/:email"
                 element={<Password />}
               />
+              <Route
+                path="/org/onboarding/verify-otp/:email"
+                element={<VerifyOrgOTP />}
+              />
+
+              <Route
+                path="/org/onboarding/successful/:email"
+                element={<OnboardingSuccessful />}
+              />
+
               <Route
                 path="/org/onboarding/products"
                 element={<ProductsDisplayComponent />}

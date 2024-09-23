@@ -1,4 +1,4 @@
-import { CaretDownFilled, DownOutlined } from "@ant-design/icons";
+import { CaretDownFilled } from "@ant-design/icons";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";

@@ -32,6 +32,11 @@ const productsSlice = createSlice({
           (product) => product.id !== action.payload.id
         );
         state.products = updatedSelection;
+
+        state.allSelectedProducts = state.allSelectedProducts.filter(
+          (product) => product.productId !== action.payload.id
+        );
+
         return;
       }
       state.products.push(action.payload);

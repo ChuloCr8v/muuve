@@ -1,20 +1,22 @@
 import { Form, Input, Button } from "antd";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const VerificationComponent = (props: { email?: string }) => {
+const VerificationComponent = () => {
   const [OTP, setOTP] = useState("");
   const navigate = useNavigate();
 
   const sharedProps = () => {};
 
+  const { email } = useParams();
+
   const handleSubmit = () => {
-    navigate(`/org/onboarding/info/${props.email}`);
+    navigate(`/org/onboarding/successful/${email}`);
   };
 
   return (
     <Form
-      className="flex flex-col justify-center items-center"
+      className="flex flex-col justify-center items-center gap-2"
       onFinish={handleSubmit}
     >
       <Form.Item
@@ -30,22 +32,21 @@ const VerificationComponent = (props: { email?: string }) => {
           onChange={(value) => setOTP(value)}
         />
       </Form.Item>
-      <Form.Item>
-        <Button
-          type="primary"
-          htmlType="submit"
-          className="w-[480px] h-10"
-          disabled={OTP.length < 6}
-        >
-          Submit
-        </Button>
-      </Form.Item>
-      <div className="w-full flex items-center justify-center -mt-4">
+      <Button
+        type="primary"
+        htmlType="submit"
+        className="w-[480px] h-10"
+        disabled={OTP.length < 6}
+      >
+        Submit
+      </Button>
+      <div className="w-full flex items-center justify-center">
         <p className="text-grey">
           Didn't get code?{" "}
           <Button
             className="px-0 underline text-primary font-semibold underline-offset-2"
             type="link"
+            onClick={() => navigate("/org/onboarding")}
           >
             Resend or edit your email address
           </Button>

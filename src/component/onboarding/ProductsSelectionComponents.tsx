@@ -7,7 +7,7 @@ import ProductSelectionCard from "./ProductSelectionCard";
 import { setDuration } from "../../redux/productsSlice";
 
 const ProductsSelectionComponent = () => {
-  const { products, duration } = useSelector(
+  const { products, duration, allSelectedProducts } = useSelector(
     (state: productsState) => state.products
   );
 
@@ -18,7 +18,7 @@ const ProductsSelectionComponent = () => {
     navigate(`/org/onboarding/summary`);
   };
 
-  console.log(productsData);
+  console.log(allSelectedProducts);
 
   return (
     <div className="flex flex-col items-center justify-center gap-6">
@@ -54,7 +54,7 @@ const ProductsSelectionComponent = () => {
         onClick={handleSubmit}
         className="place-self-end w-[144px]"
         type="primary"
-        disabled={!products.length}
+        disabled={!products.length || !allSelectedProducts.length}
       >
         Proceed
       </Button>

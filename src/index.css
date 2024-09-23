@@ -12,6 +12,28 @@
   display: none;
 }
 
+/* src/index.css */
+@font-face {
+  font-family: "inter";
+  src: url("./fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf")
+      format("truetype"),
+    url("./fonts/Inter/Inter-VariableFont_opsz\,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 13px;
+  font-family: "inter", sans-serif;
+}
+
+body {
+  font-family: "inter", sans-serif;
+}
+
 .tiers > * + *,
 .summary-cards > * + * {
   border-top: 1px #e9eaeb solid;
@@ -29,31 +51,65 @@
   justify-content: center;
   align-items: center;
 }
-.noBorder{
-    border: none;
-    outline: none;
+.noBorder {
+  border: none;
+  outline: none;
 }
 
-.formPopuptitle{
-    font-size: 20px;
-    color: #262626;
-    font-weight: 600;
+.formPopuptitle {
+  font-size: 20px;
+  color: #262626;
+  font-weight: 600;
 }
 
-.between-align{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.between-align {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
 
 :where(.css-dev-only-do-not-override-cxty).ant-form-item {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
-.text{
-    font-weight: 600;
-    font-size: 12px;
-    color: #777777;
+.text {
+  font-weight: 600;
+  font-size: 12px;
+  color: #777777;
 }
 
+/* hide antd default required aestericks */
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
+  display: none;
+}
+
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-item {
+  margin-bottom: 8px;
+}
+
+.editable-table td.ant-table-cell {
+  padding: 10px !important;
+}
+.ant-table-row:nth-child(odd) {
+  background: #f2f4f6;
+}
+
+.ant-table-cell:first-child {
+  padding-left: 24px !important;
+}
+
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-form-item-label,
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-col-24.ant-form-item-label,
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-col-xl-24.ant-form-item-label {
+  padding: 0 0 0 4px !important;
+}
