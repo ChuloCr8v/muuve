@@ -4,9 +4,9 @@ import { twMerge } from "tailwind-merge";
 type Props = {
   columns: Array<object>;
   dataSource: Array<object>;
-  onRow?: () => {};
+  onRow?: (arg0: any) => {};
   scroll?: number;
-  className: string;
+  className?: string;
   loading?: boolean;
 };
 

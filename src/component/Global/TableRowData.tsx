@@ -5,8 +5,8 @@ type Props = {
   mainText: ReactNode;
   tagText?: ReactNode;
   mainTextStyle?: string;
-
   tagTextStyle?: string;
+  wrapperClassName?: string;
 };
 
 const TableRowData = ({
@@ -14,18 +14,19 @@ const TableRowData = ({
   tagText,
   mainTextStyle,
   tagTextStyle,
+  wrapperClassName,
 }: Props) => {
   return (
-    <div className="text-left">
+    <div className={twMerge("text-left", wrapperClassName)}>
       <p
         className={twMerge(
-          "text-grey font-semibold text-[13px] capitalize",
+          "text-black font-semibold capitalize",
           mainTextStyle
         )}
       >
         {mainText}
       </p>
-      <p className={twMerge(tagTextStyle, "text-grey text-[11px]")}>
+      <p className={twMerge(tagTextStyle, "text-grey text-sm capitalize")}>
         {tagText}
       </p>
     </div>

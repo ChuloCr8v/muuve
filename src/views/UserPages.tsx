@@ -1,18 +1,18 @@
-import Layout from "../component/layout/Layout";
 import { Navigate, Route, Routes } from "react-router-dom";
-import Survey from "./projects/Survey";
-import JobOrder from "./projects/JobOrder";
-import Programs from "./Programs";
+import Layout from "../component/layout/Layout";
+import Invoices from "./billing/invoices";
+import NewSubscription from "./billing/subscription/NewSubscription";
+import Subscription from "./billing/subscription/Subscriptions";
+import Tickets from "./incidence/Tickets";
+import Devices from "./inventory/Devices";
+import Model from "./inventory/Model";
 import Operations from "./operations/Operations";
 import Maintenance from "./ppm/maintenance";
 import Snags from "./ppm/Snag";
-import Model from "./inventory/Model";
-import Devices from "./inventory/Devices";
-import Tickets from "./incidence/Tickets";
-import Subscription from "./billing/subscription/Subscriptions";
-import NewSubscription from "./billing/subscription/NewSubscription";
-import Invoices from "./billing/invoices";
-import NewProjectRequest from "../component/projects/NewProjectRequest";
+import Programs from "./Programs";
+import JobOrder from "./projects/JobOrders";
+import Survey from "./projects/Survey";
+import InitiatePayment from "./projects/surveys/InitiatePayment";
 
 export default function UserPages() {
   // if (!useAuth()) {
@@ -23,6 +23,10 @@ export default function UserPages() {
       <Routes>
         <Route path="/" element={<Navigate replace to="/projects/survey" />} />
         <Route path="/projects/surveys" element={<Survey />} />
+        <Route
+          path="/projects/surveys/initiate-payment"
+          element={<InitiatePayment />}
+        />
         <Route path="/ppm/maintenance" element={<Maintenance />} />
         <Route path="/ppm/snags" element={<Snags />} />
         <Route path="/inventory/model" element={<Model />} />
@@ -47,9 +51,6 @@ export default function UserPages() {
           }
         />
       </Routes>
-
-      {/* Modals && Drawers */}
-      <NewProjectRequest />
     </Layout>
   );
 }

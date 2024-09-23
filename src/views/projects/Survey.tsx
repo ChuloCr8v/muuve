@@ -1,31 +1,23 @@
 import { OrderedListOutlined, WarningOutlined } from "@ant-design/icons";
-import { Drawer } from "antd";
 import { useState } from "react";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import ActionPopup from "../../component/Global/ActionPopup";
-import FormPopup from "../../component/Global/FormPopup";
+import SurveyTable from "../../component/data/SurveyTable";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import TableComponent from "../../component/Global/TableComponent";
-import { SurveyData } from "../../component/data/SurveyData";
-import { columns } from "../../component/data/SurveyTable";
-import Danger from "/public/dangerSvg.svg";
+import SurveyDetailsDrawer from "../../component/projects/survey/SurveyDetailsDrawer";
+import { SurveyDataType } from "../../types";
+import FormPopup from "../../component/Global/FormPopup";
 
-export default function Survey() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+const Survey = () => {
   const [newSurvey, setNewSurvey] = useState(false);
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  const [selectedRowData, setSelectedRowData] = useState(null);
-
-  const handleRowClick = (record: any) => {
-    setSelectedRowData(record); // Set the selected row data
-    setDrawerVisible(true); // Open the drawer
-  };
+  const [surveyDetailsIsOpen, setSurveyDetailsIsOpen] = useState<{
+    isOpen: boolean;
+    data: SurveyDataType | null;
+  }>({ isOpen: false, data: null });
 
   const closeDrawer = () => {
-    setDrawerVisible(false);
-    setSelectedRowData(null);
+    setSurveyDetailsIsOpen((prev) => ({ ...prev, isOpen: false }));
   };
 
   const summaryData = [
@@ -55,35 +47,16 @@ export default function Survey() {
     <div className="space-y-3">
       <PageHeader
         heading={"Surveys"}
-        onclick={() => console.log("first")}
+        onclick={() => setNewSurvey?.(true)}
         handleRefresh={() => console.log("first")}
         handleGenerateReport={() => console.log("first")}
       />
 
       <SummaryCards summaryData={summaryData} />
 
-      <TableComponent
-        columns={columns}
-        dataSource={SurveyData}
-        scroll={600}
-        onRow={(record) => ({
-          onClick: () => handleRowClick(record),
-        })}
-      />
+      <SurveyTable setSurveyDetailsIsOpen={setSurveyDetailsIsOpen} />
 
-      <Drawer
-        title="Survey Details"
-        placement="right"
-        closable={true}
-        onClose={closeDrawer}
-        open={drawerVisible}
-      >
-        <p>{selectedRowData?.name}</p>
-        <p>{selectedRowData?.age}</p>
-        <p>{selectedRowData?.address}</p>
-        {/* Add more fields as needed */}
-      </Drawer>
-
+      {/* New survey form */}
       <FormPopup
         title={"New Survey Request"}
         open={newSurvey}
@@ -91,16 +64,14 @@ export default function Survey() {
         submitText={"Submit"}
       />
 
-      <ActionPopup
-        open={isModalVisible}
-        onCancel={() => setIsModalVisible(false)}
-        title="Action Required"
-        sendButtonText="Send"
-        icon={Danger}
-        sendButtonStyle="bg-red-600"
-      >
-        <p>Are you sure you want to proceed with this action?</p>
-      </ActionPopup>
+      {/* survey details drawer */}
+      <SurveyDetailsDrawer
+        data={surveyDetailsIsOpen.data}
+        isOpen={surveyDetailsIsOpen.isOpen}
+        onclose={closeDrawer}
+      />
     </div>
   );
-}
+};
+
+export default Survey;

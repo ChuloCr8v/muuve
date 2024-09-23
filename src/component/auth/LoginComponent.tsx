@@ -41,7 +41,7 @@ export default function Login() {
         <Input
           type="email"
           placeholder="Email"
-          className="h-8"
+          className=""
           onChange={(e) => handleInputChange("email", e.target.value)}
           allowClear
         />

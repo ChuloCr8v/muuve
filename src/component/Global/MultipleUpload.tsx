@@ -1,14 +1,15 @@
-import { CloseOutlined } from '@ant-design/icons';
-import { Input, InputProps, message } from 'antd';
-import React, { useEffect, useRef } from 'react';
-// import { toast } from 'react-toastify';
-import { twJoin } from 'tailwind-merge';
+import { CloseOutlined } from "@ant-design/icons";
+import { message, UploadFile } from "antd";
+import React, { useEffect, useRef } from "react";
+import { twJoin, twMerge } from "tailwind-merge";
+import SelectedFiles from "./SelectedFiles";
 
 type MultiUploadProps = {
   className?: string;
   value?: File[] | null;
+  files: UploadFile<File>[];
+  setFiles: any;
   onChange?: (file: File[]) => void;
-  size?: InputProps['size'];
   maxSizeMb?: number | false;
   required?: boolean;
 };
@@ -16,10 +17,11 @@ type MultiUploadProps = {
 const MB = 1024 * 1024;
 
 export default function MultiUpload({
+  files,
+  setFiles,
   value,
   onChange,
   className,
-  size,
   maxSizeMb = 10,
   required,
 }: MultiUploadProps) {
@@ -27,48 +29,48 @@ export default function MultiUpload({
 
   useEffect(() => {
     if (value?.length === 0 && fileRef.current) {
-      fileRef.current.value = '';
+      fileRef.current.value = "";
     }
   }, [value]);
 
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (onChange && files) {
+    const selectedFiles = e.target.files;
+    if (selectedFiles && onChange) {
+      const newFilesArray = Array.from(selectedFiles);
       const newFiles = value
-        ? [...files].filter((file) => !value.includes(file))
-        : [...files];
+        ? newFilesArray.filter(
+            (file) => !value.some((f) => f.name === file.name)
+          )
+        : newFilesArray;
+
       if (maxSizeMb && newFiles.some((file) => file.size > maxSizeMb * MB)) {
         message.error(`File size cannot exceed ${maxSizeMb}MB`);
         return;
       }
-      onChange(value ? [...value, ...newFiles] : newFiles);
+
+      onChange([...(value || []), ...newFiles]);
+    }
+    if (selectedFiles) {
+      setFiles((prev: File[]) => [...prev, ...Array.from(selectedFiles)]);
     }
   };
 
-  const onRemove = (file: File) => {
-    if (!onChange) return;
-    onChange(value?.filter((f) => f !== file) ?? []);
-    if (fileRef.current) fileRef.current.value = '';
+  const onRemove = (fileItem: File) => {
+    setFiles((prev: File[]) =>
+      prev.filter((file) => file.name !== fileItem.name)
+    );
   };
 
   return (
-    <div className={className}>
-      <div className="flex flex-row gap-2">
-        <Input
-          className=""
-          size={size}
-          readOnly
-          value={value?.length ? `${value.length} files selected` : ''}
-        //   placeholder={
-        //     'Up to ten files' + (maxSizeMb ? ` (max ${maxSizeMb}MB each)` : '')
-        //   }
-        />
+    <div className={twMerge(className, "w-full")}>
+      <div className="flex flex-row items-center gap-2 w-full">
+        <SelectedFiles files={files} handleRemoveFile={onRemove} />
 
         <label
           role="button"
           className={twJoin(
-            'flex items-center justify-center text-[#262626] font-normal text-center px-4 rounded-md cursor-pointer',
-            'border border-slate-300 bg-[#fbfbfb] hover:bg-slate-200 relative',
+            "h-8 flex items-center justify-center text-[#262626] font-semibold text-center px-4 rounded-md cursor-pointer",
+            "border border-slate-300 bg-[#fbfbfb] hover:bg-slate-200 relative"
           )}
         >
           Browse

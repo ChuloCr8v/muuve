@@ -2,12 +2,14 @@ import { Tag } from "antd";
 import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
+interface SummaryDataType {
+  label: string;
+  value: number;
+  icon: ReactNode;
+}
+
 type Props = {
-  summaryData: {
-    label: string;
-    value: number;
-    icon: ReactNode;
-  }[];
+  summaryData: SummaryDataType[];
 };
 
 const SummaryCards = ({ summaryData }: Props) => {
@@ -24,23 +26,37 @@ const SummaryCards = ({ summaryData }: Props) => {
     }
   };
 
+  // const bgColor = (label: string) => {
+  //   switch (label.toLowerCase()) {
+  //     case "total":
+  //       return "hover:bg-blue-100 hover:border-blue-300 hover:text-blue-600";
+  //     case "active":
+  //       return "hover:bg-green-100 hover:border-green-300 hover:text-green-600";
+  //     case "deactivated":
+  //       return "hover:bg-red-100 hover:border-red-300 hover:text-red-600";
+  //     default:
+  //       return "hover:bg-yellow-100 hover:border-yellow-300 hover:text-yellow-600";
+  //   }
+  // };
+
   return (
     <div className="grid grid-cols-4 gap-3 w-full">
       {summaryData.map((item) => (
         <div
           className={twMerge(
-            `bg-white border hover:border-${color(
-              item.label
-            )}-600 px-4 py-1 flex items-center justify-between w-full rounded-md cursor-pointer`
+            `group bg-white border !bg-opacity-20 p-2 px-4 flex items-center justify-between w-full rounded-md duration-150`
+            // bgColor(item.label)
           )}
         >
-          <div className="flex items-center gap-2">
-            <p className="font-semibold text-sm">{item.value}</p>
-            <p className="text-grey text-[13px]">{item.label}</p>
+          <div className="flex flex-col items-start gap-1">
+            <p className="font-semibold">{item.value}</p>
+            <p className="text-grey group-hover:text-inherit duration-150 leading-none">
+              {item.label}
+            </p>
           </div>
           <Tag
             color={color(item.label)}
-            className="h-8 w-8 rounded-full text-lg flex items-center justify-center"
+            className="h-10 w-10 rounded-full flex items-center justify-center border-none"
           >
             {item.icon}
           </Tag>

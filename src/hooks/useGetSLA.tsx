@@ -29,8 +29,10 @@ const SLATime = ({ sla, status }: { sla: number; status: string }) => {
         SLA:{" "}
         <span
           className={twMerge(
-            timeLeft <= 2 && "text-red-600",
-            status.toLowerCase() === "completed" && "text-grey"
+            status.toLowerCase() === "completed"
+              ? "text-grey"
+              : "text-green-600",
+            timeLeft <= 2 && "text-red-600"
           )}
         >
           {timeLeft <= 0 ? "0" : timeLeft} work days
