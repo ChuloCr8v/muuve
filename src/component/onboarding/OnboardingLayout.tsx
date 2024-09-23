@@ -2,7 +2,6 @@ import { LeftOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { ReactNode } from "react";
 import MiroBg from "../../../public/miro-bg.png";
-import MiroLogo from "../../../public/miro-color.png";
 import Footer from "../../views/onboarding/Footer";
 import FormHeading from "./FormHeading";
 import FormLogoHeading from "../../views/onboarding/FormLogoHeading";
