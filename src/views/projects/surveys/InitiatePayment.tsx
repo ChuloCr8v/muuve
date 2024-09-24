@@ -230,21 +230,23 @@ const InitiatePayment = () => {
               }}
             />
 
-            <Column<DetailsRowInterface>
-              key="action"
-              align="center"
-              width={50}
-              render={(_: string, record) => {
-                return (
-                  <BiTrash
-                    className="text-red-600 text-2xl cursor-pointer hover:text-red-800"
-                    onClick={() => {
-                      deleteItem(record.id);
-                    }}
-                  />
-                );
-              }}
-            />
+            {detailsData.length > 1 && (
+              <Column<DetailsRowInterface>
+                key="action"
+                align="center"
+                width={50}
+                render={(_: string, record) => {
+                  return (
+                    <BiTrash
+                      className="text-red-600 text-2xl cursor-pointer hover:text-red-800"
+                      onClick={() => {
+                        deleteItem(record.id);
+                      }}
+                    />
+                  );
+                }}
+              />
+            )}
           </Table>
 
           <Button
