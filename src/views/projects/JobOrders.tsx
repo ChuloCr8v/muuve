@@ -3,12 +3,12 @@ import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import JobDetailsDrawer from "../../component/projects/jobOrders/JobDetailsDrawer";
-import JobOrdersTable from "../../component/projects/jobOrders/JobOrdersTable";
-import NewJobOrderForm from "../../component/projects/jobOrders/NewJobOrderForm";
 import { JobOrderType } from "../../types";
 import { GrOrderedList } from "react-icons/gr";
 import { CiWarning } from "react-icons/ci";
+import JobDetailsDrawer from "../../component/Projects/jobOrders/JobDetailsDrawer";
+import JobOrdersTable from "../../component/Projects/jobOrders/JobOrdersTable";
+import NewJobOrderForm from "../../component/Projects/jobOrders/NewJobOrderForm";
 
 const JobOrders = () => {
   const [newJobOrder, setNewJobOrder] = useState(false);

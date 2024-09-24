@@ -1,7 +1,7 @@
 import { Button, Checkbox, Drawer, Modal, Table } from "antd";
 import { useState } from "react";
 import Dots from "../../../public/4dots.png";
-import { FormItem, Survey } from "../data/FormItem";
+import { FormItem, Survey } from "../TableItems/data/FormItem";
 import DynamicForm from "./DynamicForm";
 // import Survey from "../../views/projects/Survey";/
 

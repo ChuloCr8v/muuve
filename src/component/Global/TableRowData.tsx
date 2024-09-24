@@ -20,7 +20,7 @@ const TableRowData = ({
     <div className={twMerge("text-left", wrapperClassName)}>
       <p
         className={twMerge(
-          "text-black font-semibold capitalize",
+          "text-black font-normal capitalize",
           mainTextStyle
         )}
       >

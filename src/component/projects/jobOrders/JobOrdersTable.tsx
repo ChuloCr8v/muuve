@@ -16,7 +16,7 @@ import { PiUserCircleCheck, PiUserSwitch } from "react-icons/pi";
 import { twMerge } from "tailwind-merge";
 import SLATime from "../../../hooks/useGetSLA";
 import { JobOrderType } from "../../../types";
-import { jobData } from "../../data/JobData";
+import { jobData } from "../../TableItems/data/JobData";
 import ActionPopup from "../../Global/ActionPopup";
 import DropdownCustomItem from "../../Global/DropdownCustomItem";
 import TableComponent from "../../Global/TableComponent";

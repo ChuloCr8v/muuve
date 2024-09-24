@@ -7,12 +7,15 @@ import Tickets from "./incidence/Tickets";
 import Devices from "./inventory/Devices";
 import Model from "./inventory/Model";
 import Operations from "./operations/Operations";
-import Maintenance from "./ppm/maintenance";
-import Snags from "./ppm/Snag";
+import Maintenance from "./operations/Maintenance";
+import Snags from "./operations/Snag";
 import Programs from "./Programs";
 import JobOrder from "./projects/JobOrders";
 import Survey from "./projects/Survey";
 import InitiatePayment from "./projects/surveys/InitiatePayment";
+import ReportDetails from "../component/operations/reports/ReportDetails";
+import Staff from "./Admin/Staff";
+import Customer from "./Admin/Customer";
 
 export default function UserPages() {
   // if (!useAuth()) {
@@ -27,7 +30,7 @@ export default function UserPages() {
           path="/projects/surveys/initiate-payment"
           element={<InitiatePayment />}
         />
-        <Route path="/ppm/maintenance" element={<Maintenance />} />
+        <Route path="/operations/maintenance" element={<Maintenance />} />
         <Route path="/ppm/snags" element={<Snags />} />
         <Route path="/inventory/model" element={<Model />} />
         <Route path="/inventory/devices" element={<Devices />} />
@@ -37,6 +40,9 @@ export default function UserPages() {
         <Route path="/billing/Invoices" element={<Invoices />} />
         <Route path="/projects/job-orders" element={<JobOrder />} />
         <Route path="/program" element={<Programs />} />
+        <Route path="operations/report/details/:id" element={<ReportDetails/>} />
+        <Route path="/admin/staff" element={<Staff />} />
+        <Route path="/admin/customers" element={<Customer />} />
         <Route
           path="/operations/reports"
           element={

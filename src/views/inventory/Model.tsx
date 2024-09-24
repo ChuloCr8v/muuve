@@ -16,7 +16,7 @@ import { twMerge } from "tailwind-merge";
 import Header from "../../component/Global/Header";
 import FormPopup, { Props } from "../../component/Global/FormPopup";
 //import { columns } from "../../component/data/SurveyTable";
-import { SurveyData } from "../../component/data/SurveyData";
+import { SurveyData } from "../../component/TableItems/data/SurveyData";
 // import { SurveyData } from "../../component/data/SurveyData";
 
 export default function Model(props: Props) {

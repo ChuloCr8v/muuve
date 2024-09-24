@@ -26,11 +26,11 @@ const PageHeader = ({
       <div className="flex items-center justify-end gap-2 ">
         <Input
           className="max-w-[300px] w-full"
-          size="small"
+          
           prefix={<SearchOutlined />}
         />
         <Button
-          size="small"
+          
           onClick={handleGenerateReport}
           className="text-grey text-xs"
           iconPosition="end"
@@ -39,7 +39,7 @@ const PageHeader = ({
           Generate Report
         </Button>
         <Button
-          size="small"
+          
           onClick={handleRefresh}
           className="text-grey"
           iconPosition="end"
@@ -48,7 +48,7 @@ const PageHeader = ({
           Refresh
         </Button>
         <Button
-          size="small"
+          
           onClick={onclick}
           className="flex items-center text-xs"
           type="primary"

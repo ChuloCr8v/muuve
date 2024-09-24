@@ -14,23 +14,24 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { MdAtm } from "react-icons/md";
 import { TbReceiptEuro } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
-import SLATime from "../../hooks/useGetSLA";
-import { SurveyDataType } from "../../types";
-import ActionPopup from "../Global/ActionPopup";
-import DropdownCustomItem from "../Global/DropdownCustomItem";
-import TableComponent from "../Global/TableComponent";
-import TableRowData from "../Global/TableRowData";
-import InitiatePaymentChildren from "../projects/survey/InititatePaymentChildren";
-import UploadReceiptChildren from "../projects/PaymentAndReceiptChildren";
-import { SurveyData } from "./SurveyData";
-import AssignProjectChildren from "../projects/AssignProjectChildren";
-import RejectProjectChildren from "../projects/RejectProjectChildren";
+import SLATime from "../../../hooks/useGetSLA";
+import { SurveyDataType } from "../../../types";
+import ActionPopup from "../../Global/ActionPopup";
+import DropdownCustomItem from "../../Global/DropdownCustomItem";
+import TableComponent from "../../Global/TableComponent";
+import TableRowData from "../../Global/TableRowData";
+import { SurveyData } from "../data/SurveyData";
 import { GrAtm } from "react-icons/gr";
 import { PiUserSwitch } from "react-icons/pi";
 import { CgCloseO } from "react-icons/cg";
-import DeleteProjectChildren from "../projects/DeleteProjectChildren";
 import { BsTrash } from "react-icons/bs";
-import PaymentAndReceiptChildren from "../projects/PaymentAndReceiptChildren";
+import AssignProjectChildren from "../../Projects/AssignProjectChildren";
+import DeleteProjectChildren from "../../Projects/DeleteProjectChildren";
+import PaymentAndReceiptChildren from "../../Projects/PaymentAndReceiptChildren";
+import RejectProjectChildren from "../../Projects/RejectProjectChildren";
+
+
+
 
 interface Props {
   setSurveyDetailsIsOpen: any;
@@ -172,7 +173,7 @@ const SurveyTable = ({ setSurveyDetailsIsOpen }: Props) => {
     {
       key: 1,
       label: (
-        <DropdownCustomItem label={"Edit Details"} icon={<EyeOutlined />} />
+        <DropdownCustomItem label={" Details"} icon={<EyeOutlined />} />
       ),
       // onClick: () => showModal('Edit Details', '/path/to/edit-icon.svg'),
     },

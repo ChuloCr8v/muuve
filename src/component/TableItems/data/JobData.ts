@@ -1,4 +1,4 @@
-import { JobOrderType } from "../../types";
+import { JobOrderType } from "../../../types";
 
 export const jobData: JobOrderType[] = [
   {

@@ -2,10 +2,10 @@ import { OrderedListOutlined, WarningOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import SurveyTable from "../../component/data/SurveyTable";
+import SurveyTable from "../../component/TableItems/columns/SurveyTable";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import SurveyDetailsDrawer from "../../component/projects/survey/SurveyDetailsDrawer";
+import SurveyDetailsDrawer from "../../component/Projects/survey/SurveyDetailsDrawer";
 import { SurveyDataType } from "../../types";
 import FormPopup from "../../component/Global/FormPopup";
 
