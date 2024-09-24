@@ -45,6 +45,10 @@ body {
   margin-top: 16px;
 }
 
+.summary_card-icon > * {
+  font-size: 20px;
+}
+
 .ant-empty-image {
   display: flex;
   flex-direction: column;
@@ -112,4 +116,29 @@ body {
   .ant-form-item:not(.ant-form-item-horizontal)
   .ant-col-xl-24.ant-form-item-label {
   padding: 0 0 0 4px !important;
+}
+
+.project-log:last-child div {
+  border-left: 0px !important;
+}
+
+.project-log:first-child .log-icon {
+  margin-top: -4px !important;
+}
+
+.project-log:first-child .log-header {
+  padding-top: 0 !important;
+  margin-top: -6px;
+}
+
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-form-item-label,
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-col-24.ant-form-item-label,
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
+  .ant-form-item:not(.ant-form-item-horizontal)
+  .ant-col-xl-24.ant-form-item-label {
+  padding: 0 0 4px 0 !important;
 }

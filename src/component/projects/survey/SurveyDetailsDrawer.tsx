@@ -98,7 +98,7 @@ const SurveyDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
       onClose={onclose}
       title={false}
       closeIcon={false}
-      width={500}
+      width={540}
     >
       <ProjectDetailsDrawerHeading title={data?.id} />
       <Tabs defaultActiveKey="1" items={items} />

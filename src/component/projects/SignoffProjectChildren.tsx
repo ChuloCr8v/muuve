@@ -7,7 +7,7 @@ type Props = {
 const SignoffProjectChildren = ({ data }: Props) => {
   return (
     <div>
-      <p className="pt-4">
+      <p className="">
         Sign off <span className="font-semibold">{data?.title}</span>.
       </p>
     </div>

@@ -21,16 +21,11 @@ const PageHeader = ({
   heading,
 }: Props) => {
   return (
-    <section className=" w-full flex items-center justify-between gap-4">
+    <section className="w-full flex gap-4">
       <Heading heading={heading} />
-      <div className="flex items-center justify-end gap-2 ">
-        <Input
-          className="max-w-[300px] w-full"
-          size="small"
-          prefix={<SearchOutlined />}
-        />
+      <div className="flex items-center justify-end gap-2 w-full">
+        <Input className="max-w-[300px] w-full" prefix={<SearchOutlined />} />
         <Button
-          size="small"
           onClick={handleGenerateReport}
           className="text-grey text-xs"
           iconPosition="end"
@@ -39,7 +34,6 @@ const PageHeader = ({
           Generate Report
         </Button>
         <Button
-          size="small"
           onClick={handleRefresh}
           className="text-grey"
           iconPosition="end"
@@ -48,7 +42,6 @@ const PageHeader = ({
           Refresh
         </Button>
         <Button
-          size="small"
           onClick={onclick}
           className="flex items-center text-xs"
           type="primary"

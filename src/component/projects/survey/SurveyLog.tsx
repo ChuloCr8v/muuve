@@ -1,11 +1,11 @@
 import { surveyLogData } from "../../../dummy/surveyLogDummy";
-import SurveyLogItem from "./SurveyLogItem";
+import ProjectLogItem from "../ProjectLogs";
 
 const SurveyLog = () => {
   return (
-    <div className="space-y-6">
+    <div className="">
       {surveyLogData.map((item) => (
-        <SurveyLogItem data={item} />
+        <ProjectLogItem data={item} key={item.id} />
       ))}
     </div>
   );

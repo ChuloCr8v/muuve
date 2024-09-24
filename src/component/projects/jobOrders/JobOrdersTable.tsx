@@ -1,5 +1,5 @@
 import { Button, Dropdown, MenuProps } from "antd";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 // import Survey from '../../views/projects/Survey';
 import {
   CloseCircleOutlined,
@@ -28,9 +28,12 @@ import SignoffProjectChildren from "../SignoffProjectChildren";
 
 interface Props {
   setSurveyDetailsIsOpen: any;
+  setEditJobOrder: Dispatch<
+    SetStateAction<{ isOpen: boolean; jobOrderId: string | undefined }>
+  >;
 }
 
-const JobOrdersTable = ({ setSurveyDetailsIsOpen }: Props) => {
+const JobOrdersTable = ({ setSurveyDetailsIsOpen, setEditJobOrder }: Props) => {
   const [currentJob, setCurrentJob] = useState<JobOrderType>();
   const [comment, setComment] = useState("");
   const [designEngineer, setDesignEngineer] = useState("");
@@ -55,10 +58,13 @@ const JobOrdersTable = ({ setSurveyDetailsIsOpen }: Props) => {
   ) => {
     e.stopPropagation();
 
+    if (action === "edit details") {
+      setEditJobOrder({ isOpen: true, jobOrderId: currentJob?.id });
+      return;
+    }
+
     const icon = () => {
       switch (action.toLowerCase()) {
-        case "edit details":
-          return <PiUserCircleCheck className="text-3xl" />;
         case "assign job":
           return <PiUserCircleCheck className="text-3xl" />;
         case "reassign job":
@@ -108,8 +114,6 @@ const JobOrdersTable = ({ setSurveyDetailsIsOpen }: Props) => {
 
     const onOk = () => {
       switch (action.toLowerCase()) {
-        case "edit details":
-          return console.log("edit details");
         case "assign job":
           return console.log("assign job");
         case "reassign job":
@@ -154,7 +158,9 @@ const JobOrdersTable = ({ setSurveyDetailsIsOpen }: Props) => {
     {
       key: 1,
       label: (
-        <DropdownCustomItem label={"Edit Details"} icon={<EyeOutlined />} />
+        <div className="" onClick={(e) => handleShowPopup(e, "edit details")}>
+          <DropdownCustomItem label={"Edit Details"} icon={<EyeOutlined />} />
+        </div>
       ),
     },
     {
@@ -300,7 +306,7 @@ const JobOrdersTable = ({ setSurveyDetailsIsOpen }: Props) => {
       <TableComponent
         columns={columns}
         dataSource={jobData}
-        scroll={800}
+        scroll={1000}
         onRow={(record: Array<{}>) => ({
           onClick: () => handleRowClick(record),
         })}

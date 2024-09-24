@@ -1,7 +1,4 @@
-import { OrderedListOutlined, WarningOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import { FaBan } from "react-icons/fa";
-import { VscVmActive } from "react-icons/vsc";
 import SurveyTable from "../../component/data/SurveyTable";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
@@ -24,22 +21,18 @@ const Survey = () => {
     {
       label: "Total",
       value: 22,
-      icon: <OrderedListOutlined />,
     },
     {
       label: "Active",
       value: 19,
-      icon: <VscVmActive />,
     },
     {
       label: "Deactivated",
       value: 2,
-      icon: <FaBan />,
     },
     {
       label: "Expiring",
       value: 1,
-      icon: <WarningOutlined />,
     },
   ];
 
@@ -53,7 +46,6 @@ const Survey = () => {
       />
 
       <SummaryCards summaryData={summaryData} />
-
       <SurveyTable setSurveyDetailsIsOpen={setSurveyDetailsIsOpen} />
 
       {/* New survey form */}

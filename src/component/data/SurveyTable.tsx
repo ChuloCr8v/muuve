@@ -1,17 +1,10 @@
 import { Button, Dropdown, MenuProps, UploadFile } from "antd";
 import { useState } from "react";
-import {
-  CloseCircleOutlined,
-  CloudUploadOutlined,
-  DeleteOutlined,
-  EyeOutlined,
-  UserSwitchOutlined,
-} from "@ant-design/icons";
+import { CloudUploadOutlined, EyeOutlined } from "@ant-design/icons";
 import { ColumnType } from "antd/es/table";
 import dayjs from "dayjs";
 import { BiCreditCardFront, BiTrash, BiUserCheck } from "react-icons/bi";
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { MdAtm } from "react-icons/md";
 import { TbReceiptEuro } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
 import SLATime from "../../hooks/useGetSLA";
@@ -20,8 +13,6 @@ import ActionPopup from "../Global/ActionPopup";
 import DropdownCustomItem from "../Global/DropdownCustomItem";
 import TableComponent from "../Global/TableComponent";
 import TableRowData from "../Global/TableRowData";
-import InitiatePaymentChildren from "../projects/survey/InititatePaymentChildren";
-import UploadReceiptChildren from "../projects/PaymentAndReceiptChildren";
 import { SurveyData } from "./SurveyData";
 import AssignProjectChildren from "../projects/AssignProjectChildren";
 import RejectProjectChildren from "../projects/RejectProjectChildren";

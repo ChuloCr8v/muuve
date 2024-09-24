@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { FaChevronUp } from "react-icons/fa";
 import { SurveyLogInterface } from "../../types";
 import AttachmentCard from "../Global/AttachmentCard";
-import { FaCircleDot } from "react-icons/fa6";
+import { FaCircle, FaCircleDot } from "react-icons/fa6";
 
 type Props = {
   data: SurveyLogInterface;
@@ -32,20 +32,25 @@ const ProjectLogItem = ({ data }: Props) => {
   const color = () => {
     switch (action.toLowerCase()) {
       case "completed":
-        return "#379D51";
+        return "text-[#379D51]";
       case "reverted":
-        return "#F05050";
+        return "text-[#F05050]";
       default:
-        return "#B9A325";
+        return "text-[#B9A325]";
     }
   };
 
   return (
-    <div className="w-full">
-      <div className="flex w-full items-start gap-x-4">
-        <FaCircleDot className={twMerge("h-3 w-3 rounded-full")} />
-        <div className="space-y-2 -mt-1.5">
-          <div className="flex items-center justify-between">
+    <div className="w-full project-log">
+      <div className=" border-l flex w-full items-start gap-x-4">
+        <FaCircle
+          className={twMerge(
+            "-ml-[5px] mt-7 text-xl rounded-full log-icon ",
+            color()
+          )}
+        />
+        <div className="space-y-2">
+          <div className="flex items-center justify-between pt-6 log-header">
             <p className="font-semibold capitalize">
               Survey {action}
               {action.toLowerCase() === "assigned" && (
