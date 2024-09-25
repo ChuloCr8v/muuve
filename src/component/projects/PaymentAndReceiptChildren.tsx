@@ -1,4 +1,4 @@
-import { Button, Form, Upload, UploadFile, UploadProps } from "antd";
+import { Form, UploadFile } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Dispatch, SetStateAction } from "react";
 import { SurveyDataType } from "../../types";
@@ -22,23 +22,9 @@ const PaymentAndReceiptChildren = ({
   setFileList,
   action,
 }: Props) => {
-  const props: UploadProps = {
-    onRemove: (file) => {
-      const index = fileList.indexOf(file);
-      const newFileList = fileList.slice();
-      newFileList.splice(index, 1);
-      setFileList(newFileList);
-    },
-    beforeUpload: (file) => {
-      setFileList([...fileList, file]);
-
-      return false;
-    },
-    fileList,
-  };
   return (
     <div>
-      <p className="text-grey py-3">
+      <p className="text-grey pb-3">
         {action.toLowerCase() === "upload receipt"
           ? " Upload Reciept"
           : "Initiate payment"}{" "}

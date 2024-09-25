@@ -24,12 +24,15 @@ const JobDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
     { label: "Bandwidth", value: data?.bandwidth },
     { label: "MRR", value: data?.mrr },
     { label: "NRR", value: data?.nrr },
-    { label: "NRR + MRR", value: data?.nrrPlusMrr },
+    {
+      label: "NRR + MRR",
+      value: data?.mrr && data.nrr ? data?.nrr + data?.mrr : 0,
+    },
     { label: "Account Partner", value: data?.accountPartner },
     { label: "Customer Contact", value: data?.customerContact },
     { label: "Customer Phone", value: data?.customerPhone },
     { label: "Customer Email", value: data?.customerEmail },
-    { label: "Project Due Date", value: data?.projectDueDate },
+    { label: "Project Due Date", value: data?.dueDate },
     { label: "Payment Status", value: data?.paymentStatus },
     { label: "Project Manager", value: data?.projectManager },
     { label: "Project Lead", value: data?.projectLead },
@@ -59,7 +62,7 @@ const JobDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
       onClose={onclose}
       title={false}
       closeIcon={false}
-      width={640}
+      width={540}
     >
       <ProjectDetailsDrawerHeading title={data?.title} />
       <Tabs defaultActiveKey="1" items={items} />

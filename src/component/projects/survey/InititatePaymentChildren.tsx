@@ -35,7 +35,7 @@ const InitiatePaymentChildren = ({
   };
   return (
     <div>
-      <p className="text-grey py-3">
+      <p className="text-grey pb-3">
         Initiate payment for{" "}
         <span className="text-black font-semibold">{data?.id}</span>
       </p>

@@ -123,7 +123,11 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ survey }) => {
             key={index}
             label={<CustomLabel label={item.label} required />}
           >
-            {item.type === "upload" ? <MultiUpload /> : <TextArea />}
+            {item.type === "upload" ? (
+              <MultiUpload files={[]} setFiles={undefined} />
+            ) : (
+              <TextArea />
+            )}
           </Form.Item>
         ))}
 

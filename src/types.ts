@@ -93,14 +93,13 @@ export interface JobOrderType {
   modeOfDelivery: string;
   region: string;
   bandwidth: string;
-  mrr: string;
-  nrr: string;
-  nrrPlusMrr: string;
+  mrr: number;
+  nrr: number;
   accountPartner: string;
   customerContact: string;
   customerPhone: string;
   customerEmail: string;
-  projectDueDate: number;
+  dueDate: number;
   comment: string;
   paymentStatus: string;
   projectManager: string;
@@ -111,4 +110,8 @@ export interface JobOrderType {
   stage: string;
   uploads: FileInterface[];
   status: string;
+  requestType: string;
+  state: string;
+  latitude: number;
+  longitude: number;
 }

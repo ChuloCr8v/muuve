@@ -28,21 +28,22 @@ const JobDetails = ({ jobData }: Props) => {
   };
 
   return (
-    <div className="mt-2">
+    <div className="">
       <div className="grid grid-cols-2 gap-4">
         {jobData.map((data) => (
           <div
             className={twMerge(
-              (data.label.toLowerCase() === "uploads" ||
-                data.label.toLowerCase() === "comment" ||
-                data.label.toLowerCase() === "service address" ||
-                data.label.toLowerCase() === "service description" ||
-                data.label.toLowerCase() === "customer email" ||
-                data.label.toLowerCase() === "customer name") &&
-                "col-span-2",
-              (data.label.toLowerCase() === "service description" ||
-                data.label.toLowerCase() === "customer email") &&
-                "border-b pb-4"
+              [
+                "uploads",
+                "comment",
+                "service address",
+                "service description",
+                "customer email",
+                "customer name",
+              ].includes(data.label.toLowerCase()) && "col-span-2",
+              ["service description", "customer email"].includes(
+                data.label.toLowerCase()
+              ) && "border-b pb-4"
             )}
             key={data.label}
           >
