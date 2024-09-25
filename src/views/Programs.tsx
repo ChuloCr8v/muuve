@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Select, Upload, Table, Drawer, Modal, Checkbox, message } from 'antd';
-import { CloudUploadOutlined, UploadOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons';
+import  { useState } from 'react';
+import { Form, Input, Button, Select, Upload, Table, Drawer, Modal, Checkbox } from 'antd';
+import {  UploadOutlined, SettingOutlined, PlusOutlined } from '@ant-design/icons';
 import type { UploadFile } from 'antd/es/upload/interface';
 
 const { Option } = Select;
@@ -40,7 +40,7 @@ const initialColumns = [
   )},
 ];
 
-const Programs: React.FC = () => {
+const Programs = () => {
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [form] = Form.useForm();
   const [tableData, setTableData] = useState<FormData[]>([]);

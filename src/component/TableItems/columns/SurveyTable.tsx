@@ -27,8 +27,11 @@ import { CgCloseO } from "react-icons/cg";
 import { BsTrash } from "react-icons/bs";
 import AssignProjectChildren from "../../Projects/AssignProjectChildren";
 import DeleteProjectChildren from "../../Projects/DeleteProjectChildren";
-import PaymentAndReceiptChildren from "../../Projects/PaymentAndReceiptChildren";
 import RejectProjectChildren from "../../Projects/RejectProjectChildren";
+import PaymentAndReceiptChildren from "../../projects/PaymentAndReceiptChildren";
+// import AssignProjectChildren from "../../projects/AssignProjectChildren";
+// import RejectProjectChildren from "../../projects/RejectProjectChildren";
+// import DeleteProjectChildren from "../../projects/DeleteProjectChildren";
 
 
 

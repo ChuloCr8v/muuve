@@ -16,6 +16,8 @@ import InitiatePayment from "./projects/surveys/InitiatePayment";
 import ReportDetails from "../component/operations/reports/ReportDetails";
 import Staff from "./Admin/Staff";
 import Customer from "./Admin/Customer";
+import ImportCustomerList from "../component/customer/ImportCustomerList";
+import CustomerPage from "./Admin/CustomerPage";
 
 export default function UserPages() {
   // if (!useAuth()) {
@@ -43,6 +45,8 @@ export default function UserPages() {
         <Route path="operations/report/details/:id" element={<ReportDetails/>} />
         <Route path="/admin/staff" element={<Staff />} />
         <Route path="/admin/customers" element={<Customer />} />
+        <Route path="/admin/customers/import-customers" element={<ImportCustomerList />} />
+        <Route path="/admin/customer-page" element={<CustomerPage />} />
         <Route
           path="/operations/reports"
           element={
