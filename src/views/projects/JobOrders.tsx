@@ -1,10 +1,10 @@
 import { useState } from "react";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import JobDetailsDrawer from "../../component/projects/jobOrders/JobDetailsDrawer";
-import JobOrdersTable from "../../component/projects/jobOrders/JobOrdersTable";
-import NewJobOrderForm from "../../component/projects/jobOrders/NewJobOrderForm";
 import { JobOrderType } from "../../types";
+import JobOrdersTable from "../../component/projects/jobOrders/JobOrdersTable";
+import JobDetailsDrawer from "../../component/projects/jobOrders/JobDetailsDrawer";
+import NewJobOrderForm from "../../component/projects/jobOrders/NewJobOrderForm";
 
 const JobOrders = () => {
   const [newJobOrder, setNewJobOrder] = useState(false);

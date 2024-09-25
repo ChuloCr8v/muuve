@@ -5,7 +5,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { PiUserCircleCheck, PiUserSwitch } from "react-icons/pi";
 import { twMerge } from "tailwind-merge";
 import { JobOrderType } from "../../../types";
-import { jobData } from "../../data/JobData";
+import { jobData } from "../../TableItems/data/JobData";
 import ActionPopup from "../../Global/ActionPopup";
 import TableComponent from "../../Global/TableComponent";
 import AssignProjectChildren from "../AssignProjectChildren";

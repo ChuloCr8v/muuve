@@ -1,8 +1,4 @@
-import {
-  Button,
-  Input,
-  Select,
-} from "antd";
+import {Button, Input} from "antd";
 import { useState } from "react";
 import ActionPopup from "../../component/Global/ActionPopup";
 import Danger from "/public/dangerSvg.svg";
@@ -12,14 +8,15 @@ import FormPopup, { Props } from "../../component/Global/FormPopup";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import ModelTable from "../../component/TableItems/columns/ModelTable";
-import ModelForm from "../../component/inventory/model/ModelForm";
+import SnagsTable from "../../component/TableItems/columns/SnagsTable";
+import NewSnag from "../../component/operations/snag/NewSnag";
 
-export default function Model(props: Props) {
+
+export default function Snags(props: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [newModel, setNewModel] = useState(false);
+  const [newSnag, setNewSnag] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
-
+  const [selectedRowData, setSelectedRowData] = useState(null);
 
   const summaryCard = [
     {
@@ -43,34 +40,32 @@ export default function Model(props: Props) {
       icon: <WarningOutlined />,
     },
   ];
+
   return (
     <div className="space-y-[16px]">
       <div className="flex items-center justify-between">
-        <Header heading={"Device Model"} />
+        <Header heading={"Snags Report"} />
 
         <section className="flex items-center gap-[16px]">
           <Input className="w-[400px]" prefix={<SearchOutlined />} />
-          <Select placeholder="Category" />
-
+          <Button>Generate Report</Button>
           <Button>Refresh</Button>
 
           <Button
-            onClick={() => setNewModel(true)}
+            onClick={() => setDrawerVisible(true)}
             className="flex items-center spacex-2"
             type="primary"
           >
-            <span>New Model</span>
+            <span>Report Snag</span>
             <PlusOutlined />
           </Button>
         </section>
       </div>
 
-      <SummaryCards summaryData={summaryCard} />
+      <SummaryCards summaryData={summaryCard}/>
 
-      <ModelTable/>
-
-      <ModelForm open={newModel} close={setNewModel}/>
-
+      <SnagsTable/>
+      <NewSnag open={drawerVisible} action={setDrawerVisible}/>
 
 
       <ActionPopup
@@ -83,6 +78,8 @@ export default function Model(props: Props) {
       >
         <p>Are you sure you want to proceed with this action?</p>
       </ActionPopup>
+
+
     </div>
   );
 }

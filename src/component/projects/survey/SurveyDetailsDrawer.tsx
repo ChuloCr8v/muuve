@@ -1,5 +1,5 @@
 import { Drawer, Tabs, TabsProps } from "antd";
-import { DataType } from "../../data/SurveyTable";
+import { DataType } from "../../TableItems/columns/SurveyTable";
 import ProjectDetailsDrawerHeading from "../../Global/ProjectDetailsDrawerHeading";
 import SurveyDetails from "./SurveyDetails";
 import StatusTag from "../../Global/StatusTag";

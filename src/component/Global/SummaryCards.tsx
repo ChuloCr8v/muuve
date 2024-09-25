@@ -15,6 +15,7 @@ const SummaryCards = ({ summaryData }: Props) => {
     <div className="grid grid-cols-4 gap-3 w-full">
       {summaryData.map((item) => (
         <div
+          key={item.label}
           className={twMerge(
             `group bg-white border p-2 px-4 flex items-center justify-between w-full rounded-md duration-150`
           )}

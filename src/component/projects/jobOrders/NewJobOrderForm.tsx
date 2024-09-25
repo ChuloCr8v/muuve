@@ -5,8 +5,8 @@ import MultiUpload from "../../Global/MultipleUpload";
 import ProjectDetailsDrawerHeading from "../../Global/ProjectDetailsDrawerHeading";
 import CustomLabel from "../../onboarding/CustomLabel";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { jobData } from "../../data/JobData";
 import { JobOrderType } from "../../../types";
+import { jobData } from "../../TableItems/data/JobData";
 
 type Props = {
   open: boolean;
@@ -237,6 +237,7 @@ const NewJobOrderForm = ({
       >
         {formOptions.map((option) => (
           <Form.Item
+            key={option.label}
             className={twMerge(
               [
                 "project type",

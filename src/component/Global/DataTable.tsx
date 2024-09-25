@@ -9,7 +9,8 @@ interface DataTableProps {
   columns: any[];
   data: any[];
   loading?: boolean;
-  rowKey?: string | ((record: any) => string);
+  className?: string;
+  rowKey?:   (arg0: any) => {};
   pagination?: object;
   // CheckboxOptionType?: any[];
 }
@@ -18,7 +19,8 @@ const DataTable: React.FC<DataTableProps> = ({
   columns,
   data,
   loading = false,
-  rowKey = "id", // Default rowKey is 'id'.
+  className,
+  rowKey,
   pagination = { pageSize: 10 }, // Default pagination configuration
 }) => {
   const defaultCheckedList = columns.map((item) => item.key as string);
@@ -55,12 +57,12 @@ const DataTable: React.FC<DataTableProps> = ({
   }));
 
   const checkColumns = [
-    { title: "Check", dataIndex: "checkbox", key: "checkbox" },
+    { title: "", dataIndex: "checkbox", key: "checkbox" },
     { title: "Column", dataIndex: "title", key: "title" },
   ];
 
   return (
-    <div className="h-fit flex">
+    <div className="h-fit flex space-x-[8px]">
       <div
         className={twMerge("w-[98%] ", showCheckList ? "w-[90%]  " : "w-[98%]")}
       >
@@ -68,8 +70,9 @@ const DataTable: React.FC<DataTableProps> = ({
           columns={columnss}
           dataSource={data}
           loading={loading}
-          rowKey={rowKey}
-          scroll={{ x: 1000 }}
+          onRow={rowKey}
+          className={twMerge(className, "border rounded-md")}
+          scroll={{ x: 700 }}
           pagination={pagination}
           size="small"
         />
@@ -77,14 +80,14 @@ const DataTable: React.FC<DataTableProps> = ({
 
       <div
         className={twMerge(
-          "w-[2%] ",
+          "w-[2%] border-[1.5px]  rounded-md  items-center justify-center flex",
           showCheckList
-            ? "ml-2 border w-[10%]  "
+            ? " border rounded-md w-[10%]  "
             : "w-[2%] pl-2 ml-4 flex items-center justify-center "
         )}
       >
         {showCheckList ? (
-          <div className="flex flex-col items-center justify-center h-full space-y-2 pb-2">
+          <div className="items-center justify-between h-full ">
             <Table
               columns={checkColumns}
               dataSource={checkData}
@@ -96,19 +99,19 @@ const DataTable: React.FC<DataTableProps> = ({
             />
 
             <Button
-              className="w-[50%] mx-auto h-6 "
-              type="primary"
+              type="default"
+              className="mt-[20px]"
               onClick={() => setShowCheckList(false)}
             >
               Reset
             </Button>
           </div>
         ) : (
-          <div className="">
+          <div className="flex items-center justify-center">
             <Tooltip title="Reset Columns">
               <img
                 onClick={() => setShowCheckList(true)}
-                className="m-auto items-center"
+                className= "items-center "
                 src={Dots}
               />
             </Tooltip>

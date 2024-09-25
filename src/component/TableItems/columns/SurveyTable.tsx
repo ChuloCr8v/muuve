@@ -1,20 +1,20 @@
 import { UploadFile } from "antd";
 import { useState } from "react";
 import { BiCreditCardFront, BiUserCheck } from "react-icons/bi";
+import { BsTrash } from "react-icons/bs";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { TbReceiptEuro } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";
-import { SurveyDataType } from "../../types";
-import ActionPopup from "../Global/ActionPopup";
-import TableComponent from "../Global/TableComponent";
-import { SurveyData } from "./SurveyData";
-import AssignProjectChildren from "../projects/AssignProjectChildren";
-import RejectProjectChildren from "../projects/RejectProjectChildren";
-import DeleteProjectChildren from "../projects/DeleteProjectChildren";
-import { BsTrash } from "react-icons/bs";
-import PaymentAndReceiptChildren from "../projects/PaymentAndReceiptChildren";
-import useProjectColumns from "../../hooks/useProjectColumns";
-import useProjectActionItems from "../../hooks/useProjectActionItems";
+import useProjectActionItems from "../../../hooks/useProjectActionItems";
+import useProjectColumns from "../../../hooks/useProjectColumns";
+import { SurveyDataType } from "../../../types";
+import ActionPopup from "../../Global/ActionPopup";
+import TableComponent from "../../Global/TableComponent";
+import AssignProjectChildren from "../../projects/AssignProjectChildren";
+import DeleteProjectChildren from "../../projects/DeleteProjectChildren";
+import PaymentAndReceiptChildren from "../../projects/PaymentAndReceiptChildren";
+import RejectProjectChildren from "../../projects/RejectProjectChildren";
+import { SurveyData } from "../data/SurveyData";
 
 interface Props {
   setSurveyDetailsIsOpen: any;

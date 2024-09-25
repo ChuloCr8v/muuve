@@ -1,5 +1,5 @@
 // Define the type for each item in the survey or similar arrays
-export interface FormItem {
+interface FormItem {
   label: string;
   type: "custom" | "input" | "select" | "cordinate" | "upload" | "textarea";
 }

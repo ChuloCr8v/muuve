@@ -1,10 +1,10 @@
 import { useState } from "react";
-import SurveyTable from "../../component/data/SurveyTable";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import SurveyDetailsDrawer from "../../component/projects/survey/SurveyDetailsDrawer";
 import { SurveyDataType } from "../../types";
 import FormPopup from "../../component/Global/FormPopup";
+import SurveyDetailsDrawer from "../../component/projects/survey/SurveyDetailsDrawer";
+import SurveyTable from "../../component/TableItems/columns/SurveyTable";
 
 const Survey = () => {
   const [newSurvey, setNewSurvey] = useState(false);
