@@ -31,7 +31,7 @@ export default function UserPages() {
           element={<InitiatePayment />}
         />
         <Route path="/operations/maintenance" element={<Maintenance />} />
-        <Route path="/ppm/snags" element={<Snags />} />
+        <Route path="/operations/snag-reports" element={<Snags />} />
         <Route path="/inventory/model" element={<Model />} />
         <Route path="/inventory/devices" element={<Devices />} />
         <Route path="/incidence/tickets" element={<Tickets />} />

@@ -112,7 +112,7 @@ const menuItems = [
     submenuItems: [
       {
         title: "Models",
-        url: "/inventory/models",
+        url: "/inventory/model",
         icon: Models,
         iconActive: ModelsActive,
       },
@@ -136,30 +136,30 @@ const menuItems = [
       },
     ],
   },
-  {
-    id: 5,
-    title: "Sales",
-    submenuItems: [
-      {
-        title: "Surveys",
-        url: "/sales/surveys",
-        icon: Surveys,
-        iconActive: SurveysActive,
-      },
-      {
-        title: "Job Orders",
-        url: "/sales/job-orders",
-        iconActive: JobOrdersActive,
-        icon: JobOrders,
-      },
-      {
-        title: "Strategic Requests",
-        url: "/sales/strategic-requests",
-        iconActive: StrategicRequestsActive,
-        icon: StrategicRequests,
-      },
-    ],
-  },
+  // {
+  //   id: 5,
+  //   title: "Sales",
+  //   submenuItems: [
+  //     {
+  //       title: "Surveys",
+  //       url: "/sales/surveys",
+  //       icon: Surveys,
+  //       iconActive: SurveysActive,
+  //     },
+  //     {
+  //       title: "Job Orders",
+  //       url: "/sales/job-orders",
+  //       iconActive: JobOrdersActive,
+  //       icon: JobOrders,
+  //     },
+  //     {
+  //       title: "Strategic Requests",
+  //       url: "/sales/strategic-requests",
+  //       iconActive: StrategicRequestsActive,
+  //       icon: StrategicRequests,
+  //     },
+  //   ],
+  // },
   {
     id: 6,
     title: "Admin",

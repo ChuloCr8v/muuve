@@ -1,8 +1,8 @@
-import { Button, Input, } from "antd";
+import { Button, Input, MenuProps, } from "antd";
 import { useState } from "react";
 import ActionPopup from "../../component/Global/ActionPopup";
 import Danger from '/public/dangerSvg.svg'
-import { OrderedListOutlined, PlusOutlined, SearchOutlined, WarningOutlined } from "@ant-design/icons";
+import { EditOutlined, EyeOutlined, OrderedListOutlined, PlusOutlined, SearchOutlined, WarningOutlined } from "@ant-design/icons";
 import Header from "../../component/Global/Header";
 import FormPopup, { Props } from "../../component/Global/FormPopup";
 import ReportsTable, { columns } from "../../component/TableItems/columns/reportTable";
@@ -18,6 +18,8 @@ export default function Operations (props: Props ) {
     const [currentTab, setCurrentTab] = useState("1");
     const [newSurvey, setNewSurvey] = useState(false)
     const [drawerVisible, setDrawerVisible] = useState(false);
+
+   
 
 
 

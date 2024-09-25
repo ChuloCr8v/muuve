@@ -24,7 +24,7 @@ export default function Layout(props: { children: ReactNode }) {
             />
           </div>
 
-          <div className="h-[50px] w-full md:w-[calc(100vw-230px)] items-center bg-white px-[24px] flex  justify-center md:justify-between">
+          <div className="h-[50px] w-full md:w-[calc(100vw-230px)] border-t-[1.5px] items-center bg-white px-[24px] flex  justify-center md:justify-between">
             <span>
               Copyright {new Date().getFullYear()} All Rights Reserved Zoracom
             </span>

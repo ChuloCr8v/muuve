@@ -13,7 +13,7 @@ import Header from "../../component/Global/Header";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import MaintenanceTable from "../../component/operations/maintenance/MiantenanceTable";
+import MaintenanceTable from "../../component/TableItems/columns/MiantenanceTable";
 import ScheduleForm from "../../component/operations/maintenance/ScheduleForm";
 import EmmergencyForm from "../../component/operations/maintenance/EmmergencyForm";
 
@@ -27,6 +27,7 @@ export default function Maintenance() {
 
   const switchForm = (key: any) => {
     setSelectedForm(key)
+    setNewMaintenance(true)
   }
 
 
@@ -70,11 +71,13 @@ export default function Maintenance() {
     {
       key: '1',
       label: 'Scheuduled Miantenance',
+      onClick: () => switchForm('1'),
       icon: <FormOutlined />
     },
     {
       key: '2',
       label: 'Emmergency Miantenance',
+      onClick: () => switchForm('2'),
       icon: <WarningOutlined />,
     },
   ]
@@ -90,9 +93,9 @@ export default function Maintenance() {
           <Button>Generate Report</Button>
           <Button>Refresh</Button>
 
-          <Dropdown menu={{items}} trigger={['click']}>
+          <Dropdown menu={{items}} trigger={['hover']}>
           <Button
-            onClick={() => setNewMaintenance(true)}
+           
             className="flex items-center "
             type="primary"
           >
@@ -108,7 +111,7 @@ export default function Maintenance() {
       <MaintenanceTable />
 
 
-      <Drawer open={newMaintenance}></Drawer>
+      <Drawer width={450} open={newMaintenance} onClose={() => setNewMaintenance(false)}>{render()}</Drawer>
 
      
     </div>

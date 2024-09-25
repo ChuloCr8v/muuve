@@ -1,6 +1,6 @@
 import { Tag } from "antd";
 import TableComponent from "../../Global/TableComponent";
-import { maintenance } from "../../TableItems/data/MaintenanceData";
+import { maintenance } from "../data/MaintenanceData";
 import { CheckCircleFilled, CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleFilled, ExclamationCircleOutlined } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 

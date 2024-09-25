@@ -69,8 +69,8 @@ export default function MultiUpload({
         <label
           role="button"
           className={twJoin(
-            "h-8 flex items-center justify-center text-[#262626] font-semibold text-center px-4 rounded-md cursor-pointer",
-            "border border-slate-300 bg-[#fbfbfb] hover:bg-slate-200 relative"
+            "h-[28px] flex items-center justify-center text-[#262626] font-semibold text-center px-4 rounded-md cursor-pointer",
+            "border border-slate-300 bg-[#f9f9f9] hover:bg-slate-200 relative"
           )}
         >
           Browse
@@ -80,7 +80,7 @@ export default function MultiUpload({
             multiple
             required={required && !value?.length}
             onChange={onFileSelect}
-            className="w-[1px] h-[1px] opacity-0 absolute"
+            className="w-[1px] h-[28px] opacity-0 absolute"
           />
         </label>
       </div>
