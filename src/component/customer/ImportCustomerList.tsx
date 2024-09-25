@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button, Table, message, Input, Upload } from "antd";
 import { CheckOutlined, RightOutlined } from "@ant-design/icons";
 import Papa from "papaparse";
+import { BiArrowBack } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 interface CustomerData {
   sn: number;
@@ -15,6 +17,8 @@ const ImportCustomerList = () => {
   const [tableData, setTableData] = useState<CustomerData[]>([]);
   const [fileName, setFileName] = useState<string>("");
   const [file, setFile] = useState<File | null>(null);
+
+  const navigate = useNavigate();
 
   const columns = [
     { title: "S/N", dataIndex: "sn", key: "sn" },
@@ -60,6 +64,13 @@ const ImportCustomerList = () => {
 
   return (
     <div className="p-6">
+        <div
+          className="w-fit px-4 flex items-center gap-2"
+          onClick={() => navigate(-1)}
+        >
+          <BiArrowBack />
+          <p>Back</p>
+        </div>
       <div className="flex flex-col gap-4 md:flex-row items-center justify-between mb-2 p-2">
       <h2 className="text-lg md:text-xl font-semibold">New Customer <RightOutlined size={2} /> Import List</h2>
       <Button

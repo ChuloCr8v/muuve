@@ -1,11 +1,12 @@
-import React from 'react';
 import { Button, Dropdown, MenuProps } from 'antd';
 import CustomerTab from '../../component/customer/CustomerTab';
 import { DownOutlined } from '@ant-design/icons';
+import { BiArrowBack } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 
 
 const companyData = {
-    name: 'Blue Chip Networks',  
+    name: 'BCN',  
     createdAt: '8 Aug 2023', 
     logo: '/public/BCN_Logo.png', 
   };
@@ -39,8 +40,20 @@ const items: MenuProps['items'] = [
 ];
 
 const CustomerPage = () => {
+
+    const navigate = useNavigate();
+
   return (
     <section>
+        <div className=" left-4">
+        <div
+          className="w-fit px-4 flex items-center gap-2"
+          onClick={() => navigate(-1)}
+        >
+          <BiArrowBack />
+          <p>Back</p>
+        </div>
+      </div>
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-2">
           <img src="/public/BCN_Logo.png" alt="Logo" />
