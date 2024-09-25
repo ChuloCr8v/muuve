@@ -1,40 +1,36 @@
-import { Button, Dropdown, MenuProps } from "antd";
-import { BiChevronDown } from "react-icons/bi";
+// import { Button, Dropdown, MenuProps } from "antd";
+// import { BiChevronDown } from "react-icons/bi";
+// import useProjectActionItems from "../../hooks/useProjectActionItems";
 
 type Props = {
   title?: string;
+  currentModule?: string;
 };
 
 const ProjectDetailsDrawerHeading = ({ title }: Props) => {
-  const actionItems: MenuProps["items"] = [
-    {
-      key: "1",
-      label: (
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          href="https://www.antgroup.com"
-        >
-          1st menu item
-        </a>
-      ),
-    },
-  ];
+  // const { jobOrderActionItems, survetyActionItems } = useProjectActionItems();
 
   return (
     <div className="my-2">
       <div className="">
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-semibold">{title}</h2>
-          <Dropdown menu={{ items: actionItems }}>
+          {/* <Dropdown
+            menu={{
+              items:
+                currentModule?.toLowerCase() === "job order"
+                  ? jobOrderActionItems
+                  : survetyActionItems,
+            }}
+          >
             <Button
-              className=" text-grey"
+              className="text-grey"
               iconPosition="end"
               icon={<BiChevronDown />}
             >
               Action
             </Button>
-          </Dropdown>
+          </Dropdown> */}
         </div>
       </div>
     </div>

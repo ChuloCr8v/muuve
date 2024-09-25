@@ -32,7 +32,7 @@ const JobDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
     { label: "Customer Contact", value: data?.customerContact },
     { label: "Customer Phone", value: data?.customerPhone },
     { label: "Customer Email", value: data?.customerEmail },
-    { label: "Project Due Date", value: data?.projectDueDate },
+    { label: "Project Due Date", value: data?.dueDate },
     { label: "Payment Status", value: data?.paymentStatus },
     { label: "Project Manager", value: data?.projectManager },
     { label: "Project Lead", value: data?.projectLead },

@@ -34,7 +34,7 @@ const NewJobOrderForm = ({
   }, [editJobOrder.jobOrderId]);
 
   const handleChange = (name: string, value: string | number) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = () => {

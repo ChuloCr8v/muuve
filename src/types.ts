@@ -99,7 +99,7 @@ export interface JobOrderType {
   customerContact: string;
   customerPhone: string;
   customerEmail: string;
-  projectDueDate: number;
+  dueDate: number;
   comment: string;
   paymentStatus: string;
   projectManager: string;

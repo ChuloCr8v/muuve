@@ -1,30 +1,19 @@
-import { Button, Dropdown, MenuProps } from "antd";
 import { Dispatch, SetStateAction, useState } from "react";
 // import Survey from '../../views/projects/Survey';
-import {
-  CloseCircleOutlined,
-  DeleteOutlined,
-  EyeOutlined,
-  UserSwitchOutlined,
-} from "@ant-design/icons";
-import { ColumnType } from "antd/es/table";
-import dayjs from "dayjs";
 import { BiCheckCircle, BiTrash, BiUserCheck } from "react-icons/bi";
-import { FiUserCheck } from "react-icons/fi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { PiUserCircleCheck, PiUserSwitch } from "react-icons/pi";
 import { twMerge } from "tailwind-merge";
-import SLATime from "../../../hooks/useGetSLA";
 import { JobOrderType } from "../../../types";
 import { jobData } from "../../data/JobData";
 import ActionPopup from "../../Global/ActionPopup";
-import DropdownCustomItem from "../../Global/DropdownCustomItem";
 import TableComponent from "../../Global/TableComponent";
-import TableRowData from "../../Global/TableRowData";
 import AssignProjectChildren from "../AssignProjectChildren";
 import DeleteProjectChildren from "../DeleteProjectChildren";
 import RejectProjectChildren from "../RejectProjectChildren";
 import SignoffProjectChildren from "../SignoffProjectChildren";
+import useProjectActionItems from "../../../hooks/useProjectActionItems";
+import useProjectColumns from "../../../hooks/useProjectColumns";
 
 interface Props {
   setSurveyDetailsIsOpen: any;
@@ -154,157 +143,16 @@ const JobOrdersTable = ({ setSurveyDetailsIsOpen, setEditJobOrder }: Props) => {
     });
   };
 
-  const items: MenuProps["items"] = [
-    {
-      key: 1,
-      label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "edit details")}>
-          <DropdownCustomItem label={"Edit Details"} icon={<EyeOutlined />} />
-        </div>
-      ),
-    },
-    {
-      key: 2,
-      label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "assign job")}>
-          <DropdownCustomItem
-            label={"Assign Job"}
-            icon={<FiUserCheck className="text-xl" />}
-          />
-        </div>
-      ),
-    },
-
-    {
-      key: 5,
-      label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "reassign job")}>
-          <DropdownCustomItem
-            label={"Reassign Job"}
-            icon={<UserSwitchOutlined />}
-          />
-        </div>
-      ),
-    },
-    {
-      key: 6,
-      label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "reject job")}>
-          <DropdownCustomItem
-            label={"Reject Job"}
-            icon={<CloseCircleOutlined />}
-          />
-        </div>
-      ),
-    },
-    {
-      key: 7,
-      label: (
-        <div
-          className=""
-          onClick={(e) => handleShowPopup(e, "delete job order")}
-        >
-          <DropdownCustomItem label={"Delete"} icon={<DeleteOutlined />} />{" "}
-        </div>
-      ),
-    },
-    {
-      key: 8,
-      label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "sign off")}>
-          <DropdownCustomItem
-            label={"Sign Off"}
-            icon={<BiCheckCircle />}
-            className="text-green-600"
-          />
-        </div>
-      ),
-    },
-  ];
-
-  const columns: ColumnType<JobOrderType>[] = [
-    {
-      title: "ID",
-      dataIndex: "jobId",
-      key: "id",
-      render: (_: "string", record) => <TableRowData mainText={record.id} />,
-    },
-    {
-      title: "Name",
-      dataIndex: "customerName",
-      key: "customerName",
-      render: (_: "string", record) => (
-        <TableRowData
-          mainText={record.customerName}
-          tagText={record.serviceAddress}
-        />
-      ),
-    },
-    {
-      title: "Service Type",
-      dataIndex: "serviceType",
-      key: "serviceType",
-      render: (_: "string", record) => (
-        <TableRowData
-          mainText={record.serviceType}
-          tagText={record.projectType}
-        />
-      ),
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (_, record) => (
-        <TableRowData
-          mainText={record.status}
-          tagText={record.projectManager}
-          mainTextStyle={`${
-            record.status.toLowerCase() === "completed" && "text-primary"
-          }`}
-        />
-      ),
-    },
-    {
-      title: "SLA",
-      dataIndex: ["sla", "due"],
-      key: "requestType",
-      render: (_, record) => (
-        <TableRowData
-          mainText={
-            <SLATime sla={record.projectDueDate} status={record.status} />
-          }
-          tagText={`Due: ${dayjs(record.projectDueDate).format("DD MMM YYYY")}`}
-        />
-      ),
-    },
-    {
-      title: "Action",
-      dataIndex: "latitude",
-      key: "latitude",
-      width: 150,
-      render: (_: string, record) => (
-        <Dropdown trigger={["click"]} menu={{ items }}>
-          <Button
-            size="small"
-            className="px-4 text-grey"
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentJob(record);
-              console.log(currentJob);
-            }}
-          >
-            Action
-          </Button>
-        </Dropdown>
-      ),
-    },
-  ];
+  const { jobOrderActionItems } = useProjectActionItems({ handleShowPopup });
+  const { projectColumns } = useProjectColumns({
+    items: jobOrderActionItems,
+    setCurrentData: setCurrentJob,
+  });
 
   return (
     <>
       <TableComponent
-        columns={columns}
+        columns={projectColumns}
         dataSource={jobData}
         scroll={1000}
         onRow={(record: Array<{}>) => ({
