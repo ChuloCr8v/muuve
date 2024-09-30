@@ -187,7 +187,7 @@ const Menu = () => {
   const currentPath = location.pathname;
 
   return (
-    <nav className="w-full">
+    <nav className="w-full ">
       {menuItems.map((menuItem) => (
         <div className="w-full">
           <div
@@ -198,7 +198,7 @@ const Menu = () => {
           >
             <h2
               className={twMerge(
-                "font-semibold uppercase text-sm",
+                "font-semibold uppercase text-sm text-[12px]",
                 openMenuItem === menuItem.id && "text-primary"
               )}
             >
@@ -237,7 +237,7 @@ const Menu = () => {
                   alt={subMenuItem.title}
                   className="h-4"
                 />
-                <p className="">{subMenuItem.title}</p>
+                <p className="text-[13px]">{subMenuItem.title}</p>
               </Link>
             ))}
           </div>

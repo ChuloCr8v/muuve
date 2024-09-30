@@ -1,18 +1,31 @@
-import { Button, Checkbox, Dropdown, MenuProps, Tag } from "antd";
+import { Button, Checkbox, Drawer, Dropdown, MenuProps, Tag } from "antd";
 import TableComponent from "../../Global/TableComponent";
 import { ExclamationCircleOutlined, CloseCircleOutlined, CheckCircleOutlined, DownOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 import ModelData from '../data/ModelData'
 import { useState } from "react";
+import ModelDetails from "../../inventory/model/ModelDetails";
 
-export default function ModelTable () {
-    const [selectedRowData, setSelectedRowData] = useState(null);
+interface Prop{
+    setNewModel: any
+}
 
-    const items: MenuProps['items'] =[
+export default function ModelTable (props: Prop) {
+    const [selectedRow, setSelectedRow] = useState(null);
+    const [modelDetails, setModelDetails] = useState(false)
+
+
+    const handleRowClick = (record: any) =>{
+        setSelectedRow(record)
+        setModelDetails(true)
+    }
+
+    const items = (record: any): MenuProps['items'] => [
         {
             key: '1',
             label: 'View Details',
-            icon: <EditOutlined />
+            icon: <EditOutlined />,
+            onClick: () => handleRowClick(record)
   
         },
         {
@@ -67,7 +80,7 @@ export default function ModelTable () {
         },
         {
             title: '',
-            render: () => <Dropdown menu={{items}}>
+            render: (record: any) => <Dropdown menu={{items: items(record)}}>
                 <Button className="tableAction">
                 <span>Action</span>
                 <DownOutlined/>
@@ -76,6 +89,15 @@ export default function ModelTable () {
         },
     ]
     return(
-        <TableComponent columns={column} dataSource={ModelData}/>
+        <div>
+            <TableComponent columns={column} dataSource={ModelData}/>
+
+           <ModelDetails 
+           modelDetails={modelDetails}
+           setModelDetails={setModelDetails}
+           selectedRow={selectedRow}
+           />
+        </div>
+       
     )
 }

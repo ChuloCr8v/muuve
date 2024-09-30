@@ -18,7 +18,6 @@ import ModelForm from "../../component/inventory/model/ModelForm";
 export default function Model(props: Props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newModel, setNewModel] = useState(false);
-  const [drawerVisible, setDrawerVisible] = useState(false);
 
 
   const summaryCard = [
@@ -67,9 +66,9 @@ export default function Model(props: Props) {
 
       <SummaryCards summaryData={summaryCard} />
 
-      <ModelTable/>
+      <ModelTable setNewModel={setNewModel}/>
 
-      <ModelForm open={newModel} close={setNewModel}/>
+      <ModelForm open={newModel} setNewModel={setNewModel}/>
 
 
 

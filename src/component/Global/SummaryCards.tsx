@@ -17,9 +17,9 @@ const SummaryCards = ({ summaryData }: Props) => {
     switch (label.toLowerCase()) {
       case "total":
         return "blue";
-      case "active":
+      case "active"  && "assigned":
         return "green";
-      case "deactivated":
+      case "deactivated" && "faulty":
         return "red";
       default:
         return "yellow";
