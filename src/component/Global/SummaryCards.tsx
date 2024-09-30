@@ -11,6 +11,31 @@ type Props = {
 };
 
 const SummaryCards = ({ summaryData }: Props) => {
+  const color = (label: string) => {
+    switch (label.toLowerCase()) {
+      case "total":
+        return "blue";
+      case "active"  && "assigned":
+        return "green";
+      case "deactivated" && "faulty":
+        return "red";
+      default:
+        return "yellow";
+    }
+  };
+
+  // const bgColor = (label: string) => {
+  //   switch (label.toLowerCase()) {
+  //     case "total":
+  //       return "hover:bg-blue-100 hover:border-blue-300 hover:text-blue-600";
+  //     case "active":
+  //       return "hover:bg-green-100 hover:border-green-300 hover:text-green-600";
+  //     case "deactivated":
+  //       return "hover:bg-red-100 hover:border-red-300 hover:text-red-600";
+  //     default:
+  //       return "hover:bg-yellow-100 hover:border-yellow-300 hover:text-yellow-600";
+  //   }
+  // };
   return (
     <div className="grid grid-cols-4 gap-3 w-full">
       {summaryData.map((item) => (
