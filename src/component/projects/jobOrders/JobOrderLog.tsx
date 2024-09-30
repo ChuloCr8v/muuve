@@ -3,9 +3,9 @@ import ProjectLogs from "../ProjectLogs";
 
 const SurveyLog = () => {
   return (
-    <div className="space-y-6">
+    <div className="">
       {surveyLogData.map((item) => (
-        <ProjectLogs data={item} />
+        <ProjectLogs data={item} key={item.id} />
       ))}
     </div>
   );

@@ -25,8 +25,8 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
 }) => {
   return (
     <Modal open={open} onCancel={onCancel} footer={null} closeIcon={null}>
-      <div className="space-y-6">
-        <section className="space-y-2">
+      <div className="space-y-6 p-2">
+        <section className="space-y-4">
           <div className="relative flex items-center space-x-2 text-primary">
             {typeof icon === "string" ? <img src={icon} alt={title} /> : icon}
             <p className="text-[#011810] font-bold text-[20px] capitalize">
@@ -37,6 +37,7 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
               onClick={onCancel}
             />
           </div>
+
           <div>{children}</div>
         </section>
 

@@ -18,17 +18,10 @@ const TableRowData = ({
 }: Props) => {
   return (
     <div className={twMerge("text-left", wrapperClassName)}>
-      <p
-        className={twMerge(
-          "text-black font-normal capitalize",
-          mainTextStyle
-        )}
-      >
+      <p className={twMerge("text-black capitalize", mainTextStyle)}>
         {mainText}
       </p>
-      <p className={twMerge(tagTextStyle, "text-grey text-sm capitalize")}>
-        {tagText}
-      </p>
+      <p className={twMerge(tagTextStyle, "text-grey capitalize")}>{tagText}</p>
     </div>
   );
 };

@@ -22,7 +22,7 @@ const AssignProjectChildren = ({
 }: Props) => {
   return (
     <div>
-      <p className="text-grey py-3">
+      <p className="text-grey pb-3">
         {action?.includes("reassign") ? "Reassign" : "Assign"}{" "}
         <span className="text-black font-semibold">{data?.title}</span> to a
         design enginner{" "}

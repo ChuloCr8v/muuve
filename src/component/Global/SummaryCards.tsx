@@ -1,11 +1,9 @@
-import { Tag } from "antd";
-import { ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
+import SummaryCardIcon from "../../hooks/useSummaryCardIcon";
 
 interface SummaryDataType {
   label: string;
   value: number;
-  icon: ReactNode;
 }
 
 type Props = {
@@ -38,14 +36,13 @@ const SummaryCards = ({ summaryData }: Props) => {
   //       return "hover:bg-yellow-100 hover:border-yellow-300 hover:text-yellow-600";
   //   }
   // };
-
   return (
     <div className="grid grid-cols-4 gap-3 w-full">
       {summaryData.map((item) => (
         <div
+          key={item.label}
           className={twMerge(
-            `group bg-white border !bg-opacity-20 p-2 px-4 flex items-center justify-between w-full rounded-md duration-150`
-            // bgColor(item.label)
+            `group bg-white border p-2 px-4 flex items-center justify-between w-full rounded-md duration-150`
           )}
         >
           <div className="flex flex-col items-start gap-1">
@@ -54,12 +51,8 @@ const SummaryCards = ({ summaryData }: Props) => {
               {item.label}
             </p>
           </div>
-          <Tag
-            color={color(item.label)}
-            className="h-10 w-10 rounded-full flex items-center justify-center border-none"
-          >
-            {item.icon}
-          </Tag>
+
+          <SummaryCardIcon label={item.label} />
         </div>
       ))}
     </div>

@@ -30,7 +30,7 @@ const SurveyDetails = ({ surveyData }: Props) => {
 
   return (
     <div className="mt-2">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-2">
         {surveyData.map((data) => (
           <div
             className={twMerge(
@@ -43,7 +43,7 @@ const SurveyDetails = ({ surveyData }: Props) => {
             <TableRowData
               mainText={data.label}
               tagText={value(data.label, data.value)}
-              mainTextStyle="text-xs uppercase leading-loose"
+              mainTextStyle="text-sm text-grey uppercase leading-loose"
               tagTextStyle="!text-black !text-[13px]"
             />
           </div>

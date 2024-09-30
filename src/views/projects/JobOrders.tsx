@@ -1,14 +1,10 @@
 import { useState } from "react";
-import { FaBan } from "react-icons/fa";
-import { VscVmActive } from "react-icons/vsc";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { JobOrderType } from "../../types";
-import { GrOrderedList } from "react-icons/gr";
-import { CiWarning } from "react-icons/ci";
-import JobDetailsDrawer from "../../component/Projects/jobOrders/JobDetailsDrawer";
-import JobOrdersTable from "../../component/Projects/jobOrders/JobOrdersTable";
-import NewJobOrderForm from "../../component/Projects/jobOrders/NewJobOrderForm";
+import JobOrdersTable from "../../component/projects/jobOrders/JobOrdersTable";
+import JobDetailsDrawer from "../../component/projects/jobOrders/JobDetailsDrawer";
+import NewJobOrderForm from "../../component/projects/jobOrders/NewJobOrderForm";
 
 const JobOrders = () => {
   const [newJobOrder, setNewJobOrder] = useState(false);
@@ -17,26 +13,30 @@ const JobOrders = () => {
     data: JobOrderType | null;
   }>({ isOpen: false, data: null });
 
+  const [editJobOrder, setEditJobOrder] = useState<{
+    isOpen: boolean;
+    jobOrderId: string | undefined;
+  }>({
+    isOpen: false,
+    jobOrderId: "" || undefined,
+  });
+
   const summaryData = [
     {
       label: "Total",
       value: 50,
-      icon: <GrOrderedList className="!text-5xl" />,
     },
     {
       label: "Active",
       value: 30,
-      icon: <VscVmActive className="!text-5xl" />,
     },
     {
       label: "Deactivated",
       value: 5,
-      icon: <FaBan className="!text-5xl" />,
     },
     {
       label: "Expiring",
       value: 25,
-      icon: <CiWarning className="!text-5xl" />,
     },
   ];
 
@@ -54,7 +54,10 @@ const JobOrders = () => {
       />
 
       <SummaryCards summaryData={summaryData} />
-      <JobOrdersTable setSurveyDetailsIsOpen={setJobDetailsIsOpen} />
+      <JobOrdersTable
+        setEditJobOrder={setEditJobOrder}
+        setSurveyDetailsIsOpen={setJobDetailsIsOpen}
+      />
 
       {/* job details drawer */}
       <JobDetailsDrawer
@@ -64,7 +67,12 @@ const JobOrders = () => {
       />
 
       {/* New job form */}
-      <NewJobOrderForm open={newJobOrder} setOpen={setNewJobOrder} />
+      <NewJobOrderForm
+        open={newJobOrder || editJobOrder.isOpen}
+        setEditJobOrder={setEditJobOrder}
+        setOpen={setNewJobOrder}
+        editJobOrder={editJobOrder}
+      />
     </div>
   );
 };
