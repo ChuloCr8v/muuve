@@ -1,17 +1,23 @@
 import { Drawer, Tabs, TabsProps } from "antd";
-import { DataType } from "../../TableItems/columns/SurveyTable";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  closeProjectDetailsDrawer,
+  popupInterface,
+} from "../../../redux/popupSlice";
 import ProjectDetailsDrawerHeading from "../../Global/ProjectDetailsDrawerHeading";
-import SurveyDetails from "./SurveyDetails";
 import StatusTag from "../../Global/StatusTag";
+import SurveyDetails from "./SurveyDetails";
 import SurveyLog from "./SurveyLog";
 
-type Props = {
-  data: DataType | null;
-  isOpen: boolean;
-  onclose: () => void;
-};
+const SurveyDetailsDrawer = () => {
+  const { projectDetailsDrawerIsOpen } = useSelector(
+    (state: popupInterface) => state.popups
+  );
 
-const SurveyDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
+  const { isOpen, data } = projectDetailsDrawerIsOpen;
+
+  const dispatch = useDispatch();
+
   const surveyData = [
     {
       label: "customer name",
@@ -95,12 +101,16 @@ const SurveyDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
   return (
     <Drawer
       open={isOpen}
-      onClose={onclose}
+      onClose={() => dispatch(closeProjectDetailsDrawer())}
       title={false}
       closeIcon={false}
       width={540}
     >
-      <ProjectDetailsDrawerHeading title={data?.id} />
+      <ProjectDetailsDrawerHeading
+        title={data?.id}
+        currentModule={"Survey"}
+        showActionButton
+      />
       <Tabs defaultActiveKey="1" items={items} />
     </Drawer>
   );

@@ -13,7 +13,7 @@ const SingleProductSummaryCard = (props: Props) => {
   ];
 
   return (
-    <div className="border rounded-md p-4 pb-2 w-[400px] h-fit flex flex-col">
+    <div className="border rounded-md p-4 pb-2 max-w-[400px] w-full h-fit flex flex-col">
       <div className="h-fit space-y-1">
         {summaryData.map((data) => (
           <div className="flex items-center justify-between" key={data.label}>

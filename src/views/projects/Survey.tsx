@@ -8,14 +8,6 @@ import SurveyTable from "../../component/TableItems/columns/SurveyTable";
 
 const Survey = () => {
   const [newSurvey, setNewSurvey] = useState(false);
-  const [surveyDetailsIsOpen, setSurveyDetailsIsOpen] = useState<{
-    isOpen: boolean;
-    data: SurveyDataType | null;
-  }>({ isOpen: false, data: null });
-
-  const closeDrawer = () => {
-    setSurveyDetailsIsOpen((prev) => ({ ...prev, isOpen: false }));
-  };
 
   const summaryData = [
     {
@@ -46,7 +38,7 @@ const Survey = () => {
       />
 
       <SummaryCards summaryData={summaryData} />
-      <SurveyTable setSurveyDetailsIsOpen={setSurveyDetailsIsOpen} />
+      <SurveyTable />
 
       {/* New survey form */}
       <FormPopup
@@ -57,11 +49,7 @@ const Survey = () => {
       />
 
       {/* survey details drawer */}
-      <SurveyDetailsDrawer
-        data={surveyDetailsIsOpen.data}
-        isOpen={surveyDetailsIsOpen.isOpen}
-        onclose={closeDrawer}
-      />
+      <SurveyDetailsDrawer />
     </div>
   );
 };

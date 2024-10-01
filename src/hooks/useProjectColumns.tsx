@@ -1,16 +1,20 @@
-import { Dropdown, Button, MenuProps } from "antd";
+import { Button, Dropdown } from "antd";
 import { ColumnType } from "antd/es/table";
 import dayjs from "dayjs";
+import { useDispatch } from "react-redux";
 import TableRowData from "../component/Global/TableRowData";
+import { showPopup } from "../redux/popupSlice";
 import { SurveyDataType } from "../types";
 import SLATime from "./useGetSLA";
+import useJobOrderActionItems from "./useJobOrderActionItems";
+import useSurveyActionItems from "./useSurveyActionItems";
 
-type Props = {
-  setCurrentData: any;
-  items: MenuProps["items"];
-};
+const useProjectColumns = (currentProject?: string) => {
+  const { jobOrderActionItems } = useJobOrderActionItems();
+  const { surveyActionItems } = useSurveyActionItems();
 
-const useProjectColumns = ({ items, setCurrentData }: Props) => {
+  const dispatch = useDispatch();
+
   const projectColumns: ColumnType<SurveyDataType>[] = [
     {
       title: "ID",
@@ -70,14 +74,22 @@ const useProjectColumns = ({ items, setCurrentData }: Props) => {
       dataIndex: "latitude",
       key: "latitude",
       width: 150,
-      render: (_: string, record) => (
-        <Dropdown trigger={["click"]} menu={{ items }}>
+      render: (_: string, records) => (
+        <Dropdown
+          trigger={["click"]}
+          menu={{
+            items:
+              currentProject?.toLowerCase() === "survey"
+                ? surveyActionItems
+                : jobOrderActionItems,
+          }}
+        >
           <Button
             size="small"
             className="px-4 text-grey"
             onClick={(e) => {
               e.stopPropagation();
-              setCurrentData(record);
+              dispatch(showPopup({ isOpen: false, data: records }));
             }}
           >
             Action

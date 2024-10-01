@@ -16,7 +16,7 @@ export default function Layout(props: { children: ReactNode }) {
             <Header />
           </div>
 
-          <div className="h-[calc(100vh-122px)]  w-[100vw] md:w-[calc(100vw-230px)] px-[24px] py-[32px] overflow-y-auto">
+          <div className="h-[calc(100vh-122px)]  w-[100vw] md:w-[calc(100vw-230px)] overflow-y-auto">
             <div className="relative z-10">{props.children}</div>
             <img
               className="absolute z-0 md:left-[40%] lg:bottom-[calc(100vh*0.2)] md:bottom-[calc(100vh*0.05)] bottom-[calc(100vh*0.3)] left-[20%] md:w-[400px] w-[60%] "

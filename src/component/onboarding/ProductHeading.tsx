@@ -7,9 +7,10 @@ import { productsState } from "../../types";
 interface Props {
   productLabel: string;
   id: string;
+  planUpdateActive?: boolean;
 }
 const ProductHeading = (props: Props) => {
-  const { expandedProductId } = useSelector(
+  const { expandedProductId, planUpdateActive } = useSelector(
     (state: productsState) => state.products
   );
   const dispatch = useDispatch();
@@ -27,14 +28,21 @@ const ProductHeading = (props: Props) => {
     >
       <div className="space-y-1 w-full">
         <div className="flex items-center justify-between">
-          <p className="font-semibold text-primary text-xl">
+          <p
+            className={twMerge(
+              "font-semibold text-primary text-xl",
+              planUpdateActive && "text-customBlack"
+            )}
+          >
             {props.productLabel}
           </p>
-          <UpOutlined
-            className={twMerge(
-              expandedProductId === props.id && "rotate-180 duration-200"
-            )}
-          />
+          {!planUpdateActive && (
+            <UpOutlined
+              className={twMerge(
+                expandedProductId === props.id && "rotate-180 duration-200"
+              )}
+            />
+          )}
         </div>
       </div>
     </div>

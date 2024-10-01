@@ -1,25 +1,12 @@
 import { useState } from "react";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import { JobOrderType } from "../../types";
-import JobOrdersTable from "../../component/projects/jobOrders/JobOrdersTable";
 import JobDetailsDrawer from "../../component/projects/jobOrders/JobDetailsDrawer";
+import JobOrdersTable from "../../component/projects/jobOrders/JobOrdersTable";
 import NewJobOrderForm from "../../component/projects/jobOrders/NewJobOrderForm";
 
 const JobOrders = () => {
   const [newJobOrder, setNewJobOrder] = useState(false);
-  const [jobDetailsIsOpen, setJobDetailsIsOpen] = useState<{
-    isOpen: boolean;
-    data: JobOrderType | null;
-  }>({ isOpen: false, data: null });
-
-  const [editJobOrder, setEditJobOrder] = useState<{
-    isOpen: boolean;
-    jobOrderId: string | undefined;
-  }>({
-    isOpen: false,
-    jobOrderId: "" || undefined,
-  });
 
   const summaryData = [
     {
@@ -40,10 +27,6 @@ const JobOrders = () => {
     },
   ];
 
-  const closeDrawer = () => {
-    setJobDetailsIsOpen((prev) => ({ ...prev, isOpen: false }));
-  };
-
   return (
     <div className="space-y-3">
       <PageHeader
@@ -54,25 +37,13 @@ const JobOrders = () => {
       />
 
       <SummaryCards summaryData={summaryData} />
-      <JobOrdersTable
-        setEditJobOrder={setEditJobOrder}
-        setSurveyDetailsIsOpen={setJobDetailsIsOpen}
-      />
+      <JobOrdersTable />
 
       {/* job details drawer */}
-      <JobDetailsDrawer
-        data={jobDetailsIsOpen.data}
-        isOpen={jobDetailsIsOpen.isOpen}
-        onclose={closeDrawer}
-      />
+      <JobDetailsDrawer />
 
       {/* New job form */}
-      <NewJobOrderForm
-        open={newJobOrder || editJobOrder.isOpen}
-        setEditJobOrder={setEditJobOrder}
-        setOpen={setNewJobOrder}
-        editJobOrder={editJobOrder}
-      />
+      <NewJobOrderForm open={newJobOrder} setOpen={setNewJobOrder} />
     </div>
   );
 };

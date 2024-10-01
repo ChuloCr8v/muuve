@@ -16,7 +16,7 @@ const DropdownCustomItem = (props: {
         props.className
       )}
     >
-      <div className="">{props.icon}</div>
+      <div className="text-lg">{props.icon}</div>
       <span className="">{props.label}</span>
     </div>
   );

@@ -29,6 +29,7 @@ export interface productsState {
     allSelectedProducts: SelectedProductSummaryType[];
     duration: string;
     expandedProductId: string;
+    planUpdateActive: boolean;
   };
 }
 
@@ -114,4 +115,43 @@ export interface JobOrderType {
   state: string;
   latitude: number;
   longitude: number;
+}
+
+export interface PopupDataInterface {
+  isOpen: boolean;
+  data: {
+    id: string;
+    title: string;
+  };
+  currentProject?: string;
+  action?: string;
+}
+
+export interface detailsDrawerDataInterface {
+  isOpen: boolean;
+  data: any;
+}
+
+export interface popupInterface {
+  popups: {
+    currentPopup: PopupDataInterface;
+    projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
+  };
+}
+
+export interface newRoleModalInterface {
+  isOpen: boolean;
+  module: string;
+}
+
+export interface deactivateServiceInterface {
+  isOpen: boolean;
+  data: [];
+}
+
+export interface popupState {
+  currentPopup: PopupDataInterface;
+  projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
+  newRoleModalIsOpen: newRoleModalInterface;
+  deactivateServiceModalIsOpen: deactivateServiceInterface;
 }

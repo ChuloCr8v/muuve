@@ -68,7 +68,7 @@ const TierComponent = (props: Props) => {
                 }
                 key={plan.id}
                 className={twMerge(
-                  "group border rounded-lg p-4 w-[150px] grid gap-2 hover:border-primary cursor-pointer duration-200",
+                  "group border rounded-lg p-4 max-w-[150px] w-full  grid gap-2 hover:border-primary cursor-pointer duration-200",
                   verifySelectedPlan(props.data.id, plan.id) && "border-primary"
                 )}
               >
@@ -76,7 +76,7 @@ const TierComponent = (props: Props) => {
                   {plan.label}
                 </p>
                 <p className="font-semibold text-primary">
-                  NGN{" "}
+                  N{" "}
                   {duration === "monthly"
                     ? plan.value.toLocaleString()
                     : plan.value.toLocaleString()}

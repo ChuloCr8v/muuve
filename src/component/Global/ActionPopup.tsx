@@ -3,9 +3,9 @@ import { Button, Modal } from "antd";
 import React, { ReactNode } from "react";
 
 interface ActionPopupProps {
-  open: boolean;
+  open?: boolean;
   onCancel: () => void;
-  title: string;
+  title: ReactNode;
   sendButtonText: string;
   children: ReactNode;
   sendButtonStyle?: string;
@@ -24,11 +24,21 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
   sendButtonStyle,
 }) => {
   return (
-    <Modal open={open} onCancel={onCancel} footer={null} closeIcon={null}>
+    <Modal
+      open={open}
+      onCancel={onCancel}
+      footer={null}
+      closeIcon={null}
+      className="action-popup"
+    >
       <div className="space-y-6 p-2">
         <section className="space-y-4">
           <div className="relative flex items-center space-x-2 text-primary">
-            {typeof icon === "string" ? <img src={icon} alt={title} /> : icon}
+            {typeof icon === "string" ? (
+              <img src={icon} alt={"project"} />
+            ) : (
+              icon
+            )}
             <p className="text-[#011810] font-bold text-[20px] capitalize">
               {title}
             </p>
