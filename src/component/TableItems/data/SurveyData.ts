@@ -1,3 +1,5 @@
+import { SurveyDataType } from "../../../types";
+
 export const SurveyData: SurveyDataType[] = [
   {
     id: "SUR-20221108-002",

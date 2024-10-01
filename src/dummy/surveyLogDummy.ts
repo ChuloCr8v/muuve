@@ -12,11 +12,11 @@ export const surveyLogData: SurveyLogInterface[] = [
     attachments: [
       {
         name: "Document 1.xls",
-        size: 5.56,
+        size: "5.56",
       },
       {
         name: "Document 2.xls",
-        size: 5.56,
+        size: "5.56",
       },
     ],
   },
@@ -31,11 +31,11 @@ export const surveyLogData: SurveyLogInterface[] = [
     attachments: [
       {
         name: "Document 1.xls",
-        size: 5.56,
+        size: "5.56",
       },
       {
         name: "Document 2.xls",
-        size: 5.56,
+        size: "5.56",
       },
     ],
   },
@@ -50,11 +50,11 @@ export const surveyLogData: SurveyLogInterface[] = [
     attachments: [
       {
         name: "Document 1.xls",
-        size: 5.56,
+        size: "5.56",
       },
       {
         name: "Document 2.xls",
-        size: 5.56,
+        size: "5.56",
       },
     ],
   },
@@ -69,11 +69,11 @@ export const surveyLogData: SurveyLogInterface[] = [
     attachments: [
       {
         name: "Document 1.xls",
-        size: 5.56,
+        size: "5.56",
       },
       {
         name: "Document 2.xls",
-        size: 5.56,
+        size: "5.56",
       },
     ],
   },

@@ -4,12 +4,11 @@ import MultiUpload from "../../Global/MultipleUpload";
 import CustomLabel from "../../onboarding/CustomLabel";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { hidePopup, popupInterface } from "../../../redux/popupSlice";
-import { IoCloseCircleOutline } from "react-icons/io5";
+import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../Global/ActionPopup";
-import { BiReceipt, BiUpload } from "react-icons/bi";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { MdPayment } from "react-icons/md";
+import { popupInterface } from "../../../types";
 
 const PaymentAndReceiptChildren = () => {
   const [fileList, setFileList] = useState<UploadFile<File>[]>([]);

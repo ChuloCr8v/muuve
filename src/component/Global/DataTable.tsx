@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Checkbox, Table, Tooltip } from "antd";
-import { CheckboxChangeEvent, CheckboxOptionType } from "antd/es/checkbox";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
 import Dots from "../../../public/4dots.png";
 import { twMerge } from "tailwind-merge";
 // import { columns } from '../data/SurveyTable';
@@ -10,7 +10,7 @@ interface DataTableProps {
   data: any[];
   loading?: boolean;
   className?: string;
-  rowKey?:   (arg0: any) => {};
+  rowKey?: (arg0: any) => {};
   pagination?: object;
   // CheckboxOptionType?: any[];
 }
@@ -24,7 +24,7 @@ const DataTable: React.FC<DataTableProps> = ({
   pagination = { pageSize: 10 }, // Default pagination configuration
 }) => {
   const defaultCheckedList = columns.map((item) => item.key as string);
-  const [checkedList, setCheckedList] = useState(defaultCheckedList);
+  const [checkedList, _setCheckedList] = useState(defaultCheckedList);
   const newColumns = columns.map((item) => ({
     ...item,
     hidden: !checkedList.includes(item.key as string),
@@ -111,7 +111,7 @@ const DataTable: React.FC<DataTableProps> = ({
             <Tooltip title="Reset Columns">
               <img
                 onClick={() => setShowCheckList(true)}
-                className= "items-center "
+                className="items-center "
                 src={Dots}
               />
             </Tooltip>

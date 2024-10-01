@@ -3,7 +3,6 @@ import {
   Button,
   Dropdown,
   Input,
-  MenuProps,
   Table,
   Tag,
   Modal,
@@ -18,14 +17,12 @@ import {
   StopOutlined,
   SearchOutlined,
   SyncOutlined,
-  OrderedListOutlined,
 } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 import Heading from "../../component/Global/Header";
 import NewStaff from "../../component/onboarding/admin/NewStaff";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
-import { VscVmActive } from "react-icons/vsc";
 import CustomerDropButton from "../../component/customer/CustomerDropDown";
 
 // Define type for customer data
@@ -46,14 +43,17 @@ export interface ActionProps {
 
 export default function Customer() {
   const [newStaff, setNewStaff] = useState<boolean>(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData | null>(null); 
+  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData | null>(
+    null
+  );
   const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
-  const [deactivateModalVisible, setDeactivateModalVisible] = useState<boolean>(false); 
+  const [deactivateModalVisible, setDeactivateModalVisible] =
+    useState<boolean>(false);
   const [form] = Form.useForm();
 
   const showEditModal = (customer: CustomerData) => {
     setSelectedCustomer(customer);
-    form.setFieldsValue(customer); 
+    form.setFieldsValue(customer);
     setEditModalVisible(true);
   };
 
@@ -66,12 +66,15 @@ export default function Customer() {
     form.validateFields().then((values) => {
       message.success("Customer updated successfully");
       setEditModalVisible(false);
+      console.log(values);
     });
   };
 
   const handleDeactivate = () => {
     if (selectedCustomer) {
-      message.success(`Customer ${selectedCustomer.name} deactivated successfully`);
+      message.success(
+        `Customer ${selectedCustomer.name} deactivated successfully`
+      );
       setDeactivateModalVisible(false);
     }
   };
@@ -110,7 +113,11 @@ export default function Customer() {
       render: (text: "Active" | "Inactive") => (
         <Tag
           icon={
-            text === "Active" ? <CheckCircleOutlined /> : <CloseCircleOutlined />
+            text === "Active" ? (
+              <CheckCircleOutlined />
+            ) : (
+              <CloseCircleOutlined />
+            )
           }
           className={twMerge(
             text === "Active"
@@ -134,13 +141,13 @@ export default function Customer() {
                 key: "1",
                 label: "Edit",
                 icon: <EditOutlined />,
-                onClick: () => showEditModal(record), 
+                onClick: () => showEditModal(record),
               },
               {
                 key: "2",
                 label: "Deactivate",
                 icon: <StopOutlined />,
-                onClick: () => showDeactivateModal(record), 
+                onClick: () => showDeactivateModal(record),
               },
             ],
           }}
@@ -189,11 +196,11 @@ export default function Customer() {
       email: "bob@xyz.com",
       phone: "08165785440",
       status: "Active",
-    }
+    },
   ];
 
   return (
-    <div className="space-y-[16px] body-pad">
+    <div className="space-y-[16px] body-pad p-8">
       <section className="flex items-center justify-between">
         <Heading heading={"Customer "} />
         <div className="flex space-x-[16px]">
@@ -208,9 +215,9 @@ export default function Customer() {
 
       <SummaryCards
         summaryData={[
-          { label: "Total", value: 22, icon: <OrderedListOutlined /> },
-          { label: "Active", value: 19, icon: <VscVmActive /> },
-          { label: "Deactivated", value: 2, icon: <FaBan /> },
+          { label: "Total", value: 22 },
+          { label: "Active", value: 19 },
+          { label: "Deactivated", value: 2 },
         ]}
       />
 
@@ -229,27 +236,40 @@ export default function Customer() {
         onCancel={() => setEditModalVisible(false)}
         onOk={handleEditSubmit}
         okText="Save"
-        width={320}
+        width={420}
       >
         <Form form={form} layout="vertical" className="text-sm">
           <Form.Item
             label="Customer Name"
             name="name"
-            rules={[{ required: true, message: "Please enter the customer's name" }]}
+            rules={[
+              { required: true, message: "Please enter the customer's name" },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Email"
             name="email"
-            rules={[{ required: true, type: "email", message: "Please enter a valid email" }]}
+            rules={[
+              {
+                required: true,
+                type: "email",
+                message: "Please enter a valid email",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Phone Number"
             name="phone"
-            rules={[{ required: true, message: "Please enter the customer's phone number" }]}
+            rules={[
+              {
+                required: true,
+                message: "Please enter the customer's phone number",
+              },
+            ]}
           >
             <Input />
           </Form.Item>
@@ -264,19 +284,20 @@ export default function Customer() {
         okText="Deactivate"
         cancelText="Cancel"
         // className="w-[400px]"
-        width={320}
-        okButtonProps={{ danger: true}}
+        width={420}
+        okButtonProps={{ danger: true }}
       >
         <div>
-            <div className="flex items-center gap-2 mt-2">
-            <Tag
-            className="h-10 w-10 rounded-full flex items-center justify-center border-none text-red-600 bg-red-100"
-          >
-            <FaBan />
-          </Tag>
-                <h4 className="text-2xl font-semibold ">Deactivate Customer</h4>
-            </div>
-        <p className="mt-2">Are you sure you want to deactivate <p className="font-semibold">{selectedCustomer?.name}?</p> </p>
+          <div className="flex items-center gap-2 mt-2">
+            <Tag className="h-10 w-10 rounded-full flex items-center justify-center border-none text-red-600 bg-red-100">
+              <FaBan />
+            </Tag>
+            <h4 className="text-2xl font-semibold ">Deactivate Customer</h4>
+          </div>
+          <p className="mt-2">
+            Are you sure you want to deactivate{" "}
+            <p className="font-semibold">{selectedCustomer?.name}?</p>{" "}
+          </p>
         </div>
       </Modal>
 

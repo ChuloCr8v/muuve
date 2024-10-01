@@ -28,7 +28,7 @@ const JobOrders = () => {
   ];
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 p-8">
       <PageHeader
         heading={"Job Orders"}
         onclick={() => setNewJobOrder(true)}

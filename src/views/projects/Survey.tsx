@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import { SurveyDataType } from "../../types";
 import FormPopup from "../../component/Global/FormPopup";
 import SurveyDetailsDrawer from "../../component/projects/survey/SurveyDetailsDrawer";
 import SurveyTable from "../../component/TableItems/columns/SurveyTable";
@@ -29,7 +28,7 @@ const Survey = () => {
   ];
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 p-8">
       <PageHeader
         heading={"Surveys"}
         onclick={() => setNewSurvey?.(true)}

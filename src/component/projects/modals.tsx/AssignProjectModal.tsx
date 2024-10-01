@@ -3,9 +3,10 @@ import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { PiUserCheckLight, PiUserSwitch } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
-import { hidePopup, popupInterface } from "../../../redux/popupSlice";
+import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../Global/ActionPopup";
 import CustomLabel from "../../onboarding/CustomLabel";
+import { popupInterface } from "../../../types";
 
 const AssignProjectModal = () => {
   const [comment, setComment] = useState("");

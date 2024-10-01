@@ -62,19 +62,7 @@ export default function UserPages() {
           element={<ImportCustomerList />}
         />
         <Route path="/admin/customer-page" element={<CustomerPage />} />
-        <Route
-          path="/operations/reports"
-          element={
-            <Operations
-              title={""}
-              open={false}
-              close={function (): void {
-                throw new Error("Function not implemented.");
-              }}
-              submitText={""}
-            />
-          }
-        />
+        <Route path="/operations/reports" element={<Operations />} />
       </Routes>
     </Layout>
   );

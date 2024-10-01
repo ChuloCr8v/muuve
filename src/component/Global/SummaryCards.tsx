@@ -11,18 +11,18 @@ type Props = {
 };
 
 const SummaryCards = ({ summaryData }: Props) => {
-  const color = (label: string) => {
-    switch (label.toLowerCase()) {
-      case "total":
-        return "blue";
-      case "active"  && "assigned":
-        return "green";
-      case "deactivated" && "faulty":
-        return "red";
-      default:
-        return "yellow";
-    }
-  };
+  // const color = (label: string) => {
+  //   switch (label.toLowerCase()) {
+  //     case "total":
+  //       return "blue";
+  //     case "active"  && "assigned":
+  //       return "green";
+  //     case "deactivated" && "faulty":
+  //       return "red";
+  //     default:
+  //       return "yellow";
+  //   }
+  // };
 
   // const bgColor = (label: string) => {
   //   switch (label.toLowerCase()) {
@@ -36,8 +36,14 @@ const SummaryCards = ({ summaryData }: Props) => {
   //       return "hover:bg-yellow-100 hover:border-yellow-300 hover:text-yellow-600";
   //   }
   // };
+
+  const cardCount = summaryData.length;
   return (
-    <div className="grid grid-cols-4 gap-3 w-full">
+    <div
+      className={twMerge(
+        `grid grid-cols-4 gap-3 w-full grid-cols-${cardCount}`
+      )}
+    >
       {summaryData.map((item) => (
         <div
           key={item.label}

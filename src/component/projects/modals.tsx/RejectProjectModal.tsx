@@ -3,9 +3,10 @@ import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { hidePopup, popupInterface } from "../../../redux/popupSlice";
+import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../Global/ActionPopup";
 import CustomLabel from "../../onboarding/CustomLabel";
+import { popupInterface } from "../../../types";
 
 const RejectProjectChildren = () => {
   const [comment, setComment] = useState("");

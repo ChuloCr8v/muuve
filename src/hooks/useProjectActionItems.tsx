@@ -12,15 +12,12 @@ import { GrAtm } from "react-icons/gr";
 import { PiUserSwitch } from "react-icons/pi";
 import DropdownCustomItem from "../component/Global/DropdownCustomItem";
 import { FiUserCheck } from "react-icons/fi";
-import { useDispatch } from "react-redux";
 
 type Props = {
   handleShowPopup: (e: { stopPropagation: () => void }, action: string) => void;
 };
 
 const useProjectActionItems = ({ handleShowPopup }: Props) => {
-  const dispatch = useDispatch();
-
   // survey action items
   const survetyActionItems: MenuProps["items"] = [
     {

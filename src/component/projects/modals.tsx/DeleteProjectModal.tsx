@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { hidePopup, popupInterface } from "../../../redux/popupSlice";
+import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../Global/ActionPopup";
 import { BiTrashAlt } from "react-icons/bi";
+import { popupInterface } from "../../../types";
 
 const DeleteProjectModal = () => {
   const { currentPopup } = useSelector((state: popupInterface) => state.popups);

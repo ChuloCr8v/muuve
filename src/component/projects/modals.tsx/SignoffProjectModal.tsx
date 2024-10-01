@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { hidePopup, popupInterface } from "../../../redux/popupSlice";
+import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../Global/ActionPopup";
 import { BsCheckCircle } from "react-icons/bs";
+import { popupInterface } from "../../../types";
 
 const SignoffProjectModal = () => {
   const { currentPopup } = useSelector((state: popupInterface) => state.popups);

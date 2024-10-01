@@ -1,7 +1,5 @@
-import { Button, Dropdown, MenuProps, Tag } from "antd";
-import React, { ReactNode, useState } from "react";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import DataTable from "../../Global/DataTable";
+import { Button, Tag } from "antd";
+import { useState } from "react";
 import Reports from "../data/operatioData";
 import TableComponent from "../../Global/TableComponent";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +20,6 @@ export interface DataType {
   due: string;
   status: string;
 }
-
-
 
 export const columns = [
   {
@@ -56,7 +52,7 @@ export const columns = [
     render: (text: string) => (
       <div>
         <Tag className="rounded-2xl text-[11px] font-semibold bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]">
-         {text}
+          {text}
         </Tag>
       </div>
     ),
@@ -102,29 +98,33 @@ export const columns = [
     width: 150,
     render: () => (
       // <Dropdown trigger={["click"]} menu={{ items }}>
-        <Button onClick={(e) => e.stopPropagation()}>Action</Button>
+      <Button onClick={(e) => e.stopPropagation()}>Action</Button>
       // </Dropdown>
     ),
   },
 ];
 
 const ReportsTable = () => {
-  const [data, setData] = useState(null)
-  const navigate = useNavigate()
+  const [_data, setData] = useState(null);
+  const navigate = useNavigate();
 
   const handleRowClick = (record: any) => {
-    setData(record)
-    navigate(`/operations/report/details/${record.id}`, {state: {rowData: record}})
-  }
+    setData(record);
+    navigate(`/operations/report/details/${record.id}`, {
+      state: { rowData: record },
+    });
+  };
 
-  return  <TableComponent
-  columns={columns}
-  dataSource={Reports}
-  scroll={800}
-  onRow={(record: Array<{}>) => ({
-    onClick: () => handleRowClick(record),
-  })}
-/>
+  return (
+    <TableComponent
+      columns={columns}
+      dataSource={Reports}
+      scroll={800}
+      onRow={(record: Array<{}>) => ({
+        onClick: () => handleRowClick(record),
+      })}
+    />
+  );
 };
 
 export default ReportsTable;

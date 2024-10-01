@@ -3,7 +3,7 @@ import { CgAttachment } from "react-icons/cg";
 
 type Props = {
   name: string;
-  size: number;
+  size: string;
 };
 
 const AttachmentCard = ({ name, size }: Props) => {

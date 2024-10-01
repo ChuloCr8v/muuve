@@ -1,13 +1,11 @@
 import { Drawer, Tabs, TabsProps } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  closeProjectDetailsDrawer,
-  popupInterface,
-} from "../../../redux/popupSlice";
+import { closeProjectDetailsDrawer } from "../../../redux/popupSlice";
 import ProjectDetailsDrawerHeading from "../../Global/ProjectDetailsDrawerHeading";
 import StatusTag from "../../Global/StatusTag";
 import SurveyDetails from "./SurveyDetails";
 import SurveyLog from "./SurveyLog";
+import { popupInterface } from "../../../types";
 
 const SurveyDetailsDrawer = () => {
   const { projectDetailsDrawerIsOpen } = useSelector(

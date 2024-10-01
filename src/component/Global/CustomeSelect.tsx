@@ -4,12 +4,12 @@ import { useState } from "react";
 
 const { Option } = Select;
 
-const CustomSelect = ({ items }) => {
+const CustomSelect = ({ items }: any) => {
   const [currentItems, setCurrentItems] = useState(items);
   const [inputVisible, setInputVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: { target: { value: string } }) => {
     setInputValue(e.target.value);
   };
 

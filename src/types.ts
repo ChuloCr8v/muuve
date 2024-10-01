@@ -43,7 +43,7 @@ export interface SelectedProductSummaryType {
 
 export interface SurveyAttachmentIterface {
   name: string;
-  size: number;
+  size: string;
 }
 
 export interface SurveyLogInterface {

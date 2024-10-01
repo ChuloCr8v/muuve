@@ -1,18 +1,14 @@
 import { CloudUploadOutlined, EyeOutlined } from "@ant-design/icons";
 import { MenuProps } from "antd";
-import { BiTrash, BiUserCheck } from "react-icons/bi";
+import { BiTrash } from "react-icons/bi";
 import { CgCloseO } from "react-icons/cg";
 import { GrAtm } from "react-icons/gr";
 import { PiUserSwitch } from "react-icons/pi";
 import { useDispatch, useSelector } from "react-redux";
 import DropdownCustomItem from "../component/Global/DropdownCustomItem";
-import {
-  closeProjectDetailsDrawer,
-  popupInterface,
-  showPopup,
-} from "../redux/popupSlice";
-import { FaUserCheck } from "react-icons/fa";
+import { closeProjectDetailsDrawer, showPopup } from "../redux/popupSlice";
 import { LuUserCheck } from "react-icons/lu";
+import { popupInterface } from "../types";
 
 const useSurveyActionItems = () => {
   const { currentPopup } = useSelector((state: popupInterface) => state.popups);

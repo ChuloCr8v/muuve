@@ -1,24 +1,23 @@
-import {
-  Button,
-  Input,
-  Select,
-} from "antd";
+import { Button, Input, Select } from "antd";
 import { useState } from "react";
 import ActionPopup from "../../component/Global/ActionPopup";
 import Danger from "/public/dangerSvg.svg";
-import { OrderedListOutlined, PlusOutlined, SearchOutlined, WarningOutlined } from "@ant-design/icons";
+import {
+  OrderedListOutlined,
+  PlusOutlined,
+  SearchOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import Header from "../../component/Global/Header";
-import FormPopup, { Props } from "../../component/Global/FormPopup";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
 import ModelTable from "../../component/TableItems/columns/ModelTable";
 import ModelForm from "../../component/inventory/model/ModelForm";
 
-export default function Model(props: Props) {
+export default function Model() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newModel, setNewModel] = useState(false);
-
 
   const summaryCard = [
     {
@@ -43,7 +42,7 @@ export default function Model(props: Props) {
     },
   ];
   return (
-    <div className="space-y-[16px]">
+    <div className="space-y-[16px] p-8">
       <div className="flex items-center justify-between">
         <Header heading={"Device Model"} />
 
@@ -66,11 +65,9 @@ export default function Model(props: Props) {
 
       <SummaryCards summaryData={summaryCard} />
 
-      <ModelTable setNewModel={setNewModel}/>
+      <ModelTable />
 
-      <ModelForm open={newModel} setNewModel={setNewModel}/>
-
-
+      <ModelForm open={newModel} setNewModel={setNewModel} />
 
       <ActionPopup
         open={isModalVisible}

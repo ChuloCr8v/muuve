@@ -9,11 +9,8 @@ import { BiCheckCircle } from "react-icons/bi";
 import { FiUserCheck } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import DropdownCustomItem from "../component/Global/DropdownCustomItem";
-import {
-  closeProjectDetailsDrawer,
-  popupInterface,
-  showPopup,
-} from "../redux/popupSlice";
+import { closeProjectDetailsDrawer, showPopup } from "../redux/popupSlice";
+import { popupInterface } from "../types";
 
 const useJobOrderActionItems = () => {
   const { currentPopup } = useSelector((state: popupInterface) => state.popups);
