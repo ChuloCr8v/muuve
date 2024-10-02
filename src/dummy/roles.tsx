@@ -1,6 +1,6 @@
 export const roles = [
   {
-    title: "Design Manager",
+    roleName: "Design Manager",
     description:
       "Lorem ipsum dolor sit amet consectetur. Amet blandit ut cras facilisis fermentum. Lorem sed tristique lectus sed tempus at lobortis.",
     users: [
@@ -12,7 +12,7 @@ export const roles = [
     reportingTo: "design manager",
   },
   {
-    title: "EB Presales",
+    roleName: "EB Presales",
     description:
       "Lorem ipsum dolor sit amet consectetur. Amet blandit ut cras facilisis fermentum. Lorem sed tristique lectus sed tempus at lobortis.",
     users: [
@@ -26,7 +26,7 @@ export const roles = [
     permissions: [0, 1],
   },
   {
-    title: "Design Engineer",
+    roleName: "Design Engineer",
     description:
       "Lorem ipsum dolor sit amet consectetur. Amet blandit ut cras facilisis fermentum. Lorem sed tristique lectus sed tempus at lobortis.",
     users: [

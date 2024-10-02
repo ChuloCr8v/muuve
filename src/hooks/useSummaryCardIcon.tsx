@@ -12,7 +12,9 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
       case "active" && "available":
         return <VscVmActive />;
       case "deactivated":
+      case "open":
         return <FaBan />;
+
       case "expiring":
         return <IoWarningOutline />;
     }
@@ -25,6 +27,7 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
       case "active" && "available":
         return "bg-green-500 text-green-600";
       case "deactivated":
+      case "open":
         return "bg-red-500 text-red-600";
       default:
         return "bg-yellow-500 text-yellow-600";

@@ -4,13 +4,17 @@ import {
   PlusCircleOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Checkbox, Tooltip } from "antd";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import TableRowData from "../Global/TableRowData";
 import { projectManagementPermissions } from "../../dummy/permissions";
+import RoleMembersDrawer from "./RoleMembersDrawer";
+import AddRoleMemberModal from "./AddRoleMemberModal";
+import { useDispatch } from "react-redux";
+import { openNewRoleModal } from "../../redux/popupSlice";
 
 interface Props {
   role: {
-    title: string;
+    roleName: string;
     description: ReactNode;
     permissions: number[];
     users: { firstName: string; lastName: string }[];
@@ -19,6 +23,11 @@ interface Props {
 }
 
 const RoleSettingsSection = (props: Props) => {
+  const [openRoleMembers, setOpenRoleMembers] = useState(false);
+  const [openAddRoleMemberModal, setOpenAddRoleMemberModal] = useState(false);
+
+  const dispatch = useDispatch();
+
   const checkSelectedPermissions = (
     permissionId: number,
     permissionIDs: number[]
@@ -37,28 +46,40 @@ const RoleSettingsSection = (props: Props) => {
     <div className="role-section w-full flex items-start justify-between gap-12 border-b pb-6">
       <div className="role-info max-w-[600px] w-full space-y-2">
         <TableRowData
-          mainText={props.role.title}
+          mainText={props.role.roleName}
           mainTextStyle="font-semibold"
         />
         <p className="text-grey">{props.role.description}</p>
 
         <div className="flex items-center justify-between">
-          <Avatar.Group>
-            {props.role.users.map((user, index) => (
-              <Tooltip
-                title={user.firstName + " " + user.lastName}
-                placement="top"
-                key={index}
-              >
-                <Avatar className="bg-green-100 text-green-600 !border-green-600 cursor-pointer">
-                  {user.firstName.charAt(0)}
-                  {user.lastName.charAt(0)}
-                </Avatar>
-              </Tooltip>
-            ))}
-          </Avatar.Group>
+          <div className="" onClick={() => setOpenRoleMembers(true)}>
+            <Avatar.Group
+              max={{
+                count: 2,
+                style: {
+                  color: "#67c489",
+                  backgroundColor: "#dcfce7",
+                  borderColor: "#67c489",
+                },
+              }}
+            >
+              {props.role.users.map((user, index) => (
+                <Tooltip
+                  title={user.firstName + " " + user.lastName}
+                  placement="top"
+                  key={index}
+                >
+                  <Avatar className="bg-green-100 text-green-600 !border-green-600 cursor-pointer">
+                    {user.firstName.charAt(0)}
+                    {user.lastName.charAt(0)}
+                  </Avatar>
+                </Tooltip>
+              ))}
+            </Avatar.Group>
+          </div>
 
           <Button
+            onClick={() => setOpenAddRoleMemberModal(true)}
             icon={<PlusCircleOutlined />}
             type="link"
             className="text-primary"
@@ -80,7 +101,20 @@ const RoleSettingsSection = (props: Props) => {
         <div className="bg-[#379D511F] px-2 py-1 flex items-center justify-between">
           <TableRowData mainText="Permissions" mainTextStyle="font-semibold" />
 
-          <Button type="link" className="text-black" icon={<EditOutlined />}>
+          <Button
+            onClick={() =>
+              dispatch(
+                openNewRoleModal({
+                  module: props.role.roleName,
+                  action: "editRole",
+                  data: props.role,
+                })
+              )
+            }
+            type="link"
+            className="text-black"
+            icon={<EditOutlined />}
+          >
             Edit
           </Button>
         </div>
@@ -109,6 +143,19 @@ const RoleSettingsSection = (props: Props) => {
           ))}
         </div>
       </div>
+
+      <RoleMembersDrawer
+        title={props.role.roleName}
+        users={props.role.users}
+        isOpen={openRoleMembers}
+        setIsOpen={setOpenRoleMembers}
+      />
+
+      <AddRoleMemberModal
+        isOpen={openAddRoleMemberModal}
+        setIsOpen={setOpenAddRoleMemberModal}
+        title={props.role.roleName}
+      />
     </div>
   );
 };

@@ -18,9 +18,7 @@ export default function Header(props: Prop) {
          <MenuFoldOutlined onClick={() => setCollapse(!collapse)} className='hidden md:flex text-xl hover:text-[#0A96CC]'/>
          <MenuFoldOutlined onClick={() => open(true)} className='md:hidden flex text-xl hover:text-[#0A96CC]'/>
       </div>
-      <Account user={'Modesta Ekeh'} role={'UI/UX'}/>
-
-     
+      <Account user={"Modesta Ekeh"} role={"UI/UX"} />
     </header>
   );
 }

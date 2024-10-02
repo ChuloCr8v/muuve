@@ -5,103 +5,48 @@ import { useDispatch, useSelector } from "react-redux";
 import TableRowData from "../../component/Global/TableRowData";
 import CustomLabel from "../../component/onboarding/CustomLabel";
 import { closeNewRoleModal } from "../../redux/popupSlice";
-
-interface FormDataTypes {
-  label: string;
-  name: string;
-  value: string | boolean;
-  type: string;
-  options?: { label: string; value: string }[];
-  required?: boolean;
-}
+import { NewRoleFormDataTypes } from "../../types";
+import { newRoleFormFields } from "../../dummy/newRoleFormFields";
 
 interface NewRoleModalInterface {
-  popups: { newRoleModalIsOpen: { isOpen: boolean; module: string } };
+  popups: {
+    newRoleModalIsOpen: {
+      isOpen: boolean;
+      module: string;
+      data: [];
+      action: string;
+    };
+  };
 }
 
-const newRoleFormFields = [
-  {
-    label: "Role Name",
-    name: "roleName",
-    value: "",
-    type: "text-input",
-    required: true,
-  },
-  {
-    label: "Description",
-    name: "description",
-    value: "",
-    type: "textarea",
-    required: true,
-  },
-  {
-    label: "Assign To",
-    name: "assignTo",
-    value: "",
-    type: "select",
-    required: true,
-    options: [
-      {
-        label: "Modesta Ekeh",
-        value: "Modesta Ekeh",
-      },
-      {
-        label: "Kehinde Ayoola",
-        value: "Kehinde Ayoola",
-      },
-    ],
-  },
-  {
-    label: "Reporting To",
-    name: "reportingTo",
-    value: "",
-    type: "select",
-    required: true,
-    options: [
-      {
-        label: "Design Manager",
-        value: "Design Manager",
-      },
-      {
-        label: "Design Engineer",
-        value: "Design Engineer",
-      },
-    ],
-  },
-  {
-    label: "Can create report",
-    name: "canCreateReport",
-    value: false,
-    type: "checkbox",
-  },
-  {
-    label: "Can view all reports",
-    name: "canViewReport",
-    value: false,
-    type: "checkbox",
-  },
-  {
-    label: "Can edit all reports",
-    name: "canEditReport",
-    value: false,
-    type: "checkbox",
-  },
-  {
-    label: "Can delete all reports",
-    name: "canDeleteReport",
-    value: false,
-    type: "checkbox",
-  },
-];
-
 const NewRoleModal = () => {
-  const [formData, setFormData] = useState<FormDataTypes[]>(newRoleFormFields);
   const { newRoleModalIsOpen } = useSelector(
     (state: NewRoleModalInterface) => state.popups
   );
-  const { isOpen, module } = newRoleModalIsOpen;
+
+  const { isOpen, module, action } = newRoleModalIsOpen;
+  const [formData, setFormData] =
+    useState<NewRoleFormDataTypes[]>(newRoleFormFields);
 
   const dispatch = useDispatch();
+
+  // console.log(data);
+  // console.log(formData);
+
+  // useEffect(() => {
+  //   const assignValues = {
+  //     label: data.roleName,
+  //     description: data.description,
+  //     users: data.users,
+  //     permissions: data.permissions,
+  //   };
+  //   // console.log(assignValues);
+
+  //   const updateToEdit = formData.find((d) => d.name === data.roleName);
+  //   console.log(updateToEdit);
+
+  //   // setFormData(action === "editRole" ? assignValues : newRoleFormFields);
+  // }, [action]);
 
   // Handle change for all types of input
   const handleChange = (name: string, value: string | boolean) => {
@@ -133,14 +78,15 @@ const NewRoleModal = () => {
       {}
     );
 
-    console.log(formFields); // The object with form data
+    console.log(formFields);
   };
+
   return (
     <Drawer
       width={500}
       title={
         <p className="text-xl">
-          New Role{" "}
+          {action === "editRole" ? "Edit" : "New"} Role{" "}
           <span className="capitalize text-grey font-normal"> | {module}</span>
         </p>
       }
@@ -196,6 +142,7 @@ const NewRoleModal = () => {
               )}
             </Form.Item>
           ))}
+
         <div className="space-y-2">
           <div className="flex items-center justify-between bg-[#379D511F] py-2 px-4 rounded w-full mt-6">
             <TableRowData

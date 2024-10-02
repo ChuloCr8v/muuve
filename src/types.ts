@@ -136,12 +136,15 @@ export interface popupInterface {
   popups: {
     currentPopup: PopupDataInterface;
     projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
+    newTicketDrawerIsOpen: boolean;
   };
 }
 
 export interface newRoleModalInterface {
   isOpen: boolean;
   module: string;
+  action?: string;
+  data?: [];
 }
 
 export interface deactivateServiceInterface {
@@ -154,4 +157,26 @@ export interface popupState {
   projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
   newRoleModalIsOpen: newRoleModalInterface;
   deactivateServiceModalIsOpen: deactivateServiceInterface;
+  newTicketDrawerIsOpen: boolean;
+}
+
+export interface TicketsDataType {
+  id: string;
+  subject: string;
+  category: string;
+  customer: string;
+  organization: string;
+  severity: string;
+  sla: number;
+  status: string;
+  assignee?: string;
+}
+
+export interface NewRoleFormDataTypes {
+  label: string;
+  name: string;
+  value: string | boolean;
+  type: string;
+  options?: { label: string; value: string }[];
+  required?: boolean;
 }
