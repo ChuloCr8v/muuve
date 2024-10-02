@@ -53,7 +53,10 @@ const BillingModuleCards = () => {
   return (
     <div className="bg-white flex gap-4 w-full overflow-x-scroll billing-settings">
       {products.map((product) => (
-        <div className="border rounded-md max-w-[600px] w-full p-4 space-y-3">
+        <div
+          key={product.id}
+          className="border rounded-md max-w-[600px] w-full p-4 space-y-3"
+        >
           <TableRowData
             mainText={product.moduleTitle}
             tagText={"NGN" + product.cost.toLocaleString()}

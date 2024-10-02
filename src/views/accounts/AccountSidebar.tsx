@@ -24,11 +24,11 @@ const AccountSidebar = () => {
     <div className="bg-white relative border-r h-screen overflow-hidden w-[250px]">
       <div className="w-[200px] accounts-sidebar space-y-3 p-4">
         <Heading heading="Account" />
-        <div className="flex flex-col items-start w-full">
+        <div className="flex flex-col items-start w-full gap-2">
           {menuItems.map((item) => (
             <Link
               className={twMerge(
-                "w-full hover:text-primary hover:bg-primary !bg-opacity-20 rounded-md p-1 px-2 text-grey duration-150 capitalize",
+                "w-full hover:text-primary hover:bg-primary !bg-opacity-20 rounded-md p-1 px-2 text-grey duration-150 capitalize text-sm",
                 pathname === item.url && "text-primary bg-primary "
               )}
               to={item.url}

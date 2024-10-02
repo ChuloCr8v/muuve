@@ -1,0 +1,168 @@
+export const ticketsData = [
+  {
+    id: "123-456-789",
+    subject: "Payment Question",
+    category: "Finance",
+    customer: "Modesta Ekeh",
+    organization: "Zoracom",
+    severity: "critical",
+    sla: 1729387200000,
+    status: "assigned",
+    assignee: "Stefflondon",
+  },
+  {
+    id: "123-4562-7890",
+    subject: "Payment Question",
+    category: "Finance",
+    customer: "Kehide Ayoola",
+    organization: "Kenny Spree",
+    severity: "medium",
+    sla: 1732387200000,
+    status: "open",
+  },
+  {
+    id: "123-4561-789",
+    subject: "Payment Question",
+    category: "Finance",
+    customer: "Stefflon Don",
+    organization: "Kenny Spree",
+    severity: "low",
+    sla: 1735387200000,
+    status: "closed",
+  },
+  {
+    id: "1234-4560-789",
+    subject: "Payment Question",
+    category: "Finance",
+    customer: "Stefflon Don",
+    organization: "Kenny Spree",
+    severity: "high",
+    sla: 1725688300000,
+    status: "pending",
+  },
+  {
+    id: "1234-4569-789",
+    subject: "Payment Question",
+    category: "Finance",
+    customer: "Stefflon Don",
+    organization: "Stefflondon Inc",
+    severity: "high",
+    sla: 1725688300000,
+    status: "escalated",
+    assignee: "Glad Ifeagwu",
+  },
+  {
+    id: "1234-4569-789",
+    subject: "Payment Question",
+    category: "Finance",
+    customer: "Stefflon Don",
+    organization: "Kenny Spree",
+    severity: "high",
+    sla: 1725688300000,
+    status: "resolved",
+  },
+  {
+    id: "1234-4569-789",
+    subject: "Payment Question",
+    category: "Finance",
+    customer: "Stefflon Don",
+    organization: "Kenny Spree",
+    severity: "high",
+    sla: 1725688300000,
+    status: "escalated",
+    assignee: "Leo Aso",
+  },
+];
+
+export const newTicketFormFields = [
+  {
+    label: "Subject",
+    name: "subject",
+    type: "text-input",
+    value: "",
+    required: true,
+  },
+  {
+    label: "Description",
+    name: "description",
+    type: "text-area",
+    value: "",
+    required: true,
+  },
+  {
+    label: "Customer",
+    name: "customer",
+    type: "select",
+    value: "",
+    required: true,
+    options: [
+      {
+        label: "Modesta Ekeh",
+        value: "modestaEkeh",
+      },
+      {
+        label: "Stefflon Don",
+        value: "stefflonDon",
+      },
+    ],
+  },
+  {
+    label: "Severity",
+    name: "severity",
+    type: "buttons",
+    value: "",
+    required: true,
+    options: [
+      {
+        label: "Critical",
+        value: "critical",
+      },
+      {
+        label: "High",
+        value: "high",
+      },
+      {
+        label: "Medium",
+        value: "medium",
+      },
+      {
+        label: "Low",
+        value: "low",
+      },
+    ],
+  },
+  {
+    label: "Category",
+    name: "category",
+    type: "select",
+    value: "",
+    required: true,
+    options: [
+      {
+        label: "Billing",
+        value: "billing",
+      },
+      {
+        label: "Support",
+        value: "Support",
+      },
+    ],
+  },
+  {
+    label: "Assignee",
+    name: "assignee",
+    type: "select",
+    value: "",
+    required: true,
+    options: [
+      {
+        label: "Modesta Ekeh",
+        value: "modestaEkeh",
+      },
+      {
+        label: "Stefflon Don",
+        value: "stefflonDon",
+      },
+    ],
+  },
+];

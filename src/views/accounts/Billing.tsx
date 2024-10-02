@@ -65,7 +65,7 @@ const columns = [
     title: "Description",
     dataIndex: "description",
     key: "description",
-    width: 400,
+    width: 300,
   },
   {
     title: "No of Services",

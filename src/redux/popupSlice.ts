@@ -15,11 +15,14 @@ const initialState: popupState = {
   newRoleModalIsOpen: {
     isOpen: false,
     module: "",
+    action: "",
+    data: [],
   },
   deactivateServiceModalIsOpen: {
     isOpen: false,
     data: [],
   },
+  newTicketDrawerIsOpen: false,
 };
 
 const popupSlice = createSlice({
@@ -51,12 +54,16 @@ const popupSlice = createSlice({
 
     openNewRoleModal: (state, action) => {
       state.newRoleModalIsOpen.isOpen = true;
-      state.newRoleModalIsOpen.module = action.payload;
+      state.newRoleModalIsOpen.module = action.payload.module;
+      state.newRoleModalIsOpen.data = action.payload.data;
+      state.newRoleModalIsOpen.action = action.payload.action;
     },
 
     closeNewRoleModal: (state) => {
       state.newRoleModalIsOpen.isOpen = false;
       state.newRoleModalIsOpen.module = "";
+      state.newRoleModalIsOpen.data = [];
+      state.newRoleModalIsOpen.action = "";
     },
 
     openDeactivateServiceModal: (state, action) => {
@@ -67,6 +74,14 @@ const popupSlice = createSlice({
     closeDeactivateServiceModal: (state) => {
       state.deactivateServiceModalIsOpen.isOpen = false;
       state.deactivateServiceModalIsOpen.data = [];
+    },
+
+    openNewTicketDrawer: (state) => {
+      state.newTicketDrawerIsOpen = true;
+    },
+
+    closeNewTicketDrawer: (state) => {
+      state.newTicketDrawerIsOpen = false;
     },
   },
 });
@@ -80,6 +95,8 @@ export const {
   closeNewRoleModal,
   openDeactivateServiceModal,
   closeDeactivateServiceModal,
+  openNewTicketDrawer,
+  closeNewTicketDrawer,
 } = popupSlice.actions;
 
 export default popupSlice.reducer;

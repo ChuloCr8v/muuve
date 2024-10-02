@@ -42,27 +42,30 @@ const Role = () => {
     {
       key: "1",
       label: <p>Project Management</p>,
-      onClick: () => dispatch(openNewRoleModal("project management")),
+      onClick: () =>
+        dispatch(openNewRoleModal({ module: "project management" })),
     },
     {
       key: "2",
       label: <p>Billing System</p>,
-      onClick: () => dispatch(openNewRoleModal("billing system")),
+      onClick: () => dispatch(openNewRoleModal({ module: "billing system" })),
     },
     {
       key: "3",
       label: <p>Incident Management</p>,
-      onClick: () => dispatch(openNewRoleModal("incident management")),
+      onClick: () =>
+        dispatch(openNewRoleModal({ module: "incident management" })),
     },
     {
       key: "4",
       label: <p>Vendor Management</p>,
-      onClick: () => dispatch(openNewRoleModal("vendor management")),
+      onClick: () =>
+        dispatch(openNewRoleModal({ module: "vendor management" })),
     },
     {
       key: "5",
       label: <p>Inventory System</p>,
-      onClick: () => dispatch(openNewRoleModal("inventory system")),
+      onClick: () => dispatch(openNewRoleModal({ module: "inventory system" })),
     },
   ];
 

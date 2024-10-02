@@ -1,7 +1,10 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, MenuProps } from "antd";
+import { useNavigate } from "react-router-dom";
 
 export default function Account(props: { user: string; role: string }) {
+  const navigate = useNavigate();
+
   const items: MenuProps["items"] = [
     {
       key: 1,
@@ -21,7 +24,8 @@ export default function Account(props: { user: string; role: string }) {
     },
     {
       key: 2,
-      label: "Profile",
+      label: "Account",
+      onClick: () => navigate("/account/settings"),
     },
     {
       key: 3,
