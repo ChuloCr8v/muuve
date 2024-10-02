@@ -183,3 +183,8 @@ body {
 .role-section:last-child {
   border-bottom: none;
 }
+
+
+:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range input, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range textarea, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range .ant-input-show-count-suffix, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range .ant-input-data-count {
+  color: inherit;
+}

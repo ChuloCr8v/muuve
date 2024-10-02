@@ -1,9 +1,11 @@
 import { Button, Drawer, Dropdown, Input, MenuProps } from "antd";
 import { useState } from "react";
 import {
+  CheckOutlined,
   DownOutlined,
   FormOutlined,
   OrderedListOutlined,
+  PlusOutlined,
   SearchOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
@@ -14,11 +16,18 @@ import { VscVmActive } from "react-icons/vsc";
 import MaintenanceTable from "../../component/TableItems/columns/MiantenanceTable";
 import ScheduleForm from "../../component/operations/maintenance/ScheduleForm";
 import EmmergencyForm from "../../component/operations/maintenance/EmmergencyForm";
+import { Link } from "react-router-dom";
+
+interface Prop {
+  
+}
 
 export default function Maintenance() {
   // const [isModalVisible, setIsModalVisible] = useState(false);
   const [newMaintenance, setNewMaintenance] = useState(false);
   const [selectedForm, setSelectedForm] = useState("");
+
+  const url = '/operations/maintenance/preview'
 
   const switchForm = (key: any) => {
     setSelectedForm(key);
@@ -82,15 +91,21 @@ export default function Maintenance() {
 
         <section className="flex items-center gap-[16px]">
           <Input className="w-[300px]" prefix={<SearchOutlined />} />
-          <Button>Generate Report</Button>
+          <Link to={url}>
+          <Button>
+              <span>Review Reports</span>
+              <CheckOutlined/>
+          </Button>
+          </Link>
+         
           <Button>Refresh</Button>
 
-          <Dropdown menu={{ items }} trigger={["hover"]}>
-            <Button className="flex items-center " type="primary">
+          {/* <Dropdown menu={{ items }} trigger={["hover"]}> */}
+            <Button onClick={() => setNewMaintenance(true)} className="flex items-center " type="primary">
               <span>Add Maintenance</span>
-              <DownOutlined />
+              <PlusOutlined />
             </Button>
-          </Dropdown>
+          {/* </Dropdown> */}
         </section>
       </div>
 
@@ -99,11 +114,13 @@ export default function Maintenance() {
       <MaintenanceTable />
 
       <Drawer
+      closeIcon={null}
+      title="Add Scheduled Maintenance"
         width={450}
         open={newMaintenance}
         onClose={() => setNewMaintenance(false)}
       >
-        {render()}
+       <ScheduleForm/>
       </Drawer>
     </div>
   );

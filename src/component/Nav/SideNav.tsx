@@ -49,14 +49,14 @@ const Sidenav: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen pt-[24px] pb-[35px] ">
-      <div className="w-full text-center mb-[28px]">
+    <div className="flex flex-col w-full min-h-screen  ">
+      {/* <div className="w-full text-center mb-[28px]">
         <img src={Logo} alt="Logo" className="w-[70px] m-auto h-[32px]" />
         <span>Service Management</span>
-      </div>
+      </div> */}
       <section className="space-y-[16px]">
         {menuItems.map((item, index) => {
-          const hasActiveSubmenu = item.submenus.some(
+          const hasActiveSubmenu = item.submenu?.some(
             (submenu) => window.location.pathname === submenu.href
           );
           return (

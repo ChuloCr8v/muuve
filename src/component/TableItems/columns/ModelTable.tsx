@@ -13,14 +13,26 @@ import ModelData from "../data/ModelData";
 import { useState } from "react";
 import ModelDetails from "../../inventory/model/ModelDetails";
 
-export default function ModelTable() {
-  const [selectedRow, setSelectedRow] = useState(null);
+interface Prop{
+  selectedRow: any
+  setSelectedRow: any
+  setNewModel: any
+}
+
+export default function ModelTable(props: Prop) {
+  const {selectedRow, setSelectedRow, setNewModel} = props
+ 
   const [modelDetails, setModelDetails] = useState(false);
 
   const handleRowClick = (record: any) => {
     setSelectedRow(record);
     setModelDetails(true);
   };
+
+  const HandleEdit = (record: any) => {
+    setSelectedRow(record)
+    setNewModel(true)
+  }
 
   const items = (record: any): MenuProps["items"] => [
     {
@@ -33,8 +45,11 @@ export default function ModelTable() {
       key: "2",
       label: "Edit Model",
       icon: <EyeOutlined />,
+      onClick: () => HandleEdit(record),
     },
   ];
+
+
 
   const column = [
     {

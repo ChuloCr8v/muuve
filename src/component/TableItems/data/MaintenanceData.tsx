@@ -6,7 +6,8 @@ export const maintenance = [
         proDate: 'November 2022',
         status: 'PENDING',
         SPOC: 'Mistura Salau',
-        recshedule: 'December 3028'
+        recshedule: 'December 3028',
+        file: '/file.pdf'
 
     },
     {
@@ -16,7 +17,8 @@ export const maintenance = [
         proDate: 'November 2022',
         status: 'ACCEPTED',
         SPOC: 'Mistura Salau',
-        recshedule: 'December 3028'
+        recshedule: 'December 3028',
+        file: '/file2.pdf'
 
     },
     {
@@ -26,7 +28,8 @@ export const maintenance = [
         proDate: 'November 2022',
         status: 'REJECTED',
         SPOC: 'Mistura Salau',
-        recshedule: 'December 3028'
+        recshedule: 'December 3028',
+        file: '/file.pdf'
 
     },
     {
@@ -36,7 +39,8 @@ export const maintenance = [
         proDate: 'November 2022',
         status: 'PENDING',
         SPOC: 'Mistura Salau',
-        recshedule: 'December 3028'
+        recshedule: 'December 3028',
+        file: '/file.pdf'
 
     },
     {
@@ -46,7 +50,8 @@ export const maintenance = [
         proDate: 'November 2022',
         status: 'PENDING',
         SPOC: 'Mistura Salau',
-        recshedule: 'December 3028'
+        recshedule: 'December 3028',
+        file: '/file.pdf'
 
     },
 
