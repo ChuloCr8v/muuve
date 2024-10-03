@@ -1,12 +1,12 @@
 import { Button, Checkbox, Drawer, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TableRowData from "../../component/Global/TableRowData";
 import CustomLabel from "../../component/onboarding/CustomLabel";
+import { newRoleFormFields } from "../../dummy/newRoleFormFields";
 import { closeNewRoleModal } from "../../redux/popupSlice";
 import { NewRoleFormDataTypes } from "../../types";
-import { newRoleFormFields } from "../../dummy/newRoleFormFields";
 
 interface NewRoleModalInterface {
   popups: {
@@ -24,31 +24,29 @@ const NewRoleModal = () => {
     (state: NewRoleModalInterface) => state.popups
   );
 
-  const { isOpen, module, action } = newRoleModalIsOpen;
+  const { isOpen, module, action, data } = newRoleModalIsOpen;
   const [formData, setFormData] =
     useState<NewRoleFormDataTypes[]>(newRoleFormFields);
 
   const dispatch = useDispatch();
 
-  // console.log(data);
-  // console.log(formData);
+  useEffect(() => {
+    if (action === "editRole") {
+      const updatedFormData = [...formData];
 
-  // useEffect(() => {
-  //   const assignValues = {
-  //     label: data.roleName,
-  //     description: data.description,
-  //     users: data.users,
-  //     permissions: data.permissions,
-  //   };
-  //   // console.log(assignValues);
+      Object.keys(data).forEach((key) => {
+        const updateToEdit = updatedFormData.find((d) => d.name === key);
+        if (updateToEdit) {
+          updateToEdit.value = data[key];
+        }
+      });
 
-  //   const updateToEdit = formData.find((d) => d.name === data.roleName);
-  //   console.log(updateToEdit);
+      setFormData(updatedFormData);
+    } else {
+      setFormData(newRoleFormFields);
+    }
+  }, [action]);
 
-  //   // setFormData(action === "editRole" ? assignValues : newRoleFormFields);
-  // }, [action]);
-
-  // Handle change for all types of input
   const handleChange = (name: string, value: string | boolean) => {
     setFormData((prevFormData) =>
       prevFormData.map((field) =>

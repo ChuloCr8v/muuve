@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Heading from "../../component/Global/Header";
 import SummaryCards from "../../component/Global/SummaryCards";
 import TableComponent from "../../component/Global/TableComponent";
@@ -8,6 +9,7 @@ import TicketsFilters from "./TicketsFilters";
 
 export default function Tickets() {
   const { ticketTableColumns } = useTicketsColumns();
+  const navigate = useNavigate();
 
   const summaryData = [
     {
@@ -24,6 +26,10 @@ export default function Tickets() {
     },
   ];
 
+  const handleRowClick = (ticketID: string) => {
+    navigate(`/incidence/tickets/${ticketID}`);
+  };
+
   return (
     <div className="p-4 pt-8">
       <div className="space-y-3">
@@ -33,7 +39,13 @@ export default function Tickets() {
         </div>
 
         <SummaryCards summaryData={summaryData} />
-        <TableComponent columns={ticketTableColumns} dataSource={ticketsData} />
+        <TableComponent
+          onRow={(record) => ({
+            onClick: () => handleRowClick(record.id),
+          })}
+          columns={ticketTableColumns}
+          dataSource={ticketsData}
+        />
       </div>
 
       {/* New Ticket Form */}

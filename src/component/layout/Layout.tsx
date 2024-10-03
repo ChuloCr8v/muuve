@@ -4,27 +4,43 @@ import SideNav from "./SideNav";
 import Header from "./Header";
 import { twMerge } from "tailwind-merge";
 import { Drawer } from "antd";
-
+import ResetPasswordModal from "../ResetPasswordModal";
 
 export default function Layout(props: { children: ReactNode }) {
-  const [collapse, setCollapse] = useState(false)
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const [collapse, setCollapse] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <div className="flex max-h-screen bg-gray-50 overflow-x-hidden w-[100vw] ">
       <div className=" flex w-screen ">
-        <div className={twMerge(
-          'min-h-[100vh] bg-[#EFF7FB] hidden md:flex py-[18px] ',
-          collapse ? 'w-[50px] shadow-md' :'w-[250px]'
-        )}>
-          <SideNav  collapse={collapse}/>
+        <div
+          className={twMerge(
+            "min-h-[100vh] bg-[#EFF7FB] hidden md:flex py-[18px] ",
+            collapse ? "w-[50px] shadow-md" : "w-[250px]"
+          )}
+        >
+          <SideNav collapse={collapse} />
         </div>
 
         <div className="">
-          <div className={twMerge('h-[72px] w-[100vw]  bg-white pt-[20px] items-center px-[24px] border-b-[1px] border-[var(--greygrey-400-f-0-f-1-f-3, #F0F1F3)]', collapse ? 'md:w-[calc(100vw-50px)]' : 'md:w-[calc(100vw-230px)]')}>
-            <Header open={setOpenDrawer} setCollapse={setCollapse} collapse={collapse}/>
+          <div
+            className={twMerge(
+              "h-[72px] w-[100vw]  bg-white pt-[20px] items-center px-[24px] border-b-[1px] border-[var(--greygrey-400-f-0-f-1-f-3, #F0F1F3)]",
+              collapse ? "md:w-[calc(100vw-50px)]" : "md:w-[calc(100vw-230px)]"
+            )}
+          >
+            <Header
+              open={setOpenDrawer}
+              setCollapse={setCollapse}
+              collapse={collapse}
+            />
           </div>
 
-          <div className={twMerge('h-[calc(100vh-122px)]  w-[100vw]  overflow-y-auto', collapse ? 'md:w-[calc(100vw-50px)]' :'md:w-[calc(100vw-230px)]')}>
+          <div
+            className={twMerge(
+              "h-[calc(100vh-122px)]  w-[100vw]  overflow-y-auto",
+              collapse ? "md:w-[calc(100vw-50px)]" : "md:w-[calc(100vw-230px)]"
+            )}
+          >
             <div className="relative z-10">{props.children}</div>
             <img
               className="absolute z-0 md:left-[40%] lg:bottom-[calc(100vh*0.2)] md:bottom-[calc(100vh*0.05)] bottom-[calc(100vh*0.3)] left-[20%] md:w-[400px] w-[60%] "
@@ -46,10 +62,17 @@ export default function Layout(props: { children: ReactNode }) {
 
         <PrivacyInfo open={showModal}/> */}
         </div>
-        <Drawer placement="left" width={250}  open={openDrawer} onClose={() => setOpenDrawer(false)}>
-            <SideNav collapse={collapse}/>
+        <Drawer
+          placement="left"
+          width={250}
+          open={openDrawer}
+          onClose={() => setOpenDrawer(false)}
+        >
+          <SideNav collapse={collapse} />
         </Drawer>
       </div>
+
+      <ResetPasswordModal />
     </div>
   );
 }

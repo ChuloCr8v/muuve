@@ -11,6 +11,8 @@ interface ActionPopupProps {
   sendButtonStyle?: string;
   icon?: ReactNode;
   onOk?: () => void;
+  footer?: boolean;
+  actionBtnDisabled?: boolean;
 }
 
 const ActionPopup: React.FC<ActionPopupProps> = ({
@@ -22,6 +24,8 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
   children,
   icon,
   sendButtonStyle,
+  footer,
+  actionBtnDisabled,
 }) => {
   return (
     <Modal
@@ -51,18 +55,23 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
           <div>{children}</div>
         </section>
 
-        <section className="flex space-x-3 justify-center py-2">
-          <Button type="default" className="w-[144px]" onClick={onCancel}>
-            Cancel
-          </Button>
-          <Button
-            onClick={onOk}
-            type="primary"
-            className={`w-[144px] capitalize ${sendButtonStyle}`}
-          >
-            {sendButtonText}
-          </Button>
-        </section>
+        {footer !== false ? (
+          <section className="flex space-x-3 justify-center py-2">
+            <Button type="default" className="w-[144px]" onClick={onCancel}>
+              Cancel
+            </Button>
+            <Button
+              disabled={actionBtnDisabled}
+              onClick={onOk}
+              type="primary"
+              className={`w-[144px] capitalize ${sendButtonStyle}`}
+            >
+              {sendButtonText}
+            </Button>
+          </section>
+        ) : (
+          ""
+        )}
       </div>
     </Modal>
   );
