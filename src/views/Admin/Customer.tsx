@@ -8,7 +8,9 @@ import {
   Modal,
   Form,
   message,
+  Drawer,
 } from "antd";
+
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
@@ -20,12 +22,10 @@ import {
 } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 import Heading from "../../component/Global/Header";
-import NewStaff from "../../component/onboarding/admin/NewStaff";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import CustomerDropButton from "../../component/customer/CustomerDropDown";
 
-// Define type for customer data
 interface CustomerData {
   id: string;
   name: string;
@@ -34,7 +34,6 @@ interface CustomerData {
   status: "Active" | "Inactive";
 }
 
-// Define props for Table's columns
 export interface ActionProps {
   customer: CustomerData;
   onEdit: (customer: CustomerData) => void;
@@ -42,32 +41,62 @@ export interface ActionProps {
 }
 
 export default function Customer() {
-  const [newStaff, setNewStaff] = useState<boolean>(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData | null>(
-    null
-  );
-  const [editModalVisible, setEditModalVisible] = useState<boolean>(false);
-  const [deactivateModalVisible, setDeactivateModalVisible] =
-    useState<boolean>(false);
+  const data: CustomerData[] = [
+    {
+      id: "CUS1200",
+      name: "Modesta Ekeh",
+      email: "modesta@xyz.com",
+      phone: "08165785436",
+      status: "Active",
+    },
+    {
+      id: "CUS1201",
+      name: "John Doe",
+      email: "john@xyz.com",
+      phone: "08165785437",
+      status: "Inactive",
+    },
+    {
+      id: "CUS1202",
+      name: "Jane Doe",
+      email: "jane@xyz.com",
+      phone: "08165785438",
+      status: "Active",
+    },
+    {
+      id: "CUS1203",
+      name: "Alice Doe",
+      email: "alice@xyz.com",
+      phone: "08165785439",
+      status: "Inactive",
+    },
+    {
+      id: "CUS1204",
+      name: "Bob Doe",
+      email: "bob@xyz.com",
+      phone: "08165785440",
+      status: "Active",
+    },
+  ];
+
+  // const [newStaff, setNewStaff] = useState<boolean>(false);
+  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData | null>(null);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [deactivateModalVisible, setDeactivateModalVisible] = useState<boolean>(false);
   const [form] = Form.useForm();
 
-  const showEditModal = (customer: CustomerData) => {
+  const [searchText, setSearchText] = useState<string>(""); // Added state for search input
+  const [filteredData, setFilteredData] = useState<CustomerData[]>(data); // State for filtered data
+
+  const openEditDrawer = (customer: CustomerData) => {
     setSelectedCustomer(customer);
     form.setFieldsValue(customer);
-    setEditModalVisible(true);
+    setDrawerVisible(true);
   };
 
   const showDeactivateModal = (customer: CustomerData) => {
     setSelectedCustomer(customer);
     setDeactivateModalVisible(true);
-  };
-
-  const handleEditSubmit = () => {
-    form.validateFields().then((values) => {
-      message.success("Customer updated successfully");
-      setEditModalVisible(false);
-      console.log(values);
-    });
   };
 
   const handleDeactivate = () => {
@@ -77,6 +106,16 @@ export default function Customer() {
       );
       setDeactivateModalVisible(false);
     }
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchText(value);
+    const filtered = data.filter((customer) =>
+      customer.name.toLowerCase().includes(value.toLowerCase()) ||
+      customer.email.toLowerCase().includes(value.toLowerCase()) ||
+      customer.phone.includes(value)
+    );
+    setFilteredData(filtered);
   };
 
   const columns = [
@@ -141,7 +180,7 @@ export default function Customer() {
                 key: "1",
                 label: "Edit",
                 icon: <EditOutlined />,
-                onClick: () => showEditModal(record),
+                onClick: () => selectedCustomer && openEditDrawer(selectedCustomer),
               },
               {
                 key: "2",
@@ -161,51 +200,20 @@ export default function Customer() {
     },
   ];
 
-  const data: CustomerData[] = [
-    {
-      id: "CUS1200",
-      name: "Modesta Ekeh",
-      email: "modesta@xyz.com",
-      phone: "08165785436",
-      status: "Active",
-    },
-    {
-      id: "CUS1201",
-      name: "John Doe",
-      email: "john@xyz.com",
-      phone: "08165785437",
-      status: "Inactive",
-    },
-    {
-      id: "CUS1202",
-      name: "Jane Doe",
-      email: "jane@xyz.com",
-      phone: "08165785438",
-      status: "Active",
-    },
-    {
-      id: "CUS1203",
-      name: "Alice Doe",
-      email: "alice@xyz.com",
-      phone: "08165785439",
-      status: "Inactive",
-    },
-    {
-      id: "CUS1204",
-      name: "Bob Doe",
-      email: "bob@xyz.com",
-      phone: "08165785440",
-      status: "Active",
-    },
-  ];
-
   return (
     <div className="space-y-[16px] body-pad p-8">
       <section className="flex items-center justify-between">
         <Heading heading={"Customer "} />
         <div className="flex space-x-[16px]">
-          <Input className="w-[400px]" prefix={<SearchOutlined />} />
-          <Button className="flex items-center">
+          <Input
+            className="w-[400px]"
+            prefix={<SearchOutlined />}
+            value={searchText}
+            onChange={(e) => handleSearch(e.target.value)} // Search handler added
+            placeholder="Search by name, email, or phone"
+          />
+          <Button className="flex items-center" onClick={() => setFilteredData(data)}>
+            {/* Reset search to full data */}
             <span className="mt-1">Refresh</span>
             <SyncOutlined />
           </Button>
@@ -226,65 +234,58 @@ export default function Customer() {
           scroll={{ x: 800 }}
           size="small"
           columns={columns as any}
-          dataSource={data}
+          dataSource={filteredData}
+          
         />
       </section>
 
-      <Modal
+      <Drawer
         title="Edit Customer"
-        visible={editModalVisible}
-        onCancel={() => setEditModalVisible(false)}
-        onOk={handleEditSubmit}
-        okText="Save"
-        width={420}
+        visible={drawerVisible}
+        onClose={() => setDrawerVisible(false)}
+        width={400}
       >
-        <Form form={form} layout="vertical" className="text-sm">
+        <Form form={form} layout="vertical">
           <Form.Item
             label="Customer Name"
             name="name"
-            rules={[
-              { required: true, message: "Please enter the customer's name" },
-            ]}
+            rules={[{ required: true, message: "Please enter the customer name" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Email"
+            label="Email Address"
             name="email"
-            rules={[
-              {
-                required: true,
-                type: "email",
-                message: "Please enter a valid email",
-              },
-            ]}
+            rules={[{ required: true, type: "email", message: "Please enter a valid email address" }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             label="Phone Number"
             name="phone"
-            rules={[
-              {
-                required: true,
-                message: "Please enter the customer's phone number",
-              },
-            ]}
+            rules={[{ required: true, message: "Please enter the phone number" }]}
           >
             <Input />
           </Form.Item>
+          <Form.Item label="Status" name="status">
+            <Input />
+          </Form.Item>
         </Form>
-      </Modal>
+        <div className="flex justify-end gap-2 mt-4">
+          <Button onClick={() => setDrawerVisible(false)}>Cancel</Button>
+          <Button type="primary" onClick={() => setDrawerVisible(false)}>
+            Save
+          </Button>
+        </div>
+      </Drawer>
 
       <Modal
-        // title="Deactivate Customer"
         visible={deactivateModalVisible}
         onCancel={() => setDeactivateModalVisible(false)}
         onOk={handleDeactivate}
         okText="Deactivate"
         cancelText="Cancel"
-        // className="w-[400px]"
-        width={420}
+        width={320}
         okButtonProps={{ danger: true }}
       >
         <div>
@@ -292,16 +293,13 @@ export default function Customer() {
             <Tag className="h-10 w-10 rounded-full flex items-center justify-center border-none text-red-600 bg-red-100">
               <FaBan />
             </Tag>
-            <h4 className="text-2xl font-semibold ">Deactivate Customer</h4>
+            <h4 className="text-xl font-semibold ">Deactivate Customer</h4>
           </div>
-          <p className="mt-2">
+          <p className="mt-2 text-sm">
             Are you sure you want to deactivate{" "}
-            <p className="font-semibold">{selectedCustomer?.name}?</p>{" "}
-          </p>
-        </div>
-      </Modal>
-
-      <NewStaff newStaff={newStaff} setNewStaff={setNewStaff} />
+            <strong>{selectedCustomer?.name}</strong>?
+      </p>
     </div>
-  );
-}
+  </Modal>
+</div>
+);}
