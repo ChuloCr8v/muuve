@@ -1,5 +1,5 @@
 import { Button, Input } from "antd";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ActionPopup from "../../component/Global/ActionPopup";
 import Danger from "/public/dangerSvg.svg";
 import {
@@ -17,9 +17,22 @@ import FormPopup from "../../component/Global/FormPopup";
 
 export default function Operations() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // const [currentTab, setCurrentTab] = useState("1");
   const [newSurvey, setNewSurvey] = useState(false);
-  // const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); 
+    }
+  };
+  
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      console.log("Selected file:", files[0]); // Do something with the selected file
+    }
+  };
 
   const summaryCard = [
     {
@@ -55,6 +68,7 @@ export default function Operations() {
           <Button>Refresh</Button>
 
           <Button
+            onClick={handleUploadClick}
             // onClick={() => setNewSurvey(true)}
             className="flex items-center spacex-2"
             type="primary"
@@ -62,6 +76,13 @@ export default function Operations() {
             <span>Upload Report</span>
             <PlusOutlined />
           </Button>
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange} // Handle file selection
+          />
         </section>
       </div>
 

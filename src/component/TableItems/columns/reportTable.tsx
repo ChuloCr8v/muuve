@@ -1,8 +1,9 @@
-import { Button, Tag } from "antd";
+import { Button, Checkbox, Tag } from "antd";
 import { useState } from "react";
 import Reports from "../data/operatioData";
 import TableComponent from "../../Global/TableComponent";
 import { useNavigate } from "react-router-dom";
+import { DownOutlined } from "@ant-design/icons";
 
 export interface DataType {
   key: string;
@@ -22,6 +23,10 @@ export interface DataType {
 }
 
 export const columns = [
+  {
+    title: <Checkbox/>,
+    render: () => <Checkbox/>
+  },
   {
     title: "ID",
     dataIndex: "id",
@@ -48,7 +53,7 @@ export const columns = [
     title: "Status",
     dataIndex: "status",
 
-    width: 250,
+    width: 150,
     render: (text: string) => (
       <div>
         <Tag className="rounded-2xl text-[11px] font-semibold bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]">
@@ -61,44 +66,22 @@ export const columns = [
     title: "Last Aaction",
     dataIndex: "lastAction",
     key: "requestType",
-    width: 200,
+    width: 250,
     render: (text: string) => (
       <div>
         <p>{text}</p>
       </div>
     ),
   },
-  // {
-  //   title: 'Manager',
-  //   dataIndex: 'manager',
-  //   key: 'manager',
-  // },
-  // {
-  //   title: 'Bandwidth',
-  //   dataIndex: 'bandwidth',
-  //   key: 'bandwidth',
-  // },
-  // {
-  //     title: 'Region',
-  //     dataIndex: 'region',
-  //     key: 'region',
-  // },
-  // {
-  //   title: 'State',
-  //   dataIndex: 'state',
-  //   key: 'state',
-  // },
-  // {
-  //   title: 'Status',
-  //   dataIndex: 'longitude',
-  //   key: 'longitude',
-  // },
   {
     title: "Action",
     width: 150,
     render: () => (
       // <Dropdown trigger={["click"]} menu={{ items }}>
-      <Button onClick={(e) => e.stopPropagation()}>Action</Button>
+      <Button className="tableAction" onClick={(e) => e.stopPropagation()}>
+        <span>Action</span>
+        <DownOutlined/>
+      </Button>
       // </Dropdown>
     ),
   },

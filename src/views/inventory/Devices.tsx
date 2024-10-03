@@ -20,6 +20,7 @@ import DeviceForm from "../../component/inventory/devices/DeviceForm";
 export default function Devices() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newdevice, setNewevice] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const summaryCard = [
     {
@@ -66,9 +67,9 @@ export default function Devices() {
       </div>
 
       <SummaryCards summaryData={summaryCard} />
-      <DevicesTable />
+      <DevicesTable selectedRow={selectedRow} setSelectedRow={setSelectedRow} setnewDevice={setNewevice} />
 
-      <DeviceForm open={newdevice} setnewDevice={setNewevice} />
+      <DeviceForm selectedRow={selectedRow} open={newdevice} setnewDevice={setNewevice} />
 
       <ActionPopup
         open={isModalVisible}
@@ -78,7 +79,7 @@ export default function Devices() {
         icon={Danger}
         sendButtonStyle="bg-red-600"
       >
-        <p>Are you sure you want to proceed with this action?</p>
+        form here
       </ActionPopup>
     </div>
   );

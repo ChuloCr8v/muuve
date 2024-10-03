@@ -1,14 +1,35 @@
-import { Button, Drawer, Form, Input, InputNumber, Select } from "antd";
+import { Button, Descriptions, Drawer, Form, Input, InputNumber, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import MultiUpload from "../../Global/MultipleUpload";
+import { useEffect } from "react";
 
 interface Prop {
   open: any;
   setnewDevice: any;
+  selectedRow: any
 }
 
 export default function DeviceForm(props: Prop) {
-  const { open, setnewDevice } = props;
+  const { open, setnewDevice, selectedRow } = props;
+
+  const [form] = Form.useForm();
+
+  
+  useEffect(() => {
+    if (selectedRow) {
+      form.setFieldsValue({
+        name: selectedRow.name,
+        model: selectedRow.model,
+        serialNumber: selectedRow.id,
+        manufacturer: selectedRow.manufacturer,
+        cost: selectedRow.cost,
+        location: selectedRow.location,
+        description: selectedRow.comment
+      });
+    } else {
+      form.resetFields(); 
+    }
+  }, [selectedRow, form]);
   return (
     <Drawer
       closeIcon={null}
@@ -28,7 +49,7 @@ export default function DeviceForm(props: Prop) {
             htmlType="submit"
             style={{ minWidth: "6em" }}
           >
-            Submit
+            {selectedRow ? "Edit Device" : "New Device"}
           </Button>
         </footer>
       }
@@ -37,7 +58,7 @@ export default function DeviceForm(props: Prop) {
       open={open}
       onClose={() => setnewDevice(false)}
     >
-      <Form layout="vertical" className="flex flex-col h-full overflow-hidden">
+      <Form form={form} layout="vertical" className="flex flex-col h-full overflow-hidden">
         <main className="flex flex-col overflow-y-auto grow shrink">
           <Form.Item
             name="serialNumber"

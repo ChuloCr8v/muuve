@@ -9,8 +9,7 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
     switch (label.toLowerCase()) {
       case "total":
         return <CgList />;
-      case "active":
-      case "closed":
+      case "active" && "available":
         return <VscVmActive />;
       case "deactivated":
       case "open":
@@ -25,8 +24,7 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
     switch (label.toLowerCase()) {
       case "total":
         return "bg-[#00afef] text-[#00afef]";
-      case "active":
-      case "closed":
+      case "active" && "available":
         return "bg-green-500 text-green-600";
       case "deactivated":
       case "open":

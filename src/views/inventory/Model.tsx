@@ -18,6 +18,7 @@ import ModelForm from "../../component/inventory/model/ModelForm";
 export default function Model() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newModel, setNewModel] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const summaryCard = [
     {
@@ -65,9 +66,9 @@ export default function Model() {
 
       <SummaryCards summaryData={summaryCard} />
 
-      <ModelTable />
+      <ModelTable  selectedRow={selectedRow} setSelectedRow={setSelectedRow} setNewModel={setNewModel}/>
 
-      <ModelForm open={newModel} setNewModel={setNewModel} />
+      <ModelForm open={newModel} setNewModel={setNewModel} selectedRow={selectedRow} />
 
       <ActionPopup
         open={isModalVisible}
