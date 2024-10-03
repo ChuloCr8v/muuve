@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import Watermark from "../../../public/mi-bg.png";
 import SideNav from "./SideNav";
 import Header from "./Header";
+import ResetPasswordModal from "../ResetPasswordModal";
 
 export default function Layout(props: { children: ReactNode }) {
   return (
@@ -39,6 +40,8 @@ export default function Layout(props: { children: ReactNode }) {
         <PrivacyInfo open={showModal}/> */}
         </div>
       </div>
+
+      <ResetPasswordModal />
     </div>
   );
 }

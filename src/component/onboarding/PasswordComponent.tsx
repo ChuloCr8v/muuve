@@ -1,6 +1,7 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { useState } from "react";
 import CustomLabel from "./CustomLabel";
+import { validPasswordChecks } from "../../dummy/validPasswordCheck";
 
 interface Props {
   handleSubmit: (passwordData: {
@@ -8,25 +9,6 @@ interface Props {
     confirmPassword: string;
   }) => void;
 }
-
-const validPasswordChecks = [
-  {
-    id: 1,
-    label: "At least 12 characters",
-  },
-  {
-    id: 2,
-    label: "One lowercase character",
-  },
-  {
-    id: 3,
-    label: "One uppercase character",
-  },
-  {
-    id: 4,
-    label: "One number or symbol character",
-  },
-];
 
 const PasswordComponent = ({ handleSubmit }: Props) => {
   const [passwordData, setPasswordData] = useState({
@@ -103,7 +85,7 @@ const PasswordComponent = ({ handleSubmit }: Props) => {
         />
       </Form.Item>
       <Button
-        className="w-full"
+        className="w-full mt-4"
         type="primary"
         htmlType="submit"
         disabled={isFormDataComplete()}

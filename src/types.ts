@@ -137,6 +137,7 @@ export interface popupInterface {
     currentPopup: PopupDataInterface;
     projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
     newTicketDrawerIsOpen: boolean;
+    resetPasswordModalIsOpen: boolean;
   };
 }
 
@@ -158,6 +159,7 @@ export interface popupState {
   newRoleModalIsOpen: newRoleModalInterface;
   deactivateServiceModalIsOpen: deactivateServiceInterface;
   newTicketDrawerIsOpen: boolean;
+  resetPasswordModalIsOpen: boolean;
 }
 
 export interface TicketsDataType {
