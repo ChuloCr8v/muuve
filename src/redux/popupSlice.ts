@@ -23,6 +23,7 @@ const initialState: popupState = {
     data: [],
   },
   newTicketDrawerIsOpen: false,
+  resetPasswordModalIsOpen: false,
 };
 
 const popupSlice = createSlice({
@@ -83,6 +84,13 @@ const popupSlice = createSlice({
     closeNewTicketDrawer: (state) => {
       state.newTicketDrawerIsOpen = false;
     },
+
+    openResetPasswordModal: (state) => {
+      state.resetPasswordModalIsOpen = true;
+    },
+    closeResetPasswordModal: (state) => {
+      state.resetPasswordModalIsOpen = false;
+    },
   },
 });
 
@@ -97,6 +105,8 @@ export const {
   closeDeactivateServiceModal,
   openNewTicketDrawer,
   closeNewTicketDrawer,
+  openResetPasswordModal,
+  closeResetPasswordModal,
 } = popupSlice.actions;
 
 export default popupSlice.reducer;

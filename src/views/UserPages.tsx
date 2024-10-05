@@ -23,6 +23,7 @@ import InitiatePayment from "./projects/surveys/InitiatePayment";
 import Billing from "./accounts/Billing";
 import PlanUpdate from "./accounts/PlanUpdate";
 import FormConfig from "./Admin/config/FormConfig";
+import TicketDetail from "./incidence/TicketDetail";
 
 export default function UserPages() {
   // if (!useAuth()) {
@@ -45,6 +46,7 @@ export default function UserPages() {
         <Route path="/inventory/model" element={<Model />} />
         <Route path="/inventory/devices" element={<Devices />} />
         <Route path="/incidence/tickets" element={<Tickets />} />
+        <Route path="/incidence/tickets/:id" element={<TicketDetail />} />
         <Route path="/billing/subscription" element={<Subscription />} />
         <Route path="/billing/add-sub" element={<NewSubscription />} />
         <Route path="/billing/Invoices" element={<Invoices />} />

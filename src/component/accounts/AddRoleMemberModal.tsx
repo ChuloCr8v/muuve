@@ -51,7 +51,7 @@ const AddRoleMemberModal = (props: Props) => {
       <Select
         mode="multiple"
         style={{ width: "100%" }}
-        placeholder="Choose User/s"
+        placeholder="Choose members"
         options={options}
         optionRender={(option) => (
           <Space>

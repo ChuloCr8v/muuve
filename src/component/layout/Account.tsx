@@ -1,9 +1,12 @@
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, MenuProps } from "antd";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { openResetPasswordModal } from "../../redux/popupSlice";
 
 export default function Account(props: { user: string; role: string }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const items: MenuProps["items"] = [
     {
@@ -30,12 +33,14 @@ export default function Account(props: { user: string; role: string }) {
     {
       key: 3,
       label: "Reset Password",
+      onClick: () => dispatch(openResetPasswordModal()),
     },
     {
       key: 4,
       label: "Sign Out",
     },
   ];
+
   return (
     <Dropdown menu={{ items }}>
       <div className="flex items-center space-x-[16px] w-fit">

@@ -4,19 +4,21 @@ import SideNav from "./SideNav";
 import Header from "./Header";
 import { twMerge } from "tailwind-merge";
 import { Drawer } from "antd";
-
+import ResetPasswordModal from "../ResetPasswordModal";
 
 export default function Layout(props: { children: ReactNode }) {
-  const [collapse, setCollapse] = useState(false)
-  const [openDrawer, setOpenDrawer] = useState(false)
+  const [collapse, setCollapse] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
   return (
     <div className="flex max-h-screen bg-gray-50 overflow-x-hidden w-[100vw] ">
       <div className=" flex w-screen ">
-        <div className={twMerge(
-          'min-h-[100vh] bg-[#EFF7FB] hidden md:flex py-[18px] ',
-          collapse ? 'w-[50px] shadow-md' :'w-[250px]'
-        )}>
-          <SideNav  collapse={collapse}/>
+        <div
+          className={twMerge(
+            "min-h-[100vh] bg-[#EFF7FB] hidden md:flex py-[18px] ",
+            collapse ? "w-[50px] shadow-md" : "w-[250px]"
+          )}
+        >
+          <SideNav collapse={collapse} />
         </div>
 
         <div className="">
@@ -52,6 +54,8 @@ export default function Layout(props: { children: ReactNode }) {
             <SideNav collapse={collapse}/>
         </Drawer>
       </div>
+
+      <ResetPasswordModal />
     </div>
   );
 }
