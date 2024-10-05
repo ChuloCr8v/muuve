@@ -22,6 +22,7 @@ import Survey from "./projects/Survey";
 import InitiatePayment from "./projects/surveys/InitiatePayment";
 import Billing from "./accounts/Billing";
 import PlanUpdate from "./accounts/PlanUpdate";
+import FormConfig from "./Admin/config/FormConfig";
 
 export default function UserPages() {
   // if (!useAuth()) {
@@ -34,13 +35,11 @@ export default function UserPages() {
         <Route path="/projects/surveys" element={<Survey />} />
         <Route
           path="/projects/surveys/initiate-payment"
-          element={<InitiatePayment />}
-        />
+          element={<InitiatePayment />}/>
         <Route path="/account/settings" element={<ProfileSetting />} />
         <Route path="/account/roles" element={<Role />} />
         <Route path="/account/billing" element={<Billing />} />
         <Route path="/account/plan-update" element={<PlanUpdate />} />
-
         <Route path="/operations/maintenance" element={<Maintenance />} />
         <Route path="/operations/snag-reports" element={<Snags />} />
         <Route path="/inventory/model" element={<Model />} />
@@ -51,16 +50,15 @@ export default function UserPages() {
         <Route path="/billing/Invoices" element={<Invoices />} />
         <Route path="/projects/job-orders" element={<JobOrder />} />
         <Route path="/program" element={<Programs />} />
+        <Route path="/admin/config" element={<FormConfig/>} />
         <Route
           path="operations/report/details/:id"
-          element={<ReportDetails />}
-        />
+          element={<ReportDetails />}/>
         <Route path="/admin/staff" element={<Staff />} />
         <Route path="/admin/customers" element={<Customer />} />
         <Route
           path="/admin/customers/import-customers"
-          element={<ImportCustomerList />}
-        />
+          element={<ImportCustomerList />}/>
         <Route path="/admin/customer-page" element={<CustomerPage />} />
         <Route path="/operations/reports" element={<Operations />} />
       </Routes>

@@ -1,6 +1,6 @@
 import { Button, Drawer, Form, Input } from "antd";
 import MultiUpload from "../../Global/MultipleUpload";
-import { CustomerLabel } from "../../Global/Extras";
+import { CustomLabel } from "../../Global/Extras";
 
 export default function NewSnag(props: { open: boolean; action: any }) {
   return (
@@ -28,7 +28,7 @@ export default function NewSnag(props: { open: boolean; action: any }) {
         </Form.Item>
         <Form.Item
           label={
-            <CustomerLabel
+            <CustomLabel
               main={"Comment "}
               subText={"(Suggest Remedial Action)"}
             />
@@ -39,7 +39,7 @@ export default function NewSnag(props: { open: boolean; action: any }) {
         </Form.Item>
         <Form.Item
           label={
-            <CustomerLabel
+            <CustomLabel
               main={"Upload one or more files "}
               subText={"(Max: 10 files, 10mb each)"}
             />

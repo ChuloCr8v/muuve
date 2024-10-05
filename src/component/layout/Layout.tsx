@@ -20,11 +20,11 @@ export default function Layout(props: { children: ReactNode }) {
         </div>
 
         <div className="">
-          <div className={twMerge('h-[72px] w-[100vw]  bg-white pt-[20px] items-center px-[24px] border-b-[1px] border-[var(--greygrey-400-f-0-f-1-f-3, #F0F1F3)]', collapse ? 'md:w-[calc(100vw-50px)]' : 'md:w-[calc(100vw-230px)]')}>
+          <div className={twMerge('h-[50px] w-[100vw]  bg-white py-[10px] items-center px-[24px] border-b-[1px] border-[var(--greygrey-400-f-0-f-1-f-3, #F0F1F3)]', collapse ? 'md:w-[calc(100vw-50px)]' : 'md:w-[calc(100vw-230px)]')}>
             <Header open={setOpenDrawer} setCollapse={setCollapse} collapse={collapse}/>
           </div>
 
-          <div className={twMerge('h-[calc(100vh-122px)]  w-[100vw]  overflow-y-auto', collapse ? 'md:w-[calc(100vw-50px)]' :'md:w-[calc(100vw-230px)]')}>
+          <div className={twMerge('h-[calc(100vh-100px)]  w-[100vw]  overflow-y-auto', collapse ? 'md:w-[calc(100vw-50px)]' :'md:w-[calc(100vw-230px)]')}>
             <div className="relative z-10">{props.children}</div>
             <img
               className="absolute z-0 md:left-[40%] lg:bottom-[calc(100vh*0.2)] md:bottom-[calc(100vh*0.05)] bottom-[calc(100vh*0.3)] left-[20%] md:w-[400px] w-[60%] "
@@ -32,7 +32,9 @@ export default function Layout(props: { children: ReactNode }) {
             />
           </div>
 
-          <div className="h-[50px] text-[12px] text-[#777777] w-full md:w-[calc(100vw-230px)] border-t-[1.5px] items-center bg-white px-[24px] flex  justify-center md:justify-between">
+          <div className={twMerge('h-[50px] text-[12px] text-[#777777] w-full md:w-[calc(100vw-230px)] border-t-[1.5px] items-center bg-white px-[24px] flex  justify-center md:justify-between',
+            collapse ? 'md:w-[calc(100vw-50px)]' :'md:w-[calc(100vw-230px)]'
+          )}>
             <span>
               Copyright {new Date().getFullYear()} All Rights Reserved Zoracom
             </span>
@@ -46,7 +48,7 @@ export default function Layout(props: { children: ReactNode }) {
 
         <PrivacyInfo open={showModal}/> */}
         </div>
-        <Drawer placement="left" width={250}  open={openDrawer} onClose={() => setOpenDrawer(false)}>
+        <Drawer className=" pt-[20px]" placement="left" width={250}  open={openDrawer} onClose={() => setOpenDrawer(false)} closeIcon={null}>
             <SideNav collapse={collapse}/>
         </Drawer>
       </div>

@@ -1,6 +1,6 @@
 import { Form, Input,} from "antd";
 import { useState } from "react";
-import { CustomerLabel } from "../../../Global/Extras";
+import { CustomLabel } from "../../../Global/Extras";
 import MultiUpload from "../../../Global/MultipleUpload";
 
 interface Prop {
@@ -16,7 +16,7 @@ export default function DeviceFault ( props: Prop) {
         <Form layout="vertical" className="space-y-[12px]">
             <span>Are you sure you want to report fault on <span className="font-semibold">{selectedRow?.name}</span> ?</span>
 
-            <Form.Item label={<CustomerLabel main={"Upload one or more files "} subText={"(Max: 10 files, 10mb each)"}/>}>
+            <Form.Item label={<CustomLabel main={"Upload one or more files "} subText={"(Max: 10 files, 10mb each)"}/>}>
                <MultiUpload files={[]} setFiles={undefined}/>
             </Form.Item>
 

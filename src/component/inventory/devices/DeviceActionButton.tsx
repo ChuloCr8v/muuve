@@ -99,11 +99,11 @@ export default function DeviceAction(props: Prop) {
         title={actionType}
         sendButtonText={`${actionType}`}
         icon={
-          <div className={twMerge('text-5xl w-[60px] flex h-[60px] items-center justify-center rounded-full  p-2', actionType === "Report Fault" && "Delete" ? 'bg-red-50' : 'bg-[#0A95CC14]')}>
+          <div className={twMerge('text-5xl w-[60px] flex h-[60px] items-center justify-center rounded-full  p-2', actionType === "Report Fault"  ? 'bg-red-50' : actionType === 'Delete' ? 'bg-red-50' : 'bg-[#0A95CC14]')}>
           {actionType === "Assign Device" ? <UserAddOutlined className="text-[30px]" />: actionType === "Report Fault" ? <CloseCircleOutlined className="text-[30px] text-red-600 " /> :  <DeleteOutlined  className="text-[30px] text-red-600 "/>}
         </div>
         }
-        sendButtonStyle={`${actionType === 'Report Fault' && 'Delete'  && 'bg-red-600'}`}
+        sendButtonStyle={`${actionType === 'Report Fault'? 'bg-red-500 hover:bg-red-400': actionType === 'Delete' ? 'bg-red-500 hover:bg-red-400' : ''}`}
       >
         {actionType=== "Assign Device" ? <AssignDevice selectedRow={selectedRow}/> 
         : actionType === "Report Fault" ? <DeviceFault selectedRow={selectedRow}/> 

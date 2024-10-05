@@ -101,7 +101,7 @@ const Menu = ({ collapse }: Prop) => {
                     to={subMenuItem.url}
                     className={twMerge(
                       "duration-200 px-6 py-2 capitalize flex items-center gap-2 border-l-4 border-transparent hover:text-primary",
-                      currentPath.includes(subMenuItem.url) && "text-primary border-primary "
+                      currentPath.includes(subMenuItem.url) && "text-primary border-primary ",
                     )}
                   >
                     <img

@@ -2,8 +2,8 @@ import { useState } from "react";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
 import FormPopup from "../../component/Global/FormPopup";
-import SurveyDetailsDrawer from "../../component/projects/survey/SurveyDetailsDrawer";
 import SurveyTable from "../../component/TableItems/columns/SurveyTable";
+import SurveyDetailsDrawer from "../../component/Projects/survey/SurveyDetailsDrawer";
 
 const Survey = () => {
   const [newSurvey, setNewSurvey] = useState(false);

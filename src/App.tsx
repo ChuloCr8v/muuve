@@ -17,6 +17,7 @@ import UserPages from "./views/UserPages";
 import SuccessfulPasswordReset from "./component/auth/SuccessfulPasswordReset";
 import OnboardingSuccessful from "./views/onboarding/OnboardingSuccessful";
 import ReportReview from "./component/operations/maintenance/ReportReview";
+import { GrInherit } from "react-icons/gr";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
               Form: {
                 itemMarginBottom: 16,
               },
+              Input: {
+                activeBg: "inherit"
+              }
              
             },
           }}
