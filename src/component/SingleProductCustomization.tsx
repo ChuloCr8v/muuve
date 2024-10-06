@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import SendIcon from "../../public/send.png";
 import { ProductsDataTypes, productsState } from "../types";
 import ProductHeading from "./onboarding/ProductHeading";
+import { twMerge } from "tailwind-merge";
 interface Props {
   data: ProductsDataTypes;
   children: ReactNode;
@@ -14,8 +15,8 @@ const SingleProductCustomization = (props: Props) => {
   );
 
   return (
-    <div className="flex items-center gap-8">
-      <div className="grid gap-4 w-[480px]">
+    <div className={twMerge("flex items-center gap-8 overflow-x-hidden")}>
+      <div className={twMerge("grid gap-4 max-w-[480px]")}>
         <ProductHeading productLabel={props.data.label} id={props.data.id} />
 
         {expandedProductId === props.data.id && (

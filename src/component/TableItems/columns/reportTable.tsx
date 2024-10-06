@@ -1,10 +1,9 @@
-import { Button, Dropdown, MenuProps, Tag } from "antd";
-import React, { ReactNode, useState } from "react";
-import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
-import DataTable from "../../Global/DataTable";
+import { Button, Checkbox, Tag } from "antd";
+import { useState } from "react";
 import Reports from "../data/operatioData";
 import TableComponent from "../../Global/TableComponent";
 import { useNavigate } from "react-router-dom";
+import { DownOutlined } from "@ant-design/icons";
 
 export interface DataType {
   key: string;
@@ -23,9 +22,11 @@ export interface DataType {
   status: string;
 }
 
-
-
 export const columns = [
+  {
+    title: <Checkbox/>,
+    render: () => <Checkbox/>
+  },
   {
     title: "ID",
     dataIndex: "id",
@@ -52,11 +53,11 @@ export const columns = [
     title: "Status",
     dataIndex: "status",
 
-    width: 250,
+    width: 150,
     render: (text: string) => (
       <div>
         <Tag className="rounded-2xl text-[11px] font-semibold bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]">
-         {text}
+          {text}
         </Tag>
       </div>
     ),
@@ -65,66 +66,48 @@ export const columns = [
     title: "Last Aaction",
     dataIndex: "lastAction",
     key: "requestType",
-    width: 200,
+    width: 250,
     render: (text: string) => (
       <div>
         <p>{text}</p>
       </div>
     ),
   },
-  // {
-  //   title: 'Manager',
-  //   dataIndex: 'manager',
-  //   key: 'manager',
-  // },
-  // {
-  //   title: 'Bandwidth',
-  //   dataIndex: 'bandwidth',
-  //   key: 'bandwidth',
-  // },
-  // {
-  //     title: 'Region',
-  //     dataIndex: 'region',
-  //     key: 'region',
-  // },
-  // {
-  //   title: 'State',
-  //   dataIndex: 'state',
-  //   key: 'state',
-  // },
-  // {
-  //   title: 'Status',
-  //   dataIndex: 'longitude',
-  //   key: 'longitude',
-  // },
   {
     title: "Action",
     width: 150,
     render: () => (
       // <Dropdown trigger={["click"]} menu={{ items }}>
-        <Button onClick={(e) => e.stopPropagation()}>Action</Button>
+      <Button className="tableAction" onClick={(e) => e.stopPropagation()}>
+        <span>Action</span>
+        <DownOutlined/>
+      </Button>
       // </Dropdown>
     ),
   },
 ];
 
 const ReportsTable = () => {
-  const [data, setData] = useState(null)
-  const navigate = useNavigate()
+  const [_data, setData] = useState(null);
+  const navigate = useNavigate();
 
   const handleRowClick = (record: any) => {
-    setData(record)
-    navigate(`/operations/report/details/${record.id}`, {state: {rowData: record}})
-  }
+    setData(record);
+    navigate(`/operations/report/details/${record.id}`, {
+      state: { rowData: record },
+    });
+  };
 
-  return  <TableComponent
-  columns={columns}
-  dataSource={Reports}
-  scroll={800}
-  onRow={(record: Array<{}>) => ({
-    onClick: () => handleRowClick(record),
-  })}
-/>
+  return (
+    <TableComponent
+      columns={columns}
+      dataSource={Reports}
+      scroll={800}
+      onRow={(record: Array<{}>) => ({
+        onClick: () => handleRowClick(record),
+      })}
+    />
+  );
 };
 
 export default ReportsTable;

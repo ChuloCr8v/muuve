@@ -13,7 +13,7 @@ const SurveyDetails = ({ surveyData }: Props) => {
     if (label.toLowerCase() === "uploads") {
       return (
         <div className="grid grid-cols-2 gap-2 mt-2">
-          {value.map((item: FileInterface) => (
+          {value?.map((item: FileInterface) => (
             <FileCard
               fileType={item.type}
               name={item.name}

@@ -1,41 +1,64 @@
-import { Button, Drawer, Form, Input, InputNumber, Select } from "antd";
-import form from "antd/es/form";
+import { Button, Descriptions, Drawer, Form, Input, InputNumber, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import MultiUpload from "../../Global/MultipleUpload";
+import { useEffect } from "react";
 
-interface Prop{
-    open: any
-    setnewDevice: any
+interface Prop {
+  open: any;
+  setnewDevice: any;
+  selectedRow: any
 }
 
 export default function DeviceForm(props: Prop) {
-    const {open, setnewDevice} = props
-    return(
-        <Drawer closeIcon={null}
-        footer={<footer className="flex items-center justify-end w-full gap-3 py-3 bg-white  shadow-lg shrink-0">
-            <Button
-              size="middle"
-              htmlType="button"
-              // onClick={() => setNewStaff(false)}
-            >
-              Cancel
-            </Button>
+  const { open, setnewDevice, selectedRow } = props;
+
+  const [form] = Form.useForm();
+
   
-            <Button
-              size="middle"
-              type="primary"
-              htmlType="submit"
-              style={{ minWidth: '6em' }}
-            >
-              Submit
-            </Button>
-          </footer>}
-        width={400} title="New Device" open={open} onClose={() => setnewDevice(false)} >
-        <Form
-       
-        layout="vertical"
-        className="flex flex-col h-full overflow-hidden"
-      >
+  useEffect(() => {
+    if (selectedRow) {
+      form.setFieldsValue({
+        name: selectedRow.name,
+        model: selectedRow.model,
+        serialNumber: selectedRow.id,
+        manufacturer: selectedRow.manufacturer,
+        cost: selectedRow.cost,
+        location: selectedRow.location,
+        description: selectedRow.comment
+      });
+    } else {
+      form.resetFields(); 
+    }
+  }, [selectedRow, form]);
+  return (
+    <Drawer
+      closeIcon={null}
+      footer={
+        <footer className="flex items-center justify-end w-full gap-3 py-3 bg-white  shadow-lg shrink-0">
+          <Button
+            size="middle"
+            htmlType="button"
+            // onClick={() => setNewStaff(false)}
+          >
+            Cancel
+          </Button>
+
+          <Button
+            size="middle"
+            type="primary"
+            htmlType="submit"
+            style={{ minWidth: "6em" }}
+          >
+            {selectedRow ? "Edit Device" : "New Device"}
+          </Button>
+        </footer>
+      }
+      width={400}
+      title="New Device"
+      open={open}
+      onClose={() => setnewDevice(false)}
+    >
+      <Form form={form} layout="vertical" className="flex flex-col h-full overflow-hidden">
         <main className="flex flex-col overflow-y-auto grow shrink">
           <Form.Item
             name="serialNumber"
@@ -44,7 +67,7 @@ export default function DeviceForm(props: Prop) {
             rules={[
               {
                 required: true,
-                message: 'Input serial number',
+                message: "Input serial number",
               },
             ]}
           >
@@ -60,7 +83,7 @@ export default function DeviceForm(props: Prop) {
               rules={[
                 {
                   required: true,
-                  message: 'Input manufacturer',
+                  message: "Input manufacturer",
                 },
               ]}
             >
@@ -75,14 +98,11 @@ export default function DeviceForm(props: Prop) {
               rules={[
                 {
                   required: true,
-                  message: 'Select model',
+                  message: "Select model",
                 },
               ]}
             >
-              <Select
-                className="w-[100%]"
-               
-              />
+              <Select className="w-[100%]" />
             </Form.Item>
           </div>
           <div className="flex space-x-[16px] w-full">
@@ -94,7 +114,7 @@ export default function DeviceForm(props: Prop) {
               rules={[
                 {
                   required: true,
-                  message: 'Input part number',
+                  message: "Input part number",
                 },
               ]}
             >
@@ -109,7 +129,7 @@ export default function DeviceForm(props: Prop) {
               rules={[
                 {
                   required: true,
-                  message: 'Input cost',
+                  message: "Input cost",
                 },
               ]}
             >
@@ -123,7 +143,7 @@ export default function DeviceForm(props: Prop) {
             rules={[
               {
                 required: true,
-                message: 'Input location',
+                message: "Input location",
               },
             ]}
           >
@@ -137,11 +157,11 @@ export default function DeviceForm(props: Prop) {
             rules={[
               {
                 required: true,
-                message: 'Input location',
+                message: "Input location",
               },
             ]}
           >
-           <MultiUpload files={[]} setFiles={undefined}/>
+            <MultiUpload files={[]} setFiles={undefined} />
           </Form.Item>
 
           <Form.Item
@@ -151,18 +171,14 @@ export default function DeviceForm(props: Prop) {
             rules={[
               {
                 required: true,
-                message: 'Decription',
+                message: "Decription",
               },
             ]}
           >
             <TextArea required />
           </Form.Item>
         </main>
-
-        
       </Form>
-
-
     </Drawer>
-    )
+  );
 }

@@ -12,7 +12,7 @@ const JobDetails = ({ jobData }: Props) => {
     if (label.toLowerCase() === "uploads") {
       return (
         <div className="grid grid-cols-2 gap-2 mt-2">
-          {value.map((item: File) => (
+          {value?.map((item: File) => (
             <FileCard
               fileType={item.type}
               name={item.name}

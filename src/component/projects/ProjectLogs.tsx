@@ -7,7 +7,7 @@ import { twMerge } from "tailwind-merge";
 import { FaChevronUp } from "react-icons/fa";
 import { SurveyLogInterface } from "../../types";
 import AttachmentCard from "../Global/AttachmentCard";
-import { FaCircle, FaCircleDot } from "react-icons/fa6";
+import { FaCircle } from "react-icons/fa6";
 
 type Props = {
   data: SurveyLogInterface;

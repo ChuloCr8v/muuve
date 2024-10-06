@@ -8,12 +8,12 @@ import TierComponent from "./TierComponent";
 import { twMerge } from "tailwind-merge";
 
 const ProductsCustomizationComponent = () => {
-  const { products, expandedProductId } = useSelector(
+  const { products, expandedProductId, planUpdateActive } = useSelector(
     (state: productsState) => state.products
   );
 
   //Return empty component if there are no selected products
-  if (products.length === 0) {
+  if (products?.length === 0) {
     return (
       <div className=" flex flex-col items-center justify-center">
         <Empty
@@ -29,7 +29,8 @@ const ProductsCustomizationComponent = () => {
     <div
       className={twMerge(
         "flex items-center justify-center gap-8 min-h-screen bg-[#F7FCFD] overflow-y-scroll",
-        products.length > 3 && expandedProductId && "pt-72 pb-20"
+        products?.length > 3 && expandedProductId && "pt-72 pb-20",
+        planUpdateActive && "items-start justify-start"
       )}
     >
       <motion.div
@@ -37,8 +38,8 @@ const ProductsCustomizationComponent = () => {
         transition={{ duration: 0.2 }}
         className="tiers grid gap-6"
       >
-        {products.length &&
-          products.map((product) => (
+        {products?.length &&
+          products?.map((product) => (
             <div key={product.id}>
               {product.id === "BS" ? (
                 <BillingComponent

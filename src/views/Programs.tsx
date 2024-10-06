@@ -243,7 +243,7 @@ const Programs = () => {
 
       <Modal
         title="Edit Table Columns"
-        visible={modalVisible}
+        open={modalVisible}
         onOk={closeModal}
         onCancel={closeModal}
       >

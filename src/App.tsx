@@ -16,6 +16,8 @@ import VerifyOrgOTP from "./views/onboarding/VerifyOrgOTP";
 import UserPages from "./views/UserPages";
 import SuccessfulPasswordReset from "./component/auth/SuccessfulPasswordReset";
 import OnboardingSuccessful from "./views/onboarding/OnboardingSuccessful";
+import ReportReview from "./component/operations/maintenance/ReportReview";
+import { GrInherit } from "react-icons/gr";
 
 function App() {
   return (
@@ -30,6 +32,10 @@ function App() {
               Form: {
                 itemMarginBottom: 16,
               },
+              Input: {
+                activeBg: "inherit"
+              }
+             
             },
           }}
         >
@@ -39,6 +45,7 @@ function App() {
 
               {/* Auth */}
               <Route path="/login" element={<Login />} />
+              <Route path="/operations/maintenance/preview" element={<ReportReview />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route
                 path="/forgot-password/verify-otp/:email"

@@ -137,7 +137,7 @@ const useProjectActionItems = ({ handleShowPopup }: Props) => {
     {
       key: 6,
       label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "reject job")}>
+        <div className="">
           <DropdownCustomItem
             label={"Reject Job"}
             icon={<CloseCircleOutlined />}

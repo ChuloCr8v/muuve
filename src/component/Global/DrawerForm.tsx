@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Select, Modal, Table, Drawer } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import MultiUpload from './MultipleUpload';
-import CustomSelect from './CustomeSelect';
+import { useState } from "react";
+import { Form, Input, Button, Select, Modal, Table, Drawer } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import MultiUpload from "./MultipleUpload";
+import CustomSelect from "./CustomeSelect";
 
 const { TextArea } = Input;
 const { Option } = Select;
 
 const DynamicFormTable = (props: { survey: any[] }) => {
   const survey = props.survey;
-  const initialItems = ['Customer Request'];
+  const initialItems = ["Customer Request"];
   const [dynamicFields, setDynamicFields] = useState<any[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
-  const [fieldType, setFieldType] = useState('');
-  const [fieldName, setFieldName] = useState('');
+  const [fieldType, setFieldType] = useState("");
+  const [fieldName, setFieldName] = useState("");
 
   const handleAddField = () => {
     setIsModalVisible(true);
   };
 
   const handleModalOk = () => {
-    setDynamicFields([
-      ...dynamicFields,
-      { type: fieldType, name: fieldName },
-    ]);
+    setDynamicFields([...dynamicFields, { type: fieldType, name: fieldName }]);
     setIsModalVisible(false);
-    setFieldName('');
-    setFieldType('');
+    setFieldName("");
+    setFieldType("");
   };
 
   const handleModalCancel = () => {
     setIsModalVisible(false);
-    setFieldName('');
-    setFieldType('');
+    setFieldName("");
+    setFieldType("");
   };
 
   const openDrawer = () => {
@@ -46,30 +43,30 @@ const DynamicFormTable = (props: { survey: any[] }) => {
 
   const columns = [
     {
-      title: 'Field Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Field Name",
+      dataIndex: "name",
+      key: "name",
       render: (text: string) => <span>{text}</span>,
     },
     {
-      title: 'Field Type',
-      dataIndex: 'type',
-      key: 'type',
+      title: "Field Type",
+      dataIndex: "type",
+      key: "type",
       render: (type: string) => {
         switch (type) {
-          case 'input':
+          case "input":
             return <Input />;
-          case 'select':
+          case "select":
             return (
               <Select>
                 <Option value="1">Option 1</Option>
               </Select>
             );
-          case 'custom':
+          case "custom":
             return <CustomSelect items={initialItems} />;
-          case 'upload':
-            return <MultiUpload />;
-          case 'textarea':
+          case "upload":
+            return <MultiUpload files={[]} setFiles={undefined} />;
+          case "textarea":
             return <TextArea />;
           default:
             return null;
@@ -81,11 +78,11 @@ const DynamicFormTable = (props: { survey: any[] }) => {
   const dataSource = survey
     .filter(
       (item) =>
-        item.type === 'input' ||
-        item.type === 'custom' ||
-        item.type === 'select' ||
-        item.type === 'upload' ||
-        item.type === 'textarea'
+        item.type === "input" ||
+        item.type === "custom" ||
+        item.type === "select" ||
+        item.type === "upload" ||
+        item.type === "textarea"
     )
     .concat(dynamicFields)
     .map((item, index) => ({
@@ -96,13 +93,14 @@ const DynamicFormTable = (props: { survey: any[] }) => {
 
   return (
     <div>
-      <Table
-        columns={columns}
-        dataSource={dataSource}
-        pagination={false}
-      />
+      <Table columns={columns} dataSource={dataSource} pagination={false} />
 
-      <Button type="default" onClick={openDrawer} icon={<PlusOutlined />} className="mt-4">
+      <Button
+        type="default"
+        onClick={openDrawer}
+        icon={<PlusOutlined />}
+        className="mt-4"
+      >
         Open Form Drawer
       </Button>
 
@@ -114,34 +112,68 @@ const DynamicFormTable = (props: { survey: any[] }) => {
         bodyStyle={{ paddingBottom: 80 }}
       >
         <Form layout="vertical">
-          {survey.filter(item => item.type === 'input' || item.type === 'custom').map((item, index) => (
-            <Form.Item key={index} label={item.label}>
-              {item.type === 'input' ? <Input /> : <CustomSelect items={initialItems} />}
-            </Form.Item>
-          ))}
-
-          <div className='grid grid-cols-2 gap-x-4'>
-            {survey.filter(item => item.type === 'select' || item.type === 'cordinate').map((item, index) => (
+          {survey
+            .filter((item) => item.type === "input" || item.type === "custom")
+            .map((item, index) => (
               <Form.Item key={index} label={item.label}>
-                {item.type === 'select' ? <Select><Option value="1">Option 1</Option></Select> : <Input />}
+                {item.type === "input" ? (
+                  <Input />
+                ) : (
+                  <CustomSelect items={initialItems} />
+                )}
               </Form.Item>
             ))}
+
+          <div className="grid grid-cols-2 gap-x-4">
+            {survey
+              .filter(
+                (item) => item.type === "select" || item.type === "cordinate"
+              )
+              .map((item, index) => (
+                <Form.Item key={index} label={item.label}>
+                  {item.type === "select" ? (
+                    <Select>
+                      <Option value="1">Option 1</Option>
+                    </Select>
+                  ) : (
+                    <Input />
+                  )}
+                </Form.Item>
+              ))}
           </div>
 
           {dynamicFields.map((field, index) => (
             <Form.Item key={index} label={field.name}>
-              {field.type === 'input' ? <Input /> : <Select><Option value="1">Option 1</Option></Select>}
+              {field.type === "input" ? (
+                <Input />
+              ) : (
+                <Select>
+                  <Option value="1">Option 1</Option>
+                </Select>
+              )}
             </Form.Item>
           ))}
 
-          {survey.filter(item => item.type === 'upload' || item.type === 'textarea').map((item, index) => (
-            <Form.Item key={index} label={item.label}>
-              {item.type === 'upload' ? <MultiUpload /> : <TextArea />}
-            </Form.Item>
-          ))}
+          {survey
+            .filter(
+              (item) => item.type === "upload" || item.type === "textarea"
+            )
+            .map((item, index) => (
+              <Form.Item key={index} label={item.label}>
+                {item.type === "upload" ? (
+                  <MultiUpload files={[]} setFiles={undefined} />
+                ) : (
+                  <TextArea />
+                )}
+              </Form.Item>
+            ))}
 
-          <Form.Item className='w-full flex mt-5'>
-            <Button type="default" onClick={handleAddField} icon={<PlusOutlined />}>
+          <Form.Item className="w-full flex mt-5">
+            <Button
+              type="default"
+              onClick={handleAddField}
+              icon={<PlusOutlined />}
+            >
               Add Field
             </Button>
           </Form.Item>
@@ -156,7 +188,10 @@ const DynamicFormTable = (props: { survey: any[] }) => {
       >
         <Form layout="vertical">
           <Form.Item required label="Field Name">
-            <Input value={fieldName} onChange={(e) => setFieldName(e.target.value)} />
+            <Input
+              value={fieldName}
+              onChange={(e) => setFieldName(e.target.value)}
+            />
           </Form.Item>
           <Form.Item required label="Field Type">
             <Select value={fieldType} onChange={(value) => setFieldType(value)}>
@@ -164,7 +199,7 @@ const DynamicFormTable = (props: { survey: any[] }) => {
               <Option value="select">Select</Option>
             </Select>
           </Form.Item>
-          {fieldType === 'select' && (
+          {fieldType === "select" && (
             <Form.Item required label="Options">
               <Select>
                 <Option value="user">User</Option>

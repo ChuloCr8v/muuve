@@ -1,16 +1,18 @@
 import { Drawer, Tabs, TabsProps } from "antd";
-import { JobOrderType } from "../../../types";
+import { useDispatch, useSelector } from "react-redux";
+import { closeProjectDetailsDrawer } from "../../../redux/popupSlice";
 import ProjectDetailsDrawerHeading from "../../Global/ProjectDetailsDrawerHeading";
 import JobOrderDetails from "./JobOrderDetails";
 import JobOrderLogs from "./JobOrderLog";
+import { popupInterface } from "../../../types";
 
-type Props = {
-  data: JobOrderType | null;
-  isOpen: boolean;
-  onclose: () => void;
-};
+const JobDetailsDrawer = () => {
+  const { projectDetailsDrawerIsOpen } = useSelector(
+    (state: popupInterface) => state.popups
+  );
+  const { data } = projectDetailsDrawerIsOpen;
+  const dispatch = useDispatch();
 
-const JobDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
   const jobData = [
     { label: "Customer Name", value: data?.customerName },
     { label: "Service Address", value: data?.serviceAddress },
@@ -56,15 +58,21 @@ const JobDetailsDrawer = ({ data, isOpen, onclose }: Props) => {
     },
   ];
 
+  console.log(data);
+
   return (
     <Drawer
-      open={isOpen}
-      onClose={onclose}
+      open={projectDetailsDrawerIsOpen.isOpen}
+      onClose={() => dispatch(closeProjectDetailsDrawer())}
       title={false}
       closeIcon={false}
       width={540}
     >
-      <ProjectDetailsDrawerHeading title={data?.title} />
+      <ProjectDetailsDrawerHeading
+        title={data?.title}
+        currentModule="job order"
+        showActionButton
+      />
       <Tabs defaultActiveKey="1" items={items} />
     </Drawer>
   );

@@ -6,6 +6,7 @@ export interface productsState {
   allSelectedProducts: SelectedProductSummaryType[];
   duration: string;
   expandedProductId: string;
+  planUpdateActive: boolean;
 }
 
 const initialState: productsState = {
@@ -13,6 +14,7 @@ const initialState: productsState = {
   allSelectedProducts: [],
   duration: "monthly",
   expandedProductId: "",
+  planUpdateActive: false,
 };
 
 const productsSlice = createSlice({
@@ -65,6 +67,15 @@ const productsSlice = createSlice({
         state.allSelectedProducts.push(action.payload);
       }
     },
+
+    updateProducts: (state, action) => {
+      state.products = action.payload;
+      state.planUpdateActive = true;
+    },
+
+    updateProductsFinish: (state) => {
+      state.planUpdateActive = false;
+    },
   },
 });
 
@@ -74,6 +85,8 @@ export const {
   setDuration,
   expandProductDetatails,
   customizedProducts,
+  updateProducts,
+  updateProductsFinish,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

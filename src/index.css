@@ -24,10 +24,13 @@
   padding: 2px 11px;
 }
 
+:where(.css-dev-only-do-not-override-s2go2e).ant-input {
+  height: 28px;
+}
 
-.tableAction{
-  border: solid 1.5px #0A95CC66;
-  color: #0A95CC;
+.tableAction {
+  border: solid 1.5px #0a95cc66;
+  color: #0a95cc;
   font-weight: 600;
   display: flexbox;
 }
@@ -47,16 +50,16 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "inter", sans-serif;
-
 }
 
-.tagSize{
+.head{font-size: clamp(16px, 2vw, 20px);}
+
+.tagSize {
   font-size: 12px !important;
 }
 
 body {
   font-family: "inter", sans-serif;
-
 }
 
 .tiers > * + *,
@@ -166,4 +169,32 @@ body {
   .ant-form-item:not(.ant-form-item-horizontal)
   .ant-col-xl-24.ant-form-item-label {
   padding: 0 0 4px 0 !important;
+}
+
+.ant-modal-root .action-popup {
+  z-index: 9999;
+}
+
+/* Customize the checkbox checkmark color */
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #4caf50; /* Change the background color */
+  border-color: #4caf50; /* Change the border color */
+}
+
+/* Customize the checkbox hover color */
+.ant-checkbox-checked .ant-checkbox-inner:after {
+  border-color: #fff; /* Change the checkmark color */
+}
+
+.role-section:last-child {
+  border-bottom: none;
+}
+
+
+:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range input, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range textarea, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range .ant-input-show-count-suffix, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range .ant-input-data-count {
+  color: inherit;
+}
+
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-item-vertical .ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-24.ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-xl-24.ant-form-item-label {
+  padding: 0;
 }

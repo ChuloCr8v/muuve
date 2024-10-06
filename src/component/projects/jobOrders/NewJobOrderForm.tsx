@@ -1,48 +1,41 @@
 import { Button, Drawer, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { twMerge } from "tailwind-merge";
+import { hidePopup } from "../../../redux/popupSlice";
+import { JobOrderType, popupInterface } from "../../../types";
 import MultiUpload from "../../Global/MultipleUpload";
 import ProjectDetailsDrawerHeading from "../../Global/ProjectDetailsDrawerHeading";
 import CustomLabel from "../../onboarding/CustomLabel";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { JobOrderType } from "../../../types";
 import { jobData } from "../../TableItems/data/JobData";
 
 type Props = {
   open: boolean;
   setOpen: (arg0: boolean) => void;
-  editJobOrder: { isOpen: boolean; jobOrderId: string | undefined };
-  setEditJobOrder: Dispatch<
-    SetStateAction<{ isOpen: boolean; jobOrderId: string | undefined }>
-  >;
 };
 
-const NewJobOrderForm = ({
-  open,
-  setOpen,
-  setEditJobOrder,
-  editJobOrder,
-}: Props) => {
+const NewJobOrderForm = (props: Props) => {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState<JobOrderType>();
 
+  const { currentPopup } = useSelector((state: popupInterface) => state.popups);
+  const { isOpen, data, action } = currentPopup;
+
+  const open = props.open || (isOpen && action === "edit details");
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    const currentJobOrder = jobData.find(
-      (job) => job.id === editJobOrder.jobOrderId
-    );
+    const currentJobOrder = jobData.find((job) => job.id === data?.id);
     setFormData(currentJobOrder);
-  }, [editJobOrder.jobOrderId]);
+  }, [data?.id]);
 
   const handleChange = (name: string, value: string | number) => {
     setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = () => {
-    const updatedJobData = jobData.map((job) =>
-      job.id === editJobOrder.jobOrderId ? { ...job, ...formData } : job
-    );
-
-    console.log(updatedJobData);
+    console.log(formData);
   };
 
   const formOptions = [
@@ -226,10 +219,18 @@ const NewJobOrderForm = ({
       closable
       open={open}
       onClose={() => {
-        setOpen(false);
-        setEditJobOrder({ isOpen: false, jobOrderId: "" });
+        props.setOpen(false);
+        dispatch(hidePopup());
       }}
-      title={<ProjectDetailsDrawerHeading title="New Custom Job Order" />}
+      title={
+        <ProjectDetailsDrawerHeading
+          title={
+            action?.toLowerCase() === "edit details"
+              ? data?.title
+              : "New Custom Job Order"
+          }
+        />
+      }
     >
       <Form
         layout="vertical"
@@ -304,8 +305,8 @@ const NewJobOrderForm = ({
         <Button
           className="w-[100px]"
           onClick={() => {
-            setEditJobOrder({ isOpen: false, jobOrderId: "" });
-            setOpen(false);
+            props.setOpen(false);
+            dispatch(hidePopup());
           }}
         >
           Cancel

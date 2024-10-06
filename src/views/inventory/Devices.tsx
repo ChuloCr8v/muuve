@@ -1,22 +1,15 @@
-import {
-  Button,
-  Drawer,
-  Form,
-  Input,
-  Select,
-  Table,
-  Tabs,
-  TabsProps,
-} from "antd";
+import { Button, Input } from "antd";
 import { useState } from "react";
 import ActionPopup from "../../component/Global/ActionPopup";
 import Danger from "/public/dangerSvg.svg";
-import { OrderedListOutlined, PlusOutlined, SearchOutlined, WarningOutlined } from "@ant-design/icons";
-import { twMerge } from "tailwind-merge";
+import {
+  OrderedListOutlined,
+  PlusOutlined,
+  SearchOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import Header from "../../component/Global/Header";
-import FormPopup, { Props } from "../../component/Global/FormPopup";
 //import { columns } from "../../component/data/SurveyTable";
-import { SurveyData } from "../../component/TableItems/data/SurveyData";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
@@ -24,9 +17,10 @@ import DevicesTable from "../../component/TableItems/columns/DevicesTable";
 import DeviceForm from "../../component/inventory/devices/DeviceForm";
 // import { SurveyData } from "../../component/data/SurveyData";
 
-export default function Devices(props: Props) {
+export default function Devices() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newdevice, setNewevice] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const summaryCard = [
     {
@@ -51,10 +45,8 @@ export default function Devices(props: Props) {
     },
   ];
 
-
-
   return (
-    <div className="space-y-[16px]">
+    <div className="space-y-[16px] p-8">
       <div className="flex items-center justify-between">
         <Header heading={"Devices"} />
 
@@ -74,10 +66,10 @@ export default function Devices(props: Props) {
         </section>
       </div>
 
-      <SummaryCards summaryData={summaryCard}/>
-      <DevicesTable/>
+      <SummaryCards summaryData={summaryCard} />
+      <DevicesTable selectedRow={selectedRow} setSelectedRow={setSelectedRow} setnewDevice={setNewevice} />
 
-      <DeviceForm open={newdevice} setnewDevice={setNewevice}/>
+      <DeviceForm selectedRow={selectedRow} open={newdevice} setnewDevice={setNewevice} />
 
       <ActionPopup
         open={isModalVisible}
@@ -87,10 +79,8 @@ export default function Devices(props: Props) {
         icon={Danger}
         sendButtonStyle="bg-red-600"
       >
-        <p>Are you sure you want to proceed with this action?</p>
+        form here
       </ActionPopup>
- 
-
     </div>
   );
 }

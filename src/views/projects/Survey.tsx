@@ -1,21 +1,12 @@
 import { useState } from "react";
 import PageHeader from "../../component/Global/PageHeader";
 import SummaryCards from "../../component/Global/SummaryCards";
-import { SurveyDataType } from "../../types";
 import FormPopup from "../../component/Global/FormPopup";
-import SurveyDetailsDrawer from "../../component/projects/survey/SurveyDetailsDrawer";
 import SurveyTable from "../../component/TableItems/columns/SurveyTable";
+import SurveyDetailsDrawer from "../../component/Projects/survey/SurveyDetailsDrawer";
 
 const Survey = () => {
   const [newSurvey, setNewSurvey] = useState(false);
-  const [surveyDetailsIsOpen, setSurveyDetailsIsOpen] = useState<{
-    isOpen: boolean;
-    data: SurveyDataType | null;
-  }>({ isOpen: false, data: null });
-
-  const closeDrawer = () => {
-    setSurveyDetailsIsOpen((prev) => ({ ...prev, isOpen: false }));
-  };
 
   const summaryData = [
     {
@@ -37,7 +28,7 @@ const Survey = () => {
   ];
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3 p-8">
       <PageHeader
         heading={"Surveys"}
         onclick={() => setNewSurvey?.(true)}
@@ -46,7 +37,7 @@ const Survey = () => {
       />
 
       <SummaryCards summaryData={summaryData} />
-      <SurveyTable setSurveyDetailsIsOpen={setSurveyDetailsIsOpen} />
+      <SurveyTable />
 
       {/* New survey form */}
       <FormPopup
@@ -57,11 +48,7 @@ const Survey = () => {
       />
 
       {/* survey details drawer */}
-      <SurveyDetailsDrawer
-        data={surveyDetailsIsOpen.data}
-        isOpen={surveyDetailsIsOpen.isOpen}
-        onclose={closeDrawer}
-      />
+      <SurveyDetailsDrawer />
     </div>
   );
 };

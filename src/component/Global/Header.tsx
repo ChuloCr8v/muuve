@@ -4,7 +4,7 @@ type Props = {
 
 const Heading = (props: Props) => {
   return (
-    <h2 className="block text-nowrap font-semibold text-[20px]">
+    <h2 className="block text-nowrap font-semibold head">
       {props.heading}
     </h2>
   );

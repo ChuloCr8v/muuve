@@ -11,6 +11,8 @@ const { Option } = Select;
 interface SurveyItem {
   type: "input" | "custom" | "select" | "cordinate" | "upload" | "textarea";
   label: string;
+  options?: string[]
+
 }
 
 interface DynamicField {
@@ -29,6 +31,8 @@ interface DynamicFormProps {
 }
 
 const DynamicForm: React.FC<DynamicFormProps> = ({ survey }) => {
+
+  console.log(survey)
   const [tableData, setTableData] = useState<FormData[]>([]);
   const [form] = Form.useForm();
   const [dynamicFields, setDynamicFields] = useState<DynamicField[]>([]);
@@ -65,6 +69,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ survey }) => {
     setFieldType("input");
   };
 
+
+  console.log(survey)
+
   return (
     <Form layout="vertical" form={form} onFinish={onFinish} className="">
       {survey
@@ -77,7 +84,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({ survey }) => {
             {item.type === "input" ? (
               <Input className="" />
             ) : (
-              <CustomSelect items={["Customer Request"]} />
+              <CustomSelect items={['xcvbnm']} />
             )}
           </Form.Item>
         ))}

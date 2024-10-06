@@ -55,6 +55,7 @@ export default function FormPopup(props: Props) {
   return (
     <div>
       <Drawer
+      closeIcon={null}
         width={500}
         footer={
           <div className="justify-end flex space-x-3 py-2 items-center">
@@ -69,13 +70,13 @@ export default function FormPopup(props: Props) {
         title={
           <div className="between-align">
             <p className="formPopuptitle">{props.title}</p>
-            <Button
+            {/* <Button
               onClick={() => setReset(true)}
               type="default"
               className="text-[#595959]"
             >
               Customize Form
-            </Button>
+            </Button> */}
           </div>
         }
         open={props.open}
@@ -84,7 +85,7 @@ export default function FormPopup(props: Props) {
         <DynamicForm survey={filteredList} />
       </Drawer>
 
-      <Modal
+      {/* <Modal
         title="Reset Form Fields"
         closeIcon={null}
         open={reset}
@@ -101,7 +102,7 @@ export default function FormPopup(props: Props) {
             rowKey="label"
           />
         </div>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

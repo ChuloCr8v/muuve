@@ -1,88 +1,101 @@
-import { Button, Input, MenuProps, } from "antd";
-import { useState } from "react";
+import { Button, Input } from "antd";
+import { useRef, useState } from "react";
 import ActionPopup from "../../component/Global/ActionPopup";
-import Danger from '/public/dangerSvg.svg'
-import { EditOutlined, EyeOutlined, OrderedListOutlined, PlusOutlined, SearchOutlined, WarningOutlined } from "@ant-design/icons";
+import Danger from "/public/dangerSvg.svg";
+import {
+  OrderedListOutlined,
+  PlusOutlined,
+  SearchOutlined,
+  WarningOutlined,
+} from "@ant-design/icons";
 import Header from "../../component/Global/Header";
-import FormPopup, { Props } from "../../component/Global/FormPopup";
-import ReportsTable, { columns } from "../../component/TableItems/columns/reportTable";
+import ReportsTable from "../../component/TableItems/columns/reportTable";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
+import FormPopup from "../../component/Global/FormPopup";
 
+export default function Operations() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [newSurvey, setNewSurvey] = useState(false);
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-export default function Operations (props: Props ) {
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); 
+    }
+  };
   
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [currentTab, setCurrentTab] = useState("1");
-    const [newSurvey, setNewSurvey] = useState(false)
-    const [drawerVisible, setDrawerVisible] = useState(false);
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      console.log("Selected file:", files[0]); // Do something with the selected file
+    }
+  };
 
-   
+  const summaryCard = [
+    {
+      label: "Total",
+      value: 22,
+      icon: <OrderedListOutlined />,
+    },
+    {
+      label: "Active",
+      value: 19,
+      icon: <VscVmActive />,
+    },
+    {
+      label: "Deactivated",
+      value: 2,
+      icon: <FaBan />,
+    },
+    {
+      label: "Expiring",
+      value: 1,
+      icon: <WarningOutlined />,
+    },
+  ];
 
+  return (
+    <div className="space-y-[16px] p-8">
+      <div className="flex items-center justify-between">
+        <Header heading={"Performance Report"} />
 
+        <section className="flex items-center gap-[16px]">
+          <Input className="w-[400px]" prefix={<SearchOutlined />} />
 
+          <Button>Refresh</Button>
 
-    const summaryCard = [
-      {
-        label: "Total",
-        value: 22,
-        icon: <OrderedListOutlined />,
-      },
-      {
-        label: "Active",
-        value: 19,
-        icon: <VscVmActive />,
-      },
-      {
-        label: "Deactivated",
-        value: 2,
-        icon: <FaBan />,
-      },
-      {
-        label: "Expiring",
-        value: 1,
-        icon: <WarningOutlined />,
-      },
-    ];
+          <Button
+            onClick={handleUploadClick}
+            // onClick={() => setNewSurvey(true)}
+            className="flex items-center spacex-2"
+            type="primary"
+          >
+            <span>Upload Report</span>
+            <PlusOutlined />
+          </Button>
 
-  
-    return(
-        <div className="space-y-[16px]">
-          <div className="flex items-center justify-between">
-          <Header heading={"Performance Report"} />
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleFileChange} // Handle file selection
+          />
+        </section>
+      </div>
 
-          <section className="flex items-center gap-[16px]">
-                <Input className="w-[400px]" prefix={<SearchOutlined/>}/>
-                
-                <Button>Refresh</Button>
+      <SummaryCards summaryData={summaryCard} />
 
-
-                <Button
-                // onClick={() => setNewSurvey(true)}
-                className="flex items-center spacex-2"
-                  type="primary">
-                  <span>Upload Report</span>
-                  <PlusOutlined />
-                </Button>
-            </section>
-
-          </div>
-
-         <SummaryCards  summaryData={summaryCard}/>
-
-
-          
       <ReportsTable />
 
-
       <FormPopup
-          title={"New Survey Request"}
-           open={newSurvey}
-           close={() => setNewSurvey(false)} 
-           submitText={"Submit"}
-           />
+        title={"New Survey Request"}
+        open={newSurvey}
+        close={() => setNewSurvey(false)}
+        submitText={"Submit"}
+      />
 
       <ActionPopup
         open={isModalVisible}
@@ -90,11 +103,10 @@ export default function Operations (props: Props ) {
         title="Action Required"
         sendButtonText="Send"
         icon={Danger}
-        sendButtonStyle="bg-red-600">
+        sendButtonStyle="bg-red-600"
+      >
         <p>Are you sure you want to proceed with this action?</p>
       </ActionPopup>
-
-
-        </div>
-    )
+    </div>
+  );
 }
