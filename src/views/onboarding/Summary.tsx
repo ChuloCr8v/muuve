@@ -1,5 +1,5 @@
-import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import SummaryComponent from "../../component/onboarding/SummaryComponent";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
+import SummaryComponent from "../../components/onboarding/SummaryComponent";
 
 const Summary = () => {
   return (

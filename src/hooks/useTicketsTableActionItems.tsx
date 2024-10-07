@@ -1,7 +1,7 @@
 import { UserSwitchOutlined } from "@ant-design/icons";
 import { MenuProps } from "antd";
 import { BiEdit, BiRefresh, BiUserCheck } from "react-icons/bi";
-import DropdownCustomItem from "../component/Global/DropdownCustomItem";
+import DropdownCustomItem from "../components/global/DropdownCustomItem";
 
 const useTicketsTableActionItems = () => {
   const handleShowPopup = (e: any, value: string) => {

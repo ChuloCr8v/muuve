@@ -1,5 +1,5 @@
-import AuthLayout from "../../component/auth/AuthLayout";
-import LoginComponent from "../../component/auth/LoginComponent";
+import AuthLayout from "../../components/auth/AuthLayout";
+import LoginComponent from "../../components/auth/LoginComponent";
 
 export default function Login() {
   return <AuthLayout formElement={<LoginComponent />} />;

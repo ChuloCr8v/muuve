@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
-import AuthLayout from "../../component/auth/AuthLayout";
-import PasswordComponent from "../../component/onboarding/PasswordComponent";
+import AuthLayout from "../../components/auth/AuthLayout";
+import PasswordComponent from "../../components/onboarding/PasswordComponent";
 
 const ResetPassword = () => {
   const { email } = useParams();

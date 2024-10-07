@@ -3,12 +3,12 @@ import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 import { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import StatusTag from "../component/Global/StatusTag";
-import TableRowData from "../component/Global/TableRowData";
 import { showPopup } from "../redux/popupSlice";
 import { TicketsDataType } from "../types";
-import TicketSeverityTag from "../views/incidence/TicketSeverityTag";
 import useTicketsTableActionItems from "./useTicketsTableActionItems";
+import StatusTag from "../components/global/StatusTag";
+import TableRowData from "../components/global/TableRowData";
+import TicketSeverityTag from "../views/incidence/TicketSeverityTag";
 import TicketSLA from "../views/incidence/TicketSLA";
 
 const useTicketsColumns = () => {

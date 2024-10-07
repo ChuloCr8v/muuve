@@ -1,19 +1,19 @@
 import { Button, Input, Select } from "antd";
 import { useState } from "react";
-import ActionPopup from "../../component/Global/ActionPopup";
-import Danger from "/public/dangerSvg.svg";
+import ActionPopup from "../../components/global/ActionPopup";
+import Danger from "/dangerSvg.svg";
 import {
   OrderedListOutlined,
   PlusOutlined,
   SearchOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
-import Header from "../../component/Global/Header";
-import SummaryCards from "../../component/Global/SummaryCards";
+import Header from "../../components/global/Header";
+import SummaryCards from "../../components/global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import ModelTable from "../../component/TableItems/columns/ModelTable";
-import ModelForm from "../../component/inventory/model/ModelForm";
+import ModelTable from "../../components/tableItems/columns/ModelTable";
+import ModelForm from "../../components/inventory/model/ModelForm";
 
 export default function Model() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -66,9 +66,17 @@ export default function Model() {
 
       <SummaryCards summaryData={summaryCard} />
 
-      <ModelTable  selectedRow={selectedRow} setSelectedRow={setSelectedRow} setNewModel={setNewModel}/>
+      <ModelTable
+        selectedRow={selectedRow}
+        setSelectedRow={setSelectedRow}
+        setNewModel={setNewModel}
+      />
 
-      <ModelForm open={newModel} setNewModel={setNewModel} selectedRow={selectedRow} />
+      <ModelForm
+        open={newModel}
+        setNewModel={setNewModel}
+        selectedRow={selectedRow}
+      />
 
       <ActionPopup
         open={isModalVisible}

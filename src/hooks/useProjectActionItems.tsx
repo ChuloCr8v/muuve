@@ -10,8 +10,8 @@ import { BiUserCheck, BiTrash, BiCheckCircle } from "react-icons/bi";
 import { CgCloseO } from "react-icons/cg";
 import { GrAtm } from "react-icons/gr";
 import { PiUserSwitch } from "react-icons/pi";
-import DropdownCustomItem from "../component/Global/DropdownCustomItem";
 import { FiUserCheck } from "react-icons/fi";
+import DropdownCustomItem from "../components/global/DropdownCustomItem";
 
 type Props = {
   handleShowPopup: (e: { stopPropagation: () => void }, action: string) => void;

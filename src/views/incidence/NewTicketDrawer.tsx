@@ -1,10 +1,10 @@
 import { Button, Drawer, Form, Input, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { popupInterface } from "../../types";
-import CustomLabel from "../../component/onboarding/CustomLabel";
+import CustomLabel from "../../components/onboarding/CustomLabel";
 import TextArea from "antd/es/input/TextArea";
 import TicketSeverityTag from "./TicketSeverityTag";
-import MultiUpload from "../../component/Global/MultipleUpload";
+import MultiUpload from "../../components/global/MultipleUpload";
 import { newTicketFormFields } from "../../dummy/ticketsData";
 import { closeNewTicketDrawer } from "../../redux/popupSlice";
 import { twMerge } from "tailwind-merge";

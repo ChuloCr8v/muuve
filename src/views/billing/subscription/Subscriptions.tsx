@@ -1,4 +1,4 @@
-import Heading from "../../../component/Global/Header";
+import Heading from "../../../components/global/Header";
 import {
   DownOutlined,
   PlusOutlined,

@@ -1,17 +1,10 @@
-import { useNavigate } from "react-router-dom";
-import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import PasswordComponent from "../../component/onboarding/PasswordComponent";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
+import PasswordComponent from "../../components/onboarding/PasswordComponent";
 
 const Password = () => {
-  const navigate = useNavigate();
-
-  const handleSubmit = () => {
-    navigate("/org/onboarding/products");
-  };
-
   return (
     <OnboardingLayout
-      children={<PasswordComponent handleSubmit={handleSubmit} />}
+      children={<PasswordComponent />}
       heading={"Set up Password"}
       subheading={"Choose a password to proceed"}
       steps

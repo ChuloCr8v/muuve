@@ -3,33 +3,30 @@ import { MenuProps } from "antd";
 import { BiTrash } from "react-icons/bi";
 import { CgCloseO } from "react-icons/cg";
 import { GrAtm } from "react-icons/gr";
-import { PiUserSwitch } from "react-icons/pi";
-import { useDispatch, useSelector } from "react-redux";
-import DropdownCustomItem from "../component/Global/DropdownCustomItem";
-import { closeProjectDetailsDrawer, showPopup } from "../redux/popupSlice";
 import { LuUserCheck } from "react-icons/lu";
-import { popupInterface } from "../types";
+import { PiUserSwitch } from "react-icons/pi";
+import DropdownCustomItem from "../components/global/DropdownCustomItem";
 
 const useSurveyActionItems = () => {
-  const { currentPopup } = useSelector((state: popupInterface) => state.popups);
-  const { data } = currentPopup;
-  const dispatch = useDispatch();
+  // const { currentPopup } = useSelector((state: popupInterface) => state.popups);
+  // const { data } = currentPopup;
+  // const dispatch = useDispatch();
 
   const handleShowPopup = (
-    e: { stopPropagation: () => void },
-    action: string
+    _e: { stopPropagation: () => void },
+    _action: string
   ) => {
-    e.stopPropagation();
-    if (action === "edit details") {
-      dispatch(closeProjectDetailsDrawer());
-    }
-    dispatch(
-      showPopup({
-        data: data,
-        currentProject: "survey",
-        action: action,
-      })
-    );
+    // e.stopPropagation();
+    // if (action === "edit details") {
+    //   dispatch(closeProjectDetailsDrawer());
+    // }
+    // dispatch(
+    //   showPopup({
+    //     data: data,
+    //     currentProject: "survey",
+    //     action: action,
+    //   })
+    // );
   };
 
   // survey action items

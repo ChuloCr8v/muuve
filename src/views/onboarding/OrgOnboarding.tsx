@@ -1,8 +1,13 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import CustomLabel from "../../component/onboarding/CustomLabel";
-import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
+import { useForm } from "antd/es/form/Form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useOrgVerMailMutation } from "../../api/auth.api";
+import { OrgVerInput } from "../../api/types";
+import { toastApiError } from "../../utils/error.util";
+import { useAuthState } from "../../api/data/auth";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
+import CustomLabel from "../../components/onboarding/CustomLabel";
 
 const OrgOnboarding = () => {
   return (
@@ -20,10 +25,15 @@ const OrgOnboarding = () => {
 export default OrgOnboarding;
 
 const Children = () => {
+  const [form] = useForm();
+  const auth = useAuthState();
+
   const [email, setEmail] = useState("");
   const [agreement, setAgreement] = useState(false);
 
   const navigate = useNavigate();
+
+  const [orgVerMail, { isLoading }] = useOrgVerMailMutation();
 
   // validate email
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,14 +44,27 @@ const Children = () => {
     return Promise.reject(new Error("Please enter a valid email address!"));
   };
 
-  const handleSubmit = () => {
-    navigate(`/org/onboarding/verify-otp/${email}`);
+  const handleSubmit = (values: OrgVerInput) => {
+    orgVerMail(values)
+      .unwrap()
+      .then((res) => {
+        navigate(`/org/verify-otp`, {
+          state: { email: values.email },
+        });
+        auth.set(res);
+      })
+      .catch(toastApiError);
   };
 
   return (
-    <Form onFinish={handleSubmit} layout="vertical" className="w-[480px]">
+    <Form
+      form={form}
+      onFinish={handleSubmit}
+      layout="vertical"
+      className="w-[480px]"
+    >
       <Form.Item
-        name="work email"
+        name="email"
         label={<CustomLabel label={"Work Email"} required />}
         colon={false}
         rules={[{ required: true }, { validator: emailValidator }]}
@@ -58,7 +81,7 @@ const Children = () => {
           checked={agreement}
           onChange={() => setAgreement(!agreement)}
         />
-        <span className="ml-2 text-customBlack text-sm">
+        <span className="ml-2 text-sm text-customBlack">
           I agree to the{" "}
           <a href="" className="font-semibold underline">
             Terms
@@ -71,6 +94,7 @@ const Children = () => {
       </Form.Item>
       <Form.Item>
         <Button
+          loading={isLoading}
           disabled={email === "" || !agreement}
           type="primary"
           htmlType="submit"

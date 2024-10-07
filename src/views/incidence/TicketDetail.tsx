@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom";
-import Heading from "../../component/Global/Header";
+import Heading from "../../components/global/Header";
 import { ticketsData } from "../../dummy/ticketsData";
-import StatusTag from "../../component/Global/StatusTag";
+import StatusTag from "../../components/global/StatusTag";
 import { Button, Dropdown, MenuProps } from "antd";
 import { BiChevronDown } from "react-icons/bi";
-import TableRowData from "../../component/Global/TableRowData";
-import AttachmentCard from "../../component/Global/AttachmentCard";
-import UserAvatar from "../../component/Global/UserAvatar";
+import TableRowData from "../../components/global/TableRowData";
+import AttachmentCard from "../../components/global/AttachmentCard";
+import UserAvatar from "../../components/global/UserAvatar";
 
 const TicketDetail = () => {
   const { id } = useParams();

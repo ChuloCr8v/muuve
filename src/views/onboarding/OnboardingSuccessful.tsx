@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { useParams } from "react-router-dom";
 import Footer from "./Footer";
-import BoxIcon from "../../../public/box-icon.png";
+import BoxIcon from "/box-icon.png";
 
 const OnboardingSuccessful = () => {
   const { email } = useParams();

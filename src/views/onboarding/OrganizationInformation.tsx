@@ -1,9 +1,9 @@
-import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import OrganizationInformationComponent from "../../component/onboarding/OrganizationInformationComponent";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
+import OrganizationInformationComponent from "../../components/onboarding/OrganizationInformationComponent";
 
 const OrganizationInformation = () => {
   return (
-    <div className="w-full flex flex-col gap-6">
+    <div className="flex flex-col w-full gap-6">
       <OnboardingLayout
         children={<OrganizationInformationComponent />}
         heading={"Organization Information"}

@@ -1,8 +1,8 @@
 import { PlusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import ServiceRow from "../../../component/Global/EditableContext";
-import Heading from "../../../component/Global/Header";
+import ServiceRow from "../../../components/global/EditableContext";
+import Heading from "../../../components/global/Header";
 
 export default function NewSubscription() {
   const totalCal = [
