@@ -4,7 +4,7 @@ import TextArea from "antd/es/input/TextArea";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import { FaBan } from "react-icons/fa";
-import ServicesRow from "../../../component/billing/ServicesRow";
+import ServicesRow from "../../../components/billing/ServicesRow";
 
 import { customerData } from "../../../dummy/customerData";
 import { NewSubscriptionFormDataType } from "../../../types";

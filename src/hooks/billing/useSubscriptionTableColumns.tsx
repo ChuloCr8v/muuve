@@ -1,12 +1,12 @@
 import { DownOutlined, SwitcherOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Dropdown, MenuProps } from "antd";
-import MenuList from "../../component/Global/DropDownMenuList";
-import StatusTag from "../../component/Global/StatusTag";
+import MenuList from "../../component/global/DropDownMenuList";
+import StatusTag from "../../component/global/StatusTag";
 import { FaBan } from "react-icons/fa";
 import { TbSwitch2 } from "react-icons/tb";
 import { LiaUserCheckSolid } from "react-icons/lia";
 import dayjs from "dayjs";
-import TableRowData from "../../component/Global/TableRowData";
+import TableRowData from "../../component/global/TableRowData";
 import { SubscriptionDataType } from "../../types";
 import { ColumnProps } from "antd/es/table";
 

@@ -1,8 +1,9 @@
 import { Select } from "antd";
-import CustomEditor from "../../component/Global/CustomEditor";
-import UserAvatar from "../../component/Global/UserAvatar";
+
 import { ticketStatusData } from "../../dummy/ticketStatusData";
 import { users } from "../../dummy/users";
+import CustomEditor from "../../components/global/CustomEditor";
+import UserAvatar from "../../components/global/UserAvatar";
 
 interface Props {
   setReplyContent: (arg: string) => void;

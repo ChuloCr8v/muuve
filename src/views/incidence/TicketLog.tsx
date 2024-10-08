@@ -6,8 +6,8 @@ import { CgArrowRight } from "react-icons/cg";
 import { FaChevronUp } from "react-icons/fa";
 import { FaCircle } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
-import AttachmentCard from "../../component/Global/AttachmentCard";
 import { TicketsHistoryDataType } from "../../types";
+import AttachmentCard from "../../components/global/AttachmentCard";
 
 type Props = {
   data: TicketsHistoryDataType;

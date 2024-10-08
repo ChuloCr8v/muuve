@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import FileCard from "../../component/Global/FileCard";
-import UserAvatar from "../../component/Global/UserAvatar";
 import { TicketsDataType } from "../../types";
+import FileCard from "../../components/global/FileCard";
+import UserAvatar from "../../components/global/UserAvatar";
 
 type Props = {
   currentTicket?: TicketsDataType;
