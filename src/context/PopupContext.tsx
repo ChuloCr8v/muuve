@@ -2,7 +2,6 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 
 // Define options for openPopup
 interface PopupOptions {
-  data?: any; // Data to be passed to the popup content
   onSubmit?: () => Promise<void>; // Asynchronous function to be called on OK
   okText?: string; // Custom OK button text
   loading?: boolean; // Loading state for the submit button

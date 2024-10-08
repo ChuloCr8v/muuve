@@ -1,5 +1,9 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
+import FormConfig from "../views/Admin/config/FormConfig";
+import Staff from "../views/Admin/Staff";
+import Customer from "../views/Admin/Customer";
+import CustomerPage from "../views/Admin/CustomerPage";
 
 const ImportCustomerList = lazy(
   () => import("../components/customer/ImportCustomerList")
@@ -12,10 +16,6 @@ const Billing = lazy(() => import("../views/accounts/Billing"));
 const PlanUpdate = lazy(() => import("../views/accounts/PlanUpdate"));
 const ProfileSetting = lazy(() => import("../views/accounts/ProfileSetting"));
 const Role = lazy(() => import("../views/accounts/Role"));
-const FormConfig = lazy(() => import("../views/admin/config/FormConfig"));
-const Customer = lazy(() => import("../views/admin/Customer"));
-const CustomerPage = lazy(() => import("../views/admin/CustomerPage"));
-const Staff = lazy(() => import("../views/admin/Staff"));
 const Invoices = lazy(() => import("../views/billing/invoices"));
 const NewSubscription = lazy(
   () => import("../views/billing/subscription/NewSubscription")

@@ -78,20 +78,34 @@ export type OrgRequestType = {
   name: string;
 };
 
+export enum SurveyStatus {
+  REQUESTED = "REQUESTED",
+  REJECTED = "REJECTED",
+  ONGOING = "ONGOING",
+  REVERTED = "REVERTED",
+  COMPLETED = "COMPLETED",
+}
+
 export type Survey = {
   id: string;
+  surveyId: string;
   state: string;
   region: string;
   longitude: number;
   lattitude: number;
-  serviceLocationAddress: string;
+  address: string;
   comment: string;
   customerId: string;
   orgId: string;
   serviceTypeId: string;
   requestTypeId: string;
+  managerId: string;
   createdAt: string;
+  bandwidth: string;
+  manager: Staff;
+  assignee: Staff;
   customer: Customer;
+  status: SurveyStatus;
   requestType: OrgRequestType;
   serviceType: OrgServiceType;
 };
@@ -106,4 +120,28 @@ export type NewSurveyInput = {
   longitude: string;
   lattitude: string;
   comment?: string;
+};
+
+export type UpdateSurveyInput = NewSurveyInput & {
+  id: string;
+  surveyId: string;
+};
+
+export type AssignSurveyInput = {
+  id: string;
+  comment: string;
+  surveyId: string;
+  assigneeId: string;
+};
+
+export type RevertSurveyInput = {
+  id: string;
+  surveyId: string;
+  comment: string;
+};
+
+export type RejectSurveyInput = {
+  id: string;
+  surveyId: string;
+  comment: string;
 };

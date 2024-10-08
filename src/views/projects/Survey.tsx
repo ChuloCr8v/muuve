@@ -1,32 +1,36 @@
-import { CloudUploadOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps } from "antd";
 import { ColumnType } from "antd/es/table";
-import dayjs from "dayjs";
+import { AiOutlineRollback } from "react-icons/ai";
 import { BiTrash } from "react-icons/bi";
 import { CgCloseO } from "react-icons/cg";
-import { GrAtm } from "react-icons/gr";
+import { CiEdit } from "react-icons/ci";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { IoCheckmark } from "react-icons/io5";
 import { LuUserCheck } from "react-icons/lu";
 import { PiUserSwitch } from "react-icons/pi";
+import { useListSurveysQuery } from "../../api/surveys.api";
+import { Customer, Survey } from "../../api/types";
 import DropdownCustomItem from "../../components/global/DropdownCustomItem";
 import PageHeader from "../../components/global/PageHeader";
 import SummaryCards from "../../components/global/SummaryCards";
 import TableComponent from "../../components/global/TableComponent";
 import TableRowData from "../../components/global/TableRowData";
 import SurveyDetailsDrawer from "../../components/projects/survey/SurveyDetailsDrawer";
-import { SurveyData } from "../../components/tableItems/data/SurveyData";
 import { usePopup } from "../../context/PopupContext";
 import { NewSurveyDrawer } from "../../drawers/projects/NewSurveyDrawer";
-import SLATime from "../../hooks/useGetSLA";
-import { SurveyDataType } from "../../types";
-import { useListSurveysQuery } from "../../api/project.api";
+import { UpdateSurveyDrawer } from "../../drawers/projects/UpdateSurveyDrawer";
+import { AssignSurveyModal } from "../../modals/projects/AssignSurveyModal";
+import { RejectSurveyModal } from "../../modals/projects/RejectSurveyModal";
+import { RevertSurveyModal } from "../../modals/projects/RevertSurveyModal";
+import { capitalizeFirstLetter } from "../../utils/capitalize.util";
+import { ReassignSurveyModal } from "../../modals/projects/ReassignSurveyModal";
 
-const Survey = () => {
-  const { openDrawer } = usePopup();
+const ProjectSurvey = () => {
+  const { openDrawer, openModal } = usePopup();
 
-  const { data } = useListSurveysQuery();
-  console.log(data);
+  const listSurvey = useListSurveysQuery();
 
-  const surveyData = data?.map((sd) => ({}));
+  const surveys = listSurvey.data ?? [];
 
   const summaryData = [
     {
@@ -47,45 +51,21 @@ const Survey = () => {
     },
   ];
 
-  const surveyActionItems: MenuProps["items"] = [
+  const surveyActionItems = (survey: Survey): MenuProps["items"] => [
     {
-      key: 1,
+      key: 0,
       label: (
         <DropdownCustomItem
-          label={"Edit Details"}
-          icon={<EyeOutlined className="" />}
+          label={"Complete"}
+          icon={<IoCheckmark />}
+          className="text-green-600"
         />
       ),
-      // onClick: () => showModal('Edit Details', '/path/to/edit-icon.svg'),
+      // onClick: () => openDrawer(<UpdateSurveyDrawer survey={survey} />),
     },
+    { type: "divider" },
     {
       key: 2,
-      label: (
-        <div
-          className=""
-          // onClick={(e) => handleShowPopup(e, "initiate payment")}
-        >
-          <DropdownCustomItem
-            label={"Initiate Payment"}
-            icon={<GrAtm className="" />}
-          />
-        </div>
-      ),
-    },
-
-    {
-      key: 3,
-      label: (
-        <div className="" onClick={() => {}}>
-          <DropdownCustomItem
-            label={"Upload Receipt"}
-            icon={<CloudUploadOutlined className="" />}
-          />
-        </div>
-      ),
-    },
-    {
-      key: 4,
       label: (
         <div className="">
           <DropdownCustomItem
@@ -94,10 +74,10 @@ const Survey = () => {
           />
         </div>
       ),
+      onClick: () => openModal(<AssignSurveyModal survey={survey} />),
     },
-
     {
-      key: 5,
+      key: 3,
       label: (
         <div className="">
           <DropdownCustomItem
@@ -106,23 +86,46 @@ const Survey = () => {
           />
         </div>
       ),
+      onClick: () => openModal(<ReassignSurveyModal survey={survey} />),
+    },
+    {
+      key: 1,
+      label: <DropdownCustomItem label={"Edit Survey"} icon={<CiEdit />} />,
+      onClick: () => openDrawer(<UpdateSurveyDrawer survey={survey} />),
+    },
+    { type: "divider" },
+    {
+      key: 4,
+      label: (
+        <div>
+          <DropdownCustomItem
+            className="text-red-600"
+            label={"Revert"}
+            icon={<AiOutlineRollback className="" />}
+          />
+        </div>
+      ),
+      onClick: () => openModal(<RevertSurveyModal survey={survey} />),
+    },
+    {
+      key: 5,
+      label: (
+        <div>
+          <DropdownCustomItem
+            className="text-red-600"
+            label={"Reject Survey"}
+            icon={<CgCloseO className="" />}
+          />
+        </div>
+      ),
+      onClick: () => openModal(<RejectSurveyModal survey={survey} />),
     },
     {
       key: 6,
       label: (
         <div>
           <DropdownCustomItem
-            label={"Reject Survey"}
-            icon={<CgCloseO className="" />}
-          />
-        </div>
-      ),
-    },
-    {
-      key: 7,
-      label: (
-        <div>
-          <DropdownCustomItem
+            className="text-red-600"
             label={"Delete"}
             icon={<BiTrash className="" />}
           />
@@ -131,32 +134,28 @@ const Survey = () => {
     },
   ];
 
-  const columns: ColumnType<SurveyDataType>[] = [
+  const columns: ColumnType<Survey>[] = [
     {
       title: "ID",
-      dataIndex: "id",
-      key: "id",
-      render: (_: "string", record) => <TableRowData mainText={record.id} />,
+      dataIndex: "surveyId",
+      key: "surveyId",
     },
     {
       title: "Name",
-      dataIndex: "customerName",
-      key: "customerName",
-      render: (_: "string", record) => (
-        <TableRowData
-          mainText={record.customerName}
-          tagText={record.serviceAddress}
-        />
+      dataIndex: "customer",
+      key: "customer",
+      render: (customer: Customer, record) => (
+        <TableRowData mainText={customer.name} tagText={record.address} />
       ),
     },
     {
-      title: "Service Type",
+      title: "Service | Request Type",
       dataIndex: "serviceType",
       key: "serviceType",
-      render: (_: "string", record) => (
+      render: (_, record) => (
         <TableRowData
-          mainText={record.serviceType}
-          tagText={record.requestType}
+          mainText={record.serviceType.name}
+          tagText={record.requestType.name}
         />
       ),
     },
@@ -166,11 +165,8 @@ const Survey = () => {
       key: "status",
       render: (_, record) => (
         <TableRowData
-          mainText={record.status}
-          tagText={record.manager}
-          mainTextStyle={`${
-            record.status.toLowerCase() === "completed" && "text-primary"
-          }`}
+          mainText={capitalizeFirstLetter(record.status)}
+          tagText={record.assignee.name}
         />
       ),
     },
@@ -178,23 +174,23 @@ const Survey = () => {
       title: "SLA",
       dataIndex: ["sla", "due"],
       key: "requestType",
-      render: (_, record) => (
-        <TableRowData
-          mainText={<SLATime sla={record.dueDate} status={record.status} />}
-          tagText={`Due: ${dayjs(record.dueDate).format("DD MMM YYYY")}`}
-        />
-      ),
+      // render: (_, record) => (
+      // <TableRowData
+      //   mainText={<SLATime sla={record.dueDate} status={record.status} />}
+      //   tagText={`Due: ${dayjs(record.dueDate).format("DD MMM YYYY")}`}
+      // />
+      // )
     },
     {
-      title: "Action",
-      dataIndex: "latitude",
-      key: "latitude",
+      title: "Actions",
+      dataIndex: "actions",
+      key: "actions",
       width: 150,
-      render: (_: string, _records) => (
+      render: (_, record) => (
         <Dropdown
           trigger={["click"]}
           menu={{
-            items: surveyActionItems,
+            items: surveyActionItems(record),
           }}
         >
           <Button
@@ -205,6 +201,7 @@ const Survey = () => {
             }}
           >
             Action
+            <IoMdArrowDropdown />
           </Button>
         </Dropdown>
       ),
@@ -223,8 +220,9 @@ const Survey = () => {
       <SummaryCards summaryData={summaryData} />
       <TableComponent
         columns={columns}
-        dataSource={SurveyData}
+        dataSource={surveys}
         scroll={800}
+        loading={listSurvey.isFetching}
         // onRow={(record: Array<{}>) => ({
         //   onClick: () => handleRowClick(record),
         // })}
@@ -244,4 +242,4 @@ const Survey = () => {
   );
 };
 
-export default Survey;
+export default ProjectSurvey;

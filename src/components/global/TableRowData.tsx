@@ -21,7 +21,9 @@ const TableRowData = ({
       <p className={twMerge("text-black capitalize", mainTextStyle)}>
         {mainText}
       </p>
-      <p className={twMerge(tagTextStyle, "text-grey capitalize")}>{tagText}</p>
+      <p className={twMerge(tagTextStyle, "text-blue-400 capitalize text-xs")}>
+        {tagText}
+      </p>
     </div>
   );
 };

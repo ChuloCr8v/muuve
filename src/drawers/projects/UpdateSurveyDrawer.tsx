@@ -1,21 +1,27 @@
 import { Form, Input, InputNumber, message, Select } from "antd";
-import { CustomDrawer } from "../../components/common/CustomDrawer";
 import TextArea from "antd/es/input/TextArea";
 import { useListCustomersQuery } from "../../api/customer.api";
 import {
   useListRequestTypesQuery,
   useListServiceTypesQuery,
 } from "../../api/org.api";
+import { useUpdateSurveyMutation } from "../../api/surveys.api";
+import { useListStaffQuery } from "../../api/staff.api";
+import { Survey } from "../../api/types";
+import { CustomDrawer } from "../../components/common/CustomDrawer";
 import { regions, statesInNigeria } from "../../constants";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
-import { useListStaffQuery } from "../../api/staff.api";
-import { useRequestSurveyMutation } from "../../api/surveys.api";
 
-export const NewSurveyDrawer = () => {
+interface Props {
+  survey: Survey;
+}
+
+export const UpdateSurveyDrawer = ({ survey }: Props) => {
   const [form] = Form.useForm();
-  const [requestSurvey, { isLoading }] = useRequestSurveyMutation();
   const { closeDrawer } = usePopup();
+
+  const [updateSurvey, { isLoading }] = useUpdateSurveyMutation();
 
   const { data: customers } = useListCustomersQuery();
   const { data: staff } = useListStaffQuery();
@@ -24,10 +30,11 @@ export const NewSurveyDrawer = () => {
 
   const submit = async () => {
     const values = await form.validateFields();
-    requestSurvey(values)
+    const data = { ...values, id: survey.id, surveyId: survey.surveyId };
+    updateSurvey(data)
       .unwrap()
       .then(() => {
-        message.success("Survey Requested");
+        message.success("Survey Updated");
         closeDrawer();
       })
       .catch(toastApiError);
@@ -35,14 +42,31 @@ export const NewSurveyDrawer = () => {
 
   return (
     <CustomDrawer
-      title="Add Survey Request"
+      title="Update Survey Request"
+      okText="Update"
       closable={false}
       width={500}
       onSubmit={submit}
       loading={isLoading}
     >
       <div className="w-full">
-        <Form form={form} layout="vertical">
+        <Form
+          form={form}
+          layout="vertical"
+          initialValues={{
+            address: survey.address,
+            bandwidth: survey.bandwidth,
+            longitude: survey.longitude,
+            lattitude: survey.lattitude,
+            comment: survey.comment,
+            region: survey.region,
+            state: survey.state,
+            customerId: survey.customerId,
+            serviceTypeId: survey.serviceTypeId,
+            requestTypeId: survey.requestTypeId,
+            managerId: survey.managerId,
+          }}
+        >
           <Form.Item
             label="Customer"
             required

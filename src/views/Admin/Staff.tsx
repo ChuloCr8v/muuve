@@ -21,9 +21,11 @@ import { AddStaffDrawer } from "../../drawers/staff/AddStaffDrawer";
 export default function Staff() {
   const { openDrawer } = usePopup();
 
-  const { data: users, isLoading } = useListStaffQuery();
+  const listStaff = useListStaffQuery();
 
-  const staff = users?.map((u) => ({
+  const staffUsers = listStaff.data ?? [];
+
+  const staff = staffUsers.map((u) => ({
     name: u.staff.name,
     email: u.email,
     roles: "Nil",
@@ -214,8 +216,8 @@ export default function Staff() {
           scroll={{ x: 800 }}
           size="small"
           columns={columns}
-          dataSource={filteredData}
-          loading={isLoading}
+          dataSource={filteredData.length > 0 ? filteredData : staff}
+          loading={listStaff.isFetching}
         />
       </section>
 

@@ -41,9 +41,11 @@ export interface ActionProps {
 }
 
 export default function Customer() {
-  const { data: users, isLoading } = useListCustomersQuery();
+  const listCustomers = useListCustomersQuery();
 
-  const customers = users?.map((u) => ({
+  const customerUsers = listCustomers.data ?? [];
+
+  const customers = customerUsers.map((u) => ({
     email: u.email,
     name: u.customer.name,
     phone: u.customer.phone,
@@ -207,8 +209,8 @@ export default function Customer() {
           scroll={{ x: 800 }}
           size="small"
           columns={columns as any}
-          dataSource={filteredData}
-          loading={isLoading}
+          dataSource={filteredData?.length > 0 ? filteredData : customers}
+          loading={listCustomers.isFetching}
         />
       </section>
 
