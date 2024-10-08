@@ -1,33 +1,9 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import ProfileSetting from "./accounts/ProfileSetting";
-import Role from "./accounts/Role";
-import Customer from "./Admin/Customer";
-import CustomerPage from "./Admin/CustomerPage";
-import Staff from "./Admin/Staff";
-import Invoices from "./billing/invoices";
-import NewSubscription from "./billing/subscription/NewSubscription";
-import Subscription from "./billing/subscription/Subscriptions";
-import Tickets from "./incidence/Tickets";
-import Devices from "./inventory/Devices";
-import Model from "./inventory/Model";
-import Maintenance from "./operations/Maintenance";
-import Operations from "./operations/Operations";
-import Snags from "./operations/Snag";
-import Programs from "./Programs";
-import JobOrder from "./projects/JobOrders";
-import Survey from "./projects/Survey";
-import InitiatePayment from "./projects/surveys/InitiatePayment";
-import Billing from "./accounts/Billing";
-import PlanUpdate from "./accounts/PlanUpdate";
-import Vendor from "./Admin/Vendor";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGetAuthUserQuery } from "../api/auth.api";
+import { Loading } from "../components/common/Loading";
 import Layout from "../components/layout/Layout";
 import ProtectedRoutes from "../routes/ProtectedRoutes";
-import { useGetAuthUserQuery } from "../api/auth.api";
-import { useEffect } from "react";
-import { Loading } from "../components/common/Loading";
-import ImportCustomerList from "../components/customer/ImportCustomerList";
-import ReportDetails from "../components/operations/reports/ReportDetails";
 
 export default function UserPages() {
   const navigate = useNavigate();
@@ -43,7 +19,7 @@ export default function UserPages() {
 
   return (
     <Layout>
-      <Routes>
+      {/* <Routes>
         <Route path="/" element={<Navigate replace to="/projects/survey" />} />
         <Route path="/projects/surveys" element={<Survey />} />
         <Route
@@ -79,7 +55,7 @@ export default function UserPages() {
         <Route path="/operations/reports" element={<Operations />} />
         <Route path="/admin/vendor" element={<Vendor />} />
 
-      </Routes>
+      </Routes> */}
       <ProtectedRoutes />
     </Layout>
   );

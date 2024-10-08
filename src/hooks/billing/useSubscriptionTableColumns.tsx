@@ -1,14 +1,15 @@
 import { DownOutlined, SwitcherOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Dropdown, MenuProps } from "antd";
-import MenuList from "../../component/global/DropDownMenuList";
-import StatusTag from "../../component/global/StatusTag";
-import { FaBan } from "react-icons/fa";
-import { TbSwitch2 } from "react-icons/tb";
-import { LiaUserCheckSolid } from "react-icons/lia";
-import dayjs from "dayjs";
-import TableRowData from "../../component/global/TableRowData";
-import { SubscriptionDataType } from "../../types";
+import { Button, Dropdown, MenuProps } from "antd";
+
 import { ColumnProps } from "antd/es/table";
+import dayjs from "dayjs";
+import { FaBan } from "react-icons/fa";
+import { LiaUserCheckSolid } from "react-icons/lia";
+import { TbSwitch2 } from "react-icons/tb";
+import MenuList from "../../components/global/DropDownMenuList";
+import StatusTag from "../../components/global/StatusTag";
+import TableRowData from "../../components/global/TableRowData";
+import { SubscriptionDataType } from "../../types";
 
 const useSubscriptionTableColumns = () => {
   const items: MenuProps["items"] = [
