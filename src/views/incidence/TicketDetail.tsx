@@ -3,11 +3,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { FaChevronDown, FaSearch } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-import FileCard from "../../component/Global/FileCard";
-import Heading from "../../component/Global/Header";
-import StatusTag from "../../component/Global/StatusTag";
-import TableRowData from "../../component/Global/TableRowData";
-import UserAvatar from "../../component/Global/UserAvatar";
+
 import { ticketsData } from "../../dummy/ticketsData";
 import TimeDifference from "../../hooks/TimeDifference";
 import TicketLogItem from "./TicketLog";
@@ -15,6 +11,11 @@ import TicketRepliesComponent from "./TicketRepliesComponent";
 import TicketReplyComponent from "./TicketReplyComponent";
 import TicketSeverityTag from "./TicketSeverityTag";
 import useTicketActionItems from "../../hooks/incidence/useTicketActionItems";
+import StatusTag from "../../components/global/StatusTag";
+import FileCard from "../../components/global/FileCard";
+import Heading from "../../components/global/Header";
+import TableRowData from "../../components/global/TableRowData";
+import UserAvatar from "../../components/global/UserAvatar";
 
 const TicketDetail = () => {
   const [replyContent, setReplyContent] = useState("");
@@ -22,7 +23,7 @@ const TicketDetail = () => {
 
   const currentTicket = ticketsData.find((ticket) => ticket.id === id);
 
-  const { ticketActionItems } = useTicketActionItems(id);
+  const { ticketActionItems } = useTicketActionItems(id ?? "");
 
   return (
     <div className="p-8 space-y-6">

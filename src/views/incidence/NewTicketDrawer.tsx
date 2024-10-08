@@ -1,10 +1,8 @@
 import { Button, Drawer, Form, Input, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { FileInterface, popupInterface, TicketsDataType } from "../../types";
-import CustomLabel from "../../component/onboarding/CustomLabel";
 import TextArea from "antd/es/input/TextArea";
 import TicketSeverityTag from "./TicketSeverityTag";
-import MultiUpload from "../../component/Global/MultipleUpload";
 import { newTicketFormFields, ticketSeverity } from "../../dummy/ticketsData";
 import { closeNewTicketDrawer } from "../../redux/popupSlice";
 import { twMerge } from "tailwind-merge";
@@ -12,7 +10,8 @@ import { useEffect, useState } from "react";
 import useTicketSeverityColor from "../../hooks/incidence/useTicketSeverityColor";
 import useGetSingleTicket from "../../hooks/incidence/useGetSingleTicket";
 import { users } from "../../dummy/users";
-import { newRoleFormFields } from "../../dummy/newRoleFormFields";
+import MultiUpload from "../../components/global/MultipleUpload";
+import CustomLabel from "../../components/onboarding/CustomLabel";
 
 const NewTicketDrawer = () => {
   const [newTicketFormData, setNewTicketFormData] = useState<

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import Heading from "../../component/Global/Header";
-import SummaryCards from "../../component/Global/SummaryCards";
-import TableComponent from "../../component/Global/TableComponent";
+import Heading from "../../components/global/Header";
+import SummaryCards from "../../components/global/SummaryCards";
+import TableComponent from "../../components/global/TableComponent";
 import { ticketsData } from "../../dummy/ticketsData";
 import useTicketsColumns from "../../hooks/incidence/useTicketsColumns";
 import NewTicketDrawer from "./NewTicketDrawer";

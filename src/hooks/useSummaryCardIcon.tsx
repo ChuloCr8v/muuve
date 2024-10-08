@@ -14,6 +14,7 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
       case "closed":
         return <VscVmActive />;
       case "deactivated":
+      case "inactive":
       case "open":
         return <FaBan />;
 
@@ -31,6 +32,7 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
       case "closed":
         return "bg-green-500 text-green-600";
       case "deactivated":
+      case "inactive":
       case "open":
         return "bg-red-500 text-red-600";
       default:

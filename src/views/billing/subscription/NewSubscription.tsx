@@ -5,13 +5,14 @@ import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
 import { FaBan } from "react-icons/fa";
 import ServicesRow from "../../../component/billing/ServicesRow";
-import DiscountModal, {
-  DiscountFieldsDataType,
-} from "../../../component/Global/DiscountModal";
-import Heading from "../../../component/Global/Header";
-import TableRowData from "../../../component/Global/TableRowData";
+
 import { customerData } from "../../../dummy/customerData";
 import { NewSubscriptionFormDataType } from "../../../types";
+import DiscountModal, {
+  DiscountFieldsDataType,
+} from "../../../components/global/DiscountModal";
+import Heading from "../../../components/global/Header";
+import TableRowData from "../../../components/global/TableRowData";
 
 const formDataFields = {
   customerName: "",

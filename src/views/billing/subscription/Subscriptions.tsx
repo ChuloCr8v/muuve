@@ -1,10 +1,10 @@
 import { PlusOutlined, SearchOutlined, SyncOutlined } from "@ant-design/icons";
 import { Button, Input, Select } from "antd";
 import { Link } from "react-router-dom";
-import Heading from "../../../component/Global/Header";
 import dataList from "./data";
 import useSubscriptionTableColumns from "../../../hooks/billing/useSubscriptionTableColumns";
-import TableComponent from "../../../component/Global/TableComponent";
+import Heading from "../../../components/global/Header";
+import TableComponent from "../../../components/global/TableComponent";
 
 export default function Subscription() {
   const { subscriptionColumns } = useSubscriptionTableColumns();

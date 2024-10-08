@@ -4,9 +4,9 @@ import TextArea from "antd/es/input/TextArea";
 import Column from "antd/es/table/Column";
 import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
-import Heading from "../../../component/Global/Header";
-import TableRowData from "../../../component/Global/TableRowData";
-import CustomLabel from "../../../component/onboarding/CustomLabel";
+import Heading from "../../../components/global/Header";
+import TableRowData from "../../../components/global/TableRowData";
+import CustomLabel from "../../../components/onboarding/CustomLabel";
 
 interface DetailsRowInterface {
   id: number;
@@ -35,7 +35,7 @@ const InitiatePayment = () => {
   const vat = 2;
 
   const Subheading = ({ subheading }: { subheading: string }) => {
-    return <p className="text-grey uppercase text-xs">{subheading}</p>;
+    return <p className="text-xs uppercase text-grey">{subheading}</p>;
   };
 
   const addItem = () => {
@@ -128,13 +128,13 @@ const InitiatePayment = () => {
 
       <div className="space-y-3">
         <Subheading subheading="Details" />
-        <div className="editable-table space-y-3">
+        <div className="space-y-3 editable-table">
           <Table
             pagination={false}
             bordered
             size="small"
             dataSource={detailsData}
-            className="rounded-lg border bg-white"
+            className="bg-white border rounded-lg"
             scroll={{ x: 800 }}
           >
             <Column<DetailsRowInterface>
@@ -207,8 +207,8 @@ const InitiatePayment = () => {
               width={150}
               render={(_: string, record) => {
                 return (
-                  <p className="text-black font-semibold">
-                    <span className="text-grey font-normal">NGN </span>
+                  <p className="font-semibold text-black">
+                    <span className="font-normal text-grey">NGN </span>
                     {record.unitPrice.toLocaleString()}
                   </p>
                 );
@@ -222,8 +222,8 @@ const InitiatePayment = () => {
               width={150}
               render={(_: string, record) => {
                 return (
-                  <p className="text-black font-semibold">
-                    <span className="text-grey font-normal">NGN </span>
+                  <p className="font-semibold text-black">
+                    <span className="font-normal text-grey">NGN </span>
                     {getAmount(record.id).toLocaleString()}
                   </p>
                 );
@@ -238,7 +238,7 @@ const InitiatePayment = () => {
                 render={(_: string, record) => {
                   return (
                     <BiTrash
-                      className="text-red-600 text-2xl cursor-pointer hover:text-red-800"
+                      className="text-2xl text-red-600 cursor-pointer hover:text-red-800"
                       onClick={() => {
                         deleteItem(record.id);
                       }}
@@ -250,7 +250,7 @@ const InitiatePayment = () => {
           </Table>
 
           <Button
-            className="h-9 border-dashed border-primary text-primary"
+            className="border-dashed h-9 border-primary text-primary"
             icon={<PlusCircleOutlined />}
             iconPosition="end"
             onClick={addItem}
@@ -286,7 +286,7 @@ const InitiatePayment = () => {
           />
 
           <Button
-            className="h-9 border-dashed border-primary text-primary"
+            className="border-dashed h-9 border-primary text-primary"
             icon={<PlusCircleOutlined />}
             iconPosition="end"
           >

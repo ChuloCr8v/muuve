@@ -1,12 +1,12 @@
 import { DownloadOutlined, SearchOutlined } from "@ant-design/icons";
 import { Button, Input } from "antd";
 import { FiDownloadCloud } from "react-icons/fi";
-import Heading from "../../component/Global/Header";
-import TableComponent from "../../component/Global/TableComponent";
-import TableRowData from "../../component/Global/TableRowData";
+import Heading from "../../components/global/Header";
+import TableComponent from "../../components/global/TableComponent";
+import TableRowData from "../../components/global/TableRowData";
 import AccountLayout from "./AccountLayout";
-import BillingModuleCards from "../../component/accounts/BillingModuleCards";
-import DeactivateServiceModal from "../../component/accounts/DeactivateServiceModal";
+import BillingModuleCards from "../../components/accounts/BillingModuleCards";
+import DeactivateServiceModal from "../../components/accounts/DeactivateServiceModal";
 import dayjs from "dayjs";
 
 interface InvoiceDataInterface {

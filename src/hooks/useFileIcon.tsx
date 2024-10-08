@@ -1,8 +1,8 @@
-import doc from "../assets/file-icons/doc.png";
-import pdf from "../assets/file-icons/pdf.png";
-import jpg from "../assets/file-icons/jpg.png";
-import png from "../assets/file-icons/png.png";
-import file from "../assets/file-icons/file.png";
+import doc from "/assets/file-icons/doc.png";
+import pdf from "/assets/file-icons/pdf.png";
+import jpg from "/assets/file-icons/jpg.png";
+import png from "/assets/file-icons/png.png";
+import file from "/assets/file-icons/file.png";
 
 const useFileIcon = () => {
   const fileIcon = (fileType: string) => {

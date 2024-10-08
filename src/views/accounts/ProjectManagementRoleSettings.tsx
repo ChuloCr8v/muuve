@@ -1,5 +1,5 @@
 import { roles } from "../../dummy/roles";
-import RoleSettingsSection from "../../component/accounts/RoleSettingsSection";
+import RoleSettingsSection from "../../components/accounts/RoleSettingsSection";
 
 const ProjectManagementRoleSettings = () => {
   return (

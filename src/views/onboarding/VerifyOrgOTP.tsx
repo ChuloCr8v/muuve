@@ -1,13 +1,14 @@
-import { useParams } from "react-router-dom";
-import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import VerificationComponent from "../../component/onboarding/VerificationComponent";
+import { useLocation } from "react-router-dom";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
+import VerificationComponent from "../../components/onboarding/VerificationComponent";
 
 const VerifyOrgOTP = () => {
-  const { email } = useParams();
+  const location = useLocation();
+  const email = location.state.email;
 
   return (
     <OnboardingLayout
-      children={<VerificationComponent />}
+      children={<VerificationComponent email={email} />}
       heading={"Verification Code"}
       subheading={
         <span>

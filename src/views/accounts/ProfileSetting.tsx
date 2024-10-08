@@ -1,13 +1,13 @@
 import { Button, Form, Input, Select, Tag } from "antd";
-import Heading from "../../component/Global/Header";
-import TableRowData from "../../component/Global/TableRowData";
+import Heading from "../../components/global/Header";
+import TableRowData from "../../components/global/TableRowData";
 import AccountLayout from "./AccountLayout";
 import { useEffect, useState } from "react";
 import {
   OrganizationInformationType,
   orgInfo,
 } from "../../dummy/organizationInfo";
-import CustomLabel from "../../component/onboarding/CustomLabel";
+import CustomLabel from "../../components/onboarding/CustomLabel";
 import PhoneInput from "react-phone-number-input/input";
 import { E164Number } from "libphonenumber-js";
 import { twMerge } from "tailwind-merge";

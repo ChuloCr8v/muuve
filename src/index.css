@@ -41,12 +41,18 @@
   padding: 2px 11px;
 }
 
+:where(.css-dev-only-do-not-override-s2go2e).ant-input {
+  height: 28px;
+}
+
 .tableAction {
   border: solid 1.5px #0a95cc66;
   color: #0a95cc;
   font-weight: 600;
   display: flexbox;
 }
+
+.head{font-size: clamp(16px, 2vw, 20px);}
 
 .tagSize {
   font-size: 12px !important;
@@ -200,4 +206,8 @@ body {
 :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range
   .ant-input-data-count {
   color: inherit;
+}
+
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-item-vertical .ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-24.ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-xl-24.ant-form-item-label {
+  padding: 0;
 }
