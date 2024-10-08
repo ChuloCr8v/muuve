@@ -1,4 +1,4 @@
-import Logo from "../../../public/miro-color.png";
+import Logo from "/miro-color.png";
 
 const FormLogoHeading = () => {
   return (

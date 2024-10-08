@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import AuthLayout from "../../component/auth/AuthLayout";
-import ResetPasswordOTPComponent from "../../component/auth/ResetPasswordOTPComponent";
+import AuthLayout from "../../components/auth/AuthLayout";
+import ResetPasswordOTPComponent from "../../components/auth/ResetPasswordOTPComponent";
 
 const ResetPasswordOTP = () => {
   const { email } = useParams();

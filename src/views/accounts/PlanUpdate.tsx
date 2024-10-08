@@ -1,6 +1,6 @@
 import { Breadcrumb, Button } from "antd";
-import ProductsCustomizationComponent from "../../component/onboarding/ProductsCustomizationComponent";
-import SingleProductSummaryCard from "../../component/onboarding/SingleProductSummaryCard";
+import ProductsCustomizationComponent from "../../components/onboarding/ProductsCustomizationComponent";
+import SingleProductSummaryCard from "../../components/onboarding/SingleProductSummaryCard";
 import AccountLayout from "./AccountLayout";
 
 const PlanUpdate = () => {

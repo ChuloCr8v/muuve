@@ -21,11 +21,14 @@ import {
   SyncOutlined,
 } from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
-import Heading from "../../component/Global/Header";
-import SummaryCards from "../../component/Global/SummaryCards";
+// import Heading from "../../component/Global/Header";
+// import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
-import CustomerDropButton from "../../component/customer/CustomerDropDown";
-import VendorDrop from "../../component/customer/VendorDrop";
+import SummaryCards from "../../components/global/SummaryCards";
+import VendorDrop from "../../components/customer/VendorDrop";
+import Heading from "../../components/global/Header";
+// import CustomerDropButton from "../../component/customer/CustomerDropDown";
+// import VendorDrop from "../../component/customer/VendorDrop";
 
 interface VendorData {
   id: string;

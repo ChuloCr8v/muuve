@@ -1,6 +1,6 @@
 import { Button, Dropdown, MenuProps, Tabs, TabsProps } from "antd";
 import { FaChevronDown } from "react-icons/fa";
-import Heading from "../../component/Global/Header";
+import Heading from "../../components/global/Header";
 import ProjectManagementRoleSettings from "./ProjectManagementRoleSettings";
 import NewRoleModal from "./NewRoleModal";
 import { useDispatch } from "react-redux";

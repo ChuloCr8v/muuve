@@ -1,10 +1,10 @@
-import ProductsCustomizationComponent from "../../component/onboarding/ProductsCustomizationComponent";
-import ProductsSelection from "../../component/onboarding/ProductsSelection";
+import ProductsCustomizationComponent from "../../components/onboarding/ProductsCustomizationComponent";
+import ProductsSelection from "../../components/onboarding/ProductsSelection";
 
 const ProductsDisplayComponent = () => {
   return (
-    <div className="h-full flex flex-col justify-center items-center">
-      <div className="grid grid-cols-2 w-full h-screen overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-full">
+      <div className="grid w-full h-screen grid-cols-2 overflow-hidden">
         <ProductsSelection />
         <ProductsCustomizationComponent />
       </div>

@@ -1,7 +1,4 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import ImportCustomerList from "../component/customer/ImportCustomerList";
-import Layout from "../component/layout/Layout";
-import ReportDetails from "../component/operations/reports/ReportDetails";
 import ProfileSetting from "./accounts/ProfileSetting";
 import Role from "./accounts/Role";
 import Customer from "./Admin/Customer";
@@ -23,11 +20,27 @@ import InitiatePayment from "./projects/surveys/InitiatePayment";
 import Billing from "./accounts/Billing";
 import PlanUpdate from "./accounts/PlanUpdate";
 import Vendor from "./Admin/Vendor";
+import { useNavigate } from "react-router-dom";
+import Layout from "../components/layout/Layout";
+import ProtectedRoutes from "../routes/ProtectedRoutes";
+import { useGetAuthUserQuery } from "../api/auth.api";
+import { useEffect } from "react";
+import { Loading } from "../components/common/Loading";
+import ImportCustomerList from "../components/customer/ImportCustomerList";
+import ReportDetails from "../components/operations/reports/ReportDetails";
 
 export default function UserPages() {
-  // if (!useAuth()) {
-  //   return <Navigate replace to="/login" />;
-  // }
+  const navigate = useNavigate();
+  const { data: user, isLoading: loadingUser } = useGetAuthUserQuery();
+
+  useEffect(() => {
+    if (!loadingUser && !user) {
+      navigate("/login");
+    }
+  }, [loadingUser, user, navigate]);
+
+  if (loadingUser) return <Loading />;
+
   return (
     <Layout>
       <Routes>
@@ -67,6 +80,7 @@ export default function UserPages() {
         <Route path="/admin/vendor" element={<Vendor />} />
 
       </Routes>
+      <ProtectedRoutes />
     </Layout>
   );
 }

@@ -1,19 +1,19 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
-import ActionPopup from "../../component/Global/ActionPopup";
-import Danger from "/public/dangerSvg.svg";
+import ActionPopup from "../../components/global/ActionPopup";
+import Danger from "/dangerSvg.svg";
 import {
   OrderedListOutlined,
   PlusOutlined,
   SearchOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
-import Header from "../../component/Global/Header";
-import SummaryCards from "../../component/Global/SummaryCards";
+import Header from "../../components/global/Header";
+import SummaryCards from "../../components/global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import SnagsTable from "../../component/TableItems/columns/SnagsTable";
-import NewSnag from "../../component/operations/snag/NewSnag";
+import SnagsTable from "../../components/tableItems/columns/SnagsTable";
+import NewSnag from "../../components/operations/snag/NewSnag";
 
 export default function Snags() {
   const [isModalVisible, setIsModalVisible] = useState(false);

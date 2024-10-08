@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import Heading from "../../component/Global/Header";
+import Heading from "../../components/global/Header";
 import { twMerge } from "tailwind-merge";
 
 const menuItems = [

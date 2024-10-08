@@ -1,19 +1,19 @@
 import { Button, Input } from "antd";
 import { useRef, useState } from "react";
-import ActionPopup from "../../component/Global/ActionPopup";
-import Danger from "/public/dangerSvg.svg";
+import ActionPopup from "../../components/global/ActionPopup";
+import Danger from "/dangerSvg.svg";
 import {
   OrderedListOutlined,
   PlusOutlined,
   SearchOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
-import Header from "../../component/Global/Header";
-import ReportsTable from "../../component/TableItems/columns/reportTable";
-import SummaryCards from "../../component/Global/SummaryCards";
+import Header from "../../components/global/Header";
+import ReportsTable from "../../components/tableItems/columns/reportTable";
+import SummaryCards from "../../components/global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import FormPopup from "../../component/Global/FormPopup";
+import FormPopup from "../../components/global/FormPopup";
 
 export default function Operations() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -23,10 +23,10 @@ export default function Operations() {
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); 
+      fileInputRef.current.click();
     }
   };
-  
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
     if (files && files.length > 0) {

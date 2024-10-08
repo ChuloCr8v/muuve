@@ -1,21 +1,21 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
-import ActionPopup from "../../component/Global/ActionPopup";
-import Danger from "/public/dangerSvg.svg";
+import ActionPopup from "../../components/global/ActionPopup";
+import Danger from "/dangerSvg.svg";
 import {
   OrderedListOutlined,
   PlusOutlined,
   SearchOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
-import Header from "../../component/Global/Header";
-//import { columns } from "../../component/data/SurveyTable";
-import SummaryCards from "../../component/Global/SummaryCards";
+import Header from "../../components/global/Header";
+//import { columns } from "../../components/data/SurveyTable";
+import SummaryCards from "../../components/global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import DevicesTable from "../../component/TableItems/columns/DevicesTable";
-import DeviceForm from "../../component/inventory/devices/DeviceForm";
-// import { SurveyData } from "../../component/data/SurveyData";
+import DevicesTable from "../../components/tableItems/columns/DevicesTable";
+import DeviceForm from "../../components/inventory/devices/DeviceForm";
+// import { SurveyData } from "../../components/data/SurveyData";
 
 export default function Devices() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -67,9 +67,17 @@ export default function Devices() {
       </div>
 
       <SummaryCards summaryData={summaryCard} />
-      <DevicesTable selectedRow={selectedRow} setSelectedRow={setSelectedRow} setnewDevice={setNewevice} />
+      <DevicesTable
+        selectedRow={selectedRow}
+        setSelectedRow={setSelectedRow}
+        setnewDevice={setNewevice}
+      />
 
-      <DeviceForm selectedRow={selectedRow} open={newdevice} setnewDevice={setNewevice} />
+      <DeviceForm
+        selectedRow={selectedRow}
+        open={newdevice}
+        setnewDevice={setNewevice}
+      />
 
       <ActionPopup
         open={isModalVisible}

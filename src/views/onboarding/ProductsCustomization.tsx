@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import OnboardingLayout from "../../component/onboarding/OnboardingLayout";
-import ProductsCustomizationComponent from "../../component/onboarding/ProductsCustomizationComponent";
+import OnboardingLayout from "../../components/onboarding/OnboardingLayout";
+import ProductsCustomizationComponent from "../../components/onboarding/ProductsCustomizationComponent";
 import { ProductsDataTypes } from "../../types";
 
 const ProductsCustomization = () => {

@@ -7,32 +7,32 @@ import {
 import { MenuProps } from "antd";
 import { BiCheckCircle } from "react-icons/bi";
 import { FiUserCheck } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import DropdownCustomItem from "../component/Global/DropdownCustomItem";
-import { closeProjectDetailsDrawer, showPopup } from "../redux/popupSlice";
-import { popupInterface } from "../types";
+// import { useDispatch, useSelector } from "react-redux";
+// import { closeProjectDetailsDrawer, showPopup } from "../redux/popupSlice";
+// import { popupInterface } from "../types";
+import DropdownCustomItem from "../components/global/DropdownCustomItem";
 
 const useJobOrderActionItems = () => {
-  const { currentPopup } = useSelector((state: popupInterface) => state.popups);
-  const { data } = currentPopup;
+  // const { currentPopup } = useSelector((state: popupInterface) => state.popups);
+  // const { data } = currentPopup;
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleShowPopup = (
-    e: { stopPropagation: () => void },
-    action: string
+    _e: { stopPropagation: () => void },
+    _action: string
   ) => {
-    e.stopPropagation();
-    if (action === "edit details") {
-      dispatch(closeProjectDetailsDrawer());
-    }
-    dispatch(
-      showPopup({
-        data: data,
-        currentProject: "job orders",
-        action: action,
-      })
-    );
+    // e.stopPropagation();
+    // if (action === "edit details") {
+    //   dispatch(closeProjectDetailsDrawer());
+    // }
+    // dispatch(
+    //   showPopup({
+    //     data: data,
+    //     currentProject: "job orders",
+    //     action: action,
+    //   })
+    // );
   };
 
   const jobOrderActionItems: MenuProps["items"] = [

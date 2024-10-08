@@ -9,25 +9,23 @@ import {
   SearchOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
-import Header from "../../component/Global/Header";
-import SummaryCards from "../../component/Global/SummaryCards";
+import Header from "../../components/global/Header";
+import SummaryCards from "../../components/global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
-import MaintenanceTable from "../../component/TableItems/columns/MiantenanceTable";
-import ScheduleForm from "../../component/operations/maintenance/ScheduleForm";
-import EmmergencyForm from "../../component/operations/maintenance/EmmergencyForm";
+import MaintenanceTable from "../../components/tableItems/columns/MiantenanceTable";
+import ScheduleForm from "../../components/operations/maintenance/ScheduleForm";
+import EmmergencyForm from "../../components/operations/maintenance/EmmergencyForm";
 import { Link } from "react-router-dom";
 
-interface Prop {
-  
-}
+interface Prop {}
 
 export default function Maintenance() {
   // const [isModalVisible, setIsModalVisible] = useState(false);
   const [newMaintenance, setNewMaintenance] = useState(false);
   const [selectedForm, setSelectedForm] = useState("");
 
-  const url = '/operations/maintenance/preview'
+  const url = "/operations/maintenance/preview";
 
   const switchForm = (key: any) => {
     setSelectedForm(key);
@@ -92,19 +90,23 @@ export default function Maintenance() {
         <section className="flex items-center gap-[16px]">
           <Input className="w-[300px]" prefix={<SearchOutlined />} />
           <Link to={url}>
-          <Button>
+            <Button>
               <span>Review Reports</span>
-              <CheckOutlined/>
-          </Button>
+              <CheckOutlined />
+            </Button>
           </Link>
-         
+
           <Button>Refresh</Button>
 
           {/* <Dropdown menu={{ items }} trigger={["hover"]}> */}
-            <Button onClick={() => setNewMaintenance(true)} className="flex items-center " type="primary">
-              <span>Add Maintenance</span>
-              <PlusOutlined />
-            </Button>
+          <Button
+            onClick={() => setNewMaintenance(true)}
+            className="flex items-center "
+            type="primary"
+          >
+            <span>Add Maintenance</span>
+            <PlusOutlined />
+          </Button>
           {/* </Dropdown> */}
         </section>
       </div>
@@ -114,13 +116,13 @@ export default function Maintenance() {
       <MaintenanceTable />
 
       <Drawer
-      closeIcon={null}
-      title="Add Scheduled Maintenance"
+        closeIcon={null}
+        title="Add Scheduled Maintenance"
         width={450}
         open={newMaintenance}
         onClose={() => setNewMaintenance(false)}
       >
-       <ScheduleForm/>
+        <ScheduleForm />
       </Drawer>
     </div>
   );
