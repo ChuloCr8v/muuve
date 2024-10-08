@@ -88,7 +88,7 @@ const VendorDrop = () => {
             className="w-full"
           >
             <Form.Item
-              label="Customer Name"
+              label="Vendor Name"
               name="name"
               rules={[{ required: true, message: "Please enter the customer name" }]}
             >
