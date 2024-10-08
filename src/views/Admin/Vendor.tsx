@@ -25,6 +25,7 @@ import Heading from "../../component/Global/Header";
 import SummaryCards from "../../component/Global/SummaryCards";
 import { FaBan } from "react-icons/fa";
 import CustomerDropButton from "../../component/customer/CustomerDropDown";
+import VendorDrop from "../../component/customer/VendorDrop";
 
 interface VendorData {
   id: string;
@@ -203,7 +204,7 @@ export default function Vendor() {
   return (
     <div className="space-y-[16px] body-pad p-8">
       <section className="flex items-center justify-between">
-        <Heading heading={"Customer "} />
+        <Heading heading={"Vendor "} />
         <div className="flex space-x-[16px]">
           <Input
             className="w-[400px]"
@@ -217,7 +218,7 @@ export default function Vendor() {
             <span className="mt-1">Refresh</span>
             <SyncOutlined />
           </Button>
-          <CustomerDropButton />
+          <VendorDrop />
         </div>
       </section>
 

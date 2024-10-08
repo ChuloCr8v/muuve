@@ -22,6 +22,7 @@ import Survey from "./projects/Survey";
 import InitiatePayment from "./projects/surveys/InitiatePayment";
 import Billing from "./accounts/Billing";
 import PlanUpdate from "./accounts/PlanUpdate";
+import Vendor from "./Admin/Vendor";
 
 export default function UserPages() {
   // if (!useAuth()) {
@@ -63,6 +64,8 @@ export default function UserPages() {
         />
         <Route path="/admin/customer-page" element={<CustomerPage />} />
         <Route path="/operations/reports" element={<Operations />} />
+        <Route path="/admin/vendor" element={<Vendor />} />
+
       </Routes>
     </Layout>
   );
