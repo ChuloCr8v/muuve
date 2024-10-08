@@ -20,8 +20,6 @@ const TimeLeft = ({ date, status }: { date: number; status: string }) => {
           .toString()
           .padStart(2, "0")}m`
       );
-
-      console.log(status);
     };
 
     calculateTimeLeft();

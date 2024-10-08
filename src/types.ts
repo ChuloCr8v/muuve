@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export interface TierTypes {
   id: number;
   label: string;
@@ -136,8 +138,17 @@ export interface popupInterface {
   popups: {
     currentPopup: PopupDataInterface;
     projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
-    newTicketDrawerIsOpen: boolean;
+    newTicketDrawerIsOpen: {
+      editTicket?: boolean;
+      isOpen: boolean;
+      ticketID?: string;
+    };
     resetPasswordModalIsOpen: boolean;
+    ticketActionModalIsOpen: {
+      isOpen: boolean;
+      ticketID: string;
+      action?: string;
+    };
   };
 }
 
@@ -153,17 +164,39 @@ export interface deactivateServiceInterface {
   data: [];
 }
 
+export interface AssignTicketInterface {
+  isOpen: boolean;
+  ticketID: string;
+  action: string;
+}
 export interface popupState {
   currentPopup: PopupDataInterface;
   projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
   newRoleModalIsOpen: newRoleModalInterface;
   deactivateServiceModalIsOpen: deactivateServiceInterface;
-  newTicketDrawerIsOpen: boolean;
+  newTicketDrawerIsOpen: {
+    isOpen: boolean;
+    editTicket?: boolean;
+    ticketID?: string;
+  };
   resetPasswordModalIsOpen: boolean;
+  ticketActionModalIsOpen: AssignTicketInterface;
+}
+
+export interface TicketsHistoryDataType {
+  id: number;
+  action: string;
+  by: string;
+  assignee?: string;
+  assigner?: string;
+  description: string;
+  date: 1759276800;
+  attachments: Array<FileInterface>;
 }
 
 export interface TicketsDataType {
   id: string;
+  description: string;
   subject: string;
   category: string;
   customer: string;
@@ -172,6 +205,16 @@ export interface TicketsDataType {
   sla: number;
   status: string;
   assignee?: string;
+  assigner?: string;
+  requestDate: number;
+  attachments: Array<FileInterface>;
+  replies?: Array<{
+    user: { firstName: string; lastName: string };
+    date: number;
+    message: string;
+    attachments?: Array<FileInterface>;
+  }>;
+  history?: Array<TicketsHistoryDataType>;
 }
 
 export interface NewRoleFormDataTypes {
@@ -181,4 +224,57 @@ export interface NewRoleFormDataTypes {
   type: string;
   options?: { label: string; value: string }[];
   required?: boolean;
+}
+
+export interface SubscriptionDataType {
+  id: string;
+  serviceName: string;
+  ServiceID: string;
+  customerName: string;
+  CustomerComapny: "MTN";
+  startDate: Date;
+  endDate: Date;
+  cycle: string;
+  amount: number;
+  status: string;
+}
+
+export interface CustomerDataTypes {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string;
+  customerAddress: string;
+}
+
+export interface serviceFormDataType {
+  id: number;
+  serviceName: string;
+  plan: string;
+  quantity: number;
+  unitPrice: number;
+  amount: number;
+  plans?: Array<{
+    label: string;
+    description: string;
+    features: Array<string>;
+    price: number;
+    tierName: string;
+  }>;
+}
+
+export interface NewSubscriptionFormDataType {
+  customerName: string;
+  customerEmail: string;
+  customerAddress: string;
+  services: Array<{
+    serviceName: string;
+    plan: string;
+    quantity: number;
+    amount: number;
+  }>;
+  subscriptionId: string;
+  startsOn: Dayjs | null;
+  expiresOn: Dayjs | null;
+  note: string;
 }

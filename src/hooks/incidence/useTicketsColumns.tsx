@@ -1,18 +1,19 @@
 import { Button, Dropdown } from "antd";
 import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { useDispatch } from "react-redux";
-import { showPopup } from "../redux/popupSlice";
-import { TicketsDataType } from "../types";
-import useTicketsTableActionItems from "./useTicketsTableActionItems";
-import StatusTag from "../components/global/StatusTag";
-import TableRowData from "../components/global/TableRowData";
-import TicketSeverityTag from "../views/incidence/TicketSeverityTag";
-import TicketSLA from "../views/incidence/TicketSLA";
+import { showPopup } from "../../redux/popupSlice";
+import { TicketsDataType } from "../../types";
+import TicketSeverityTag from "../../views/incidence/TicketSeverityTag";
+import TicketSLA from "../../views/incidence/TicketSLA";
+import useTicketActionItems from "./useTicketActionItems";
+import TableRowData from "../../components/global/TableRowData";
+import StatusTag from "../../components/global/StatusTag";
 
 const useTicketsColumns = () => {
-  const { ticketsTableActionItems } = useTicketsTableActionItems();
+  const [currentTicketID, setCurrentTicketID] = useState("");
+  const { ticketActionItems } = useTicketActionItems(currentTicketID);
 
   const dispatch = useDispatch();
 
@@ -106,7 +107,7 @@ const useTicketsColumns = () => {
         <Dropdown
           trigger={["click"]}
           menu={{
-            items: ticketsTableActionItems,
+            items: ticketActionItems,
           }}
         >
           <Button
@@ -114,6 +115,7 @@ const useTicketsColumns = () => {
             className="px-4 text-grey"
             onClick={(e) => {
               e.stopPropagation();
+              setCurrentTicketID(records.id);
               dispatch(showPopup({ isOpen: false, data: records }));
             }}
           >

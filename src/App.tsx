@@ -1,6 +1,5 @@
 import { ConfigProvider } from "antd";
 import { Suspense } from "react";
-import { ErrorBoundary } from "react-error-boundary";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
@@ -9,6 +8,7 @@ import { Loading } from "./components/common/Loading";
 import PageError from "./components/PageError";
 import { PopupProvider } from "./context/PopupContext";
 import AppRoutes from "./routes/AppRoutes";
+import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 
 function App() {
   return (

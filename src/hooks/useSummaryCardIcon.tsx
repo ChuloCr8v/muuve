@@ -11,6 +11,7 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
         return <CgList />;
       case "active":
       case "available":
+      case "closed":
         return <VscVmActive />;
       case "deactivated":
       case "inactive":
@@ -28,6 +29,7 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
         return "bg-[#00afef] text-[#00afef]";
       case "active":
       case "available":
+      case "closed":
         return "bg-green-500 text-green-600";
       case "deactivated":
       case "inactive":

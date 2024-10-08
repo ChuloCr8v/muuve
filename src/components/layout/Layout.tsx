@@ -5,6 +5,12 @@ import Header from "./Header";
 import { twMerge } from "tailwind-merge";
 import { Drawer } from "antd";
 import ResetPasswordModal from "../ResetPasswordModal";
+import AssignTicketModal from "../../views/incidence/AssignTicketModal";
+import ResolveTicketModal from "../../views/incidence/ResolveTicketModal";
+import UpdateTicketStatusModal from "../../views/incidence/UpdateTicketStatusModal";
+import ReopenTicketModal from "../../views/incidence/ReopenTicketModal";
+import EscalateTicketModal from "../../views/incidence/EscalateTicketModal";
+import NewTicketDrawer from "../../views/incidence/NewTicketDrawer";
 
 export default function Layout(props: { children: ReactNode }) {
   const [collapse, setCollapse] = useState(false);
@@ -79,7 +85,14 @@ export default function Layout(props: { children: ReactNode }) {
         </Drawer>
       </div>
 
+      {/* Global Modals */}
       <ResetPasswordModal />
+      <NewTicketDrawer />
+      <AssignTicketModal />
+      <ResolveTicketModal />
+      <UpdateTicketStatusModal />
+      <ReopenTicketModal />
+      <EscalateTicketModal />
     </div>
   );
 }

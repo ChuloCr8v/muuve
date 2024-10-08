@@ -1,39 +1,39 @@
-const dataList =[
-    {
-        serviceName: 'FTTH',
-        ServiceID: "123-234-123",
-        customerName: 'Modesta Ekeh',
-        CustomerComapny: "MTN",
-        startDate: "Aug 16, 2023",
-        endDate: "Aug 16, 2023",
-        cycle: "Monthly",
-        amount: "2000000",
-        status: "Active",
-        statusDescription: "Renews July 21, 2063"
-    },
-    {
-        serviceName: 'FTTH',
-        ServiceID: "123-234-123",
-        customerName: 'Modesta Ekeh',
-        CustomerComapny: "MTN",
-        startDate: "Aug 16, 2023",
-        endDate: "Aug 16, 2023",
-        cycle: "Monthly",
-        amount: "2000000",
-        status: "Deactivated",
-        statusDescription: "Renews July 21, 2063"
-    },
-    {
-        serviceName: 'FTTH',
-        ServiceID: "123-234-123",
-        customerName: 'Modesta Ekeh',
-        CustomerComapny: "MTN",
-        startDate: "Aug 16, 2023",
-        endDate: "Aug 16, 2023",
-        cycle: "Monthly",
-        amount: "2000000",
-        status: "Expiring",
-        statusDescription: "Renews July 21, 2063"
-    },
-]
-export default dataList
+const dataList = [
+  {
+    id: "SUB11122243",
+    serviceName: "FTTH",
+    ServiceID: "123-234-123",
+    customerName: "Modesta Ekeh",
+    CustomerComapny: "MTN",
+    startDate: 1723766400,
+    endDate: 1755302400,
+    cycle: "Monthly",
+    amount: "2000000",
+    status: "Active",
+  },
+  {
+    id: "SUB10122243",
+    serviceName: "FTTH",
+    ServiceID: "123-234-123",
+    customerName: "Modesta Ekeh",
+    CustomerComapny: "MTN",
+    startDate: 1660608000,
+    endDate: 1723766400,
+    cycle: "Monthly",
+    amount: "2000000",
+    status: "Deactivated",
+  },
+  {
+    id: "SUB1112243",
+    serviceName: "FTTH",
+    ServiceID: "123-234-123",
+    customerName: "Modesta Ekeh",
+    CustomerComapny: "MTN",
+    startDate: 1723766400,
+    endDate: 1755302400,
+    cycle: "Monthly",
+    amount: "2000000",
+    status: "Expiring",
+  },
+];
+export default dataList;
