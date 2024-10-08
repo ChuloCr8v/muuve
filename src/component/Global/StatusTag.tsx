@@ -1,6 +1,6 @@
 import { Tag } from "antd";
-import { BsCheckCircle } from "react-icons/bs";
 import { FaBan } from "react-icons/fa";
+import { FaRegCircleCheck } from "react-icons/fa6";
 import { MdOutlinePending } from "react-icons/md";
 
 type Props = {
@@ -12,9 +12,11 @@ const StatusTag = ({ status }: Props) => {
     switch (status?.toLowerCase()) {
       case "completed":
       case "resolved":
+      case "active":
       case "closed":
         return "green";
       case "open":
+      case "deactivated":
         return "red";
       default:
         return "orange";
@@ -25,8 +27,10 @@ const StatusTag = ({ status }: Props) => {
       case "completed":
       case "resolved":
       case "closed":
-        return <BsCheckCircle />;
+      case "active":
+        return <FaRegCircleCheck />;
       case "open":
+      case "deactivated":
         return <FaBan />;
       default:
         return <MdOutlinePending />;
@@ -36,9 +40,9 @@ const StatusTag = ({ status }: Props) => {
   return (
     <Tag
       color={color()}
-      className="rounded-full uppercase font-semibold text-[10px] flex items-center w-fit gap-1"
+      className="rounded-full uppercase font-semibold text-xs flex items-center w-fit gap-1 py-0.5"
     >
-      <span> {icon()}</span>
+      <span className=""> {icon()}</span>
       {status}
     </Tag>
   );

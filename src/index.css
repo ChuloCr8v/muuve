@@ -4,6 +4,23 @@
 
 /* hide default antd required label astericks icon */
 
+/* src/index.css */
+@font-face {
+  font-family: "inter";
+  src: url("./fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf")
+      format("truetype"),
+    url("./fonts/Inter/Inter-VariableFont_opsz\,wght.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "inter", sans-serif;
+}
+
 :where(.css-dev-only-do-not-override-1tj953w).ant-form-item
   .ant-form-item-label
   > label.ant-form-item-required:not(
@@ -29,23 +46,6 @@
   color: #0a95cc;
   font-weight: 600;
   display: flexbox;
-}
-
-/* src/index.css */
-@font-face {
-  font-family: "inter";
-  src: url("./fonts/Inter/Inter-Italic-VariableFont_opsz\,wght.ttf")
-      format("truetype"),
-    url("./fonts/Inter/Inter-VariableFont_opsz\,wght.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: "inter", sans-serif;
 }
 
 .tagSize {
@@ -148,9 +148,17 @@ body {
   margin-top: -4px !important;
 }
 
-.project-log:first-child .log-header {
+.ticket-log:last-child div {
+  border-left: 0px !important;
+}
+
+.ticket-log:first-child .log-header {
   padding-top: 0 !important;
-  margin-top: -6px;
+  margin-top: -8px;
+}
+
+.ticket-log:first-child .ticket-log-icon {
+  margin-top: 0px !important;
 }
 
 :where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
@@ -184,7 +192,12 @@ body {
   border-bottom: none;
 }
 
-
-:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range input, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range textarea, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range .ant-input-show-count-suffix, :where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range .ant-input-data-count {
+:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range,
+:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range input,
+:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range textarea,
+:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range
+  .ant-input-show-count-suffix,
+:where(.css-dev-only-do-not-override-s2go2e).ant-input-out-of-range
+  .ant-input-data-count {
   color: inherit;
 }

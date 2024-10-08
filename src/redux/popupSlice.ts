@@ -22,8 +22,9 @@ const initialState: popupState = {
     isOpen: false,
     data: [],
   },
-  newTicketDrawerIsOpen: false,
+  newTicketDrawerIsOpen: { isOpen: false, editTicket: false, ticketID: "" },
   resetPasswordModalIsOpen: false,
+  ticketActionModalIsOpen: { isOpen: false, ticketID: "", action: "" },
 };
 
 const popupSlice = createSlice({
@@ -78,11 +79,21 @@ const popupSlice = createSlice({
     },
 
     openNewTicketDrawer: (state) => {
-      state.newTicketDrawerIsOpen = true;
+      state.newTicketDrawerIsOpen.isOpen = true;
+      state.newTicketDrawerIsOpen.editTicket = false;
+      state.newTicketDrawerIsOpen.ticketID = "";
     },
 
     closeNewTicketDrawer: (state) => {
-      state.newTicketDrawerIsOpen = false;
+      state.newTicketDrawerIsOpen.isOpen = false;
+      state.newRoleModalIsOpen.action = "";
+      state.newTicketDrawerIsOpen.editTicket = false;
+    },
+
+    openEditTicketDrawer: (state, action) => {
+      state.newTicketDrawerIsOpen.isOpen = true;
+      state.newTicketDrawerIsOpen.editTicket = true;
+      state.newTicketDrawerIsOpen.ticketID = action.payload;
     },
 
     openResetPasswordModal: (state) => {
@@ -90,6 +101,18 @@ const popupSlice = createSlice({
     },
     closeResetPasswordModal: (state) => {
       state.resetPasswordModalIsOpen = false;
+    },
+
+    openTicketActionModal: (state, action) => {
+      state.ticketActionModalIsOpen.isOpen = true;
+      state.ticketActionModalIsOpen.ticketID = action.payload.ticketID;
+      state.ticketActionModalIsOpen.action = action.payload.action;
+    },
+
+    closeTicketActionModal: (state) => {
+      state.ticketActionModalIsOpen.isOpen = false;
+      state.ticketActionModalIsOpen.ticketID = "";
+      state.ticketActionModalIsOpen.action = "";
     },
   },
 });
@@ -105,8 +128,11 @@ export const {
   closeDeactivateServiceModal,
   openNewTicketDrawer,
   closeNewTicketDrawer,
+  openEditTicketDrawer,
   openResetPasswordModal,
   closeResetPasswordModal,
+  openTicketActionModal,
+  closeTicketActionModal,
 } = popupSlice.actions;
 
 export default popupSlice.reducer;

@@ -1,29 +1,27 @@
-// import { Avatar } from "antd";
-// import dummyDP from "../../assets/dp.png";
+import { Avatar } from "antd";
 
-// type Props = {
-//   dp?: string;
-//   firstName?: string;
-//   lastName?: string;
-// };
+type Props = {
+  firstName: string;
+  lastName: string;
+  showFullName?: boolean;
+};
 
-// const UserAvatar = (props: Props) => {
-//   const nameAbb = props.firstName.charAt(0) + props.lastName?.charAt(0);
-
-//   return (
-//     <div>
-//       <Avatar>
-//         <img src={props.dp ? props.dp : dummyDP} />
-//         <span className="">{nameAbb}</span>
-//       </Avatar>
-//     </div>
-//   );
-// };
-
-// export default UserAvatar;
-
-const UserAvatar = () => {
-  return <div>UserAvatar</div>;
+const UserAvatar = (props: Props) => {
+  return (
+    <div className="flex items-center gap-2">
+      <Avatar>
+        <span className="">
+          {props.firstName?.charAt(0)}
+          {props.lastName?.charAt(0)}
+        </span>
+      </Avatar>
+      {props.showFullName ? (
+        <p className="">
+          {props?.firstName} {props?.lastName}
+        </p>
+      ) : null}
+    </div>
+  );
 };
 
 export default UserAvatar;

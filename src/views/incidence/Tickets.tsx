@@ -3,7 +3,7 @@ import Heading from "../../component/Global/Header";
 import SummaryCards from "../../component/Global/SummaryCards";
 import TableComponent from "../../component/Global/TableComponent";
 import { ticketsData } from "../../dummy/ticketsData";
-import useTicketsColumns from "../../hooks/useTicketsColumns";
+import useTicketsColumns from "../../hooks/incidence/useTicketsColumns";
 import NewTicketDrawer from "./NewTicketDrawer";
 import TicketsFilters from "./TicketsFilters";
 
@@ -47,9 +47,6 @@ export default function Tickets() {
           dataSource={ticketsData}
         />
       </div>
-
-      {/* New Ticket Form */}
-      <NewTicketDrawer />
     </div>
   );
 }

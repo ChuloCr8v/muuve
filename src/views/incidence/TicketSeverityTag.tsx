@@ -1,6 +1,6 @@
 import { BsCircleFill } from "react-icons/bs";
 import { twMerge } from "tailwind-merge";
-import useTicketSeverityColor from "../../hooks/useTicketSeverityColor";
+import useTicketSeverityColor from "../../hooks/incidence/useTicketSeverityColor";
 
 type Props = {
   severity: string;
