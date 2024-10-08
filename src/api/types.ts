@@ -145,3 +145,15 @@ export type RejectSurveyInput = {
   surveyId: string;
   comment: string;
 };
+
+export type DeleteSurveyInput = {
+  id: string;
+  surveyId: string;
+  comment: string;
+};
+
+export type CompleteSurveyInput = {
+  id: string;
+  surveyId: string;
+  comment: string;
+};

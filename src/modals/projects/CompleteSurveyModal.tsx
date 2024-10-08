@@ -1,6 +1,6 @@
 import { Form, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useRejectSurveyMutation } from "../../api/surveys.api";
+import { useCompleteSurveyMutation } from "../../api/surveys.api";
 import { Survey } from "../../api/types";
 import { CustomModal } from "../../components/common/CustomModal";
 import { usePopup } from "../../context/PopupContext";
@@ -10,19 +10,19 @@ interface Props {
   survey: Survey;
 }
 
-export const RejectSurveyModal = ({ survey }: Props) => {
+export const CompleteSurveyModal = ({ survey }: Props) => {
   const [form] = Form.useForm();
   const { closeModal } = usePopup();
 
-  const [rejectSurvey, { isLoading }] = useRejectSurveyMutation();
+  const [completeSurvey, { isLoading }] = useCompleteSurveyMutation();
 
   const submit = async () => {
     const values = await form.validateFields();
     const data = { ...values, surveyId: survey.surveyId, id: survey.id };
-    rejectSurvey(data)
+    completeSurvey(data)
       .unwrap()
       .then(() => {
-        message.success("Survey Rejected");
+        message.success("Survey Completed");
         closeModal();
       })
       .catch(toastApiError);
@@ -30,11 +30,10 @@ export const RejectSurveyModal = ({ survey }: Props) => {
 
   return (
     <CustomModal
-      title="Reject Survey"
+      title="Complete Survey"
       onSubmit={submit}
-      okText="Reject"
+      okText="Submit"
       loading={isLoading}
-      isDanger
     >
       <div className="w-full">
         <Form form={form} layout="vertical">

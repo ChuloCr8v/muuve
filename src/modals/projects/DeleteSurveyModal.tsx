@@ -1,6 +1,6 @@
 import { Form, message } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useRejectSurveyMutation } from "../../api/surveys.api";
+import { useDeleteSurveyMutation } from "../../api/surveys.api";
 import { Survey } from "../../api/types";
 import { CustomModal } from "../../components/common/CustomModal";
 import { usePopup } from "../../context/PopupContext";
@@ -10,19 +10,19 @@ interface Props {
   survey: Survey;
 }
 
-export const RejectSurveyModal = ({ survey }: Props) => {
+export const DeleteSurveyModal = ({ survey }: Props) => {
   const [form] = Form.useForm();
   const { closeModal } = usePopup();
 
-  const [rejectSurvey, { isLoading }] = useRejectSurveyMutation();
+  const [deleteSurvey, { isLoading }] = useDeleteSurveyMutation();
 
   const submit = async () => {
     const values = await form.validateFields();
     const data = { ...values, surveyId: survey.surveyId, id: survey.id };
-    rejectSurvey(data)
+    deleteSurvey(data)
       .unwrap()
       .then(() => {
-        message.success("Survey Rejected");
+        message.success("Survey Deleted");
         closeModal();
       })
       .catch(toastApiError);
@@ -30,9 +30,9 @@ export const RejectSurveyModal = ({ survey }: Props) => {
 
   return (
     <CustomModal
-      title="Reject Survey"
+      title="Delete Survey"
       onSubmit={submit}
-      okText="Reject"
+      okText="Delete"
       loading={isLoading}
       isDanger
     >

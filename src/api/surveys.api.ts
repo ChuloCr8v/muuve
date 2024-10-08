@@ -1,6 +1,8 @@
 import { api } from "./base";
 import {
   AssignSurveyInput,
+  CompleteSurveyInput,
+  DeleteSurveyInput,
   NewSurveyInput,
   RejectSurveyInput,
   RevertSurveyInput,
@@ -68,6 +70,24 @@ export const surveysApi = api.injectEndpoints({
       }),
       invalidatesTags: ["survey"],
     }),
+
+    completeSurvey: mutation<void, CompleteSurveyInput>({
+      query: ({ id, ...rest }) => ({
+        url: `surveys/${id}/complete`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["survey"],
+    }),
+
+    deleteSurvey: mutation<void, DeleteSurveyInput>({
+      query: ({ id, ...rest }) => ({
+        url: `surveys/${id}`,
+        method: "DELETE",
+        body: rest,
+      }),
+      invalidatesTags: ["survey"],
+    }),
   }),
 });
 
@@ -77,6 +97,8 @@ export const {
   useAssignSurveyMutation,
   useRevertSurveyMutation,
   useRejectSurveyMutation,
+  useDeleteSurveyMutation,
   useRequestSurveyMutation,
   useReassignSurveyMutation,
+  useCompleteSurveyMutation,
 } = surveysApi;

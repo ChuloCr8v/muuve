@@ -24,6 +24,8 @@ import { RejectSurveyModal } from "../../modals/projects/RejectSurveyModal";
 import { RevertSurveyModal } from "../../modals/projects/RevertSurveyModal";
 import { capitalizeFirstLetter } from "../../utils/capitalize.util";
 import { ReassignSurveyModal } from "../../modals/projects/ReassignSurveyModal";
+import { DeleteSurveyModal } from "../../modals/projects/DeleteSurveyModal";
+import { CompleteSurveyModal } from "../../modals/projects/CompleteSurveyModal";
 
 const ProjectSurvey = () => {
   const { openDrawer, openModal } = usePopup();
@@ -61,7 +63,7 @@ const ProjectSurvey = () => {
           className="text-green-600"
         />
       ),
-      // onClick: () => openDrawer(<UpdateSurveyDrawer survey={survey} />),
+      onClick: () => openModal(<CompleteSurveyModal survey={survey} />),
     },
     { type: "divider" },
     {
@@ -131,6 +133,7 @@ const ProjectSurvey = () => {
           />
         </div>
       ),
+      onClick: () => openModal(<DeleteSurveyModal survey={survey} />),
     },
   ];
 
