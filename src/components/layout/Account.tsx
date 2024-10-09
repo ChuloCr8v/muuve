@@ -42,7 +42,8 @@ export default function Account({ user }: Props) {
     },
     {
       key: 2,
-      label: "Profile",
+      label: "Settings",
+      onClick: () => navigate("/account/settings"),
     },
     {
       key: 3,

@@ -86,12 +86,24 @@ const menuItems = [
     ],
   },
   {
+    id: 10,
+    title: "Billing",
+    submenuItems: [
+      {
+        title: "Subscriptions",
+        url: "/billing/subscription",
+        icon: Models,
+        iconActive: ModelsActive,
+      },
+    ],
+  },
+  {
     id: 4,
     title: "Ticketing",
     submenuItems: [
       {
         title: "Tickets",
-        url: "/ticketing/tickets",
+        url: "/incidence/tickets",
         icon: Tickets,
         iconActive: TicketsActive,
       },

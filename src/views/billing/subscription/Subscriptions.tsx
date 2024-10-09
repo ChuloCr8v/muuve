@@ -1,40 +1,60 @@
-import { PlusOutlined, SearchOutlined, SyncOutlined } from "@ant-design/icons";
-import { Button, Input, Select } from "antd";
-import { Link } from "react-router-dom";
-import dataList from "./data";
-import useSubscriptionTableColumns from "../../../hooks/billing/useSubscriptionTableColumns";
+import { useNavigate } from "react-router-dom";
 import Heading from "../../../components/global/Header";
+import SummaryCards from "../../../components/global/SummaryCards";
 import TableComponent from "../../../components/global/TableComponent";
+import useSubscriptionTableColumns from "../../../hooks/billing/useSubscriptionTableColumns";
+import { SubscriptionDataType } from "../../../types";
+import dataList from "./data";
+import SubscriptionFilter from "./SubscriptionFilter";
 
 export default function Subscription() {
   const { subscriptionColumns } = useSubscriptionTableColumns();
 
+  const navigate = useNavigate();
+
+  const summaryData = [
+    {
+      label: "Total",
+      value: 22,
+    },
+    {
+      label: "Active",
+      value: 8,
+    },
+    {
+      label: "Deactivated",
+      value: 10,
+    },
+    {
+      label: "Renew Soon",
+      value: 10,
+    },
+    {
+      label: "Expiring Soon",
+      value: 10,
+    },
+  ];
+
+  const handleRowClick = (record: SubscriptionDataType) => {
+    navigate(`/billing/subscription/${record.id}`);
+  };
+
   return (
-    <div className="p-4 body-pad">
-      <section className="flex justify-between mb-[16px]">
+    <div className="p-4 body-pad space-y-3">
+      <section className="flex justify-between">
         <Heading heading="Subscription" />
-        <div className="justify-end space-x-[16px] flex">
-          <Input
-            prefix={<SearchOutlined className="text-[#777777]" />}
-            placeholder="Search"
-          />
-          <Select placeholder="Customer" />
-          <Select placeholder="Customer" />
-          <Button type="default" className="flex items-center space-x-1">
-            <span className="btn-span">Refresh</span>
-            <SyncOutlined />
-          </Button>
-          <Link to="/billing/add-sub">
-            <Button type="primary">
-              <span className="btn-span">New Subscription</span>
-              <PlusOutlined className="text-white" />
-            </Button>
-          </Link>
-        </div>
+        <SubscriptionFilter />
       </section>
 
-      <section className="rounded-lg border-[1.5px]  border-[#5656561A] shadow-sm shadow-[#5656561A]">
-        <TableComponent columns={subscriptionColumns} dataSource={dataList} />
+      <section className="space-y-3">
+        <SummaryCards summaryData={summaryData} />
+        <TableComponent
+          onRow={(record: SubscriptionDataType) => ({
+            onClick: () => handleRowClick(record),
+          })}
+          columns={subscriptionColumns}
+          dataSource={dataList}
+        />
       </section>
     </div>
   );
