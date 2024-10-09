@@ -1,128 +1,232 @@
 import { EditOutlined } from "@ant-design/icons";
-import { Button, Form, Table } from "antd";
+import { Button, Table } from "antd";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Heading from "../../../components/global/Header";
+import TableRowData from "../../../components/global/TableRowData";
+import { SubscriptionDataType } from "../../../types";
+import dataList from "./data";
+import useFormatDate from "../../../hooks/useFormatDate";
+import { vat } from "./NewSubscription";
 
-export default function SubscriptionDetails() {
-  const column = [
-    {
-      title: "",
-      width: 50,
-      render: () => <p>1</p>,
-    },
+const SubscriptionDetails = () => {
+  const [currentSubscription, setCurrentSubscription] =
+    useState<SubscriptionDataType>();
+
+  const navigate = useNavigate();
+
+  const { formatDate } = useFormatDate();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getCurrentSub = dataList.find((sub) => sub.id === id);
+    setCurrentSubscription(getCurrentSub);
+  }, [id]);
+
+  const columns = [
     {
       title: "Service Name",
-      dataIndex: "name",
-      width: "30%",
+      key: "serviceName",
+      dataIndex: "serviceName",
     },
     {
-      title: "plan",
-      dataIndex: "age",
+      title: "Plan",
+      key: "plan",
+      dataIndex: "plan",
     },
     {
       title: "QTY",
-      dataIndex: "address",
+      key: "quantity",
+      dataIndex: "quantity",
     },
-
     {
       title: "Unit Price",
+      key: "unitPrice",
       dataIndex: "unitPrice",
+      render: (_: string, record: SubscriptionDataType) => {
+        return (
+          <p className="">
+            <span className="text-grey">NGN</span>{" "}
+            {record.unitPrice?.toLocaleString()}
+          </p>
+        );
+      },
     },
     {
       title: "Amount",
+      key: "amount",
       dataIndex: "amount",
+      render: (_: string, record: SubscriptionDataType) => {
+        return (
+          <p className="">
+            <span className="text-grey">NGN</span>{" "}
+            {record.amount.toLocaleString()}
+          </p>
+        );
+      },
     },
   ];
 
-  const totalCal = [
-    { label: "SUBTOTAL", value: "NGN 200000" },
-    { label: "VAT", value: "2%" },
-    // {label: "TOTAL", value: "NGN 5,000"}
-  ];
-
+  const subtotal = () => {
+    return currentSubscription?.services.reduce(
+      (acc, current) => acc + current.amount,
+      0
+    );
+  };
   return (
-    <div className="space-y-[24px] px-[24px] py-[32px] bg-white">
-      <section className="flex items-center justify-between">
-        <p className="header">Sub ID</p>
-        <Button type="primary" className="flex items-center">
-          <span>Edit</span>
-          <EditOutlined />
+    <div className="p-8 bg-white">
+      <div className="flex items-center justify-between">
+        <Heading heading={currentSubscription?.id ?? ""} />
+        <Button
+          onClick={() => navigate(`/billing/edit-sub/${id}`)}
+          type="primary"
+          icon={<EditOutlined />}
+          iconPosition="end"
+        >
+          Edit
         </Button>
-      </section>
+      </div>
 
-      <section className="w-[60%] space-y-[16px]">
-        <p className="SubTitle">CUSTOMER DETAILS</p>
-        <div className="space-y-[16px]">
-          <div className="flex w-full space-x-[16px]">
-            <div className="w-[50%]">
-              <p className="subdetailTag1">Customer Name</p>
-              <p className="subdetailTag2">Customer Name Value</p>
-            </div>
-            <div className="w-[50%]">
-              <p className="subdetailTag1">Customer Email</p>
-              <p className="subdetailTag2">Customer Email Value</p>
-            </div>
+      <div className="space-y-6">
+        <section className="space-y-3">
+          <TableRowData
+            mainText="Customer Details"
+            mainTextStyle="uppercase text-grey text-xs"
+          />
+
+          <div className="grid grid-cols-2 gap-2">
+            <TextCard
+              mainText="Customer Name"
+              tagText={currentSubscription?.customerName ?? ""}
+            />
+
+            <TextCard
+              mainText="Email"
+              tagText={currentSubscription?.customerEmail ?? ""}
+              tagTextStyle="!lowercase"
+            />
+
+            <TextCard
+              mainText="Address"
+              tagText={currentSubscription?.customerAddress ?? ""}
+            />
           </div>
-          <div>
-            <p className="subdetailTag1">Address</p>
-            <p className="subdetailTag2">Customer Address Value</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="space-y-[16px]">
-        <p className="SubTitle">SERVICES</p>
+        <section className="space-y-3">
+          <TableRowData
+            mainText="Services"
+            mainTextStyle="uppercase text-grey text-xs"
+          />
 
-        <div className="rounded-lg border-[1.5px]  border-[#5656561A] shadow-sm shadow-[#5656561A]">
-          {" "}
-          <Table bordered pagination={false} columns={column} />
-        </div>
-      </section>
+          <Table
+            columns={columns}
+            dataSource={currentSubscription?.services}
+            className="border rounded-lg overflow-hidden"
+            size="small"
+            pagination={false}
+          />
+        </section>
 
-      <section className="w-[60%] space-y-[16px]">
-        <p className="SubTitle">SUBSCRIPTION DETAILS</p>
-        <div>
-          <p className="subdetailTag1">Address</p>
-          <p className="subdetailTag2">Customer Address Value</p>
-        </div>
-        <div className="space-y-[16px]">
-          <div className="flex w-full space-x-[16px]">
-            <div className="w-[50%]">
-              <p className="subdetailTag1">Customer Name</p>
-              <p className="subdetailTag2">Customer Name Value</p>
+        <section className="space-y-3">
+          <TableRowData
+            mainText="Subscription Details"
+            mainTextStyle="uppercase text-grey text-xs"
+          />
+
+          <div className="grid grid-cols-2 gap-2">
+            <div className="col-span-2">
+              <TextCard
+                mainText="Subscription ID"
+                tagText={currentSubscription?.id ?? ""}
+              />
             </div>
-            <div className="w-[50%]">
-              <p className="subdetailTag1">Customer Email</p>
-              <p className="subdetailTag2">Customer Email Value</p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <Form layout="vertical">
-        <div className="flex justify-between">
-          <div className="w-[40%]">
-            <p className="subdetailTag1">Note</p>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-              minima itaque saepe commodi nam assumenda veritatis temporibus
-              atque amet ipsam.
-            </p>
+            <TextCard
+              mainText="Starts On"
+              tagText={formatDate(currentSubscription?.startDate)}
+            />
+
+            <TextCard
+              mainText="Expires After"
+              tagText={formatDate(currentSubscription?.startDate)}
+            />
           </div>
 
-          <div className="border-[1px] w-[40%] py-[15px] px-[12px] border-[#E9EAEB] bg-[#F8F8F8] rounded-lg">
-            <div className="space-y-[12px]">
-              {totalCal.map((list) => (
-                <div className="flex justify-between ">
-                  <p className="SubTitle">{list.label}</p>
-                  <p className="totalvalue">{list.value}</p>
-                </div>
-              ))}
-              <div className="flex justify-between ">
-                <p className="SubTitle">TOTAL</p>
-                <p className="font-bold text-[16px]">NGN 2,000</p>
+          <div className="grid grid-cols-2 gap-12">
+            <TextCard
+              mainText="Notes"
+              tagText={currentSubscription?.notes ?? ""}
+              tagTextStyle="max-w-[400px] w-full"
+            />
+
+            <div className="border rounded md bg-offwhite space-y-3 p-4 max-w-[400px] w-full place-self-end">
+              <SummaryTextCard
+                mainText={"subtotal"}
+                tagText={"NGN" + " " + subtotal()?.toLocaleString()}
+              />
+
+              <div className="border-t pt-2">
+                {" "}
+                <SummaryTextCard
+                  mainText={"Vat"}
+                  tagText={vat}
+                  tagTextStyle="!text-base"
+                />
               </div>
+
+              <SummaryTextCard
+                mainText={"Discount"}
+                tagText={vat}
+                tagTextStyle="!text-base"
+              />
+
+              <SummaryTextCard
+                mainText={"Total"}
+                tagText={
+                  "NGN" +
+                  " " +
+                  (subtotal()! * (vat / 100) + subtotal()!).toLocaleString()
+                }
+                tagTextStyle="!text-base"
+              />
             </div>
           </div>
-        </div>
-      </Form>
+        </section>
+      </div>
     </div>
   );
-}
+};
+
+export default SubscriptionDetails;
+
+const TextCard = (props: {
+  mainText: string;
+  tagText: string;
+  tagTextStyle?: string;
+}) => {
+  return (
+    <TableRowData
+      mainText={props.mainText}
+      tagText={props.tagText}
+      mainTextStyle="text-[13px] !text-grey"
+      tagTextStyle={`font-semibold !text-customBlack !text-sm ${props.tagTextStyle}`}
+    />
+  );
+};
+
+const SummaryTextCard = (props: {
+  mainText: string;
+  tagText: string | number;
+  tagTextStyle?: string;
+}) => {
+  return (
+    <TableRowData
+      mainText={props.mainText}
+      tagText={props.tagText}
+      wrapperClassName="flex items-center justify-between"
+      mainTextStyle="uppercase text-[13px] !text-grey"
+      tagTextStyle={`font-semibold !text-customBlack !text-sm ${props.tagTextStyle}`}
+    />
+  );
+};

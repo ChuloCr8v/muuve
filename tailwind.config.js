@@ -9,6 +9,7 @@ export default {
         primary: "#0A96CC",
         primarygreen: "#40b554",
         bordercolor: "#FBFBFB",
+        offwhite: "#F8F8F8",
       },
       boxShadow: {
         logincard: "0px 4px 16px 0px rgba(0, 0, 0, 0.08)",

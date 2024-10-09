@@ -11,7 +11,7 @@ type DataType = {
 type Props = {
   columns: ColumnsType<DataType>;
   dataSource: DataType[];
-  onRow?: TableProps<DataType>["onRow"];
+  onRow?: TableProps["onRow"];
   scroll?: number | { x?: number | true; y?: number };
   className?: string;
   loading?: boolean;
@@ -48,7 +48,7 @@ const TableComponent = ({
       onRow={onRow}
       scroll={typeof scroll === "number" ? { x: scroll } : scroll}
       size="small"
-      className={twMerge(className, "border rounded-md")}
+      className={twMerge(className, "bg-white border rounded-md")}
     />
   );
 };

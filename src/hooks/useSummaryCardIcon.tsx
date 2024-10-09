@@ -1,5 +1,6 @@
 import { CgList } from "react-icons/cg";
 import { FaBan } from "react-icons/fa";
+import { FiRefreshCcw } from "react-icons/fi";
 import { IoWarningOutline } from "react-icons/io5";
 import { VscVmActive } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
@@ -17,9 +18,11 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
       case "inactive":
       case "open":
         return <FaBan />;
-
       case "expiring":
+      case "expiring soon":
         return <IoWarningOutline />;
+      case "renew soon":
+        return <FiRefreshCcw />;
     }
   };
 
@@ -35,6 +38,8 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
       case "inactive":
       case "open":
         return "bg-red-500 text-red-600";
+      case "renew soon":
+        return "bg-gray-500 text-gray-600";
       default:
         return "bg-yellow-500 text-yellow-600";
     }
