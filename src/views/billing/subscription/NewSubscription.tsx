@@ -13,6 +13,8 @@ import DiscountModal, {
 } from "../../../components/global/DiscountModal";
 import Heading from "../../../components/global/Header";
 import TableRowData from "../../../components/global/TableRowData";
+import { useParams } from "react-router-dom";
+import dataList from "./data";
 
 const formDataFields = {
   customerName: "",
@@ -29,10 +31,10 @@ const formDataFields = {
   subscriptionId: "",
   startsOn: null,
   expiresOn: null,
-  note: "",
+  notes: "",
 };
 
-const vat = 2;
+export const vat = 2;
 
 export default function NewSubscription() {
   const [formData, setFormData] =
@@ -40,7 +42,18 @@ export default function NewSubscription() {
   const [openDiscountModal, setOpenDiscountModal] = useState(false);
   const [discounts, setDiscounts] = useState<Array<DiscountFieldsDataType>>([]);
 
-  console.log(discounts);
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      const currentSubscription = dataList.find(
+        (subscription) => subscription.id === id
+      );
+      setFormData(currentSubscription!);
+    } else {
+      setFormData(formDataFields);
+    }
+  }, []);
 
   useEffect(() => {
     const generateID = "SUB" + Math.floor(100000 + Math.random() * 900000);
@@ -139,6 +152,7 @@ export default function NewSubscription() {
           <div className="flex w-full space-x-[16px]">
             <Form.Item label="Customer Name" className="w-[50%]">
               <Select
+                value={formData.customerName}
                 onChange={(value: string) => handleGetCustomer(value)}
                 options={customerData.map((item) => ({
                   label: item.customerName,
@@ -184,7 +198,7 @@ export default function NewSubscription() {
           <div className="flex w-full space-x-4">
             <Form.Item label="Starts On" className="w-[50%]">
               <DatePicker
-                value={formData.startsOn}
+                value={dayjs.unix(formData.startDate)}
                 onChange={(date) => handleSetStartDate(date)}
                 className="w-full"
               />
@@ -205,7 +219,7 @@ export default function NewSubscription() {
         <div className="flex justify-between">
           <Form.Item label="Note (Optional)" className="w-[40%]">
             <TextArea
-              value={formData.note}
+              value={formData.notes}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, note: e.target.value }))
               }

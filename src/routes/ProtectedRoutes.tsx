@@ -4,6 +4,8 @@ import FormConfig from "../views/Admin/config/FormConfig";
 import Staff from "../views/Admin/Staff";
 import Customer from "../views/Admin/Customer";
 import CustomerPage from "../views/Admin/CustomerPage";
+import Vendor from "../views/Admin/Vendor";
+import SubscriptionDetails from "../views/billing/subscription/SubscriptionDetails";
 
 const ImportCustomerList = lazy(
   () => import("../components/customer/ImportCustomerList")
@@ -56,7 +58,12 @@ const ProtectedRoutes = () => {
       <Route path="/incidence/tickets" element={<Tickets />} />
       <Route path="/incidence/tickets/:id" element={<TicketDetail />} />
       <Route path="/billing/subscription" element={<Subscription />} />
+      <Route
+        path="/billing/subscription/:id"
+        element={<SubscriptionDetails />}
+      />
       <Route path="/billing/add-sub" element={<NewSubscription />} />
+      <Route path="/billing/edit-sub/:id" element={<NewSubscription />} />
       <Route path="/billing/Invoices" element={<Invoices />} />
       <Route path="/projects/job-orders" element={<JobOrder />} />
       <Route path="/program" element={<Programs />} />
@@ -69,6 +76,7 @@ const ProtectedRoutes = () => {
         element={<ImportCustomerList />}
       />
       <Route path="/admin/customer-page" element={<CustomerPage />} />
+      <Route path="/admin/vendor" element={<Vendor />} />
       <Route path="/operations/reports" element={<Operations />} />
     </Routes>
   );

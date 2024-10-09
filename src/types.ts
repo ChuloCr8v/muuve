@@ -231,12 +231,23 @@ export interface SubscriptionDataType {
   serviceName: string;
   ServiceID: string;
   customerName: string;
-  CustomerComapny: "MTN";
-  startDate: Date;
-  endDate: Date;
+  customerEmail: string;
+  customerComapny?: string;
+  customerAddress?: string;
+  startDate: number;
+  endDate: number;
   cycle: string;
+  unitPrice?: number;
   amount: number;
   status: string;
+  services: {
+    serviceName: string;
+    plan: string;
+    quantity: number;
+    unitPrice: number;
+    amount: number;
+  }[];
+  notes?: string;
 }
 
 export interface CustomerDataTypes {
@@ -276,5 +287,5 @@ export interface NewSubscriptionFormDataType {
   subscriptionId: string;
   startsOn: Dayjs | null;
   expiresOn: Dayjs | null;
-  note: string;
+  notes: string;
 }
