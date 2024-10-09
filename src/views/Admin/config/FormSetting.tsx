@@ -33,7 +33,7 @@ export default function FormSettings({
   }) => {
     return (
       <div>
-        <p className="text-[14px] bg-transparent text-[#728075] mb-3 border-b-[#E9EAEB] border-b-[1.5px] space-y-[12px]">
+        <p className="text-[14px] bg-transparent text-[#728075] border-b-[#E9EAEB] border-b-[1.5px] space-y-[12px]">
           {props.title}
           <span className="text-[14px] text-[#728075] font-normal">
             {props.desc}
@@ -50,7 +50,7 @@ export default function FormSettings({
       <>
         <SectionTable className="space-y-[8px]" title={"Fixed Fields"}>
           {Survey.map((list: any) => (
-            <section className="w-full flex space-x-3 p-[12px] bg-[#F9F9F9] border-[1px] border-[#E9EAEB] rounded-md">
+            <section className="w-full flex space-x-3 p-[8px] bg-[#F9F9F9] border-[1px] border-[#E9EAEB] rounded-md">
               <img src="/dots.svg" alt="" />
               <Form.Item
                 label={<CustomLabel main={list.label} subText={""} />}
@@ -78,14 +78,14 @@ export default function FormSettings({
           {selectedElements.map((element, index) => (
             <div
               key={index}
-              className="w-full flex items-center justify-between p-[12px] bg-[#F9F9F9] border-[1px] border-[#E9EAEB] rounded-md"
+              className="w-full flex items-center justify-between p-[8px] bg-[#F9F9F9] border-[1px] border-[#E9EAEB] rounded-md"
             >
               <div className="flex space-x-3 w-[90%]">
                 <img src="/dots.svg" alt="" />
                 <Form.Item
                   label={
                     <Input
-                      className="border-none bg-transparent px-2 mb-1 shadow-none outline-none text-[#595959]"
+                      className="border-none bg-transparent px-2  shadow-none outline-none text-[#595959]"
                       defaultValue="Type here!"
                     />
                   }

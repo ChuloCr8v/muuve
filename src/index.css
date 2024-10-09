@@ -120,7 +120,7 @@ body {
 }
 
 :where(.css-dev-only-do-not-override-s2go2e).ant-form-item {
-  margin-bottom: 8px;
+  margin-bottom: 0px;
 }
 
 .editable-table td.ant-table-cell {
@@ -143,7 +143,7 @@ body {
 :where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
   .ant-form-item:not(.ant-form-item-horizontal)
   .ant-col-xl-24.ant-form-item-label {
-  padding: 0 0 0 4px !important;
+  padding: 0 0 0 0px !important;
 }
 
 .project-log:last-child div {
@@ -176,7 +176,7 @@ body {
 :where(.css-dev-only-do-not-override-s2go2e).ant-form-vertical
   .ant-form-item:not(.ant-form-item-horizontal)
   .ant-col-xl-24.ant-form-item-label {
-  padding: 0 0 4px 0 !important;
+  padding: 0 0 0px 0 !important;
 }
 
 .ant-modal-root .action-popup {
@@ -210,4 +210,8 @@ body {
 
 :where(.css-dev-only-do-not-override-s2go2e).ant-form-item-vertical .ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-24.ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-xl-24.ant-form-item-label {
   padding: 0;
+}
+
+:where(.css-dev-only-do-not-override-1eql6x0).ant-form-item-vertical .ant-form-item-label, :where(.css-dev-only-do-not-override-1eql6x0).ant-col-24.ant-form-item-label, :where(.css-dev-only-do-not-override-1eql6x0).ant-col-xl-24.ant-form-item-label {
+  padding: 0 0 0px;
 }
