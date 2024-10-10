@@ -51,6 +51,10 @@ const DiscountModal = (props: Props) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const disabled = () => {
+    return !formData.type || !formData.value ? true : false;
+  };
+
   return (
     <ActionPopup
       title="Add Discount"
@@ -59,6 +63,7 @@ const DiscountModal = (props: Props) => {
       sendButtonText={"Add"}
       icon={<CiDiscount1 className="text-4xl" />}
       onOk={handleAddDiscount}
+      actionBtnDisabled={disabled()}
     >
       <Form layout="vertical" colon={false} className="space-y-3 pt-4">
         <Form.Item

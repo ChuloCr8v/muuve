@@ -1,14 +1,16 @@
+import dayjs from "dayjs";
+
 const dataList = [
   {
-    id: "SUB11122243",
+    subscriptionId: "SUB11122243",
     serviceName: "FTTH",
     ServiceID: "123-234-123",
     customerName: "Modesta Ekeh",
     customerEmail: "modesta@ekeh.com",
     customerAddress: "123 green street, 456 narrow way",
-    CustomerComapny: "MTN",
-    startDate: 1723766400,
-    endDate: 1755302400,
+    customerComapny: "MTN",
+    startDate: dayjs.unix(1723766400),
+    endDate: dayjs.unix(1723766400),
     cycle: "Monthly",
     status: "Active",
     amount: 2000000,

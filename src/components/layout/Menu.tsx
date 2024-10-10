@@ -95,6 +95,12 @@ const menuItems = [
         icon: Models,
         iconActive: ModelsActive,
       },
+      {
+        title: "Services",
+        url: "/billing/services",
+        icon: Models,
+        iconActive: ModelsActive,
+      },
     ],
   },
   {

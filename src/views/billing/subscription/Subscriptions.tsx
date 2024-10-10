@@ -36,7 +36,7 @@ export default function Subscription() {
   ];
 
   const handleRowClick = (record: SubscriptionDataType) => {
-    navigate(`/billing/subscription/${record.id}`);
+    navigate(`/billing/subscription/${record.subscriptionId}`);
   };
 
   return (

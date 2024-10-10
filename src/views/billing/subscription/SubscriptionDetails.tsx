@@ -1,5 +1,5 @@
-import { EditOutlined } from "@ant-design/icons";
-import { Button, Table } from "antd";
+import { ArrowRightOutlined, EditOutlined } from "@ant-design/icons";
+import { Breadcrumb, Button, Table } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Heading from "../../../components/global/Header";
@@ -8,6 +8,7 @@ import { SubscriptionDataType } from "../../../types";
 import dataList from "./data";
 import useFormatDate from "../../../hooks/useFormatDate";
 import { vat } from "./NewSubscription";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const SubscriptionDetails = () => {
   const [currentSubscription, setCurrentSubscription] =
@@ -20,9 +21,9 @@ const SubscriptionDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const getCurrentSub = dataList.find((sub) => sub.id === id);
+    const getCurrentSub = dataList.find((sub) => sub.subscriptionId === id);
     setCurrentSubscription(getCurrentSub);
-  }, [id]);
+  }, []);
 
   const columns = [
     {
@@ -74,10 +75,29 @@ const SubscriptionDetails = () => {
       0
     );
   };
+
   return (
     <div className="p-8 bg-white">
+      <Breadcrumb
+        className="pb-3"
+        items={[
+          {
+            title: "Billing",
+          },
+          {
+            title: "Subscription",
+            href: "/billing/subscription",
+          },
+          {
+            title: ":id",
+            href: `/billing/subscription/${id}`,
+          },
+        ]}
+        params={{ id: id }}
+      />
+
       <div className="flex items-center justify-between">
-        <Heading heading={currentSubscription?.id ?? ""} />
+        <Heading heading={currentSubscription?.subscriptionId ?? ""} />
         <Button
           onClick={() => navigate(`/billing/edit-sub/${id}`)}
           type="primary"
@@ -135,11 +155,11 @@ const SubscriptionDetails = () => {
             mainTextStyle="uppercase text-grey text-xs"
           />
 
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 max-w-[600px] w-full">
             <div className="col-span-2">
               <TextCard
                 mainText="Subscription ID"
-                tagText={currentSubscription?.id ?? ""}
+                tagText={currentSubscription?.subscriptionId ?? ""}
               />
             </div>
             <TextCard

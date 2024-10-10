@@ -1,20 +1,15 @@
-import { PlusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Button, DatePicker, Form, Input, Select } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Breadcrumb, Button, DatePicker, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import dayjs, { Dayjs } from "dayjs";
 import { useEffect, useState } from "react";
-import { FaBan } from "react-icons/fa";
 import ServicesRow from "../../../components/billing/ServicesRow";
-
 import { customerData } from "../../../dummy/customerData";
 import { NewSubscriptionFormDataType } from "../../../types";
-import DiscountModal, {
-  DiscountFieldsDataType,
-} from "../../../components/global/DiscountModal";
 import Heading from "../../../components/global/Header";
-import TableRowData from "../../../components/global/TableRowData";
 import { useParams } from "react-router-dom";
 import dataList from "./data";
+import SubscriptionSummaryCard from "../../../components/global/SubscriptionSummaryCard";
 
 const formDataFields = {
   customerName: "",
@@ -29,8 +24,8 @@ const formDataFields = {
     },
   ],
   subscriptionId: "",
-  startsOn: null,
-  expiresOn: null,
+  startDate: dayjs(new Date().getFullYear()),
+  endDate: dayjs(new Date().getFullYear()).add(1, "year"),
   notes: "",
 };
 
@@ -39,25 +34,21 @@ export const vat = 2;
 export default function NewSubscription() {
   const [formData, setFormData] =
     useState<NewSubscriptionFormDataType>(formDataFields);
-  const [openDiscountModal, setOpenDiscountModal] = useState(false);
-  const [discounts, setDiscounts] = useState<Array<DiscountFieldsDataType>>([]);
 
   const { id } = useParams();
 
   useEffect(() => {
-    if (id) {
-      const currentSubscription = dataList.find(
-        (subscription) => subscription.id === id
-      );
-      setFormData(currentSubscription!);
-    } else {
-      setFormData(formDataFields);
-    }
-  }, []);
+    const currentSubscription = dataList.find(
+      (subscription) => subscription.subscriptionId === id
+    );
+    setFormData(currentSubscription!);
+  }, [id]);
 
   useEffect(() => {
     const generateID = "SUB" + Math.floor(100000 + Math.random() * 900000);
-    setFormData((prev) => ({ ...prev, subscriptionId: generateID }));
+    if (!id) {
+      setFormData((prev) => ({ ...prev, subscriptionId: generateID }));
+    }
   }, []);
 
   const handleGetCustomer = (id: string) => {
@@ -92,52 +83,25 @@ export default function NewSubscription() {
     }
   };
 
-  const subscriptionSubtotal = () => {
-    const subtotal = formData.services.reduce((acc, currentService) => {
-      return acc + currentService.amount;
-    }, 0);
-
-    return subtotal;
-  };
-
-  const totalCost = () => {
-    // Calculate percentage discounts
-    const percentageDiscounts = discounts.filter(
-      (discount) => discount.type === "percentage"
-    );
-    const totalPercentageDiscounts = percentageDiscounts.reduce(
-      (acc, currentDiscount) => acc + currentDiscount.value,
-      0
-    );
-
-    // Apply percentage discount to the subtotal
-    const percentageDiscount =
-      (totalPercentageDiscounts / 100) * subscriptionSubtotal();
-    const totalAfterPercentageDiscount =
-      subscriptionSubtotal() - percentageDiscount;
-
-    // Calculate fixed discounts
-    const fixedDiscounts = discounts.filter(
-      (discount) => discount.type === "fixed"
-    );
-    const totalFixedDiscounts = fixedDiscounts.reduce(
-      (acc, currentDiscount) => acc + currentDiscount.value,
-      0
-    );
-
-    // Apply fixed discounts after percentage discount
-    const totalAfterFixedDiscount =
-      totalAfterPercentageDiscount - totalFixedDiscounts;
-
-    // Calculate VAT and add it to the total
-    const getVat = (totalAfterFixedDiscount * vat) / 100;
-    const totalAfterVat = totalAfterFixedDiscount + getVat;
-
-    return totalAfterVat;
-  };
-
   return (
-    <div className="space-y-[24px] p-8 bg-white">
+    <div className="space-y-4 p-8 bg-white">
+      <Breadcrumb
+        className=""
+        items={[
+          {
+            title: "Billing",
+          },
+          {
+            title: "Subscription",
+            href: `/billing/subscription/`,
+          },
+          {
+            title: id ? "Edit Subscription" : "New Subscription",
+            href: `/billing/new-sub/`,
+          },
+        ]}
+      />
+
       <section className="flex items-center justify-between">
         <Heading heading="New Subscription" />
         <Button type="primary" className="flex items-center">
@@ -180,10 +144,13 @@ export default function NewSubscription() {
 
       <section className="space-y-[16px]">
         <p className="text">SERVICES</p>
-        <ServicesRow setFormData={setFormData} />
+        <ServicesRow
+          setFormData={setFormData}
+          currentServicesToEdit={formData?.services}
+        />
       </section>
 
-      <section className="w-[60%] space-y-[16px]">
+      <section className="w-[60%] space-y-2">
         <p className="text">SUBSCRIPTION DETAILS</p>
 
         <Form layout="vertical" className="space-y-4">
@@ -198,7 +165,7 @@ export default function NewSubscription() {
           <div className="flex w-full space-x-4">
             <Form.Item label="Starts On" className="w-[50%]">
               <DatePicker
-                value={dayjs.unix(formData.startDate)}
+                value={formData.startDate}
                 onChange={(date) => handleSetStartDate(date)}
                 className="w-full"
               />
@@ -208,7 +175,7 @@ export default function NewSubscription() {
               <Input
                 disabled
                 className="!text-customBlack"
-                value={dayjs(formData.expiresOn).format("YYYY-MM-DD")}
+                value={dayjs(formData.endDate).format("YYYY-MM-DD")}
               />
             </Form.Item>
           </div>
@@ -219,6 +186,8 @@ export default function NewSubscription() {
         <div className="flex justify-between">
           <Form.Item label="Note (Optional)" className="w-[40%]">
             <TextArea
+              cols={20}
+              rows={4}
               value={formData.notes}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, note: e.target.value }))
@@ -226,98 +195,10 @@ export default function NewSubscription() {
             />
           </Form.Item>
 
-          <div className="border-[1px] w-[40%] py-[15px] px-[12px] border-[#E9EAEB] bg-[#F8F8F8] rounded-lg">
-            <div className="space-y-[12px]">
-              <div className="">
-                <TableRowData
-                  wrapperClassName="flex items-center justify-between border-b pb-1"
-                  mainText={"Subtotal"}
-                  mainTextStyle="text-grey uppercase"
-                  tagText={
-                    "NGN" + " " + subscriptionSubtotal().toLocaleString()
-                  }
-                  tagTextStyle="font-semibold !text-customBlack"
-                />
-
-                {discounts.length ? (
-                  <div className="my-1 border-b pb-1">
-                    <TableRowData
-                      mainText="Discounts"
-                      mainTextStyle="uppercase font-semibold"
-                      wrapperClassName="pb-1"
-                    />
-
-                    <div className="space-y-1">
-                      {discounts?.map((discount) => (
-                        <div
-                          key={discount.id}
-                          className="flex items-center gap-4 w-full"
-                        >
-                          <TableRowData
-                            wrapperClassName="flex items-center justify-between w-full"
-                            mainText={discount.label}
-                            mainTextStyle="text-grey uppercase"
-                            tagText={
-                              (discount.type === "fixed" ? "NGN" : "") +
-                              " " +
-                              discount.value +
-                              (discount.type === "percentage" ? "%" : "")
-                            }
-                            tagTextStyle="font-semibold !text-customBlack"
-                          />
-                          <FaBan
-                            className="text-red-600 cursor-pointer"
-                            onClick={() =>
-                              setDiscounts(
-                                discounts.filter((d) => d.id !== discount.id)
-                              )
-                            }
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-                <TableRowData
-                  wrapperClassName="flex items-center justify-between"
-                  mainText={"Vat"}
-                  mainTextStyle="text-grey uppercase"
-                  tagText={vat + "%"}
-                  tagTextStyle="font-semibold !text-customBlack"
-                />
-              </div>
-
-              <Button
-                type="dashed"
-                onClick={() => setOpenDiscountModal(true)}
-                className="flex items-center text-[13px] my-4 font-semibold border-[#0A95CC66] text-[#0A95CC]"
-              >
-                <PlusCircleOutlined className="text-[13px]" />
-                <span>Add Discount </span>
-              </Button>
-
-              <div className="">
-                <TableRowData
-                  wrapperClassName="flex items-center justify-between"
-                  mainText={"Total"}
-                  mainTextStyle="text-grey uppercase"
-                  tagText={"NGN" + " " + totalCost().toLocaleString()}
-                  tagTextStyle="font-semibold !text-customBlack"
-                />
-              </div>
-            </div>
-          </div>
+          {/* cost summary card */}
+          <SubscriptionSummaryCard formData={formData} />
         </div>
       </Form>
-
-      <DiscountModal
-        isOpen={openDiscountModal}
-        setIsOpen={setOpenDiscountModal}
-        discounts={discounts}
-        setDiscounts={setDiscounts}
-      />
     </div>
   );
 }

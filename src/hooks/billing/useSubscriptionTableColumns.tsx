@@ -1,10 +1,12 @@
-import { DownOutlined, SwitcherOutlined } from "@ant-design/icons";
+import {
+  DownOutlined,
+  SwitcherOutlined,
+  SyncOutlined,
+} from "@ant-design/icons";
 import { Button, Dropdown, MenuProps } from "antd";
-
 import { ColumnProps } from "antd/es/table";
 import dayjs from "dayjs";
 import { FaBan } from "react-icons/fa";
-import { LiaUserCheckSolid } from "react-icons/lia";
 import { TbSwitch2 } from "react-icons/tb";
 import MenuList from "../../components/global/DropDownMenuList";
 import StatusTag from "../../components/global/StatusTag";
@@ -34,7 +36,7 @@ const useSubscriptionTableColumns = () => {
     },
     {
       key: "4",
-      label: <MenuList icon={<LiaUserCheckSolid />} title={"Renew"} />,
+      label: <MenuList icon={<SyncOutlined />} title={"Renew"} />,
     },
   ];
 
@@ -43,7 +45,9 @@ const useSubscriptionTableColumns = () => {
       title: "ID",
       dataIndex: "serviceName, ServiceID",
       key: "id",
-      render: (_: string, record) => <TableRowData mainText={record.id} />,
+      render: (_: string, record) => (
+        <TableRowData mainText={record.subscriptionId} />
+      ),
     },
     {
       title: "Service",
@@ -66,7 +70,7 @@ const useSubscriptionTableColumns = () => {
         <div>
           <p className="table-text  truncate">{record.customerName}</p>
           <span className="text-[#0A95CCB2] text-[11px]">
-            {record.CustomerComapny}
+            {record.customerComapny}
           </span>
         </div>
       ),
@@ -98,7 +102,9 @@ const useSubscriptionTableColumns = () => {
       key: "amunt",
 
       render: (_: string, record) => (
-        <p className="table-text  truncate">{record.amount.toLocaleString()}</p>
+        <p className="table-text  truncate">
+          NGN {record.amount.toLocaleString()}
+        </p>
       ),
     },
     {
@@ -124,6 +130,7 @@ const useSubscriptionTableColumns = () => {
       render: () => (
         <Dropdown menu={{ items }}>
           <Button
+            onClick={(e) => e.stopPropagation()}
             type="default"
             className="flex items-center space-x-1 font-semibold btnColor"
           >
