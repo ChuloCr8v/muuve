@@ -1,15 +1,29 @@
 import { useState } from "react";
 import { Button, Drawer, Dropdown, Form, Input, MenuProps, message } from "antd";
-import { useForm } from "antd/es/form/Form";
-// import { useNavigate } from "react-router-dom"; // Use react-router-dom for navigation
-// import { PlusOutlined } from "@ant-design/icons";
+import { useAddVendorMutation } from "../../api/vendor";
+import { toastApiError } from "../../utils/error.util";
+
 
 
 
 const VendorDrop = () => {
-  const [form] = useForm();
+  const [form] = Form.useForm();
   const [open, setOpen] = useState(false);
-//   const navigate = useNavigate(); 
+  const [addVendor, {isLoading}] = useAddVendorMutation()
+
+
+  const HandleAddVendor = async ()  =>{
+    const values = await form.validateFields()
+    addVendor(values)
+    .unwrap()
+    .then(() => {
+      message.success("Vendor Created")
+      setOpen(false)
+    })
+    .catch(toastApiError)
+
+
+  }
 
   const onClose = () => {
     setOpen(false);
@@ -46,12 +60,6 @@ const VendorDrop = () => {
     },
   ];
 
-  const onSubmit = async () => {
-
-    message.success("Customer onboarded successfully");
-    onClose();
-  };
-
   return (
     <div>
       <Dropdown menu={{ items }} placement="bottom">
@@ -67,14 +75,14 @@ const VendorDrop = () => {
       <Drawer
         onClose={onClose}
         open={open}
-        title="New Customer"
+        title="Add Vendor"
         closeIcon={false}
         footer={
           <div className="flex justify-end w-full gap-4">
             <Button className="w-[100px]" type="default" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="primary" className="w-[144px]" onClick={onSubmit}>
+            <Button type="primary" className="w-[144px]" onClick={HandleAddVendor}>
               Submit
             </Button>
           </div>
@@ -88,9 +96,17 @@ const VendorDrop = () => {
             className="w-full"
           >
             <Form.Item
-              label="Vendor Name"
-              name="name"
+              label="Company Name"
+              name="companyName"
               rules={[{ required: true, message: "Please enter the customer name" }]}
+            >
+              <Input className="rounded-lg w-[320px] border-[#E9EAEB]" />
+            </Form.Item>
+
+            <Form.Item
+              label="SPOC Name"
+              name="spocName"
+              rules={[{ required: true, message: "Please enter the phone number" }]}
             >
               <Input className="rounded-lg w-[320px] border-[#E9EAEB]" />
             </Form.Item>
@@ -105,13 +121,7 @@ const VendorDrop = () => {
               <Input className="rounded-lg w-[320px] border-[#E9EAEB]" />
             </Form.Item>
 
-            <Form.Item
-              label="Role"
-              name="role"
-              rules={[{ required: true, message: "Please enter the phone number" }]}
-            >
-              <Input className="rounded-lg w-[320px] border-[#E9EAEB]" />
-            </Form.Item>
+           
 
           </Form>
         </div>

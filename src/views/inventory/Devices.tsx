@@ -29,17 +29,17 @@ export default function Devices() {
       icon: <OrderedListOutlined />,
     },
     {
-      label: "Active",
+      label: "Available",
       value: 19,
       icon: <VscVmActive />,
     },
     {
-      label: "Deactivated",
+      label: "Faulty",
       value: 2,
       icon: <FaBan />,
     },
     {
-      label: "Expiring",
+      label: "Assigned",
       value: 1,
       icon: <WarningOutlined />,
     },

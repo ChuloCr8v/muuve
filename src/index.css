@@ -183,11 +183,6 @@ body {
   z-index: 9999;
 }
 
-/* Customize the checkbox checkmark color */
-.ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #4caf50; /* Change the background color */
-  border-color: #4caf50; /* Change the border color */
-}
 
 /* Customize the checkbox hover color */
 .ant-checkbox-checked .ant-checkbox-inner:after {

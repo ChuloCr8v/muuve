@@ -125,6 +125,12 @@ const menuItems = [
         icon: Customers,
         iconActive: CustomersActive,
       },
+      {
+        title: "Vendor",
+        url: "/admin/vendor",
+        icon: Customers,
+        iconActive: CustomersActive,
+      },
     ],
   },
 ];

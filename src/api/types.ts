@@ -50,6 +50,10 @@ export type Customer = {
   customerId: string;
 };
 
+export type Vendor ={
+
+}
+
 export type User = {
   id: string;
   email: string;
@@ -59,6 +63,7 @@ export type User = {
   staff: Staff;
   customer: Customer;
   createdAt: string;
+  vendor: Vendor
 };
 
 export type AddCustomerInput = {
@@ -157,3 +162,19 @@ export type CompleteSurveyInput = {
   surveyId: string;
   comment: string;
 };
+
+export type AddVendorInput = {
+  companyName: string;
+  spocName: string;
+  email: string
+}
+
+export type AddModelInput = {
+  name: string;
+  number: string;
+  manufacturer: string;
+  cost: number;
+  description: string;
+  category: string;
+  vendorId: string;
+}

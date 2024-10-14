@@ -24,18 +24,18 @@ const SummaryCards = ({ summaryData }: Props) => {
   //   }
   // };
 
-  // const bgColor = (label: string) => {
-  //   switch (label.toLowerCase()) {
-  //     case "total":
-  //       return "hover:bg-blue-100 hover:border-blue-300 hover:text-blue-600";
-  //     case "active":
-  //       return "hover:bg-green-100 hover:border-green-300 hover:text-green-600";
-  //     case "deactivated":
-  //       return "hover:bg-red-100 hover:border-red-300 hover:text-red-600";
-  //     default:
-  //       return "hover:bg-yellow-100 hover:border-yellow-300 hover:text-yellow-600";
-  //   }
-  // };
+  const bgColor = (label: string) => {
+    switch (label.toLowerCase()) {
+      case "total":
+        return "hover:bg-blue-100 hover:border-blue-300 hover:text-blue-600";
+      case "active":
+        return "hover:bg-green-100 hover:border-green-300 hover:text-green-600";
+      case "deactivated":
+        return "hover:bg-red-100 hover:border-red-300 hover:text-red-600";
+      default:
+        return "hover:bg-yellow-100 hover:border-yellow-300 hover:text-yellow-600";
+    }
+  };
 
   const cardCount = summaryData.length;
   return (
@@ -48,7 +48,9 @@ const SummaryCards = ({ summaryData }: Props) => {
         <div
           key={item.label}
           className={twMerge(
-            `group bg-white border p-2 px-4 flex items-center justify-between w-full rounded-md duration-150`
+            `group bg-white border p-2 px-4 flex items-center justify-between w-full rounded-md duration-150`,
+            item.label === 'Active' &&'Available' && 'Closed' && 'Assigned' ? 'bg-[#F0F9F2]' : item.label === 'Deactivated' && 'Out of Stock'&& 'Faulty' &&
+            'Inactive' && 'Open' ? 'bg-[#FBEEEE]' : item.label === 'Expiring' && 'Available' && 'Expiring Soon' &&'Low on Stock' ? 'bg-[#FAF8EE]' : 'bg-[#F2F9FC]'
           )}
         >
           <div className="flex flex-col items-start gap-1">
