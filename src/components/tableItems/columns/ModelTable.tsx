@@ -51,10 +51,6 @@ export default function ModelTable(props: Prop) {
 
   const column = [
     {
-      title: <Checkbox />,
-      render: () => <Checkbox />,
-    },
-    {
       title: "Model Number",
       dataIndex: "id",
     },
