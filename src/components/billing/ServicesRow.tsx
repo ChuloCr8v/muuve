@@ -16,6 +16,7 @@ const serviceFormFields = {
 
 interface Props {
   setFormData: Dispatch<SetStateAction<NewSubscriptionFormDataType>>;
+  currentServicesToEdit?: any;
 }
 
 const ServicesRow = (props: Props) => {
@@ -25,7 +26,7 @@ const ServicesRow = (props: Props) => {
   const [itemCount, setItemCount] = useState(1);
 
   const handleGetServiceFields = () => {
-    const newServiceFields = serviceFormData.map((data) => ({
+    const newServiceFields = serviceFormData?.map((data) => ({
       serviceName: data.serviceName,
       plan: data.plan,
       quantity: data.quantity,
@@ -39,6 +40,14 @@ const ServicesRow = (props: Props) => {
     handleGetServiceFields();
   }, [serviceFormData]);
 
+  useEffect(() => {
+    if (props.currentServicesToEdit?.length > 0) {
+      setServiceFormData(props.currentServicesToEdit);
+    }
+  }, []);
+
+  console.log(props.currentServicesToEdit);
+
   const handleSelectService = (serviceID: string, formDataID: number) => {
     const service = servicesData.find((service) => service.id === serviceID);
 
@@ -47,7 +56,7 @@ const ServicesRow = (props: Props) => {
         return {
           ...formData,
           serviceName: service?.serviceName || "",
-          plans: service?.plans || [],
+          services: service?.plans || [],
           plan: "",
           quantity: 0,
           amount: 0,
@@ -120,6 +129,7 @@ const ServicesRow = (props: Props) => {
         dataSource={serviceFormData}
         pagination={false}
         rowKey="id"
+        key={1}
         className="border rounded-lg"
       >
         <Table.Column
@@ -148,7 +158,7 @@ const ServicesRow = (props: Props) => {
             <Select
               value={record.plan}
               options={
-                record.plans?.map((plan) => ({
+                record.services?.map((plan) => ({
                   label: plan.label,
                   value: plan.label,
                 })) || []
@@ -192,7 +202,7 @@ const ServicesRow = (props: Props) => {
           render={(_: string, record: serviceFormDataType) => (
             <div>
               <span className="text-grey mr-1">NGN</span>
-              {record.unitPrice.toLocaleString()}
+              {record.unitPrice?.toLocaleString()}
             </div>
           )}
         />
@@ -205,19 +215,19 @@ const ServicesRow = (props: Props) => {
           render={(_text, record: serviceFormDataType) => (
             <div>
               <span className="text-grey mr-1">NGN</span>
-              {record.amount.toLocaleString()}
+              {record.amount?.toLocaleString()}
             </div>
           )}
         />
 
-        {
+        {serviceFormData.length > 1 ? (
           <Table.Column
             title=""
-            dataIndex="id"
-            key="id"
+            dataIndex="delete"
+            key="delete"
             width={80}
             render={(_, record: serviceFormDataType) =>
-              serviceFormData.length > 1 && record.id !== 0 ? (
+              record.id !== 0 ? (
                 <Popconfirm
                   title="Are you sure you want to delete this service?"
                   onConfirm={() => handleDelete(record.id)}
@@ -229,7 +239,9 @@ const ServicesRow = (props: Props) => {
               )
             }
           />
-        }
+        ) : (
+          ""
+        )}
       </Table>
 
       <Button

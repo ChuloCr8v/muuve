@@ -6,6 +6,9 @@ import Customer from "../views/Admin/Customer";
 import CustomerPage from "../views/Admin/CustomerPage";
 import Vendor from "../views/Admin/Vendor";
 import SubscriptionDetails from "../views/billing/subscription/SubscriptionDetails";
+import NewService from "../views/billing/services/NewService";
+import Services from "../views/billing/services/Services";
+import ServiceDetails from "../views/billing/services/ServiceDetails";
 
 const ImportCustomerList = lazy(
   () => import("../components/customer/ImportCustomerList")
@@ -57,6 +60,8 @@ const ProtectedRoutes = () => {
       <Route path="/inventory/devices" element={<Devices />} />
       <Route path="/incidence/tickets" element={<Tickets />} />
       <Route path="/incidence/tickets/:id" element={<TicketDetail />} />
+
+      {/* Biilig */}
       <Route path="/billing/subscription" element={<Subscription />} />
       <Route
         path="/billing/subscription/:id"
@@ -65,6 +70,14 @@ const ProtectedRoutes = () => {
       <Route path="/billing/add-sub" element={<NewSubscription />} />
       <Route path="/billing/edit-sub/:id" element={<NewSubscription />} />
       <Route path="/billing/Invoices" element={<Invoices />} />
+      <Route path="/billing/services" element={<Services />} />
+      <Route path="/billing/services/new-service" element={<NewService />} />
+      <Route
+        path="/billing/services/edit-service/:id"
+        element={<NewService />}
+      />
+      <Route path="/billing/services/plan/:id" element={<ServiceDetails />} />
+
       <Route path="/projects/job-orders" element={<JobOrder />} />
       <Route path="/program" element={<Programs />} />
       <Route path="/admin/config" element={<FormConfig />} />

@@ -23,10 +23,6 @@ export default function DevicesTable(props: Prop) {
 
   const column = [
     {
-      title: <Checkbox />,
-      render: () => <Checkbox />,
-    },
-    {
       title: "Serial Number",
       dataIndex: "id",
     },

@@ -95,6 +95,12 @@ const menuItems = [
         icon: Models,
         iconActive: ModelsActive,
       },
+      {
+        title: "Services",
+        url: "/billing/services",
+        icon: Models,
+        iconActive: ModelsActive,
+      },
     ],
   },
   {
@@ -122,6 +128,12 @@ const menuItems = [
       {
         title: "Customers",
         url: "/admin/customers",
+        icon: Customers,
+        iconActive: CustomersActive,
+      },
+      {
+        title: "Vendor",
+        url: "/admin/vendor",
         icon: Customers,
         iconActive: CustomersActive,
       },

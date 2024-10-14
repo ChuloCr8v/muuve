@@ -13,13 +13,16 @@ const SummaryCardIcon = ({ label }: { label: string }) => {
       case "active":
       case "available":
       case "closed":
+        case "assigned":
         return <VscVmActive />;
       case "deactivated":
       case "inactive":
       case "open":
+        case 'faulty' :
         return <FaBan />;
       case "expiring":
       case "expiring soon":
+        case "low on stock" :
         return <IoWarningOutline />;
       case "renew soon":
         return <FiRefreshCcw />;

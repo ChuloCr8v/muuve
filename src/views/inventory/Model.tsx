@@ -27,19 +27,14 @@ export default function Model() {
       icon: <OrderedListOutlined />,
     },
     {
-      label: "Active",
+      label: "Low on Stock",
       value: 19,
       icon: <VscVmActive />,
     },
     {
-      label: "Deactivated",
+      label: "Out of Stock",
       value: 2,
       icon: <FaBan />,
-    },
-    {
-      label: "Expiring",
-      value: 1,
-      icon: <WarningOutlined />,
     },
   ];
   return (

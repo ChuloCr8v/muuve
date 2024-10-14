@@ -227,15 +227,15 @@ export interface NewRoleFormDataTypes {
 }
 
 export interface SubscriptionDataType {
-  id: string;
+  subscriptionId: string;
   serviceName: string;
   ServiceID: string;
   customerName: string;
   customerEmail: string;
   customerComapny?: string;
   customerAddress?: string;
-  startDate: number;
-  endDate: number;
+  startDate: Dayjs;
+  endDate: Dayjs;
   cycle: string;
   unitPrice?: number;
   amount: number;
@@ -265,7 +265,7 @@ export interface serviceFormDataType {
   quantity: number;
   unitPrice: number;
   amount: number;
-  plans?: Array<{
+  services?: Array<{
     label: string;
     description: string;
     features: Array<string>;
@@ -285,7 +285,25 @@ export interface NewSubscriptionFormDataType {
     amount: number;
   }>;
   subscriptionId: string;
-  startsOn: Dayjs | null;
-  expiresOn: Dayjs | null;
+  startDate: Dayjs;
+  endDate: Dayjs;
   notes: string;
+}
+
+export interface PlanDataType {
+  label: string;
+  tierName: string;
+  description: string;
+  features: Array<string>;
+  price: number;
+}
+
+export interface ServiceType {
+  id: string;
+  serviceName: string;
+  status: string;
+  description: string;
+  dateCreated: Dayjs;
+  billingCycle: string;
+  plans: Array<PlanDataType>;
 }

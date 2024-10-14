@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* hide default antd required label astericks icon */
-
 /* src/index.css */
 @font-face {
   font-family: "inter";
@@ -52,7 +50,9 @@
   display: flexbox;
 }
 
-.head{font-size: clamp(16px, 2vw, 20px);}
+.head {
+  font-size: clamp(16px, 2vw, 20px);
+}
 
 .tagSize {
   font-size: 12px !important;
@@ -183,16 +183,14 @@ body {
   z-index: 9999;
 }
 
-/* Customize the checkbox checkmark color */
-.ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #4caf50; /* Change the background color */
-  border-color: #4caf50; /* Change the border color */
+/* {.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: #4caf50; 
+  border-color: #4caf50; 
 }
 
-/* Customize the checkbox hover color */
 .ant-checkbox-checked .ant-checkbox-inner:after {
-  border-color: #fff; /* Change the checkmark color */
-}
+  border-color: #fff; 
+} */
 
 .role-section:last-child {
   border-bottom: none;
@@ -208,10 +206,18 @@ body {
   color: inherit;
 }
 
-:where(.css-dev-only-do-not-override-s2go2e).ant-form-item-vertical .ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-24.ant-form-item-label, :where(.css-dev-only-do-not-override-s2go2e).ant-col-xl-24.ant-form-item-label {
+:where(.css-dev-only-do-not-override-s2go2e).ant-form-item-vertical
+  .ant-form-item-label,
+:where(.css-dev-only-do-not-override-s2go2e).ant-col-24.ant-form-item-label,
+:where(.css-dev-only-do-not-override-s2go2e).ant-col-xl-24.ant-form-item-label {
   padding: 0;
 }
 
-:where(.css-dev-only-do-not-override-1eql6x0).ant-form-item-vertical .ant-form-item-label, :where(.css-dev-only-do-not-override-1eql6x0).ant-col-24.ant-form-item-label, :where(.css-dev-only-do-not-override-1eql6x0).ant-col-xl-24.ant-form-item-label {
+:where(.css-dev-only-do-not-override-1eql6x0).ant-form-item-vertical
+  .ant-form-item-label,
+:where(.css-dev-only-do-not-override-1eql6x0).ant-col-24.ant-form-item-label,
+:where(
+    .css-dev-only-do-not-override-1eql6x0
+  ).ant-col-xl-24.ant-form-item-label {
   padding: 0 0 0px;
 }

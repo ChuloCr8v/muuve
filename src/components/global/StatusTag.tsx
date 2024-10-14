@@ -17,6 +17,7 @@ const StatusTag = ({ status }: Props) => {
         return "green";
       case "open":
       case "deactivated":
+      case "inactive":
         return "red";
       default:
         return "orange";
