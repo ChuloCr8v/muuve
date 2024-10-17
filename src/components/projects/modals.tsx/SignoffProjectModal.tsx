@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../global/ActionPopup";
 import { BsCheckCircle } from "react-icons/bs";
 import { popupInterface } from "../../../types";
+import { closePopup } from "../../../redux/popupSlice";
 
 const SignoffProjectModal = () => {
   const { currentPopup } = useSelector((state: popupInterface) => state.popups);
@@ -22,7 +22,7 @@ const SignoffProjectModal = () => {
     <ActionPopup
       onOk={handleProjectSignOff}
       open={isOpen && action?.includes("sign off")}
-      onCancel={() => dispatch(hidePopup())}
+      onCancel={() => dispatch(closePopup())}
       title={<p>{action}</p>}
       sendButtonText={"Sign Off"}
       icon={

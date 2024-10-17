@@ -1,10 +1,10 @@
 import { Drawer, Tabs, TabsProps } from "antd";
 import { useDispatch } from "react-redux";
-import { closeProjectDetailsDrawer } from "../../../redux/popupSlice";
 import ProjectDetailsDrawerHeading from "../../global/ProjectDetailsDrawerHeading";
 import StatusTag from "../../global/StatusTag";
 import SurveyDetails from "./SurveyDetails";
 import SurveyLog from "./SurveyLog";
+import { closeDrawer } from "../../../redux/popupSlice";
 
 const SurveyDetailsDrawer = () => {
   // const { projectDetailsDrawerIsOpen } = useSelector(
@@ -100,7 +100,7 @@ const SurveyDetailsDrawer = () => {
   return (
     <Drawer
       open={false}
-      onClose={() => dispatch(closeProjectDetailsDrawer())}
+      onClose={() => dispatch(closeDrawer())}
       title={false}
       closeIcon={false}
       width={540}

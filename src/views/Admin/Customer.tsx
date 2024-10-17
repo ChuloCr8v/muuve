@@ -1,37 +1,20 @@
 import { useState } from "react";
-import {
-  Button,
-  Dropdown,
-  Input,
-  Table,
-  Tag,
-  Modal,
-  Form,
-  message,
-  Drawer,
-} from "antd";
-import {
-  CheckCircleOutlined,
-  CloseCircleOutlined,
-  DownOutlined,
-  EditOutlined,
-  StopOutlined,
-  SearchOutlined,
-  SyncOutlined,
-} from "@ant-design/icons";
-import { twMerge } from "tailwind-merge";
+import { Button, Dropdown, Input, Table, Form, Drawer } from "antd";
+import { DownOutlined, SearchOutlined, SyncOutlined } from "@ant-design/icons";
 import Heading from "../../components/global/Header";
 import SummaryCards from "../../components/global/SummaryCards";
-import { FaBan } from "react-icons/fa";
 import CustomerDropButton from "../../components/customer/CustomerDropDown";
 import { useListCustomersQuery } from "../../api/customer.api";
+import StatusTag from "../../components/global/StatusTag";
+import CustomerActionItems from "./adminUtils/CustomerActionItems";
+import UpdateCustomerDrawer from "./modals/UpdateCustomerDrawer";
 
 interface CustomerData {
   id: string;
   name: string;
   email: string;
   phone: string;
-  status: "Active" | "Inactive";
+  status: string;
 }
 
 export interface ActionProps {
@@ -41,50 +24,26 @@ export interface ActionProps {
 }
 
 export default function Customer() {
+  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData>();
+
   const listCustomers = useListCustomersQuery();
 
   const customerUsers = listCustomers.data ?? [];
 
   const customers = customerUsers.map((u) => ({
+    id: u.id,
     email: u.email,
     name: u.customer.name,
     phone: u.customer.phone,
     address: u.customer.address,
-    status: u.customer.isActive,
+    status: u.isActive ? "Active" : "Deactivated",
     customerId: u.customer.customerId,
   }));
-
-  // const [newStaff, setNewStaff] = useState<boolean>(false);
-  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData | null>(
-    null
-  );
-  const [drawerVisible, setDrawerVisible] = useState(false);
-  const [deactivateModalVisible, setDeactivateModalVisible] =
-    useState<boolean>(false);
-  const [form] = Form.useForm();
 
   const [searchText, setSearchText] = useState<string>(""); // Added state for search input
   const [filteredData, setFilteredData] = useState(customers); // State for filtered data
 
-  const openEditDrawer = (customer: CustomerData) => {
-    setSelectedCustomer(customer);
-    form.setFieldsValue(customer);
-    setDrawerVisible(true);
-  };
-
-  const showDeactivateModal = (customer: CustomerData) => {
-    setSelectedCustomer(customer);
-    setDeactivateModalVisible(true);
-  };
-
-  const handleDeactivate = () => {
-    if (selectedCustomer) {
-      message.success(
-        `Customer ${selectedCustomer.name} deactivated successfully`
-      );
-      setDeactivateModalVisible(false);
-    }
-  };
+  const { items } = CustomerActionItems({ customer: selectedCustomer });
 
   const handleSearch = (value: string) => {
     setSearchText(value);
@@ -127,46 +86,22 @@ export default function Customer() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status: boolean) => (
-        <Tag
-          icon={status ? <CheckCircleOutlined /> : <CloseCircleOutlined />}
-          className={twMerge(
-            status
-              ? "border-[#379D51] text-[#379D51] bg-[#E3FFE6]"
-              : "border-[#777777] text-[#777777] bg-[#F0F1F3]",
-            "rounded-2xl space-x-2 font-semibold"
-          )}
-        >
-          {status ? "Active" : "inactive"}
-        </Tag>
+      render: (_: string, record: CustomerData) => (
+        <StatusTag status={record.status} />
       ),
     },
     {
       title: "Action",
       key: "action",
       render: (_: any, record: CustomerData) => (
-        <Dropdown
-          menu={{
-            items: [
-              {
-                key: "1",
-                label: "Edit",
-                icon: <EditOutlined />,
-                onClick: () =>
-                  selectedCustomer && openEditDrawer(selectedCustomer),
-              },
-              {
-                key: "2",
-                label: "Deactivate",
-                icon: <StopOutlined />,
-                onClick: () => showDeactivateModal(record),
-              },
-            ],
-          }}
-        >
-          <Button size="small" className="flex items-center space-x-2">
-            <span>Action</span>
-            <DownOutlined />
+        <Dropdown menu={{ items }} trigger={["click"]}>
+          <Button
+            onClick={() => setSelectedCustomer(record)}
+            className="flex items-center h-7"
+            icon={<DownOutlined />}
+            iconPosition="end"
+          >
+            Action
           </Button>
         </Dropdown>
       ),
@@ -214,78 +149,7 @@ export default function Customer() {
         />
       </section>
 
-      <Drawer
-        title="Edit Customer"
-        visible={drawerVisible}
-        onClose={() => setDrawerVisible(false)}
-        width={400}
-      >
-        <Form form={form} layout="vertical">
-          <Form.Item
-            label="Customer Name"
-            name="name"
-            rules={[
-              { required: true, message: "Please enter the customer name" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Email Address"
-            name="email"
-            rules={[
-              {
-                required: true,
-                type: "email",
-                message: "Please enter a valid email address",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="Phone Number"
-            name="phone"
-            rules={[
-              { required: true, message: "Please enter the phone number" },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item label="Status" name="status">
-            <Input />
-          </Form.Item>
-        </Form>
-        <div className="flex justify-end gap-2 mt-4">
-          <Button onClick={() => setDrawerVisible(false)}>Cancel</Button>
-          <Button type="primary" onClick={() => setDrawerVisible(false)}>
-            Save
-          </Button>
-        </div>
-      </Drawer>
-
-      <Modal
-        visible={deactivateModalVisible}
-        onCancel={() => setDeactivateModalVisible(false)}
-        onOk={handleDeactivate}
-        okText="Deactivate"
-        cancelText="Cancel"
-        width={320}
-        okButtonProps={{ danger: true }}
-      >
-        <div>
-          <div className="flex items-center gap-2 mt-2">
-            <Tag className="flex items-center justify-center w-10 h-10 text-red-600 bg-red-100 border-none rounded-full">
-              <FaBan />
-            </Tag>
-            <h4 className="text-xl font-semibold ">Deactivate Customer</h4>
-          </div>
-          <p className="mt-2 text-sm">
-            Are you sure you want to deactivate{" "}
-            <strong>{selectedCustomer?.name}</strong>?
-          </p>
-        </div>
-      </Modal>
+      <UpdateCustomerDrawer />
     </div>
   );
 }

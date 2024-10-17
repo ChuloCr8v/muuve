@@ -16,7 +16,20 @@ export const customerApi = api.injectEndpoints({
       query: () => "customer",
       providesTags: ["customer"],
     }),
+
+    updateCustomer: mutation({
+      query: ({ id, body }) => ({
+        url: `/customer/${id}`,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["customer"],
+    }),
   }),
 });
 
-export const { useAddCustomerMutation, useListCustomersQuery } = customerApi;
+export const {
+  useAddCustomerMutation,
+  useListCustomersQuery,
+  useUpdateCustomerMutation,
+} = customerApi;

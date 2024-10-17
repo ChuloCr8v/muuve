@@ -2,10 +2,10 @@ import { Checkbox, Form, Input } from "antd";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { validPasswordChecks } from "../dummy/validPasswordCheck";
-import { closeResetPasswordModal } from "../redux/popupSlice";
 import ConfirmResetPasswordModal from "./ConfirmResetPasswordModal";
 import ActionPopup from "./global/ActionPopup";
 import CustomLabel from "./onboarding/CustomLabel";
+import { closePopup } from "../redux/popupSlice";
 
 const ResetPasswordModal = () => {
   const [confirmResetPasswordModalIsOpen, setConfirmResetPasswordModalIsOpen] =
@@ -57,14 +57,14 @@ const ResetPasswordModal = () => {
   const handleResetPassword = () => {
     console.log(formData);
     setConfirmResetPasswordModalIsOpen(false);
-    dispatch(closeResetPasswordModal());
+    dispatch(closePopup());
   };
 
   return (
     <div className="">
       <ActionPopup
         open={false}
-        onCancel={() => dispatch(closeResetPasswordModal())}
+        onCancel={() => dispatch(closePopup())}
         title={"Reset Password"}
         sendButtonText={"Reeset"}
         actionBtnDisabled={isFormDataComplete()}

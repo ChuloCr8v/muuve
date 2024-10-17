@@ -13,6 +13,7 @@ interface ActionPopupProps {
   onOk?: () => void;
   footer?: boolean;
   actionBtnDisabled?: boolean;
+  loading?: boolean;
 }
 
 const ActionPopup: React.FC<ActionPopupProps> = ({
@@ -26,6 +27,7 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
   sendButtonStyle,
   footer,
   actionBtnDisabled,
+  loading,
 }) => {
   return (
     <Modal
@@ -61,6 +63,7 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
               Cancel
             </Button>
             <Button
+              loading={loading}
               disabled={actionBtnDisabled}
               onClick={onOk}
               type="primary"
