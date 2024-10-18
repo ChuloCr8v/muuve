@@ -1,19 +1,19 @@
 import { Button, Dropdown } from "antd";
 import { ColumnType } from "antd/es/table";
 import dayjs from "dayjs";
-import { useDispatch } from "react-redux";
-import { showPopup } from "../redux/popupSlice";
 import { SurveyDataType } from "../types";
 import SLATime from "./useGetSLA";
 import useJobOrderActionItems from "./useJobOrderActionItems";
 import useSurveyActionItems from "./useSurveyActionItems";
 import TableRowData from "../components/global/TableRowData";
+import { useState } from "react";
 
 const useProjectColumns = (currentProject?: string) => {
-  const { jobOrderActionItems } = useJobOrderActionItems();
+  const [currentProjectId, setCurrentProjectId] = useState("");
+  const { jobOrderActionItems } = useJobOrderActionItems(
+    currentProjectId ?? ""
+  );
   const { surveyActionItems } = useSurveyActionItems();
-
-  const dispatch = useDispatch();
 
   const projectColumns: ColumnType<SurveyDataType>[] = [
     {
@@ -77,6 +77,7 @@ const useProjectColumns = (currentProject?: string) => {
       render: (_: string, records) => (
         <Dropdown
           trigger={["click"]}
+          onOpenChange={() => setCurrentProjectId(records.id)}
           menu={{
             items:
               currentProject?.toLowerCase() === "survey"
@@ -89,7 +90,6 @@ const useProjectColumns = (currentProject?: string) => {
             className="px-4 text-grey"
             onClick={(e) => {
               e.stopPropagation();
-              dispatch(showPopup({ isOpen: false, data: records }));
             }}
           >
             Action

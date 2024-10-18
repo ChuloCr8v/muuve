@@ -4,7 +4,7 @@ import MultiUpload from "../../global/MultipleUpload";
 import CustomLabel from "../../onboarding/CustomLabel";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { hidePopup } from "../../../redux/popupSlice";
+import { closePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../global/ActionPopup";
 import { CloudUploadOutlined } from "@ant-design/icons";
 import { MdPayment } from "react-icons/md";
@@ -38,7 +38,7 @@ const PaymentAndReceiptChildren = () => {
         (action?.includes("upload receipt") ||
           action?.includes("initiate payment"))
       }
-      onCancel={() => dispatch(hidePopup())}
+      onCancel={() => dispatch(closePopup())}
       title={<p>{action}</p>}
       sendButtonText={
         action?.toLowerCase() === "initiate payment" ? "Initiate" : "upload"

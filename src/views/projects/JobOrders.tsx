@@ -1,13 +1,13 @@
-import { useState } from "react";
 import PageHeader from "../../components/global/PageHeader";
 import SummaryCards from "../../components/global/SummaryCards";
 import JobDetailsDrawer from "../../components/projects/jobOrders/JobDetailsDrawer";
 import JobOrdersTable from "../../components/projects/jobOrders/JobOrdersTable";
 import NewJobOrderForm from "../../components/projects/jobOrders/NewJobOrderForm";
+import { useDispatch } from "react-redux";
+import { DrawerState, openDrawer } from "../../redux/popupSlice";
 
 const JobOrders = () => {
-  const [newJobOrder, setNewJobOrder] = useState(false);
-
+  const dispatch = useDispatch();
   const summaryData = [
     {
       label: "Total",
@@ -31,7 +31,9 @@ const JobOrders = () => {
     <div className="space-y-3 p-8">
       <PageHeader
         heading={"Job Orders"}
-        onclick={() => setNewJobOrder(true)}
+        onclick={() =>
+          dispatch(openDrawer({ isOpen: DrawerState.NEW_JOBORDER_DRAWER }))
+        }
         handleRefresh={() => console.log("first")}
         handleGenerateReport={() => console.log("first")}
       />
@@ -43,7 +45,7 @@ const JobOrders = () => {
       <JobDetailsDrawer />
 
       {/* New job form */}
-      <NewJobOrderForm open={newJobOrder} setOpen={setNewJobOrder} />
+      <NewJobOrderForm />
     </div>
   );
 };

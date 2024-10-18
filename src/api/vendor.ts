@@ -16,7 +16,20 @@ export const vendorApi = api.injectEndpoints({
       query: () => "vendor",
       providesTags: ["vendor"],
     }),
+
+    updateVendor: mutation({
+      query: ({ id, body }) => ({
+        url: `/vendor/${id}`,
+        method: "PATCH",
+        body,
+      }),
+      invalidatesTags: ["vendor"],
+    }),
   }),
 });
 
-export const { useAddVendorMutation, useListVendorQuery } = vendorApi;
+export const {
+  useAddVendorMutation,
+  useListVendorQuery,
+  useUpdateVendorMutation,
+} = vendorApi;

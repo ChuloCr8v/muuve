@@ -50,9 +50,11 @@ export type Customer = {
   customerId: string;
 };
 
-export type Vendor ={
-
-}
+export type Vendor = {
+  spocName: string;
+  companyName: string;
+  email: string;
+};
 
 export type User = {
   name: any;
@@ -60,11 +62,12 @@ export type User = {
   email: string;
   verified: string;
   isAdmin: string;
+  isActive: boolean;
   orgId: string;
   staff: Staff;
   customer: Customer;
   createdAt: string;
-  vendor: Vendor
+  vendor: Vendor;
 };
 
 export type AddCustomerInput = {
@@ -167,8 +170,8 @@ export type CompleteSurveyInput = {
 export type AddVendorInput = {
   companyName: string;
   spocName: string;
-  email: string
-}
+  email: string;
+};
 
 export type AddModelInput = {
   name: string;
@@ -178,6 +181,7 @@ export type AddModelInput = {
   description: string;
   category: string;
   vendor: string;
+  vendorId: string;
 }
 
 export type AddDeviceInput = {
@@ -199,14 +203,13 @@ export type UpdateModelInput = {
   manufacturer: string;
   description: string;
   category: string;
-  vendor: string;
+  vendorId: string;
 }
 
 export type UpdateDeviceInput ={
   id: string;
   name: string;
   manufacturer: string;
-  partNumber: string;
   serialNumber: string;
   cost: number;
   location: string;
@@ -235,3 +238,4 @@ export type AssignDevice ={
   deviceIds: string[]
   assigneeId: string
 }
+

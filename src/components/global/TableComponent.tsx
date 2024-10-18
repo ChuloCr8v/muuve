@@ -10,7 +10,7 @@ type DataType = {
 
 type Props = {
   columns: ColumnsType<DataType>;
-  dataSource: DataType[];
+  dataSource: any;
   onRow?: TableProps["onRow"];
   scroll?: number | { x?: number | true; y?: number };
   className?: string;

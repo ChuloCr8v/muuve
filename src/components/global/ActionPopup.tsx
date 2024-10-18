@@ -14,6 +14,7 @@ interface ActionPopupProps {
   footer?: boolean;
   loading?: boolean;
   actionBtnDisabled?: boolean;
+  loading?: boolean;
 }
 
 const ActionPopup: React.FC<ActionPopupProps> = ({
@@ -28,6 +29,7 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
   sendButtonStyle,
   footer,
   actionBtnDisabled,
+  loading,
 }) => {
   return (
     <Modal

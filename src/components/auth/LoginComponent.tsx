@@ -62,7 +62,7 @@ export default function Login() {
         label={<CustomLabel label="Password" required />}
         rules={[{ required: true, message: "Please enter password" }]}
       >
-        <Input
+        <Input.Password
           type="password"
           placeholder="Password"
           onChange={(e) => handleInputChange("password", e.target.value)}

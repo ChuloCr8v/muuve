@@ -7,39 +7,49 @@ import {
 import { MenuProps } from "antd";
 import { BiCheckCircle } from "react-icons/bi";
 import { FiUserCheck } from "react-icons/fi";
-// import { useDispatch, useSelector } from "react-redux";
-// import { closeProjectDetailsDrawer, showPopup } from "../redux/popupSlice";
-// import { popupInterface } from "../types";
+import {
+  DrawerState,
+  openDrawer,
+  openPopup,
+  PopupState,
+} from "../redux/popupSlice";
 import DropdownCustomItem from "../components/global/DropdownCustomItem";
+import { useAppDispatch } from "../api/data";
 
-const useJobOrderActionItems = () => {
-  // const { currentPopup } = useSelector((state: popupInterface) => state.popups);
-  // const { data } = currentPopup;
-
-  // const dispatch = useDispatch();
+const useJobOrderActionItems = (id: string) => {
+  const dispatch = useAppDispatch();
 
   const handleShowPopup = (
-    _e: { stopPropagation: () => void },
-    _action: string
+    e: { stopPropagation: () => void },
+    action: string,
+    trigger: string
   ) => {
-    // e.stopPropagation();
-    // if (action === "edit details") {
-    //   dispatch(closeProjectDetailsDrawer());
-    // }
-    // dispatch(
-    //   showPopup({
-    //     data: data,
-    //     currentProject: "job orders",
-    //     action: action,
-    //   })
-    // );
+    e.stopPropagation();
+    if (action === "edit details") {
+      dispatch(
+        openDrawer({
+          id: id,
+          isOpen: DrawerState.EDIT_JOBORDER_DRAWER,
+        })
+      );
+    }
+    dispatch(
+      openPopup({
+        id: id,
+        action: action,
+        isOpen: trigger,
+      })
+    );
   };
 
   const jobOrderActionItems: MenuProps["items"] = [
     {
       key: 1,
       label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "edit details")}>
+        <div
+          className=""
+          onClick={(e) => handleShowPopup(e, "edit details", "edit")}
+        >
           <DropdownCustomItem label={"Edit Details"} icon={<EyeOutlined />} />
         </div>
       ),
@@ -49,7 +59,9 @@ const useJobOrderActionItems = () => {
       label: (
         <div
           className=""
-          onClick={(e) => handleShowPopup(e, "assign job order")}
+          onClick={(e) =>
+            handleShowPopup(e, "assign job", PopupState.ASSIGN_JOBORDER)
+          }
         >
           <DropdownCustomItem
             label={"Assign Job"}
@@ -64,7 +76,9 @@ const useJobOrderActionItems = () => {
       label: (
         <div
           className=""
-          onClick={(e) => handleShowPopup(e, "reassign job order")}
+          onClick={(e) =>
+            handleShowPopup(e, "reassign job", PopupState.REASSIGN_JOBORDER)
+          }
         >
           <DropdownCustomItem
             label={"Reassign Job"}
@@ -79,7 +93,7 @@ const useJobOrderActionItems = () => {
         <div
           className=""
           onClick={(e) => {
-            handleShowPopup(e, "reject job order");
+            handleShowPopup(e, "reject job", PopupState.REJECT_JOBORDER);
           }}
         >
           <DropdownCustomItem
@@ -94,7 +108,9 @@ const useJobOrderActionItems = () => {
       label: (
         <div
           className=""
-          onClick={(e) => handleShowPopup(e, "delete job order")}
+          onClick={(e) =>
+            handleShowPopup(e, "delete-job", PopupState.DELETE_JOBORDER)
+          }
         >
           <DropdownCustomItem label={"Delete"} icon={<DeleteOutlined />} />{" "}
         </div>
@@ -103,7 +119,12 @@ const useJobOrderActionItems = () => {
     {
       key: 8,
       label: (
-        <div className="" onClick={(e) => handleShowPopup(e, "sign off")}>
+        <div
+          className=""
+          onClick={(e) =>
+            handleShowPopup(e, "sign off", PopupState.SIGNOFF_JOBORDER)
+          }
+        >
           <DropdownCustomItem
             label={"Sign Off"}
             icon={<BiCheckCircle />}
