@@ -17,10 +17,11 @@ interface Prop {
   selectedRow: any;
   setSelectedRow: any;
   setNewModel: any;
+  data: any
 }
 
 export default function ModelTable(props: Prop) {
-  const { selectedRow, setSelectedRow, setNewModel } = props;
+  const { selectedRow, setSelectedRow, setNewModel, data } = props;
 
   const [modelDetails, setModelDetails] = useState(false);
 
@@ -52,7 +53,8 @@ export default function ModelTable(props: Prop) {
   const column = [
     {
       title: "Model Number",
-      dataIndex: "id",
+      dataIndex: "number",
+      render: (text: string) => <span>{`MD-${text.substring(0,5)}`}</span>
     },
     {
       title: "Model",
@@ -75,33 +77,33 @@ export default function ModelTable(props: Prop) {
       title: "Number Faulty",
       dataIndex: "faulty",
     },
-    {
-      title: "Status",
-      dataIndex: "status",
-      render: (text: string) => (
-        <Tag
-          icon={
-            text === "LOW-ON-STOCK" ? (
-              <ExclamationCircleOutlined />
-            ) : text === "OUT-OF-STOCK" ? (
-              <CloseCircleOutlined />
-            ) : (
-              <CheckCircleOutlined />
-            )
-          }
-          className={twMerge(
-            "rounded-2xl tagSize font-semibold items-center",
-            text === "IN-STOCK"
-              ? "bg-[#E3FFE6] text-[#379D51] border-[#379D51]"
-              : text === "OUT-OF-STOCK"
-              ? "bg-[#FFE1E1] text-[#F05050] border-[#F05050]"
-              : "bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]"
-          )}
-        >
-          {text}
-        </Tag>
-      ),
-    },
+    // {
+    //   title: "Status",
+    //   dataIndex: "status",
+    //   render: (text: string) => (
+    //     <Tag
+    //       icon={
+    //         text === "LOW-ON-STOCK" ? (
+    //           <ExclamationCircleOutlined />
+    //         ) : text === "OUT-OF-STOCK" ? (
+    //           <CloseCircleOutlined />
+    //         ) : (
+    //           <CheckCircleOutlined />
+    //         )
+    //       }
+    //       className={twMerge(
+    //         "rounded-2xl tagSize font-semibold items-center",
+    //         text === "IN-STOCK"
+    //           ? "bg-[#E3FFE6] text-[#379D51] border-[#379D51]"
+    //           : text === "OUT-OF-STOCK"
+    //           ? "bg-[#FFE1E1] text-[#F05050] border-[#F05050]"
+    //           : "bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]"
+    //       )}
+    //     >
+    //       {text}
+    //     </Tag>
+    //   ),
+    // },
     {
       title: "",
       render: (record: any) => (
@@ -116,7 +118,7 @@ export default function ModelTable(props: Prop) {
   ];
   return (
     <div>
-      <TableComponent columns={column} dataSource={ModelData} />
+      <TableComponent columns={column} dataSource={data} />
 
       <ModelDetails
         modelDetails={modelDetails}

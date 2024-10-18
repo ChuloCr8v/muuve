@@ -101,7 +101,12 @@ body {
 }
 
 :where(.css-dev-only-do-not-override-cxty).ant-form-item {
-  margin-bottom: 10px;
+  margin-bottom: px;
+}
+
+:where(.css-dev-only-do-not-override-1eql6x0).ant-btn-default.ant-btn-dangerous {
+  color: white;
+  border-color: #ff4d4f;
 }
 
 .text {

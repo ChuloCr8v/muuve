@@ -14,11 +14,14 @@ import { FaBan } from "react-icons/fa";
 import { VscVmActive } from "react-icons/vsc";
 import ModelTable from "../../components/tableItems/columns/ModelTable";
 import ModelForm from "../../components/inventory/model/ModelForm";
+import { useListModelQuery } from "../../api/model";
 
 export default function Model() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newModel, setNewModel] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const {data: Models} = useListModelQuery()
+  console.log(Models)
 
   const summaryCard = [
     {
@@ -62,6 +65,7 @@ export default function Model() {
       <SummaryCards summaryData={summaryCard} />
 
       <ModelTable
+        data={Models}
         selectedRow={selectedRow}
         setSelectedRow={setSelectedRow}
         setNewModel={setNewModel}

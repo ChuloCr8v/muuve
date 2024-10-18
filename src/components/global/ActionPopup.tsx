@@ -12,6 +12,7 @@ interface ActionPopupProps {
   icon?: ReactNode;
   onOk?: () => void;
   footer?: boolean;
+  loading?: boolean;
   actionBtnDisabled?: boolean;
 }
 
@@ -23,6 +24,7 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
   sendButtonText,
   children,
   icon,
+  loading,
   sendButtonStyle,
   footer,
   actionBtnDisabled,
@@ -61,6 +63,7 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
               Cancel
             </Button>
             <Button
+              loading={loading}
               disabled={actionBtnDisabled}
               onClick={onOk}
               type="primary"

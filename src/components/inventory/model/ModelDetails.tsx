@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge";
 import ModelOverview from "./ModelOverview";
 import ModelStock from "./ModelStock";
 import ModelHistory from "./ModelHistory";
-import Notes from "./Notes";
+import Notes from "./ModelNotes";
 
 interface Prop {
   modelDetails: boolean;
@@ -98,7 +98,7 @@ export default function ModelDetails(props: Prop) {
       ) : activeTab === "History" ? (
         <ModelHistory data={selectedRow} />
       ) : (
-        <Notes />
+        <Notes data={selectedRow} />
       )}
     </Drawer>
   );

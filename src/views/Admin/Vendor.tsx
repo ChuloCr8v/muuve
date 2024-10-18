@@ -247,7 +247,7 @@ export default function Vendor() {
 
       <Drawer
         title="Edit Customer"
-        visible={drawerVisible}
+        open={drawerVisible}
         onClose={() => setDrawerVisible(false)}
         width={400}
       >

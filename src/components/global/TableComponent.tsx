@@ -36,7 +36,7 @@ const TableComponent = ({
   };
 
   // add key to data for selection purpose
-  const data = dataSource.map((item) => ({ ...item, key: item.id }));
+  const data = dataSource?.map((item) => ({ ...item, key: item.id }));
 
   return (
     <Table

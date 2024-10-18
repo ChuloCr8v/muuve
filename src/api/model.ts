@@ -1,5 +1,5 @@
 import { api } from "./base";
-import { AddModelInput, User } from "./types";
+import { AddModelInput, ModelNoteInput, UpdateModelInput, User } from "./types";
 
 export const modelApi = api.injectEndpoints({
   endpoints: ({ query, mutation }) => ({
@@ -13,10 +13,34 @@ export const modelApi = api.injectEndpoints({
     }),
 
     listModel: query<User[], void>({
-      query: () => "model",
+      query: () => "models",
       providesTags: ["model"],
     }),
+
+    updateModel: mutation<void, UpdateModelInput> ({
+      query: ({id, ...rest}) => ({
+        url: `models/${id}`,
+        method: 'PATCH',
+        body: rest
+      }),
+      invalidatesTags: ["model"]
+    }),
+
+    createModelNote: mutation<void, ModelNoteInput> ({
+      query: (body) => ({
+        url: "/models/note",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["model"]
+    }),
+
+    listModelNotes: query<AddModelInput, void>({
+      query: (id) => `models/${id}/notes`,
+      providesTags: ["model"]
+
+    })
   }),
 });
 
-export const { useAddModelMutation, useListModelQuery } = modelApi;
+export const { useAddModelMutation, useListModelQuery, useUpdateModelMutation, useCreateModelNoteMutation, useLazyListModelNotesQuery } = modelApi;

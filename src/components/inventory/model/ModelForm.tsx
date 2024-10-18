@@ -1,8 +1,9 @@
 import { Button, Drawer, Form, Input, InputNumber, message } from "antd";
 import { useEffect } from "react";
-import { useAddModelMutation } from "../../../api/model";
+import { useAddModelMutation, useUpdateModelMutation } from "../../../api/model";
 import { toastApiError } from "../../../utils/error.util";
 import Vendor from "../../../views/Admin/Vendor";
+import { Loading } from "../../common/Loading";
 
 const { TextArea } = Input;
 
@@ -15,6 +16,7 @@ interface Prop {
 export default function ModelForm(props: Prop) {
   const { open, setNewModel, selectedRow } = props;
   const [addModel, { isLoading }] = useAddModelMutation();
+  const [updateModel, {isLoading: Load}] = useUpdateModelMutation()
 
   const [form] = Form.useForm();
 
@@ -24,8 +26,10 @@ export default function ModelForm(props: Prop) {
         name: selectedRow.name,
         id: selectedRow.id,
         category: selectedRow.category,
+        number: selectedRow.number,
         manufacturer: selectedRow.manufacturer,
-        description: selectedRow.comment,
+        description: selectedRow.description,
+        vendor: selectedRow.vendor
       });
     } else {
       form.resetFields();
@@ -43,6 +47,19 @@ export default function ModelForm(props: Prop) {
     }
   };
 
+  const EditModel = async () => {
+    const values = await form.validateFields();
+    const data =   {...values, id: selectedRow.id }
+
+    updateModel(data).unwrap()
+    .then(() => {
+      message.success("Device Updated Successfully");
+      setNewModel(false);
+    })
+    .catch(toastApiError)
+  
+};
+
   return (
     <Drawer
       closeIcon={null}
@@ -52,12 +69,12 @@ export default function ModelForm(props: Prop) {
             Cancel
           </Button>
 
-          <Button size="middle" type="primary" htmlType="submit" onClick={Submit} style={{ minWidth: "6em" }}>
+          <Button loading={isLoading} size="middle" type="primary" htmlType="submit" onClick={Submit} style={{ minWidth: "6em" }}>
             {selectedRow ? "Edit Model" : "Submit"}
           </Button>
         </footer>
       }
-      width={400}
+      width={500}
       title="New Model"
       open={open}
       onClose={() => setNewModel(false)}
@@ -66,15 +83,26 @@ export default function ModelForm(props: Prop) {
         <Form.Item name="name" label="Model Name" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
-      <Form.Item name="vendor" label="Model Number" rules={[{ required: true, type: "number" }]}>
-          <InputNumber style={{ width: "100%" }} />
-        </Form.Item>
-        <Form.Item name="category" label="Category" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
         <Form.Item name="manufacturer" label="Manufacturer" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
+       
+
+        <Form.Item name="category" label="Category" rules={[{ required: true}]}>
+          <Input style={{ width: "100%" }} />
+        </Form.Item>
+
+        <div className="grid grid-cols-2 gap-[16px]">
+        <Form.Item name="number" label="Model Number" rules={[{ required: true}]}>
+          <Input style={{ width: "100%" }} />
+        </Form.Item>
+        <Form.Item name="vendor" label="Vendor" >
+          <Input  />
+        </Form.Item>
+
+        </div>
+    
+        
         <Form.Item name="description" label="Description">
           <TextArea rows={3} />
         </Form.Item>
