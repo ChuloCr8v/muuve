@@ -9,6 +9,7 @@ import SubscriptionDetails from "../views/billing/subscription/SubscriptionDetai
 import NewService from "../views/billing/services/NewService";
 import Services from "../views/billing/services/Services";
 import ServiceDetails from "../views/billing/services/ServiceDetails";
+import SLAConfig from "../views/Admin/config/SLA/SLAConfig";
 
 const ImportCustomerList = lazy(
   () => import("../components/customer/ImportCustomerList")
@@ -81,6 +82,8 @@ const ProtectedRoutes = () => {
       <Route path="/projects/job-orders" element={<JobOrder />} />
       <Route path="/program" element={<Programs />} />
       <Route path="/admin/config" element={<FormConfig />} />
+      <Route path="/admin/config/sla" element={<SLAConfig />} />
+
       <Route path="operations/report/details/:id" element={<ReportDetails />} />
       <Route path="/admin/staff" element={<Staff />} />
       <Route path="/admin/customers" element={<Customer />} />
