@@ -31,8 +31,6 @@ export default function Vendor() {
 
   const { data: listVendor } = useListVendorQuery();
 
-  console.log(listVendor);
-
   const [searchText, _setSearchText] = useState<string>("");
   const [_filteredData, setFilteredData] = useState<Array<User>>();
 
@@ -91,6 +89,19 @@ export default function Vendor() {
     },
   ];
 
+  const activeVendors = listVendor?.filter(
+    (vendor) => vendor.isActive === true
+  );
+  const deacticatedVendors = listVendor?.filter(
+    (vendor) => vendor.isActive === false
+  );
+
+  const summaryData = [
+    { label: "Total", value: listVendor?.length },
+    { label: "Active", value: activeVendors?.length },
+    { label: "Deactivated", value: deacticatedVendors?.length },
+  ];
+
   return (
     <div className="space-y-[16px] body-pad p-8">
       <section className="flex items-center justify-between">
@@ -115,13 +126,7 @@ export default function Vendor() {
         </div>
       </section>
 
-      <SummaryCards
-        summaryData={[
-          { label: "Total", value: 22 },
-          { label: "Active", value: 19 },
-          { label: "Deactivated", value: 2 },
-        ]}
-      />
+      <SummaryCards summaryData={summaryData} />
 
       <TableComponent
         scroll={{ x: 800 }}

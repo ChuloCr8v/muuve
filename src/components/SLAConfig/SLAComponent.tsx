@@ -42,7 +42,7 @@ const SLAComponent = (props: SLAComponentProps) => {
     {
       key: "2",
       label: (
-        <div className="" onClick={() => props.setCurrentItem("Job Orders")}>
+        <div className="" onClick={() => props.setCurrentItem("Job Order")}>
           <span className="">Job Order</span>
         </div>
       ),
@@ -74,10 +74,10 @@ const SLAComponent = (props: SLAComponentProps) => {
       <div className="flex items-center justify-between border-b pb-4">
         <Dropdown menu={{ items: SLAConfigItems }}>
           <div className="cursor-pointer flex items-center gap-2 hover:!text-primary group">
-            <span className="font-semibold text-customBlack text-lg group-hover:text-primary duration-200">
+            <span className="font-semibold capitalize text-customBlack text-lg group-hover:text-primary duration-200">
               {props.currentItem}
             </span>
-            <IoChevronDownCircleOutline className="text-xl mt-1 duration-200" />
+            <IoChevronDownCircleOutline className="text-lg duration-200" />
           </div>
         </Dropdown>
 

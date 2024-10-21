@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Heading from "../../../../components/global/Header";
 import ProjectManagementSLAConfig from "../../../../components/SLAConfig/ProjectManagementSLAConfig";
 import BillingSLAConfig from "../../../../components/SLAConfig/BillingSLAConfig";
-import { twMerge } from "tailwind-merge";
+import SLASubMenu from "../../../../components/SLAConfig/SLASubMenu";
 
 const SLAConfig = () => {
   const [currentModule, setCurrentModule] = useState("Project Management");
@@ -35,8 +35,6 @@ const SLAConfig = () => {
 
   const onChange = (tabID: string) => {
     setCurrentModule(tabID === "1" ? "Project Management" : "Billing");
-
-    console.log(typeof tabID);
   };
 
   return (
@@ -53,7 +51,9 @@ const SLAConfig = () => {
             title: currentModule,
           },
           {
-            title: <span className="text-primary">{currentItem}</span>,
+            title: (
+              <span className="text-primary capitalize">{currentItem}</span>
+            ),
           },
         ]}
       />
@@ -72,32 +72,10 @@ const SLAConfig = () => {
             onChange={onChange}
           />
           {/* right side nav */}
-          <div className="col-span-2 h-full border rounded-md space-y-2 p-4">
-            <p className="text-base font-semibold capitalize">Flow Options</p>
-
-            <ol className="text-[13px] space-y-1">
-              <li
-                className={twMerge(
-                  "text-grey cursor-pointer hover:text-primary",
-                  currentItem.toLowerCase() === "survey request" &&
-                    "text-primary font-semibold"
-                )}
-                onClick={() => setCurrentItem("Survey Request")}
-              >
-                Survey Request
-              </li>
-              <li
-                className={twMerge(
-                  "text-grey cursor-pointer hover:text-primary",
-                  currentItem.toLowerCase() === "job orders" &&
-                    "text-primary font-semibold"
-                )}
-                onClick={() => setCurrentItem("Job Orders")}
-              >
-                Job Order
-              </li>
-            </ol>
-          </div>
+          <SLASubMenu
+            currentItem={currentItem}
+            setCurrentItem={setCurrentItem}
+          />
         </div>
       </div>
     </div>
