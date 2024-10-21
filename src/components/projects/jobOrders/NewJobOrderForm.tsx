@@ -1,34 +1,37 @@
 import { Button, Drawer, Form, Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { twMerge } from "tailwind-merge";
-import { hidePopup } from "../../../redux/popupSlice";
-import { JobOrderType, popupInterface } from "../../../types";
+import {
+  closeDrawer,
+  DrawerState,
+  closePopup,
+} from "../../../redux/popupSlice";
+import { JobOrderType } from "../../../types";
 import MultiUpload from "../../global/MultipleUpload";
 import ProjectDetailsDrawerHeading from "../../global/ProjectDetailsDrawerHeading";
 import CustomLabel from "../../onboarding/CustomLabel";
 import { jobData } from "../../tableItems/data/JobData";
+import { useAppSelector } from "../../../api/data";
 
-type Props = {
-  open: boolean;
-  setOpen: (arg0: boolean) => void;
-};
-
-const NewJobOrderForm = (props: Props) => {
+const NewJobOrderForm = () => {
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState<JobOrderType>();
 
-  const { currentPopup } = useSelector((state: popupInterface) => state.popups);
-  const { isOpen, data, action } = currentPopup;
+  const { currentDrawer } = useAppSelector((state) => state.popups);
+  const { isOpen, id } = currentDrawer;
+  console.log(isOpen);
 
-  const open = props.open || (isOpen && action === "edit details");
   const dispatch = useDispatch();
+  const open =
+    isOpen === DrawerState.NEW_JOBORDER_DRAWER ||
+    isOpen === DrawerState.EDIT_JOBORDER_DRAWER;
 
   useEffect(() => {
-    const currentJobOrder = jobData.find((job) => job.id === data?.id);
+    const currentJobOrder = jobData.find((job) => job.id === id);
     setFormData(currentJobOrder);
-  }, [data?.id]);
+  }, [id]);
 
   const handleChange = (name: string, value: string | number) => {
     setFormData((prev: any) => ({ ...prev, [name]: value }));
@@ -219,16 +222,12 @@ const NewJobOrderForm = (props: Props) => {
       closable
       open={open}
       onClose={() => {
-        props.setOpen(false);
-        dispatch(hidePopup());
+        dispatch(closeDrawer());
+        dispatch(closePopup());
       }}
       title={
         <ProjectDetailsDrawerHeading
-          title={
-            action?.toLowerCase() === "edit details"
-              ? data?.title
-              : "New Custom Job Order"
-          }
+          title={id ? formData?.title : "New Custom Job Order"}
         />
       }
     >
@@ -305,8 +304,8 @@ const NewJobOrderForm = (props: Props) => {
         <Button
           className="w-[100px]"
           onClick={() => {
-            props.setOpen(false);
-            dispatch(hidePopup());
+            dispatch(closeDrawer());
+            dispatch(closePopup());
           }}
         >
           Cancel

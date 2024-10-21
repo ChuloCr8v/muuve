@@ -1,13 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { popupState } from "../types";
 
-const initialState: popupState = {
+export enum PopupState {
+  ASSIGN_JOBORDER = "ASSIGN_JOBORDER",
+  REASSIGN_JOBORDER = "REASSIGN_JOBORDER",
+  REJECT_JOBORDER = "REJECT_JOBORDER",
+  DELETE_JOBORDER = "DELETE_JOBORDER",
+  SIGNOFF_JOBORDER = "SIGNOFF_JOBORDER",
+  ACTIVATE_STAFF = "ACTIVATE_STAFF",
+  DEACTIVATE_STAFF = "DEACTIVATE_STAFF",
+  ACTIVATE_CUSTOMER = "ACTIVATE_CUSTOMER",
+  DEACTIVATE_CUSTOMER = "DEACTIVATE_CUSTOMER",
+  ACTIVATE_VENDOR = "ACTIVATE_VENDOR",
+  DEACTIVATE_VENDOR = "DEACTIVATE_VENDOR",
+}
+
+export enum DrawerState {
+  NEW_JOBORDER_DRAWER = "NEW_JOBORDER_DRAWER",
+  EDIT_JOBORDER_DRAWER = "EDIT_JOBORDER_DRAWER",
+  JOBORDER_DETAILS_DRAWER = "JOBORDER_DETAILS_DRAWER",
+  EDIT_STAFF_DRAWER = "EDIT_STAFF_DRAWER",
+  EDIT_CUSTOMER_DRAWER = "EDIT_CUSTOMER_DRAWER",
+  EDIT_VENDOR_DRAWER = "EDIT_VENDOR_DRAWER",
+  NEW_TICKET_DRAWER = "NEW_TICKET_DRAWER",
+}
+
+const initialState = {
   currentPopup: {
-    isOpen: false,
-    data: { id: "", title: "" },
+    isOpen: "",
+    id: "",
     currentProject: "",
     action: "",
+    isEditingData: false,
   },
+
+  currentDrawer: {
+    isOpen: "",
+    id: "",
+    isEditingData: false,
+  },
+
   projectDetailsDrawerIsOpen: {
     isOpen: false,
     data: null,
@@ -31,108 +62,36 @@ const popupSlice = createSlice({
   name: "popup",
   initialState,
   reducers: {
-    showPopup: (state, action) => {
-      state.currentPopup = {
-        isOpen: action.payload.isOpen ?? true,
-        data: action.payload.data,
-        currentProject: action.payload.currentProject,
-        action: action.payload.action,
-      };
+    openDrawer: (state, action) => {
+      const { isOpen, id, isEditingData } = action.payload;
+      state.currentDrawer.isOpen = isOpen;
+      state.currentDrawer.id = id ?? "";
+      state.currentDrawer.isEditingData = isEditingData ?? false;
+    },
+    closeDrawer: (state) => {
+      state.currentDrawer.isOpen = "";
+      state.currentDrawer.id = "";
+      state.currentDrawer.isEditingData = false;
     },
 
-    hidePopup: (state) => {
-      state.currentPopup = { ...state.currentPopup, isOpen: false };
+    openPopup: (state, action) => {
+      const { isOpen, id, isEditingData } = action.payload;
+      state.currentPopup.isOpen = isOpen;
+      state.currentPopup.id = id;
+      state.currentPopup.action = action.payload.action;
+      state.currentPopup.isEditingData = isEditingData ?? false;
     },
 
-    openProjectDetailsDrawer: (state, action) => {
-      state.projectDetailsDrawerIsOpen.isOpen = action.payload.isOpen ?? true;
-      state.projectDetailsDrawerIsOpen.data = action.payload;
-    },
-
-    closeProjectDetailsDrawer: (state) => {
-      state.projectDetailsDrawerIsOpen.isOpen = false;
-      state.projectDetailsDrawerIsOpen.data = null;
-    },
-
-    openNewRoleModal: (state, action) => {
-      state.newRoleModalIsOpen.isOpen = true;
-      state.newRoleModalIsOpen.module = action.payload.module;
-      state.newRoleModalIsOpen.data = action.payload.data;
-      state.newRoleModalIsOpen.action = action.payload.action;
-    },
-
-    closeNewRoleModal: (state) => {
-      state.newRoleModalIsOpen.isOpen = false;
-      state.newRoleModalIsOpen.module = "";
-      state.newRoleModalIsOpen.data = [];
-      state.newRoleModalIsOpen.action = "";
-    },
-
-    openDeactivateServiceModal: (state, action) => {
-      state.deactivateServiceModalIsOpen.isOpen = true;
-      state.deactivateServiceModalIsOpen.data = action.payload;
-    },
-
-    closeDeactivateServiceModal: (state) => {
-      state.deactivateServiceModalIsOpen.isOpen = false;
-      state.deactivateServiceModalIsOpen.data = [];
-    },
-
-    openNewTicketDrawer: (state) => {
-      state.newTicketDrawerIsOpen.isOpen = true;
-      state.newTicketDrawerIsOpen.editTicket = false;
-      state.newTicketDrawerIsOpen.ticketID = "";
-    },
-
-    closeNewTicketDrawer: (state) => {
-      state.newTicketDrawerIsOpen.isOpen = false;
-      state.newRoleModalIsOpen.action = "";
-      state.newTicketDrawerIsOpen.editTicket = false;
-    },
-
-    openEditTicketDrawer: (state, action) => {
-      state.newTicketDrawerIsOpen.isOpen = true;
-      state.newTicketDrawerIsOpen.editTicket = true;
-      state.newTicketDrawerIsOpen.ticketID = action.payload;
-    },
-
-    openResetPasswordModal: (state) => {
-      state.resetPasswordModalIsOpen = true;
-    },
-    closeResetPasswordModal: (state) => {
-      state.resetPasswordModalIsOpen = false;
-    },
-
-    openTicketActionModal: (state, action) => {
-      state.ticketActionModalIsOpen.isOpen = true;
-      state.ticketActionModalIsOpen.ticketID = action.payload.ticketID;
-      state.ticketActionModalIsOpen.action = action.payload.action;
-    },
-
-    closeTicketActionModal: (state) => {
-      state.ticketActionModalIsOpen.isOpen = false;
-      state.ticketActionModalIsOpen.ticketID = "";
-      state.ticketActionModalIsOpen.action = "";
+    closePopup: (state) => {
+      state.currentPopup.isOpen = "";
+      state.currentPopup.id = "";
+      state.currentPopup.isEditingData = false;
+      state.currentPopup.action = "";
     },
   },
 });
 
-export const {
-  showPopup,
-  hidePopup,
-  openProjectDetailsDrawer,
-  closeProjectDetailsDrawer,
-  openNewRoleModal,
-  closeNewRoleModal,
-  openDeactivateServiceModal,
-  closeDeactivateServiceModal,
-  openNewTicketDrawer,
-  closeNewTicketDrawer,
-  openEditTicketDrawer,
-  openResetPasswordModal,
-  closeResetPasswordModal,
-  openTicketActionModal,
-  closeTicketActionModal,
-} = popupSlice.actions;
+export const { openDrawer, closeDrawer, openPopup, closePopup } =
+  popupSlice.actions;
 
 export default popupSlice.reducer;

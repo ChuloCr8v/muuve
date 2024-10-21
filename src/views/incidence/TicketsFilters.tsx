@@ -1,7 +1,7 @@
 import { Button, Input, Select } from "antd";
 import { BiPlus, BiRefresh } from "react-icons/bi";
 import { useDispatch } from "react-redux";
-import { openNewTicketDrawer } from "../../redux/popupSlice";
+import { DrawerState, openDrawer } from "../../redux/popupSlice";
 
 const filterSelectOptions = [
   {
@@ -114,7 +114,7 @@ const TicketsFilters = () => {
         Refresh
       </Button>
       <Button
-        onClick={() => dispatch(openNewTicketDrawer())}
+        onClick={() => dispatch(openDrawer(DrawerState.NEW_TICKET_DRAWER))}
         type={"primary"}
         icon={<BiPlus />}
         iconPosition="end"

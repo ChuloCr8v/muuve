@@ -1,20 +1,30 @@
 import { Form, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiUserCheckLight, PiUserSwitch } from "react-icons/pi";
-import { useDispatch, useSelector } from "react-redux";
-import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../global/ActionPopup";
 import CustomLabel from "../../onboarding/CustomLabel";
-import { popupInterface } from "../../../types";
+import { closePopup, PopupState } from "../../../redux/popupSlice";
+import { useAppDispatch, useAppSelector } from "../../../api/data";
+import { jobData } from "../../tableItems/data/JobData";
+import { JobOrderType } from "../../../types";
 
 const AssignProjectModal = () => {
+  const [data, setData] = useState<JobOrderType>();
   const [comment, setComment] = useState("");
   const [designEngineer, setDesignEngineer] = useState("");
-  const { currentPopup } = useSelector((state: popupInterface) => state.popups);
-  const { isOpen, data, currentProject, action } = currentPopup;
 
-  const dispatch = useDispatch();
+  const { currentPopup } = useAppSelector((state) => state.popups);
+  const { isOpen, currentProject, id, action } = currentPopup;
+
+  const open = isOpen === PopupState.ASSIGN_JOBORDER;
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const currentData = jobData.find((job) => job.id === id);
+    setData(currentData);
+  }, [id]);
 
   const handleAssignJob = () => {
     switch (action?.toLowerCase()) {
@@ -52,12 +62,14 @@ const AssignProjectModal = () => {
     <PiUserCheckLight />
   );
 
+  console.log(action);
+
   return (
     <ActionPopup
       onOk={handleAssignAction}
-      open={isOpen && action?.includes("assign")}
-      onCancel={() => dispatch(hidePopup())}
-      title={<p>{action}</p>}
+      open={open}
+      onCancel={() => dispatch(closePopup())}
+      title={<p className="capitalize">{action}</p>}
       sendButtonText={
         action?.toLowerCase().includes("reassign") ? "Reassign" : "Assign"
       }

@@ -50,9 +50,11 @@ export type Customer = {
   customerId: string;
 };
 
-export type Vendor ={
-
-}
+export type Vendor = {
+  spocName: string;
+  companyName: string;
+  email: string;
+};
 
 export type User = {
   name: any;
@@ -60,11 +62,12 @@ export type User = {
   email: string;
   verified: string;
   isAdmin: string;
+  isActive: boolean;
   orgId: string;
   staff: Staff;
   customer: Customer;
   createdAt: string;
-  vendor: Vendor
+  vendor: Vendor;
 };
 
 export type AddCustomerInput = {
@@ -167,8 +170,8 @@ export type CompleteSurveyInput = {
 export type AddVendorInput = {
   companyName: string;
   spocName: string;
-  email: string
-}
+  email: string;
+};
 
 export type AddModelInput = {
   name: string;
@@ -178,7 +181,7 @@ export type AddModelInput = {
   description: string;
   category: string;
   vendor: string;
-}
+};
 
 export type AddDeviceInput = {
   name: string;
@@ -190,19 +193,19 @@ export type AddDeviceInput = {
   description: string;
   dateProcured: Date;
   modelId: string;
-}
+};
 
 export type UpdateModelInput = {
-  id: string,
+  id: string;
   name: string;
   number: string;
   manufacturer: string;
   description: string;
   category: string;
   vendor: string;
-}
+};
 
-export type UpdateDeviceInput ={
+export type UpdateDeviceInput = {
   id: string;
   name: string;
   manufacturer: string;
@@ -210,28 +213,28 @@ export type UpdateDeviceInput ={
   serialNumber: string;
   cost: number;
   location: string;
-  vendor: string
+  vendor: string;
   description: string;
   dateProcured: Date;
   modelId: string;
-}
+};
 
-export type ReportFault ={
-  comment: string
-  id: string
-}
+export type ReportFault = {
+  comment: string;
+  id: string;
+};
 
 export type ModelNoteInput = {
-  comment: string
-    modelId: string
-}
+  comment: string;
+  modelId: string;
+};
 
 export type DeviceNoteInput = {
-  comment: string
-    modelId: string
-}
+  comment: string;
+  modelId: string;
+};
 
-export type AssignDevice ={
-  deviceIds: string[]
-  assigneeId: string
-}
+export type AssignDevice = {
+  deviceIds: string[];
+  assigneeId: string;
+};

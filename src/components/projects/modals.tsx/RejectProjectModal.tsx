@@ -3,10 +3,10 @@ import TextArea from "antd/es/input/TextArea";
 import { useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../global/ActionPopup";
 import CustomLabel from "../../onboarding/CustomLabel";
 import { popupInterface } from "../../../types";
+import { closePopup } from "../../../redux/popupSlice";
 
 const RejectProjectChildren = () => {
   const [comment, setComment] = useState("");
@@ -32,7 +32,7 @@ const RejectProjectChildren = () => {
           : handleRejectJob
       }
       open={isOpen && action?.includes("reject")}
-      onCancel={() => dispatch(hidePopup())}
+      onCancel={() => dispatch(closePopup())}
       title={<p>{action}</p>}
       sendButtonText={"Reject"}
       icon={

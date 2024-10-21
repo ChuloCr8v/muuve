@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { hidePopup } from "../../../redux/popupSlice";
 import ActionPopup from "../../global/ActionPopup";
 import { BiTrashAlt } from "react-icons/bi";
 import { popupInterface } from "../../../types";
+import { closePopup } from "../../../redux/popupSlice";
 
 const DeleteProjectModal = () => {
   const { currentPopup } = useSelector((state: popupInterface) => state.popups);
@@ -22,7 +22,7 @@ const DeleteProjectModal = () => {
     <ActionPopup
       onOk={handleDeleteProject}
       open={isOpen && action?.includes("delete")}
-      onCancel={() => dispatch(hidePopup())}
+      onCancel={() => dispatch(closePopup())}
       title={<p>{action}</p>}
       sendButtonText={"Delete"}
       sendButtonStyle="bg-red-500 hover:bg-red-700"

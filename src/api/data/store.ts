@@ -13,6 +13,7 @@ import {
 } from "redux-persist";
 import { api } from "../base";
 import { auth } from "./auth";
+import popupSlice from "../../redux/popupSlice";
 
 const persistedReducer = persistCombineReducers(
   {
@@ -24,6 +25,7 @@ const persistedReducer = persistCombineReducers(
   {
     [auth.name]: auth.reducer,
     [api.reducerPath]: api.reducer,
+    popups: popupSlice,
   }
 );
 

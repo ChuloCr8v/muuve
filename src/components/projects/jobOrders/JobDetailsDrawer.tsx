@@ -1,19 +1,28 @@
 import { Drawer, Tabs, TabsProps } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { closeProjectDetailsDrawer } from "../../../redux/popupSlice";
 import ProjectDetailsDrawerHeading from "../../global/ProjectDetailsDrawerHeading";
 import JobOrderDetails from "./JobOrderDetails";
 import JobOrderLogs from "./JobOrderLog";
-import { popupInterface } from "../../../types";
+import { JobOrderType } from "../../../types";
+import { closeDrawer, DrawerState } from "../../../redux/popupSlice";
+import { useEffect, useState } from "react";
+import { jobData } from "../../tableItems/data/JobData";
+import { useAppSelector } from "../../../api/data";
 
 const JobDetailsDrawer = () => {
-  const { projectDetailsDrawerIsOpen } = useSelector(
-    (state: popupInterface) => state.popups
-  );
-  const { data } = projectDetailsDrawerIsOpen;
+  const [data, setData] = useState<JobOrderType>();
+  const { currentDrawer } = useAppSelector((state) => state.popups);
+
+  const { isOpen, id } = currentDrawer;
+
   const dispatch = useDispatch();
 
-  const jobData = [
+  useEffect(() => {
+    const currentData = jobData.find((data) => data.id === id);
+    setData(currentData);
+  }, [id]);
+
+  const jobOrderData = [
     { label: "Customer Name", value: data?.customerName },
     { label: "Service Address", value: data?.serviceAddress },
     { label: "Service Description", value: data?.serviceDescription },
@@ -49,7 +58,7 @@ const JobDetailsDrawer = () => {
     {
       key: "1",
       label: "Job Details",
-      children: <JobOrderDetails jobData={jobData} />,
+      children: <JobOrderDetails jobData={jobOrderData} />,
     },
     {
       key: "2",
@@ -62,8 +71,8 @@ const JobDetailsDrawer = () => {
 
   return (
     <Drawer
-      open={projectDetailsDrawerIsOpen.isOpen}
-      onClose={() => dispatch(closeProjectDetailsDrawer())}
+      open={isOpen === DrawerState.JOBORDER_DETAILS_DRAWER}
+      onClose={() => dispatch(closeDrawer())}
       title={false}
       closeIcon={false}
       width={540}

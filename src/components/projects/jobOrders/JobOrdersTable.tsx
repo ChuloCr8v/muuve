@@ -1,19 +1,21 @@
 // import Survey from '../../views/projects/Survey';
-import { useDispatch } from "react-redux";
 import useProjectColumns from "../../../hooks/useProjectColumns";
-import { openProjectDetailsDrawer } from "../../../redux/popupSlice";
 import TableComponent from "../../global/TableComponent";
 import { jobData } from "../../tableItems/data/JobData";
 import AssignProjectModal from "../modals.tsx/AssignProjectModal";
 import DeleteProjectModal from "../modals.tsx/DeleteProjectModal";
 import RejectProjectModal from "../modals.tsx/RejectProjectModal";
 import SignoffProjectModal from "../modals.tsx/SignoffProjectModal";
+import { useAppDispatch } from "../../../api/data";
+import { DrawerState, openDrawer } from "../../../redux/popupSlice";
 
 const JobOrdersTable = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleRowClick = (record: any) => {
-    dispatch(openProjectDetailsDrawer(record));
+    dispatch(
+      openDrawer({ isOpen: DrawerState.JOBORDER_DETAILS_DRAWER, id: record.id })
+    );
   };
 
   const { projectColumns } = useProjectColumns();
@@ -21,8 +23,8 @@ const JobOrdersTable = () => {
   return (
     <>
       <TableComponent
-        columns={projectColumns}
-        dataSource={jobData}
+        columns={projectColumns as any}
+        dataSource={jobData as any}
         scroll={1000}
         onRow={(record: Array<{}>) => ({
           onClick: () => handleRowClick(record),

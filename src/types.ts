@@ -169,7 +169,7 @@ export interface AssignTicketInterface {
   ticketID: string;
   action: string;
 }
-export interface popupState {
+export interface PopupState {
   currentPopup: PopupDataInterface;
   projectDetailsDrawerIsOpen: detailsDrawerDataInterface;
   newRoleModalIsOpen: newRoleModalInterface;

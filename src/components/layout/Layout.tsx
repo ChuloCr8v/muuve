@@ -11,12 +11,14 @@ import UpdateTicketStatusModal from "../../views/incidence/UpdateTicketStatusMod
 import ReopenTicketModal from "../../views/incidence/ReopenTicketModal";
 import EscalateTicketModal from "../../views/incidence/EscalateTicketModal";
 import NewTicketDrawer from "../../views/incidence/NewTicketDrawer";
+import UpdateUserDrawer from "../../views/Admin/modals/UpdateUserDrawer";
+import UpdateUSerStatusModal from "../../views/Admin/modals/UpdateUserStatusModal";
 
 export default function Layout(props: { children: ReactNode }) {
   const [collapse, setCollapse] = useState(false);
   const [openDrawer, setOpenDrawer] = useState(false);
   return (
-    <div className="flex max-h-screen bg-gray-50 overflow-x-hidden w-[100vw] ">
+    <div className="flex max-h-screen bg-gray-50 overflow-x-hidden w-[100vw] overflow-y-hidden ">
       <div className=" flex w-screen ">
         <div
           className={twMerge(
@@ -93,6 +95,8 @@ export default function Layout(props: { children: ReactNode }) {
       <UpdateTicketStatusModal />
       <ReopenTicketModal />
       <EscalateTicketModal />
+      <UpdateUSerStatusModal />
+      <UpdateUserDrawer />
     </div>
   );
 }
