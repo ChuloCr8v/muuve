@@ -39,11 +39,7 @@
 
 // export default DeactivateServiceModal;
 
-import React from "react";
-
-type Props = {};
-
-const DeactivateServiceModal = (props: Props) => {
+const DeactivateServiceModal = () => {
   return <div>DeactivateServiceModal</div>;
 };
 

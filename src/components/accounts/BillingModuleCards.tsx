@@ -2,7 +2,6 @@ import { Button } from "antd";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { openDeactivateServiceModal } from "../../redux/popupSlice";
 import { updateProducts } from "../../redux/productsSlice";
 import TableRowData from "../global/TableRowData";
 import { productsData } from "../../dummy/productsData";
@@ -71,11 +70,11 @@ const BillingModuleCards = () => {
             tagTextStyle="font-semibold !text-customBlack"
           />
           <div className="flex items-center gap-2">
-            <Button
+            {/* <Button
               onClick={() => dispatch(openDeactivateServiceModal(product))}
             >
               Deactivate
-            </Button>
+            </Button> */}
             <Button onClick={() => handleClick(product)} type="primary">
               Upgrade/Downgrade
             </Button>

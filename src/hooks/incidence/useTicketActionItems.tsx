@@ -2,10 +2,7 @@ import { MenuProps } from "antd";
 import { LiaLevelUpAltSolid } from "react-icons/lia";
 import { PiUserCheckBold, PiUserSwitch } from "react-icons/pi";
 import { useDispatch } from "react-redux";
-import {
-  openEditTicketDrawer,
-  openTicketActionModal,
-} from "../../redux/popupSlice";
+
 import { MdUpdate } from "react-icons/md";
 import { EditOutlined, WarningOutlined } from "@ant-design/icons";
 
@@ -18,7 +15,7 @@ const useTicketActionItems = (id: string) => {
       label: (
         <a
           className="flex items-center gap-2"
-          onClick={() => dispatch(openEditTicketDrawer(id))}
+          // onClick={() => dispatch(openEditTicketDrawer(id))}
         >
           <EditOutlined className="text-xl" />
           Edit
@@ -32,8 +29,8 @@ const useTicketActionItems = (id: string) => {
           <PiUserCheckBold className="text-xl" /> Assign
         </a>
       ),
-      onClick: () =>
-        dispatch(openTicketActionModal({ action: "assign ticket", id: id })),
+      //onClick: () =>
+      // dispatch(openTicketActionModal({ action: "assign ticket", id: id })),
     },
     {
       key: "2",
@@ -42,8 +39,8 @@ const useTicketActionItems = (id: string) => {
           <PiUserSwitch className="text-xl" /> Reassign
         </a>
       ),
-      onClick: () =>
-        dispatch(openTicketActionModal({ action: "reassign ticket", id: id })),
+      // onClick: () =>
+      //  dispatch(openTicketActionModal({ action: "reassign ticket", id: id })),
     },
     {
       key: "3",
@@ -53,8 +50,8 @@ const useTicketActionItems = (id: string) => {
           Escalate
         </a>
       ),
-      onClick: () =>
-        dispatch(openTicketActionModal({ action: "escalate ticket", id: id })),
+      //onClick: () =>
+      // dispatch(openTicketActionModal({ action: "escalate ticket", id: id })),
     },
     {
       key: "4",
@@ -64,10 +61,10 @@ const useTicketActionItems = (id: string) => {
           Update Status
         </a>
       ),
-      onClick: () =>
-        dispatch(
-          openTicketActionModal({ action: "update ticket status", id: id })
-        ),
+      // onClick: () =>
+      //dispatch(
+      // openTicketActionModal({ action: "update ticket status", id: id })
+      // ),
     },
     {
       key: "5",
@@ -77,8 +74,8 @@ const useTicketActionItems = (id: string) => {
           Reopen Ticket
         </a>
       ),
-      onClick: () =>
-        dispatch(openTicketActionModal({ action: "reopen ticket", id: id })),
+      //   onClick: () =>
+      // dispatch(openTicketActionModal({ action: "reopen ticket", id: id })),
     },
   ];
   return { ticketActionItems };

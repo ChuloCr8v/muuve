@@ -4,7 +4,6 @@ import Heading from "../../components/global/Header";
 import ProjectManagementRoleSettings from "./ProjectManagementRoleSettings";
 import NewRoleModal from "./NewRoleModal";
 import { useDispatch } from "react-redux";
-import { openNewRoleModal } from "../../redux/popupSlice";
 import AccountLayout from "./AccountLayout";
 
 const Role = () => {
@@ -42,30 +41,30 @@ const Role = () => {
     {
       key: "1",
       label: <p>Project Management</p>,
-      onClick: () =>
-        dispatch(openNewRoleModal({ module: "project management" })),
+      // onClick: () =>
+      //   dispatch(openNewRoleModal({ module: "project management" })),
     },
     {
       key: "2",
       label: <p>Billing System</p>,
-      onClick: () => dispatch(openNewRoleModal({ module: "billing system" })),
+      // onClick: () => dispatch(openNewRoleModal({ module: "billing system" })),
     },
     {
       key: "3",
       label: <p>Incident Management</p>,
-      onClick: () =>
-        dispatch(openNewRoleModal({ module: "incident management" })),
+      //onClick: () =>
+      // dispatch(openNewRoleModal({ module: "incident management" })),
     },
     {
       key: "4",
       label: <p>Vendor Management</p>,
-      onClick: () =>
-        dispatch(openNewRoleModal({ module: "vendor management" })),
+      // onClick: () =>
+      //   dispatch(openNewRoleModal({ module: "vendor management" })),
     },
     {
       key: "5",
       label: <p>Inventory System</p>,
-      onClick: () => dispatch(openNewRoleModal({ module: "inventory system" })),
+      // onClick: () => dispatch(openNewRoleModal({ module: "inventory system" })),
     },
   ];
 
