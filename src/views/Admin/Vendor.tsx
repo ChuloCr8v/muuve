@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Dropdown, Input, Form, Drawer } from "antd";
+import { Button, Dropdown, Input } from "antd";
 
 import { DownOutlined, SearchOutlined, SyncOutlined } from "@ant-design/icons";
 import SummaryCards from "../../components/global/SummaryCards";
@@ -97,9 +97,9 @@ export default function Vendor() {
   );
 
   const summaryData = [
-    { label: "Total", value: listVendor?.length },
-    { label: "Active", value: activeVendors?.length },
-    { label: "Deactivated", value: deacticatedVendors?.length },
+    { label: "Total", value: listVendor?.length ?? 0 },
+    { label: "Active", value: activeVendors?.length ?? 0 },
+    { label: "Deactivated", value: deacticatedVendors?.length ?? 0 },
   ];
 
   return (

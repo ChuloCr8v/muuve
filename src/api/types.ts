@@ -57,6 +57,7 @@ export type Vendor = {
 };
 
 export type User = {
+  name: any;
   id: string;
   email: string;
   verified: string;
@@ -176,8 +177,64 @@ export type AddModelInput = {
   name: string;
   number: string;
   manufacturer: string;
-  cost: number;
+  cost?: number;
   description: string;
   category: string;
-  vendorId: string;
+  vendor: string;
+};
+
+export type AddDeviceInput = {
+  name: string;
+  manufacturer: string;
+  partNumber: string;
+  serialNumber: string;
+  cost: number;
+  location: string;
+  description: string;
+  dateProcured: Date;
+  modelId: string;
+};
+
+export type UpdateModelInput = {
+  id: string;
+  name: string;
+  number: string;
+  manufacturer: string;
+  description: string;
+  category: string;
+  vendor: string;
+};
+
+export type UpdateDeviceInput = {
+  id: string;
+  name: string;
+  manufacturer: string;
+  partNumber: string;
+  serialNumber: string;
+  cost: number;
+  location: string;
+  vendor: string;
+  description: string;
+  dateProcured: Date;
+  modelId: string;
+};
+
+export type ReportFault = {
+  comment: string;
+  id: string;
+};
+
+export type ModelNoteInput = {
+  comment: string;
+  modelId: string;
+};
+
+export type DeviceNoteInput = {
+  comment: string;
+  modelId: string;
+};
+
+export type AssignDevice = {
+  deviceIds: string[];
+  assigneeId: string;
 };

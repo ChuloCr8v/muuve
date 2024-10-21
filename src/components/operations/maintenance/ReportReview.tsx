@@ -30,7 +30,15 @@ export default function ReportReview() {
               <span>Back</span>
             </Button>
           </Link>
-          <Select className="w-[150px]" placeholder="Select Period" />
+          <Select className="w-[150px]" placeholder="Select Period" 
+          options={[
+            { value: 'This Month', label: 'This month' },
+            { value: 'Last Month', label: 'Last Month' },
+            { value: 'Last Quater', label: 'This Quater' },
+            { value: 'This Year', label: 'This Year' },
+            { value: 'Last Year', label: 'Last Year' },s
+          ]}
+          />
           <Button type="primary">
             <span>Submit</span>
             <UploadOutlined />
@@ -94,7 +102,7 @@ export default function ReportReview() {
         ) : (
           <div className="text-[20px] m-auto text-center">
             <ExclamationCircleOutlined className="text-[100px] text-[#D9DADC]" />
-            <p className="text-[14px] text-[#777777]">
+            <p className="text-[14px] text-[#777777] mt-3 ">
               Select an item to preview report
             </p>
           </div>

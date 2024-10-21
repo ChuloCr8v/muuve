@@ -1,19 +1,39 @@
-import { Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { useState } from "react";
 import { CustomLabel } from "../../../global/Extras";
 import MultiUpload from "../../../global/MultipleUpload";
+import { useReportFaultMutation } from "../../../../api/devices";
+import { toastApiError } from "../../../../utils/error.util";
 
 interface Prop {
   selectedRow: any;
+  setOpenActionModal: any
 }
 
 const { TextArea } = Input;
 
 export default function DeviceFault(props: Prop) {
-  const { selectedRow } = props;
+  const { selectedRow, setOpenActionModal } = props;
+  const [reportFault, {isLoading}] = useReportFaultMutation()
+  const [form] = Form.useForm()
+
+  const Submit = async () => {
+    const values = await form.validateFields();
+
+    const data = {...values, id: selectedRow.id}
+
+    reportFault(data).unwrap()
+    .then(() => {
+      message.success("Fault Reported")
+      setOpenActionModal(false)
+    })
+    .catch(toastApiError)
+
+
+  }
 
   return (
-    <Form layout="vertical" className="space-y-[12px]">
+    <Form form={form} layout="vertical" className="space-y-[12px]">
       <span>
         Are you sure you want to report fault on{" "}
         <span className="font-semibold">{selectedRow?.name}</span> ?
@@ -30,9 +50,11 @@ export default function DeviceFault(props: Prop) {
         <MultiUpload files={[]} setFiles={undefined} />
       </Form.Item>
 
-      <Form.Item label="Reason" required>
+      <Form.Item label="Reason" name="comment" required>
         <TextArea rows={3} />
       </Form.Item>
+
+      <Button onClick={Submit}>Submit</Button>
     </Form>
   );
 }

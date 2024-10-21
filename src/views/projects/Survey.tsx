@@ -169,7 +169,7 @@ const ProjectSurvey = () => {
       render: (_, record) => (
         <TableRowData
           mainText={capitalizeFirstLetter(record.status)}
-          tagText={record.assignee.name}
+          tagText={record.assignee?.name}
         />
       ),
     },

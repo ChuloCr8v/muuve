@@ -21,6 +21,9 @@ export default function Devices() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [newdevice, setNewevice] = useState(false);
   const [selectedRow, setSelectedRow] = useState(null);
+  const [devicesPicked, setDevicespicked] = useState(false)
+
+
 
   const summaryCard = [
     {
@@ -79,16 +82,6 @@ export default function Devices() {
         setnewDevice={setNewevice}
       />
 
-      <ActionPopup
-        open={isModalVisible}
-        onCancel={() => setIsModalVisible(false)}
-        title="Action Required"
-        sendButtonText="Send"
-        icon={Danger}
-        sendButtonStyle="bg-red-600"
-      >
-        form here
-      </ActionPopup>
     </div>
   );
 }

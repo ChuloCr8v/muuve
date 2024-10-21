@@ -82,7 +82,7 @@ const VendorDrop = () => {
             <Button className="w-[100px]" type="default" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="primary" className="w-[144px]" onClick={HandleAddVendor}>
+            <Button loading={isLoading} type="primary" className="w-[144px]" onClick={HandleAddVendor}>
               Submit
             </Button>
           </div>

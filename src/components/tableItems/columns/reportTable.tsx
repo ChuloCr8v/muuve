@@ -24,10 +24,6 @@ export interface DataType {
 
 export const columns = [
   {
-    title: <Checkbox />,
-    render: () => <Checkbox />,
-  },
-  {
     title: "ID",
     dataIndex: "id",
     width: 50,

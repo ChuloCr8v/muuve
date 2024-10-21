@@ -1,4 +1,5 @@
 import {
+  ArrowRightOutlined,
   CheckCircleOutlined,
   CheckOutlined,
   CloseCircleOutlined,
@@ -9,6 +10,7 @@ import {
 import { Input, Select, Table, Tag } from "antd";
 import { twMerge } from "tailwind-merge";
 import SummaryCards from "../../global/SummaryCards";
+import TableComponent from "../../global/TableComponent";
 
 interface Props {
   data: any;
@@ -43,8 +45,8 @@ export default function ModelStock({ data }: Props) {
   const column = [
     {
       title: "Serial Number",
-      key: 1,
-      dataIndex: "serialNumber",
+      dataIndex: "id",
+      width: 100,
       render: (text: string) => (
         <span className="text-[12px] text-[#171717] w-full truncate">
           {text}
@@ -52,12 +54,12 @@ export default function ModelStock({ data }: Props) {
       ),
     },
     {
-      title: "Manufacturer",
-      key: 2,
-      dataIndex: "manufacturer",
+      title: "Name",
+      width: 150,
+      dataIndex: "name",
       render: (text: string) => (
         <div className="truncate w-fit">
-          <p className="text-[12px] text-[#171717] max-w-full truncate">
+          <p className="text-[12px]  text-[#171717] max-w-full truncate">
             {text}
           </p>
         </div>
@@ -65,8 +67,7 @@ export default function ModelStock({ data }: Props) {
     },
     {
       title: "Location",
-      key: 3,
-      dataIndex: "location",
+      dataIndex: "Location",
       render: (text: string) => (
         <div>
           <p className="text-[12px] text-[#171717]">{text}</p>
@@ -76,14 +77,14 @@ export default function ModelStock({ data }: Props) {
     {
       title: "Status",
       key: 4,
-      dataIndex: "status",
+      dataIndex: "Status",
       render: (text: string) => (
         <div className="">
           <Tag
             icon={
-              text === "IN-STOCK" ? (
+              text === "ASSIGNED" ? (
                 <CheckCircleOutlined className="text-[#379D51]" />
-              ) : text === "OUT OF STOCK" ? (
+              ) : text === "FAULTY" ? (
                 <CloseCircleOutlined className="text-[#F05050]" />
               ) : (
                 <WarningOutlined className="text-[#B9A325]" />
@@ -91,9 +92,9 @@ export default function ModelStock({ data }: Props) {
             }
             className={twMerge(
               "text-[10px] rounded-2xl",
-              text.includes("LOW ON STOCK")
+              text === 'AVAILABLE'
                 ? "text-[#B9A325] border-[#B9A325] bg-[#FDF7DD]"
-                : text.includes("OUT OF STOCK")
+                : text === 'FAULTY'
                 ? "text-[#F05050] border-[#F05050] bg-[#FFE1E1]"
                 : "text-[#379D51] border-[#379D51] bg-[#E3FFE6]"
             )}
@@ -105,7 +106,12 @@ export default function ModelStock({ data }: Props) {
     },
     {
       title: "Date",
-      dataIndex: "createdAt",
+      dataIndex: "data",
+    },
+    {
+      title: "",
+      dataIndex: "",
+      render: () => <ArrowRightOutlined/>
     },
   ];
 
@@ -163,7 +169,7 @@ export default function ModelStock({ data }: Props) {
         />
       </section>
 
-      <Table size="small" bordered columns={column} dataSource={columnData} />
+      <TableComponent columns={column} dataSource={data.devices} />
     </div>
   );
 }

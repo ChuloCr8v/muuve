@@ -35,12 +35,12 @@ const menuItems = [
         icon: Surveys,
         iconActive: SurveysActive,
       },
-      {
-        title: "Job Orders",
-        url: "/projects/job-orders",
-        icon: JobOrders,
-        iconActive: JobOrdersActive,
-      },
+      // {
+      //   title: "Job Orders",
+      //   url: "/projects/job-orders",
+      //   icon: JobOrders,
+      //   iconActive: JobOrdersActive,
+      // },
     ],
   },
   {

@@ -54,7 +54,7 @@ export default function ModelOverview({ data }: Prop) {
               MODEL NO
             </span>{' '}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.id}
+              {`MD-${data?.number.substring(0,5)}`}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
@@ -78,7 +78,7 @@ export default function ModelOverview({ data }: Prop) {
               DESCRIPTION
             </p>
             <p className="text-[13px] font-semibold text-left">
-              {data?.comment}
+              {data?.description}
             </p>
           </div>
         </section>
