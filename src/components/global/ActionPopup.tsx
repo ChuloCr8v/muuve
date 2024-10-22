@@ -25,7 +25,6 @@ const ActionPopup: React.FC<ActionPopupProps> = ({
   sendButtonText,
   children,
   icon,
-  loading,
   sendButtonStyle,
   footer,
   actionBtnDisabled,

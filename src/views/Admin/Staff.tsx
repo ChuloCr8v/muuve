@@ -85,6 +85,19 @@ export default function Staff() {
     },
   ];
 
+  const activeStaff = listStaff.data?.filter(
+    (staff) => staff.isActive === true
+  );
+  const deacticatedStaff = listStaff.data?.filter(
+    (staff) => staff.isActive === false
+  );
+
+  const summaryData = [
+    { label: "Total", value: listStaff.data?.length ?? 0 },
+    { label: "Active", value: activeStaff?.length ?? 0 },
+    { label: "Deactivated", value: deacticatedStaff?.length ?? 0 },
+  ];
+
   return (
     <div className="space-y-[16px] body-pad p-8">
       <section className="flex items-center justify-between">
@@ -115,19 +128,7 @@ export default function Staff() {
         </div>
       </section>
 
-      <SummaryCards
-        summaryData={[
-          { label: "Total", value: staff?.length || 0 },
-          {
-            label: "Active",
-            value: staff?.filter((s) => s.status).length || 0,
-          },
-          {
-            label: "Inactive",
-            value: staff?.filter((s) => !s.status).length || 0,
-          },
-        ]}
-      />
+      <SummaryCards summaryData={summaryData} />
 
       <section className="rounded-lg border-[1.5px]  border-[#5656561A] shadow-sm shadow-[#5656561A]">
         <TableComponent

@@ -3,7 +3,6 @@ import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 import { ReactNode, useState } from "react";
 import { useDispatch } from "react-redux";
-import { showPopup } from "../../redux/popupSlice";
 import { TicketsDataType } from "../../types";
 import TicketSeverityTag from "../../views/incidence/TicketSeverityTag";
 import TicketSLA from "../../views/incidence/TicketSLA";
@@ -116,7 +115,7 @@ const useTicketsColumns = () => {
             onClick={(e) => {
               e.stopPropagation();
               setCurrentTicketID(records.id);
-              dispatch(showPopup({ isOpen: false, data: records }));
+              // dispatch(showPopup({ isOpen: false, data: records }));
             }}
           >
             Action

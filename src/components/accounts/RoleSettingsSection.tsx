@@ -10,7 +10,6 @@ import { projectManagementPermissions } from "../../dummy/permissions";
 import RoleMembersDrawer from "./RoleMembersDrawer";
 import AddRoleMemberModal from "./AddRoleMemberModal";
 import { useDispatch } from "react-redux";
-import { openNewRoleModal } from "../../redux/popupSlice";
 
 interface Props {
   role: {
@@ -102,15 +101,15 @@ const RoleSettingsSection = (props: Props) => {
           <TableRowData mainText="Permissions" mainTextStyle="font-semibold" />
 
           <Button
-            onClick={() =>
-              dispatch(
-                openNewRoleModal({
-                  module: props.role.roleName,
-                  action: "editRole",
-                  data: props.role,
-                })
-              )
-            }
+            // onClick={() =>
+            //   dispatch(
+            //     openNewRoleModal({
+            //       module: props.role.roleName,
+            //       action: "editRole",
+            //       data: props.role,
+            //     })
+            //   )
+            // }
             type="link"
             className="text-black"
             icon={<EditOutlined />}

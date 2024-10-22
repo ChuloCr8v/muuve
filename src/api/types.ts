@@ -194,10 +194,10 @@ export type AddDeviceInput = {
   description: string;
   dateProcured: Date;
   modelId: string;
-}
+};
 
 export type UpdateModelInput = {
-  id: string,
+  id: string;
   name: string;
   number: string;
   manufacturer: string;
@@ -206,36 +206,37 @@ export type UpdateModelInput = {
   vendorId: string;
 }
 
-export type UpdateDeviceInput ={
+export type UpdateDeviceInput = {
   id: string;
   name: string;
   manufacturer: string;
   serialNumber: string;
   cost: number;
   location: string;
-  vendor: string
+  vendor: string;
   description: string;
   dateProcured: Date;
   modelId: string;
-}
+};
 
-export type ReportFault ={
-  comment: string
-  id: string
-}
+export type ReportFault = {
+  comment: string;
+  id: string;
+};
 
 export type ModelNoteInput = {
-  comment: string
-    modelId: string
-}
+  comment: string;
+  modelId: string;
+};
 
 export type DeviceNoteInput = {
-  comment: string
-    modelId: string
-}
+  comment: string;
+  modelId: string;
+};
 
 export type AssignDevice ={
   deviceIds: string[]
   assigneeId: string
 }
+
 
