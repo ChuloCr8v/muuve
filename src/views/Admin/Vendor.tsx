@@ -11,6 +11,7 @@ import StatusTag from "../../components/global/StatusTag";
 import TableComponent from "../../components/global/TableComponent";
 import { User } from "../../api/types";
 import UpdateVendorDrawer from "./modals/VendorUpdateDrawer";
+import { ColumnsType } from "antd/es/table";
 
 interface VendorData {
   id: string;
@@ -36,11 +37,14 @@ export default function Vendor() {
 
   const { items } = VendorActionItems({ vendor: selectedVendor });
 
-  const columns = [
+  const columns: ColumnsType<VendorData> = [
     {
       title: "ID",
       dataIndex: "id",
       key: "id",
+      render: (_: string, records) => {
+        return <p className="">{records.id.slice(0, 8)}...</p>;
+      },
     },
     {
       title: "Name",
@@ -56,6 +60,7 @@ export default function Vendor() {
       title: "Phone No",
       dataIndex: "phone",
       key: "phone",
+      width: 150,
       render: () => <p>+234 5475 5505</p>,
     },
     {
@@ -129,7 +134,7 @@ export default function Vendor() {
       <SummaryCards summaryData={summaryData} />
 
       <TableComponent
-        scroll={{ x: 800 }}
+        scroll={{ x: 1000 }}
         columns={columns as any}
         dataSource={listVendor ?? []}
       />

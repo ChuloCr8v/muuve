@@ -77,6 +77,20 @@ export type AddCustomerInput = {
   address: string;
 };
 
+export type NewTicketDataType = {
+  subject: string;
+  description: string;
+  customerId: string;
+  severity: string;
+  categoryId: string;
+};
+
+export type TicketCategoryDataType = {
+  id: string;
+  name: string;
+  orgId: string;
+};
+
 export type OrgServiceType = {
   id: string;
   name: string;
@@ -182,7 +196,7 @@ export type AddModelInput = {
   category: string;
   vendor: string;
   vendorId: string;
-}
+};
 
 export type AddDeviceInput = {
   name: string;
@@ -204,7 +218,7 @@ export type UpdateModelInput = {
   description: string;
   category: string;
   vendorId: string;
-}
+};
 
 export type UpdateDeviceInput = {
   id: string;
@@ -234,9 +248,7 @@ export type DeviceNoteInput = {
   modelId: string;
 };
 
-export type AssignDevice ={
-  deviceIds: string[]
-  assigneeId: string
-}
-
-
+export type AssignDevice = {
+  deviceIds: string[];
+  assigneeId: string;
+};

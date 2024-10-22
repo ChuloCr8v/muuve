@@ -2,7 +2,6 @@ import { Button, Dropdown } from "antd";
 import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 import { ReactNode, useState } from "react";
-import { useDispatch } from "react-redux";
 import { TicketsDataType } from "../../types";
 import TicketSeverityTag from "../../views/incidence/TicketSeverityTag";
 import TicketSLA from "../../views/incidence/TicketSLA";
@@ -13,8 +12,6 @@ import StatusTag from "../../components/global/StatusTag";
 const useTicketsColumns = () => {
   const [currentTicketID, setCurrentTicketID] = useState("");
   const { ticketActionItems } = useTicketActionItems(currentTicketID);
-
-  const dispatch = useDispatch();
 
   const ticketTableColumns: ColumnsType<TicketsDataType> = [
     {
