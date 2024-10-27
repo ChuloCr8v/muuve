@@ -95,15 +95,41 @@ export enum SurveyStatus {
   COMPLETED = "COMPLETED",
 }
 
+type Upload = {
+  id: string;
+  name: string;
+  key: string;
+  mime: string;
+  order: number;
+  size: number;
+  createdAt: number;
+};
+
+type Attachments = {
+  id: string;
+  uploads: Upload[];
+};
+
+export type SurveyLog = {
+  id: string;
+  action: string;
+  attachments: Attachments;
+  byStaff: User;
+  toStaff: User;
+  changedStatus: SurveyStatus;
+  comment: string;
+  createdAt: string;
+};
+
 export type Survey = {
   id: string;
   surveyId: string;
+  isAssigned: boolean;
   state: string;
   region: string;
   longitude: number;
   lattitude: number;
   address: string;
-  comment: string;
   customerId: string;
   orgId: string;
   serviceTypeId: string;
@@ -111,12 +137,13 @@ export type Survey = {
   managerId: string;
   createdAt: string;
   bandwidth: string;
-  manager: Staff;
-  assignee: Staff;
-  customer: Customer;
+  manager: User;
+  assignee: User;
+  customer: User;
   status: SurveyStatus;
   requestType: OrgRequestType;
   serviceType: OrgServiceType;
+  logs: SurveyLog[];
 };
 
 export type NewSurveyInput = {
@@ -182,7 +209,7 @@ export type AddModelInput = {
   category: string;
   vendor: string;
   vendorId: string;
-}
+};
 
 export type AddDeviceInput = {
   name: string;
@@ -204,7 +231,7 @@ export type UpdateModelInput = {
   description: string;
   category: string;
   vendorId: string;
-}
+};
 
 export type UpdateDeviceInput = {
   id: string;
@@ -234,9 +261,7 @@ export type DeviceNoteInput = {
   modelId: string;
 };
 
-export type AssignDevice ={
-  deviceIds: string[]
-  assigneeId: string
-}
-
-
+export type AssignDevice = {
+  deviceIds: string[];
+  assigneeId: string;
+};

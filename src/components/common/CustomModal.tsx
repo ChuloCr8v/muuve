@@ -1,6 +1,10 @@
 import { Modal } from "antd";
 import { ReactNode } from "react";
 import { usePopup } from "../../context/PopupContext";
+import {
+  UploaderProvider,
+  useUploaderProvider,
+} from "../../context/UploadContext";
 
 interface Props {
   title: string;
@@ -21,6 +25,8 @@ export const CustomModal = ({
   title,
   isDanger = false,
 }: Props) => {
+  const uploader = useUploaderProvider();
+
   const { closeModal, isModalOpen } = usePopup();
 
   return (
@@ -35,7 +41,7 @@ export const CustomModal = ({
       closable={closable}
       maskClosable={closable}
     >
-      {children}
+      <UploaderProvider value={uploader}>{children}</UploaderProvider>
     </Modal>
   );
 };
