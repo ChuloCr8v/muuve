@@ -106,7 +106,7 @@ export default function DeviceForm(props: Prop) {
             onClick={selectedRow ? EditDevice  : Submit}
             style={{ minWidth: "6em" }}
           >
-            {selectedRow ? "Edit Device" : "New Device"}
+            {selectedRow ? "Update" : "Submit"}
           </Button>
         </footer>
       }

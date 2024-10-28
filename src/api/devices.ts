@@ -27,10 +27,10 @@ export const deviceApi = api.injectEndpoints({
             invalidatesTags: ["device"]
         }),
 
-        assignDevice: mutation< void, AssignDevice>({
+        assignDevice: mutation<void, AssignDevice>({
             query: () => ({
                 url: "/devices/assign", 
-                method: "PATCH",
+                method: "POST",
             }),
             invalidatesTags: ["device"]
         }),

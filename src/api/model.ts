@@ -27,10 +27,10 @@ export const modelApi = api.injectEndpoints({
     }),
 
     createModelNote: mutation<void, ModelNoteInput> ({
-      query: (body) => ({
-        url: "/models/note",
+      query: ({modelId, ...rest}) => ({
+        url: `models/${modelId}/notes`,
         method: "POST",
-        body,
+        body: rest
       }),
       invalidatesTags: ["model"]
     }),

@@ -10,11 +10,10 @@ interface ActionPopupProps {
   children: ReactNode;
   sendButtonStyle?: string;
   icon?: ReactNode;
-  onOk?: () => void;
+  onOk?: any
   footer?: boolean;
   loading?: boolean;
   actionBtnDisabled?: boolean;
-  loading?: boolean;
 }
 
 const ActionPopup: React.FC<ActionPopupProps> = ({

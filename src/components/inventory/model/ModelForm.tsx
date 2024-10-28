@@ -69,7 +69,7 @@ export default function ModelForm(props: Prop) {
             Cancel
           </Button>
 
-          <Button loading={isLoading} size="middle" type="primary" htmlType="submit" onClick={Submit} style={{ minWidth: "6em" }}>
+          <Button loading={isLoading} size="middle" type="primary" htmlType="submit" onClick={selectedRow ? EditModel : Submit} style={{ minWidth: "6em" }}>
             {selectedRow ? "Edit Model" : "Submit"}
           </Button>
         </footer>

@@ -28,11 +28,11 @@ export default function ModelNotes(props: { data: any }) {
   const Submit = async () => {
     try {
       const values = await form.validateFields();
-      const payload = { comment: values.comment, modelId: modelId };
-      await createModelNote(payload).unwrap();
+      const payload = { comment: values.comment };
+      await createModelNote({ modelId, ...payload }).unwrap();
       message.success('Comment sent');
       form.resetFields();
-      fetchNotes(modelId); // Re-fetch notes after submitting a new comment
+      fetchNotes(modelId); 
     } catch (error) {
       toastApiError(error);
     }

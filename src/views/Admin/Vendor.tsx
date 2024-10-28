@@ -41,9 +41,12 @@ export default function Vendor() {
       title: "ID",
       dataIndex: "id",
       key: "id",
+      width: 80,
+      render: (text: string) => <span>{`MSN-${text.substring(0,3).toUpperCase()}`}</span>
     },
     {
       title: "Name",
+      width: 250,
       dataIndex: ["vendor", "companyName"],
       key: "name",
     },
