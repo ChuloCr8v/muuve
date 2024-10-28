@@ -1,11 +1,15 @@
-import { surveyLogData } from "../../../dummy/surveyLogDummy";
+import { SurveyLog as Logs } from "../../../api/types";
 import ProjectLogItem from "../ProjectLogs";
 
-const SurveyLog = () => {
+interface Props {
+  logs: Logs[];
+}
+
+const SurveyLog = ({ logs }: Props) => {
   return (
-    <div className="">
-      {surveyLogData.map((item) => (
-        <ProjectLogItem data={item} key={item.id} />
+    <div>
+      {logs.map((log) => (
+        <ProjectLogItem log={log} key={log.id} />
       ))}
     </div>
   );

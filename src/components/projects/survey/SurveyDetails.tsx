@@ -34,9 +34,7 @@ const SurveyDetails = ({ surveyData }: Props) => {
         {surveyData.map((data) => (
           <div
             className={twMerge(
-              (data.label.toLowerCase() === "uploads" ||
-                data.label.toLowerCase() === "comment") &&
-                "col-span-2"
+              data.label.toLowerCase() === "comment" && "col-span-2"
             )}
             key={data.label}
           >

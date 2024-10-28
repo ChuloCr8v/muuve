@@ -11,6 +11,7 @@ import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
 import { useListStaffQuery } from "../../api/staff.api";
 import { useRequestSurveyMutation } from "../../api/surveys.api";
+import MultiUpload from "../../components/global/MultiUpload";
 
 export const NewSurveyDrawer = () => {
   const [form] = Form.useForm();
@@ -54,7 +55,7 @@ export const NewSurveyDrawer = () => {
               optionFilterProp="label"
               options={customers?.map((u) => ({
                 label: u.customer.name,
-                value: u.customer.id,
+                value: u.id,
               }))}
             />
           </Form.Item>
@@ -118,7 +119,7 @@ export const NewSurveyDrawer = () => {
                 optionFilterProp="label"
                 options={staff?.map((s) => ({
                   label: s.staff.name,
-                  value: s.staff.id,
+                  value: s.id,
                 }))}
               />
             </Form.Item>
@@ -185,6 +186,9 @@ export const NewSurveyDrawer = () => {
           </div>
           <Form.Item label="Comment" name="comment">
             <TextArea />
+          </Form.Item>
+          <Form.Item label="Upload one or more files" name="attachments">
+            <MultiUpload />
           </Form.Item>
         </Form>
       </div>

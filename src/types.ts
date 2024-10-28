@@ -1,5 +1,9 @@
 import { Dayjs } from "dayjs";
 
+export const AppModules = {
+  Projects: { SURVEY: "SURVEY", JOB_ORDER: "JOB_ORDER" },
+};
+
 export interface TierTypes {
   id: number;
   label: string;

@@ -5,6 +5,7 @@ import { Survey } from "../../api/types";
 import { CustomModal } from "../../components/common/CustomModal";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
+import MultiUpload from "../../components/global/MultiUpload";
 
 interface Props {
   survey: Survey;
@@ -44,6 +45,15 @@ export const CompleteSurveyModal = ({ survey }: Props) => {
             rules={[{ required: true, message: "Comment is required" }]}
           >
             <TextArea />
+          </Form.Item>
+
+          <Form.Item
+            label="Attach Survey Report and other files"
+            name="attachments"
+            required
+            rules={[{ required: true, message: "Upload is required" }]}
+          >
+            <MultiUpload />
           </Form.Item>
         </Form>
       </div>

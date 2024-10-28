@@ -9,7 +9,7 @@ export const tagTypes = [
   "survey",
   "vendor",
   "model",
-  "device"
+  "device",
 ] as const;
 
 const envUrl = import.meta.env.VITE_API_URL;
