@@ -18,8 +18,6 @@ export default function ModelDetails(props: Prop) {
   const selectedRow = props.selectedRow;
   const [activeTab, setActiveTab] = useState("Overview");
 
-  console.log(selectedRow);
-
   const handleTabClick = (tab: any) => {
     setActiveTab(tab);
   };

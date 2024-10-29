@@ -12,7 +12,7 @@ import AssignDevice from "./actionForms/AssignDevice";
 import DeviceFault from "./actionForms/DevicefFault";
 import DeleteDevice from "./actionForms/DeleteDevice";
 import DeviceDetails from "./DeviceDetails";
-import { useAssignDeviceMutation } from "../../../api/devices";
+import { useAssignDeviceMutation } from "../../../api/devices.api";
 import { toastApiError } from "../../../utils/error.util";
 
 interface Prop {
@@ -22,18 +22,19 @@ interface Prop {
 }
 
 export default function DeviceAction(props: Prop) {
-  const [form] = Form.useForm()
+  const [form] = Form.useForm();
   const { selectedRow, setSelectedRow, setnewDevice } = props;
   const [actionType, setactionType] = useState<string | null>(null);
   const [openActionModal, setOpenActionModal] = useState(false);
   const [deviceDetail, setDeviceDetail] = useState(false);
-  const [assignDevice, {isLoading: loadAssinAction}] = useAssignDeviceMutation()
+  const [assignDevice, { isLoading: loadAssinAction }] =
+    useAssignDeviceMutation();
 
-  console.log(selectedRow)
+  console.log(selectedRow);
 
   const handleRowClick = (record: any) => {
-    setSelectedRow(record); 
-    setDeviceDetail(true); 
+    setSelectedRow(record);
+    setDeviceDetail(true);
   };
 
   const handleEdit = (record: any) => {
@@ -80,16 +81,17 @@ export default function DeviceAction(props: Prop) {
   ];
 
   const Submit = async () => {
-    const values = await form.validateFields(); 
-    const data = {...values, id: selectedRow.id}
-    console.log(data)
+    const values = await form.validateFields();
+    const data = { ...values, id: selectedRow.id };
+    console.log(data);
 
-    assignDevice(data).unwrap()
-    .then(() => {
-      message.success("Device Assigned")
-      setOpenActionModal(false)
-    })
-    .catch(toastApiError)
+    assignDevice(data)
+      .unwrap()
+      .then(() => {
+        message.success("Device Assigned");
+        setOpenActionModal(false);
+      })
+      .catch(toastApiError);
   };
 
   return (
@@ -99,15 +101,20 @@ export default function DeviceAction(props: Prop) {
       </Dropdown>
 
       <ActionPopup
-        loading={actionType === 'Assign Device' && loadAssinAction}
+        loading={actionType === "Assign Device" && loadAssinAction}
         open={openActionModal}
         onCancel={() => setOpenActionModal(false)}
-        onOk={actionType === 'Assign Device' && Submit}
-        title={actionType} sendButtonText={`${actionType}`}>
+        onOk={actionType === "Assign Device" && Submit}
+        title={actionType}
+        sendButtonText={`${actionType}`}
+      >
         {actionType === "Assign Device" ? (
           <AssignDevice form={form} selectedRow={selectedRow} />
         ) : actionType === "Report Fault" ? (
-          <DeviceFault setOpenActionModal={setOpenActionModal} selectedRow={selectedRow} />
+          <DeviceFault
+            setOpenActionModal={setOpenActionModal}
+            selectedRow={selectedRow}
+          />
         ) : (
           <DeleteDevice selectedRow={selectedRow} />
         )}

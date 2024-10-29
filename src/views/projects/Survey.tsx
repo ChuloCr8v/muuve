@@ -79,7 +79,7 @@ const ProjectSurvey = () => {
     },
   ];
 
-  const surveyActionItems = (survey: Survey): MenuProps["items"] => [
+  const actions = (survey: Survey): MenuProps["items"] => [
     survey.status === SurveyStatus.ONGOING
       ? {
           key: 0,
@@ -245,7 +245,7 @@ const ProjectSurvey = () => {
             <Dropdown
               trigger={["click"]}
               menu={{
-                items: surveyActionItems(record),
+                items: actions(record),
               }}
             >
               <Button size="small" className="px-4 text-grey">

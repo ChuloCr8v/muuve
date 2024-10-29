@@ -200,6 +200,30 @@ export type AddVendorInput = {
   email: string;
 };
 
+export type InventoryNotes = {
+  id: string;
+  comment: string;
+  createdAt: string;
+  userId: string;
+  user: User;
+  modelId: string;
+};
+
+export type Model = {
+  id: string;
+  name: string;
+  number: string;
+  manufacturer: string;
+  description: string;
+  category: string;
+  vendor: string;
+  createdAt: string;
+  updatedAt: string;
+  orgId: string;
+  devices: Device[];
+  notes: InventoryNotes[];
+};
+
 export type AddModelInput = {
   name: string;
   number: string;
@@ -209,6 +233,32 @@ export type AddModelInput = {
   category: string;
   vendor: string;
   vendorId: string;
+};
+
+export enum DeviceStatus {
+  AVAILABLE = "AVAILABLE",
+  ASSIGNED = "ASSIGNED",
+  DELETED = "DELETED",
+  FAULTY = "FAULTY",
+}
+
+export type Device = {
+  id: string;
+  name: string;
+  manufacturer: string;
+  partNumber: string;
+  serialNumber: string;
+  cost: number;
+  location: string;
+  description: string;
+  dateProcured: string;
+  vendor: string;
+  status: DeviceStatus;
+  assigneeId: string;
+  modelId: string;
+  orgId: string;
+  model: Model;
+  notes: InventoryNotes;
 };
 
 export type AddDeviceInput = {
@@ -221,6 +271,7 @@ export type AddDeviceInput = {
   description: string;
   dateProcured: Date;
   modelId: string;
+  attachments: string[];
 };
 
 export type UpdateModelInput = {
@@ -264,4 +315,32 @@ export type DeviceNoteInput = {
 export type AssignDevice = {
   deviceIds: string[];
   assigneeId: string;
+  comment: string;
+};
+
+export enum FieldType {
+  TEXT = "TEXT",
+  NUMBER = "NUMBER",
+  SELECT = "SELECT",
+  DATE = "DATE",
+}
+
+export enum SmModules {
+  SURVEY = "SURVEY",
+  JOB_ORDER = "JOB_ORDER",
+}
+
+export type DyanamicField = {
+  id: string;
+  label: string;
+  module: SmModules;
+  type: FieldType;
+  createdAt: string;
+  orgId: string;
+};
+
+export type DynamicFieldInput = {
+  label: string;
+  type: FieldType;
+  module: SmModules;
 };

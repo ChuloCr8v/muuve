@@ -2,35 +2,34 @@ import { Button, Form, Input, message } from "antd";
 import { useState } from "react";
 import { CustomLabel } from "../../../global/Extras";
 import MultiUpload from "../../../global/MultipleUpload";
-import { useReportFaultMutation } from "../../../../api/devices";
+import { useReportFaultMutation } from "../../../../api/devices.api";
 import { toastApiError } from "../../../../utils/error.util";
 
 interface Prop {
   selectedRow: any;
-  setOpenActionModal: any
+  setOpenActionModal: any;
 }
 
 const { TextArea } = Input;
 
 export default function DeviceFault(props: Prop) {
   const { selectedRow, setOpenActionModal } = props;
-  const [reportFault, {isLoading}] = useReportFaultMutation()
-  const [form] = Form.useForm()
+  const [reportFault, { isLoading }] = useReportFaultMutation();
+  const [form] = Form.useForm();
 
   const Submit = async () => {
     const values = await form.validateFields();
 
-    const data = {...values, id: selectedRow.id}
+    const data = { ...values, id: selectedRow.id };
 
-    reportFault(data).unwrap()
-    .then(() => {
-      message.success("Fault Reported")
-      setOpenActionModal(false)
-    })
-    .catch(toastApiError)
-
-
-  }
+    reportFault(data)
+      .unwrap()
+      .then(() => {
+        message.success("Fault Reported");
+        setOpenActionModal(false);
+      })
+      .catch(toastApiError);
+  };
 
   return (
     <Form form={form} layout="vertical" className="space-y-[12px]">

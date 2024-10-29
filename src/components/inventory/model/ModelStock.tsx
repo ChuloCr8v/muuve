@@ -1,22 +1,32 @@
 import {
   ArrowRightOutlined,
-  CheckCircleOutlined,
   CheckOutlined,
   CloseCircleOutlined,
   ExclamationCircleOutlined,
   OrderedListOutlined,
-  WarningOutlined,
 } from "@ant-design/icons";
-import { Input, Select, Table, Tag } from "antd";
-import { twMerge } from "tailwind-merge";
-import SummaryCards from "../../global/SummaryCards";
+import { Input, Select } from "antd";
+import { format } from "date-fns";
+import { Device, DeviceStatus } from "../../../api/types";
+import StatusTag from "../../global/StatusTag";
+import SummaryCards, { SummaryDataType } from "../../global/SummaryCards";
 import TableComponent from "../../global/TableComponent";
 
 interface Props {
-  data: any;
+  devices: Device[];
 }
 
-export default function ModelStock({ data }: Props) {
+export default function ModelStock({ devices }: Props) {
+  const availableDevices = devices.filter(
+    (d) => d.status === DeviceStatus.AVAILABLE
+  );
+
+  const assignedDevices = devices.filter(
+    (d) => d.status === DeviceStatus.ASSIGNED
+  );
+
+  const faultyDevices = devices.filter((d) => d.status === DeviceStatus.FAULTY);
+
   // const Filters = [
   //   {
   //     label: 'Total',
@@ -40,12 +50,10 @@ export default function ModelStock({ data }: Props) {
   //   },
   // ];
 
-  const columnData = data.devices;
-
-  const column = [
+  const columns = [
     {
-      title: "Serial Number",
-      dataIndex: "id",
+      title: "Serial No",
+      dataIndex: "serialNumber",
       width: 100,
       render: (text: string) => (
         <span className="text-[12px] text-[#171717] w-full truncate">
@@ -67,7 +75,7 @@ export default function ModelStock({ data }: Props) {
     },
     {
       title: "Location",
-      dataIndex: "Location",
+      dataIndex: "location",
       render: (text: string) => (
         <div>
           <p className="text-[12px] text-[#171717]">{text}</p>
@@ -77,66 +85,69 @@ export default function ModelStock({ data }: Props) {
     {
       title: "Status",
       key: 4,
-      dataIndex: "Status",
-      render: (text: string) => (
-        <div className="">
-          <Tag
-            icon={
-              text === "ASSIGNED" ? (
-                <CheckCircleOutlined className="text-[#379D51]" />
-              ) : text === "FAULTY" ? (
-                <CloseCircleOutlined className="text-[#F05050]" />
-              ) : (
-                <WarningOutlined className="text-[#B9A325]" />
-              )
-            }
-            className={twMerge(
-              "text-[10px] rounded-2xl",
-              text === 'AVAILABLE'
-                ? "text-[#B9A325] border-[#B9A325] bg-[#FDF7DD]"
-                : text === 'FAULTY'
-                ? "text-[#F05050] border-[#F05050] bg-[#FFE1E1]"
-                : "text-[#379D51] border-[#379D51] bg-[#E3FFE6]"
-            )}
-          >
-            {text}
-          </Tag>
-        </div>
-      ),
+      dataIndex: "status",
+      render: (status: DeviceStatus) => {
+        if (status === DeviceStatus.ASSIGNED) {
+          return (
+            <StatusTag status={status} bgColor="#FDF7DD" textColor="#B9A325" />
+          );
+        } else if (status === DeviceStatus.FAULTY) {
+          return (
+            <StatusTag status={status} bgColor="#FFE1E1" textColor="#F05050" />
+          );
+        } else
+          return (
+            <StatusTag status={status} bgColor="#E3FFE6" textColor="#379D51" />
+          );
+      },
     },
     {
-      title: "Date",
-      dataIndex: "data",
+      title: "Date Procured",
+      dataIndex: "dateProcured",
+      render: (date: string) => format(date, "dd-MM-yyyy"),
     },
     {
       title: "",
       dataIndex: "",
-      render: () => <ArrowRightOutlined/>
+      render: () => <ArrowRightOutlined />,
     },
   ];
 
-  const summaryCard = [
+  const summaryCard: SummaryDataType[] = [
     {
       label: "Total",
-      value: 22,
+      value: devices.length,
       icon: <OrderedListOutlined />,
+      background: "#F2F9FC",
+      iconBg: "#0A95CC1A",
+      iconColor: "#0A95CC",
     },
     {
       label: "Assigned",
-      value: 19,
+      value: assignedDevices.length,
       icon: <CheckOutlined />,
+      background: "#F0F9F2",
+      iconBg: "#379D511A",
+      iconColor: "#379D51",
     },
     {
       label: "Available",
-      value: 2,
+      value: availableDevices.length,
       icon: <ExclamationCircleOutlined />,
+      background: "#FAF8EE",
+      iconBg: "#B9A3251A",
+      iconColor: "#B9A325",
     },
     {
       label: "Faulty",
-      value: 1,
+      value: faultyDevices.length,
       icon: <CloseCircleOutlined />,
+      background: "#FBEEEE",
+      iconBg: "#C42A2A1A",
+      iconColor: "#C42A2A",
     },
   ];
+
   return (
     <div className="space-y-[16px]">
       <p className="text-[16px] font-semibold">Stock</p>
@@ -153,6 +164,7 @@ export default function ModelStock({ data }: Props) {
             </div>
           ))}
         </div> */}
+
       <SummaryCards summaryData={summaryCard} />
 
       <section className="flex w-full space-x-[16px]">
@@ -169,7 +181,11 @@ export default function ModelStock({ data }: Props) {
         />
       </section>
 
-      <TableComponent columns={column} dataSource={data.devices} />
+      <TableComponent<Device>
+        columns={columns}
+        dataSource={devices}
+        scroll={800}
+      />
     </div>
   );
 }
