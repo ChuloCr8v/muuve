@@ -8,26 +8,27 @@ import {
   WarningOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Input, MenuProps, Tag } from "antd";
-import { useState } from "react";
-import Header from "../../components/global/Header";
 import { ColumnType } from "antd/es/table";
 import { format } from "date-fns";
+import { useState } from "react";
+import { CiEdit, CiWarning } from "react-icons/ci";
 import { FaBan } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { LuUserPlus2 } from "react-icons/lu";
 import { VscVmActive } from "react-icons/vsc";
 import { twMerge } from "tailwind-merge";
 import { useListDevicesQuery } from "../../api/devices.api";
 import { Device, User } from "../../api/types";
+import DropdownCustomItem from "../../components/global/DropdownCustomItem";
+import Header from "../../components/global/Header";
 import TableComponent from "../../components/global/TableComponent";
 import { usePopup } from "../../context/PopupContext";
 import { AddDeviceDrawer } from "../../drawers/inventory/AddDeviceDrawer";
-import { IoMdArrowDropdown } from "react-icons/io";
-import { CiEdit, CiWarning } from "react-icons/ci";
-import { LuUserPlus2 } from "react-icons/lu";
-import { MdDeleteOutline } from "react-icons/md";
+import { EditDeviceDrawer } from "../../drawers/inventory/EditDeviceDrawer";
 import { AssignDeviceModal } from "../../modals/inventory/AssignDeviceModal";
+import { ReportFaultModal } from "../../modals/inventory/ReportFaultModal";
 import { getInitials } from "../../utils/getInitials";
-import StatusTag from "../../components/global/StatusTag";
-// import { SurveyData } from "../../components/data/SurveyData";
+import { DeviceDetailDrawer } from "../../drawers/inventory/DeviceDetailDrawer";
 
 export default function Devices() {
   const { openDrawer, openModal } = usePopup();
@@ -77,17 +78,20 @@ export default function Devices() {
     {
       title: "Assigned to",
       dataIndex: "assignee",
-      render: (assignee: User) => (
-        <div className="flex space-x-2">
-          <Avatar
-            className="bg-[#EFF7FB] font-semibold text-[#0A96CC] text-[3px]"
-            size={24}
-          >
-            {getInitials(assignee.staff.name)}
-          </Avatar>
-          <p>{assignee.staff.name}</p>
-        </div>
-      ),
+      render: (assignee?: User) =>
+        assignee ? (
+          <div className="flex space-x-2">
+            <Avatar
+              className="bg-[#EFF7FB] font-semibold text-[#0A96CC] text-[3px]"
+              size={24}
+            >
+              {getInitials(assignee.staff.name)}
+            </Avatar>
+            <p>{assignee.staff.name}</p>
+          </div>
+        ) : (
+          "-"
+        ),
     },
     {
       title: "Date Procured",
@@ -149,22 +153,30 @@ export default function Devices() {
       key: "1",
       label: "Edit Details",
       icon: <CiEdit size={20} />,
+      onClick: () => openDrawer(<EditDeviceDrawer device={device} />),
     },
     {
       key: "2",
       label: "Assign Device",
       icon: <LuUserPlus2 size={20} />,
+      onClick: () => openModal(<AssignDeviceModal devices={[device]} />),
     },
     {
       key: "3",
-      label: "Report Fault",
-      icon: <CiWarning size={20} />,
+      label: (
+        <DropdownCustomItem
+          className="text-red-600"
+          label={"Report Fault"}
+          icon={<CiWarning size={20} />}
+        />
+      ),
+      onClick: () => openModal(<ReportFaultModal device={device} />),
     },
-    {
-      key: "4",
-      label: "Delete",
-      icon: <MdDeleteOutline size={20} />,
-    },
+    // {
+    //   key: "4",
+    //   label: "Delete",
+    //   icon: <MdDeleteOutline size={20} />,
+    // },
   ];
 
   return (
@@ -172,23 +184,21 @@ export default function Devices() {
       <div className="flex items-center justify-between">
         <Header heading={"Devices"} />
 
-        <section className="flex items-center gap-[16px]">
-          <Input className="w-[400px]" prefix={<SearchOutlined />} />
-          <Button>Generate Report</Button>
-          <Button>Refresh</Button>
+        {selectedDevices.length > 0 ? (
+          <Button
+            className="flex items-center spacex-2"
+            onClick={() =>
+              openModal(<AssignDeviceModal devices={selectedDevices} />)
+            }
+          >
+            <span>Assign Devices</span>
+          </Button>
+        ) : (
+          <section className="flex items-center gap-[16px]">
+            <Input className="w-[400px]" prefix={<SearchOutlined />} />
+            <Button>Generate Report</Button>
+            <Button>Refresh</Button>
 
-          {selectedDevices.length > 0 ? (
-            <Button
-              className="flex items-center spacex-2"
-              type="primary"
-              onClick={() =>
-                openModal(<AssignDeviceModal devices={selectedDevices} />)
-              }
-            >
-              <span>Assign Devices</span>
-              <PlusOutlined />
-            </Button>
-          ) : (
             <Button
               className="flex items-center spacex-2"
               type="primary"
@@ -197,8 +207,8 @@ export default function Devices() {
               <span>New Device</span>
               <PlusOutlined />
             </Button>
-          )}
-        </section>
+          </section>
+        )}
       </div>
 
       {/* <SummaryCards summaryData={summaryCard} /> */}
@@ -210,6 +220,9 @@ export default function Devices() {
         loading={listDevices.isFetching}
         isRowSelection
         onSelectionChange={(d) => setSelectedDevices(d)}
+        onRow={(device) => {
+          openDrawer(<DeviceDetailDrawer device={device} />);
+        }}
       />
     </div>
   );

@@ -1,20 +1,29 @@
 import { useState } from "react";
-import Barcode from "/assets/barcode.png";
+// import Barcode from "/assets/barcode.png";
 import DeviceClip3 from "/assets/image 6.svg";
 import DeviceClip2 from "/assets/image 7.svg";
 import DeviceClip from "/assets/image 8.svg";
 import { twMerge } from "tailwind-merge";
 import { format } from "date-fns";
-import { ExclamationCircleOutlined, CloseCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
+import {
+  ExclamationCircleOutlined,
+  CloseCircleOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 import { Tag } from "antd";
+import { Device } from "../../../api/types";
+// import { useListUploadsQuery } from "../../../api/upload.api";
 
 interface Prop {
-  data: any
+  device: Device;
 }
 
+export default function OverviewDevice({ device }: Prop) {
+  // const uploadIds = device.attachments.uploads.map((up) => up.id);
 
-export default function OverviewDevice(props: Prop) {
-  const {data} = props
+  // const listUploads = useListUploadsQuery(uploadIds);
+  // const files = listUploads.data ?? [];
+
   const imgList = [
     { img: DeviceClip },
     { img: DeviceClip2 },
@@ -26,7 +35,6 @@ export default function OverviewDevice(props: Prop) {
     setSelectedImg(img);
   };
 
-
   return (
     <div className="space-y-[16px]">
       <h2 className="text-[16px] font-semibold">Basic Information</h2>
@@ -36,7 +44,7 @@ export default function OverviewDevice(props: Prop) {
             <div className=" text-center py-[12px] space-y-[16px] rounded-md gap-[8px]">
               <img src={selectedImg} alt="" className="w-[144px] h-[144px]" />
               <div className="flex space-x-[16px] justify-center">
-                {imgList.map((img, index) => (
+                {imgList?.map((img, index) => (
                   <div
                     onClick={() => handleImageClick(img.img)}
                     className={twMerge(
@@ -54,9 +62,9 @@ export default function OverviewDevice(props: Prop) {
             </div>
           </section>
 
-          <div className="border-[#E9EAEB] border-[1px] justify-center rounded-md py-[24px] px-[19px]">
+          {/* <div className="border-[#E9EAEB] border-[1px] justify-center rounded-md py-[24px] px-[19px]">
             <img src={Barcode} alt="" />
-          </div>
+          </div> */}
         </section>
 
         <section className=" col-span-3 p-[16px] space-y-[8px]">
@@ -65,7 +73,7 @@ export default function OverviewDevice(props: Prop) {
               DEVICE NAME
             </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.name}
+              {device.name}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
@@ -73,7 +81,7 @@ export default function OverviewDevice(props: Prop) {
               SERIAL NO.
             </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.serialNumber}
+              {device.serialNumber}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
@@ -81,7 +89,7 @@ export default function OverviewDevice(props: Prop) {
               MANUFACTURER
             </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.manufacturer}
+              {device.manufacturer}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
@@ -89,7 +97,7 @@ export default function OverviewDevice(props: Prop) {
               Part Number
             </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.partNumber}
+              {device.partNumber}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
@@ -97,46 +105,57 @@ export default function OverviewDevice(props: Prop) {
               AVAILABLE
             </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.status}
+              {device.status}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
             <span className="text-[12px] text-[#777777B2] font-bold">COST</span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.cost}
+              {device.cost}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
-            <span className="text-[12px] text-[#777777B2] font-bold">Model</span>{" "}
+            <span className="text-[12px] text-[#777777B2] font-bold">
+              Model
+            </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.model.name}
+              {device.model.name}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
-            <span className="text-[12px] text-[#777777B2] font-bold">Location</span>{" "}
+            <span className="text-[12px] text-[#777777B2] font-bold">
+              Location
+            </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.location}
+              {device.location}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
-            <span className="text-[12px] text-[#777777B2] font-bold">Status</span>{" "}
+            <span className="text-[12px] text-[#777777B2] font-bold">
+              Status
+            </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-            <Tag
-          icon={
-            data.status === "AVAILABLE" ? <ExclamationCircleOutlined /> :
-            data.status === "FAULTY" ? <CloseCircleOutlined /> : <CheckCircleOutlined />
-          }
-          className={twMerge(
-            "rounded-2xl tagSize font-semibold items-center",
-            data.status === "ASSIGNED"
-              ? "bg-[#E3FFE6] text-[#379D51] border-[#379D51]"
-              :  data.status === "FAULTY"
-              ? "bg-[#FFE1E1] text-[#F05050] border-[#F05050]"
-              : "bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]"
-          )}
-        >
-          { data.status}
-        </Tag>
+              <Tag
+                icon={
+                  device.status === "AVAILABLE" ? (
+                    <ExclamationCircleOutlined />
+                  ) : device.status === "FAULTY" ? (
+                    <CloseCircleOutlined />
+                  ) : (
+                    <CheckCircleOutlined />
+                  )
+                }
+                className={twMerge(
+                  "rounded-2xl tagSize font-semibold items-center",
+                  device.status === "ASSIGNED"
+                    ? "bg-[#E3FFE6] text-[#379D51] border-[#379D51]"
+                    : device.status === "FAULTY"
+                    ? "bg-[#FFE1E1] text-[#F05050] border-[#F05050]"
+                    : "bg-[#FDF7DD] text-[#B9A325] border-[#B9A325]"
+                )}
+              >
+                {device.status}
+              </Tag>
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
@@ -144,7 +163,7 @@ export default function OverviewDevice(props: Prop) {
               VENDOR
             </span>{" "}
             <span className="text-[13px] font-semibold text-left w-[50%]">
-              {data?.vendor}
+              {device.vendor}
             </span>
           </div>
           <div className="flex justify-between md:w-[90%] w-[100%]">
@@ -152,7 +171,7 @@ export default function OverviewDevice(props: Prop) {
               DATE PRODUCED
             </span>
             <span className="text-[13px] font-semibold text-left w-[50%]">
-                {format(new Date(data?.dateProcured), 'd MMM yyyy')}
+              {format(new Date(device.dateProcured), "d MMM yyyy")}
             </span>
           </div>
           {/* <div className="flex items-center justify-between md:w-[90%] w-[100%]">
@@ -169,7 +188,7 @@ export default function OverviewDevice(props: Prop) {
               DESCRIPTION
             </p>
             <p className="text-[13px] font-semibold text-left">
-              {data?.description}
+              {device.description}
             </p>
           </div>
         </section>

@@ -1,6 +1,7 @@
 import { api } from "./base";
 import {
   AddModelInput,
+  InventoryNotes,
   Model,
   ModelNoteInput,
   UpdateModelInput,
@@ -40,8 +41,8 @@ export const modelApi = api.injectEndpoints({
       invalidatesTags: ["model"],
     }),
 
-    listModelNotes: query<AddModelInput, void>({
-      query: (id) => `models/${id}/notes`,
+    listModelNotes: query<InventoryNotes[], { id: string }>({
+      query: ({ id }) => `models/${id}/notes`,
       providesTags: ["model"],
     }),
   }),

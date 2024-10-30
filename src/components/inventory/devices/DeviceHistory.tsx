@@ -5,14 +5,14 @@ import {
 } from "@ant-design/icons";
 import type { CollapseProps } from "antd";
 import { Badge, Collapse, Input } from "antd";
+import { Device } from "../../../api/types";
 import AttachmentCard from "../../global/AttachmentCard";
-//   import { Device } from '~/api/devices.api';
 
 interface Prop {
-  data: any;
+  device: Device;
 }
 
-export default function DeviceHistory({ data }: Prop) {
+export default function DeviceHistory({ device }: Prop) {
   const list = [
     { name: "Document fghg", size: "15.2mb" },
     { name: "Document 1", size: "15.2mb" },
@@ -24,11 +24,11 @@ export default function DeviceHistory({ data }: Prop) {
         <section className=" relative border-[#F0F1F3] items-center flex justify-between">
           <div>
             <p className="text-[14px] font-semibold leading-3">
-              Assigned Microwave({data.name})
+              Assigned Microwave({device.name})
             </p>
             <p className="space-x-1 text-[12px] leading-8 text-[#777777]">
               <span>by</span>
-              <span className="text-[#0A96CC] font-semibold">Modesta Ekeh</span>
+              <span className="text-[#0A96CC] font-semibold"></span>
               <ArrowRightOutlined />
               <span className="text-[#0A96CC] font-semibold">Modesta Ekeh</span>
             </p>
@@ -40,11 +40,15 @@ export default function DeviceHistory({ data }: Prop) {
         <section className=" space-y-[8px]">
           {/* <Table columns={column} /> */}
           <p className="px-[8px] py-[6px] bg-[#FBFBFB] border-[#E9EAEB] border-[1px] rounded-md">
-            {data.comment}
+            {/* {data.comment} */}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium
+            deleniti consectetur doloribus saepe repellat assumenda voluptatibus
+            autem, quasi, sapiente illum delectus? Neque distinctio corrupti
+            odit vitae voluptatibus. Reprehenderit, officia dolorem?
           </p>
           <div className="grid grid-cols-3 gap-2">
             {list.map((data) => (
-              <AttachmentCard name={data.name} size={data.size} />
+              <AttachmentCard name={data.name} size={1024} id="1" />
             ))}
           </div>
         </section>

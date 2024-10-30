@@ -1,10 +1,13 @@
 import { SendOutlined } from "@ant-design/icons";
-import { Avatar, Button, Form, Input, message } from "antd";
+import { Avatar, Button, Form, Input, message, Spin } from "antd";
 import { format } from "date-fns";
-import moment from "moment";
-import { useCreateModelNoteMutation } from "../../../api/model.api";
+import {
+  useCreateModelNoteMutation,
+  useListModelNotesQuery,
+} from "../../../api/model.api";
 import { Model } from "../../../api/types";
 import { toastApiError } from "../../../utils/error.util";
+import { getInitials } from "../../../utils/getInitials";
 
 const { TextArea } = Input;
 
@@ -16,21 +19,23 @@ export default function ModelNotes({ model }: Props) {
   const [form] = Form.useForm();
   const [createNote, { isLoading }] = useCreateModelNoteMutation();
 
+  const listNotes = useListModelNotesQuery({ id: model.id });
+
+  const notes = listNotes.data ?? [];
+
   const submit = async () => {
     const values = await form.validateFields();
-    console.log(values);
     createNote({ modelId: model.id, ...values })
       .unwrap()
-      .then(() => message.success("Note Added"))
+      .then(async () => {
+        message.success("Note Submitted");
+        form.resetFields();
+        await listNotes.refetch();
+      })
       .catch(toastApiError);
   };
 
   const UserAvatar = ({ name }: { name: string }) => {
-    const getInitials = (name: string) => {
-      if (!name) return "N/A";
-      const words = name.split(" ");
-      return words.map((word) => word[0]).join("");
-    };
     return (
       <Avatar
         size={32}
@@ -70,31 +75,30 @@ export default function ModelNotes({ model }: Props) {
 
       <section className="space-y-[16px]">
         <p className="text-[16px] font-semibold">
-          All Notes{" "}
-          <span className="text-[#0A95CC]">({model.notes?.length || 0})</span>
+          All Notes <span className="text-[#0A95CC]">({notes.length})</span>
         </p>
 
-        {/* {isFetching ? (
-          <Spin /> // Show a loading spinner while fetching
-        ) : ( */}
-        {model.notes?.map((note) => (
-          <div className="flex space-x-[8px]" key={note.id}>
-            <div>
-              <UserAvatar name={note.user.staff.name} />
+        {listNotes.isFetching ? (
+          <Spin />
+        ) : (
+          notes.map((n) => (
+            <div className="flex space-x-3" key={n.id}>
+              <div>
+                <UserAvatar name={n.user.staff.name} />
+              </div>
+              <div className="space-y-[4px] w-full">
+                <p className="font-semibold">{n.user.staff.name}</p>
+                <p className="p-[12px] text-[14px] bg-[#FBFBFB]  border-[#E9EAEB] border-[1px] rounded-md">
+                  {n.comment}
+                </p>
+                <p className="text-[#9A999E] text-[12px]">
+                  {format(new Date(n.createdAt), "d MMM yyy")},{" "}
+                  {format(n.createdAt, "HH:mm")}
+                </p>
+              </div>
             </div>
-            <div className="space-y-[4px]">
-              <p className="font-semibold">{note.user.staff.name}</p>
-              <p className="p-[12px] text-[14px] bg-[#FBFBFB] border-[#E9EAEB] border-[1px] rounded-md">
-                {note.comment}
-              </p>
-              <p className="text-[#9A999E] text-[12px]">
-                {format(new Date(note.createdAt), "d MMM yyy")},{" "}
-                {moment(note.createdAt).format("HH:mm")}
-              </p>
-            </div>
-          </div>
-        ))}
-        {/* )} */}
+          ))
+        )}
       </section>
     </section>
   );

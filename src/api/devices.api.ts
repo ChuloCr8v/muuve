@@ -4,6 +4,7 @@ import {
   AssignDevice,
   Device,
   DeviceNoteInput,
+  InventoryNotes,
   ReportFault,
   UpdateDeviceInput,
 } from "./types";
@@ -43,16 +44,16 @@ export const deviceApi = api.injectEndpoints({
     }),
 
     createDeviceNote: mutation<void, DeviceNoteInput>({
-      query: (body) => ({
-        url: "/devices/note",
+      query: ({ deviceId, ...rest }) => ({
+        url: `devices/${deviceId}/note`,
         method: "POST",
-        body,
+        body: rest,
       }),
       invalidatesTags: ["model"],
     }),
 
-    listDeviceNotes: query<AddDeviceInput, void>({
-      query: (id) => `devices/${id}/notes`,
+    listDeviceNotes: query<InventoryNotes[], { id: string }>({
+      query: ({ id }) => `devices/${id}/notes`,
       providesTags: ["device"],
     }),
 
@@ -71,6 +72,7 @@ export const {
   useListDevicesQuery,
   useUpdateDeviceMutation,
   useReportFaultMutation,
-  useLazyListDeviceNotesQuery,
+  useListDeviceNotesQuery,
   useAssignDeviceMutation,
+  useCreateDeviceNoteMutation,
 } = deviceApi;

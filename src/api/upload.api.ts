@@ -64,3 +64,20 @@ export async function cleanupUploads(ids: string | string[]) {
     debug("Cleanup error:", getApiError(e));
   }
 }
+
+import { api } from "./base";
+import { Upload } from "./types";
+
+export const uploadApi = api.injectEndpoints({
+  endpoints: ({ query }) => ({
+    listUploads: query<Upload[], string[]>({
+      query: (ids: string[]) => ({
+        url: "/uploads",
+        method: "GET",
+        params: { ids },
+      }),
+    }),
+  }),
+});
+
+export const { useListUploadsQuery } = uploadApi;

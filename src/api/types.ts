@@ -95,7 +95,7 @@ export enum SurveyStatus {
   COMPLETED = "COMPLETED",
 }
 
-type Upload = {
+export type Upload = {
   id: string;
   name: string;
   key: string;
@@ -103,22 +103,14 @@ type Upload = {
   order: number;
   size: number;
   createdAt: number;
+  fileContent?: {
+    data: Buffer;
+  };
 };
 
 type Attachments = {
   id: string;
   uploads: Upload[];
-};
-
-export type SurveyLog = {
-  id: string;
-  action: string;
-  attachments: Attachments;
-  byStaff: User;
-  toStaff: User;
-  changedStatus: SurveyStatus;
-  comment: string;
-  createdAt: string;
 };
 
 export type Survey = {
@@ -143,7 +135,7 @@ export type Survey = {
   status: SurveyStatus;
   requestType: OrgRequestType;
   serviceType: OrgServiceType;
-  logs: SurveyLog[];
+  logs: Log[];
 };
 
 export type NewSurveyInput = {
@@ -242,6 +234,17 @@ export enum DeviceStatus {
   FAULTY = "FAULTY",
 }
 
+export type Log = {
+  id: string;
+  action: string;
+  attachments: Attachments;
+  byStaff: User;
+  toStaff: User;
+  changedStatus: SurveyStatus;
+  comment: string;
+  createdAt: string;
+};
+
 export type Device = {
   id: string;
   name: string;
@@ -259,6 +262,8 @@ export type Device = {
   orgId: string;
   model: Model;
   notes: InventoryNotes;
+  attachments: Attachments;
+  logs: Log[];
 };
 
 export type AddDeviceInput = {
@@ -298,8 +303,9 @@ export type UpdateDeviceInput = {
 };
 
 export type ReportFault = {
-  comment: string;
   id: string;
+  comment: string;
+  attachments: string[];
 };
 
 export type ModelNoteInput = {
@@ -309,7 +315,7 @@ export type ModelNoteInput = {
 
 export type DeviceNoteInput = {
   comment: string;
-  modelId: string;
+  deviceId: string;
 };
 
 export type AssignDevice = {

@@ -1,34 +1,59 @@
 import { DatePicker, Form, Input, InputNumber, message, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useAddDeviceMutation } from "../../api/devices.api";
+import dayjs from "dayjs";
+import { useUpdateDeviceMutation } from "../../api/devices.api";
 import { useListModelQuery } from "../../api/model.api";
+import { Device } from "../../api/types";
 import { CustomDrawer } from "../../components/common/CustomDrawer";
 import MultiUpload from "../../components/global/MultiUpload";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
 
-export const AddDeviceDrawer = () => {
+interface Props {
+  device: Device;
+}
+
+export const EditDeviceDrawer = ({ device }: Props) => {
   const [form] = Form.useForm();
   const { closeDrawer } = usePopup();
 
-  const [addDevice, { isLoading }] = useAddDeviceMutation();
-
+  const [addDevice, { isLoading }] = useUpdateDeviceMutation();
   const { data: models } = useListModelQuery();
 
   const submit = async () => {
     const values = await form.validateFields();
-    addDevice(values)
+    addDevice({ id: device.id, ...values })
       .unwrap()
       .then(() => {
-        message.success("Device Created");
+        message.success("Device Updated");
         closeDrawer();
       })
       .catch(toastApiError);
   };
 
   return (
-    <CustomDrawer title="New Device" onSubmit={submit} loading={isLoading}>
-      <Form form={form} layout="vertical" className="">
+    <CustomDrawer
+      title="Update Device"
+      onSubmit={submit}
+      loading={isLoading}
+      okText="Update"
+    >
+      <Form
+        form={form}
+        layout="vertical"
+        initialValues={{
+          name: device.name,
+          serialNumber: device.serialNumber,
+          manufacturer: device.manufacturer,
+          modelId: device.modelId,
+          location: device.location,
+          vendor: device.vendor,
+          partNumber: device.partNumber,
+          cost: device.cost,
+          dateProcured: dayjs(device.dateProcured),
+          description: device.description,
+        }}
+      >
         <main className="">
           <Form.Item
             name="name"
@@ -181,19 +206,8 @@ export const AddDeviceDrawer = () => {
           >
             <TextArea required />
           </Form.Item>
-
-          <Form.Item
-            label="Upload Device Image"
-            name="attachments"
-            required
-            rules={[
-              {
-                required: true,
-                message: "Upload",
-              },
-            ]}
-          >
-            <MultiUpload accept="image/*" />
+          <Form.Item label="Upload Device Image" name="attachments">
+            <MultiUpload />
           </Form.Item>
         </main>
       </Form>
