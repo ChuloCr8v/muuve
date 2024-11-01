@@ -12,7 +12,6 @@ export const tagTypes = [
   "device",
   "services",
   "dynamic-form",
-  ,
   "ticket",
 ] as const;
 
