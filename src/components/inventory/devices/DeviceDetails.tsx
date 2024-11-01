@@ -3,7 +3,6 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import DeviceOverview from "./DeviceOverview";
 import DeviceHistory from "./DeviceHistory";
-import Notes from "../model/ModelNotes";
 import DeviceNotes from "./DeviceNotes";
 
 interface Prop {
@@ -26,7 +25,9 @@ export default function DeviceDetails(props: Prop) {
       title={
         <div className="">
           <div className="flex justify-between py-1">
-            <p className="text-[20px] text-[#262626] ">{selectedRow?.model?.name}</p>
+            <p className="text-[20px] text-[#262626] ">
+              {selectedRow?.model?.name}
+            </p>
             {/* <Dropdown trigger={['click']} menu={{ items }}>
                 <Button
                   style={{ fontWeight: 600 }}

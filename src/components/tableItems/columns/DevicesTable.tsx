@@ -1,10 +1,14 @@
 import { Avatar, Tag } from "antd";
 import TableComponent from "../../global/TableComponent";
 import { useCallback } from "react";
-import { useListDevicesQuery } from "../../../api/devices";
-import { format } from 'date-fns';
+import { useListDevicesQuery } from "../../../api/devices.api";
+import { format } from "date-fns";
 import DeviceAction from "../../inventory/devices/DeviceActionButton";
-import { CheckCircleOutlined, CloseCircleOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import {
+  CheckCircleOutlined,
+  CloseCircleOutlined,
+  ExclamationCircleOutlined,
+} from "@ant-design/icons";
 import { twMerge } from "tailwind-merge";
 
 interface Prop {
@@ -17,7 +21,7 @@ export default function DevicesTable(props: Prop) {
   const { selectedRow, setSelectedRow, setnewDevice } = props;
   const { data: devices } = useListDevicesQuery();
 
-  console.log(devices)
+  console.log(devices);
 
   const column = [
     {
@@ -31,14 +35,17 @@ export default function DevicesTable(props: Prop) {
     {
       title: "Model",
       dataIndex: "model",
-      render: (record: any) => <span>{record.name}</span>
+      render: (record: any) => <span>{record.name}</span>,
     },
     {
       title: "Assigned to",
       dataIndex: "assignee",
       render: (text: string) => (
         <div className="flex space-x-2">
-          <Avatar className="bg-[#EFF7FB] font-semibold text-[#0A96CC] text-[3px]" size={24}>
+          <Avatar
+            className="bg-[#EFF7FB] font-semibold text-[#0A96CC] text-[3px]"
+            size={24}
+          >
             {text?.slice(0, 1)}
           </Avatar>
           <p>{text}</p>
@@ -48,7 +55,9 @@ export default function DevicesTable(props: Prop) {
     {
       title: "Date Procured",
       dataIndex: "dateProcured",
-      render: (text: string) => <span>{format(new Date(text), 'd MMM yyyy')}</span>,
+      render: (text: string) => (
+        <span>{format(new Date(text), "d MMM yyyy")}</span>
+      ),
     },
     {
       title: "Status",
@@ -56,8 +65,13 @@ export default function DevicesTable(props: Prop) {
       render: (text: string) => (
         <Tag
           icon={
-            text === "AVAILABLE" ? <ExclamationCircleOutlined /> :
-            text === "FAULTY" ? <CloseCircleOutlined /> : <CheckCircleOutlined />
+            text === "AVAILABLE" ? (
+              <ExclamationCircleOutlined />
+            ) : text === "FAULTY" ? (
+              <CloseCircleOutlined />
+            ) : (
+              <CheckCircleOutlined />
+            )
           }
           className={twMerge(
             "rounded-2xl tagSize font-semibold items-center",
@@ -78,7 +92,7 @@ export default function DevicesTable(props: Prop) {
       render: (record: any) => (
         <DeviceAction
           setnewDevice={setnewDevice}
-          selectedRow={record} 
+          selectedRow={record}
           setSelectedRow={setSelectedRow}
         />
       ),

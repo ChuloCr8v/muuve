@@ -2,8 +2,8 @@ import { Tabs, TabsProps } from "antd";
 import { Survey } from "../../api/types";
 import { CustomDrawer } from "../../components/common/CustomDrawer";
 import StatusTag from "../../components/global/StatusTag";
+import LogComponent from "../../components/global/Log";
 import SurveyDetails from "../../components/projects/survey/SurveyDetails";
-import SurveyLog from "../../components/projects/survey/SurveyLog";
 
 interface Props {
   survey: Survey;
@@ -62,7 +62,7 @@ const SurveyDetailsDrawer = ({ survey }: Props) => {
     {
       key: "2",
       label: "Logs",
-      children: <SurveyLog logs={survey.logs} />,
+      children: <LogComponent logs={survey.logs} />,
     },
   ];
 

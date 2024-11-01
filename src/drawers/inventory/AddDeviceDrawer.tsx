@@ -1,118 +1,33 @@
-import {
-  Button,
-  DatePicker,
-  Drawer,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Select,
-} from "antd";
+import { DatePicker, Form, Input, InputNumber, message, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import MultiUpload from "../../global/MultipleUpload";
-import { useEffect } from "react";
-import { useListModelQuery } from "../../../api/model.api";
-import { toastApiError } from "../../../utils/error.util";
-import {
-  useAddDeviceMutation,
-  useUpdateDeviceMutation,
-} from "../../../api/devices";
-import dayjs from "dayjs";
+import { useAddDeviceMutation } from "../../api/devices.api";
+import { useListModelQuery } from "../../api/model.api";
+import { CustomDrawer } from "../../components/common/CustomDrawer";
+import MultiUpload from "../../components/global/MultiUpload";
+import { usePopup } from "../../context/PopupContext";
+import { toastApiError } from "../../utils/error.util";
 
-interface Prop {
-  open: any;
-  setnewDevice: any;
-  selectedRow: any;
-}
-
-export default function DeviceForm(props: Prop) {
-  const { open, setnewDevice, selectedRow } = props;
-  const [addDevice, { isLoading }] = useAddDeviceMutation();
-  const [updateDevice, { isLoading: load }] = useUpdateDeviceMutation();
-  const { data: modelList } = useListModelQuery();
-
-  console.log(selectedRow?.dateProcured);
-
+export const AddDeviceDrawer = () => {
   const [form] = Form.useForm();
+  const { closeDrawer } = usePopup();
 
-  useEffect(() => {
-    if (selectedRow) {
-      form.setFieldsValue({
-        name: selectedRow.name,
-        id: selectedRow.id,
-        modelId: selectedRow.model.id,
-        serialNumber: selectedRow.serialNumber,
-        manufacturer: selectedRow.manufacturer,
-        cost: selectedRow.cost,
-        vendor: selectedRow.vendor,
-        location: selectedRow.location,
-        partNumber: selectedRow.partNumber,
-        dateProcured: dayjs(selectedRow.dateProcured),
-        description: selectedRow.description,
-      });
-    } else {
-      form.resetFields();
-    }
-  }, [selectedRow, form]);
+  const [addDevice, { isLoading }] = useAddDeviceMutation();
 
-  const Submit = async () => {
+  const { data: models } = useListModelQuery();
+
+  const submit = async () => {
     const values = await form.validateFields();
-    if (values.dateProcured) {
-      values.dateProcured = values.dateProcured.toISOString();
-    }
     addDevice(values)
       .unwrap()
       .then(() => {
         message.success("Device Created");
-        setnewDevice(false);
-      })
-      .catch(toastApiError);
-  };
-
-  const EditDevice = async () => {
-    const values = await form.validateFields();
-    if (values.dateProcured) {
-      values.dateProcured = values.dateProcured.toDate();
-    }
-    // const { id, ...updatedValues } = values;
-
-    const data = { ...values, id: selectedRow.id };
-
-    updateDevice(data)
-      .unwrap()
-      .then(() => {
-        message.success("Device Updated Successfully");
-        setnewDevice(false);
+        closeDrawer();
       })
       .catch(toastApiError);
   };
 
   return (
-    <Drawer
-      closeIcon={null}
-      footer={
-        <footer className="flex items-center justify-end w-full gap-3 py-3 bg-white  shadow-lg shrink-0">
-          <Button size="middle" htmlType="button">
-            Cancel
-          </Button>
-
-          <Button
-            size="middle"
-            type="primary"
-            htmlType="submit"
-            loading={selectedRow ? load : isLoading}
-            onClick={selectedRow ? EditDevice : Submit}
-            style={{ minWidth: "6em" }}
-          >
-            {selectedRow ? "Update" : "Submit"}
-          </Button>
-        </footer>
-      }
-      width={450}
-      title={selectedRow ? "Edit Device" : "New Device"}
-      open={open}
-      onClose={() => setnewDevice(false)}
-    >
+    <CustomDrawer title="New Device" onSubmit={submit} loading={isLoading}>
       <Form form={form} layout="vertical" className="">
         <main className="">
           <Form.Item
@@ -172,9 +87,9 @@ export default function DeviceForm(props: Prop) {
             >
               <Select
                 className="w-[100%]"
-                options={modelList?.map((t) => ({
-                  value: t.id,
-                  label: t.name,
+                options={models?.map((m) => ({
+                  value: m.id,
+                  label: m.name,
                 }))}
               />
             </Form.Item>
@@ -253,21 +168,6 @@ export default function DeviceForm(props: Prop) {
           >
             <DatePicker className="w-full" />
           </Form.Item>
-
-          <Form.Item
-            name="upload"
-            label="Upload Device Image"
-            // required
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: "Uploa device image",
-            //   },
-            // ]}
-          >
-            <MultiUpload files={[]} setFiles={undefined} />
-          </Form.Item>
-
           <Form.Item
             name="description"
             label="Description"
@@ -275,14 +175,28 @@ export default function DeviceForm(props: Prop) {
             rules={[
               {
                 required: true,
-                message: "Decription",
+                message: "Description",
               },
             ]}
           >
             <TextArea required />
           </Form.Item>
+
+          <Form.Item
+            label="Upload Device Image"
+            name="attachments"
+            required
+            rules={[
+              {
+                required: true,
+                message: "Upload",
+              },
+            ]}
+          >
+            <MultiUpload accept="image/*" />
+          </Form.Item>
         </main>
       </Form>
-    </Drawer>
+    </CustomDrawer>
   );
-}
+};

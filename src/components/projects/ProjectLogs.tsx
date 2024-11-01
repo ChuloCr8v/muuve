@@ -7,10 +7,10 @@ import { twMerge } from "tailwind-merge";
 import { FaChevronUp } from "react-icons/fa";
 import AttachmentCard from "../global/AttachmentCard";
 import { FaCircle } from "react-icons/fa6";
-import { SurveyLog } from "../../api/types";
+import { Log } from "../../api/types";
 
 type Props = {
-  log: SurveyLog;
+  log: Log;
 };
 
 dayjs.extend(relativeTime);
@@ -83,7 +83,7 @@ const ProjectLogItem = ({ log: logs }: Props) => {
                 "h-0 overflow-hidden transition-all duration-300 ease-in-out"
             )}
           >
-            <div className="p-3 border rounded">{comment}</div>
+            {comment && <div className="p-3 border rounded">{comment}</div>}
             {attachments && (
               <div className="grid grid-cols-2 gap-3">
                 {attachments.uploads.map((up) => (

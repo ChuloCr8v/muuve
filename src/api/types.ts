@@ -95,7 +95,7 @@ export enum SurveyStatus {
   COMPLETED = "COMPLETED",
 }
 
-type Upload = {
+export type Upload = {
   id: string;
   name: string;
   key: string;
@@ -103,22 +103,14 @@ type Upload = {
   order: number;
   size: number;
   createdAt: number;
+  fileContent?: {
+    data: Buffer;
+  };
 };
 
 type Attachments = {
   id: string;
   uploads: Upload[];
-};
-
-export type SurveyLog = {
-  id: string;
-  action: string;
-  attachments: Attachments;
-  byStaff: User;
-  toStaff: User;
-  changedStatus: SurveyStatus;
-  comment: string;
-  createdAt: string;
 };
 
 export type Survey = {
@@ -143,7 +135,7 @@ export type Survey = {
   status: SurveyStatus;
   requestType: OrgRequestType;
   serviceType: OrgServiceType;
-  logs: SurveyLog[];
+  logs: Log[];
 };
 
 export type NewSurveyInput = {
@@ -200,6 +192,30 @@ export type AddVendorInput = {
   email: string;
 };
 
+export type InventoryNotes = {
+  id: string;
+  comment: string;
+  createdAt: string;
+  userId: string;
+  user: User;
+  modelId: string;
+};
+
+export type Model = {
+  id: string;
+  name: string;
+  number: string;
+  manufacturer: string;
+  description: string;
+  category: string;
+  vendor: string;
+  createdAt: string;
+  updatedAt: string;
+  orgId: string;
+  devices: Device[];
+  notes: InventoryNotes[];
+};
+
 export type AddModelInput = {
   name: string;
   number: string;
@@ -209,6 +225,45 @@ export type AddModelInput = {
   category: string;
   vendor: string;
   vendorId: string;
+};
+
+export enum DeviceStatus {
+  AVAILABLE = "AVAILABLE",
+  ASSIGNED = "ASSIGNED",
+  DELETED = "DELETED",
+  FAULTY = "FAULTY",
+}
+
+export type Log = {
+  id: string;
+  action: string;
+  attachments: Attachments;
+  byStaff: User;
+  toStaff: User;
+  changedStatus: SurveyStatus;
+  comment: string;
+  createdAt: string;
+};
+
+export type Device = {
+  id: string;
+  name: string;
+  manufacturer: string;
+  partNumber: string;
+  serialNumber: string;
+  cost: number;
+  location: string;
+  description: string;
+  dateProcured: string;
+  vendor: string;
+  status: DeviceStatus;
+  assigneeId: string;
+  modelId: string;
+  orgId: string;
+  model: Model;
+  notes: InventoryNotes;
+  attachments: Attachments;
+  logs: Log[];
 };
 
 export type AddDeviceInput = {
@@ -221,6 +276,7 @@ export type AddDeviceInput = {
   description: string;
   dateProcured: Date;
   modelId: string;
+  attachments: string[];
 };
 
 export type UpdateModelInput = {
@@ -247,8 +303,9 @@ export type UpdateDeviceInput = {
 };
 
 export type ReportFault = {
-  comment: string;
   id: string;
+  comment: string;
+  attachments: string[];
 };
 
 export type ModelNoteInput = {
@@ -258,12 +315,40 @@ export type ModelNoteInput = {
 
 export type DeviceNoteInput = {
   comment: string;
-  modelId: string;
+  deviceId: string;
 };
 
 export type AssignDevice = {
   deviceIds: string[];
   assigneeId: string;
+  comment: string;
+};
+
+export enum FieldType {
+  TEXT = "TEXT",
+  NUMBER = "NUMBER",
+  SELECT = "SELECT",
+  DATE = "DATE",
+}
+
+export enum SmModules {
+  SURVEY = "SURVEY",
+  JOB_ORDER = "JOB_ORDER",
+}
+
+export type DyanamicField = {
+  id: string;
+  label: string;
+  module: SmModules;
+  type: FieldType;
+  createdAt: string;
+  orgId: string;
+};
+
+export type DynamicFieldInput = {
+  label: string;
+  type: FieldType;
+  module: SmModules;
 };
 
 

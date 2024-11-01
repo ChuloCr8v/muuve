@@ -11,6 +11,7 @@ export const tagTypes = [
   "model",
   "device",
   "services",
+  "dynamic-form",
 ] as const;
 
 const envUrl = import.meta.env.VITE_API_URL;

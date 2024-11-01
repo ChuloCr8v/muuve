@@ -12,7 +12,6 @@ interface Props {
 
 export default function Account({ user }: Props) {
   const name = user.staff ? user.staff.name : "";
-  console.log(name);
 
   const [logout] = useLogoutMutation();
   const authState = useAuthState();

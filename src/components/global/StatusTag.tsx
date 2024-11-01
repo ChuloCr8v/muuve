@@ -2,15 +2,21 @@ import { Tag } from "antd";
 
 type Props = {
   status: string;
+  bgColor?: string;
+  textColor?: string;
 };
 
-const StatusTag = ({ status }: Props) => {
+// TODO WORK ON THIS COMPONENT TO MAKE ALL COLORS DYNAMIC BASED ON WHATS PASSED
+
+const StatusTag = ({ status, textColor, bgColor }: Props) => {
   return (
     <Tag
-      color="#0A95CC1A"
+      color={bgColor ? bgColor : "#0A95CC1A"}
       className="rounded-full uppercase font-semibold text-xs flex items-center w-fit gap-1 py-0.5"
     >
-      <span className="text-[#0A95CC]">{status}</span>
+      <span className={textColor ? `text-[${textColor}]` : "text-[#0A95CC]"}>
+        {status}
+      </span>
     </Tag>
   );
 };

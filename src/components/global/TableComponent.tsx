@@ -1,16 +1,17 @@
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { Key } from "react";
+import { Key, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 type Props<T> = {
   columns: ColumnsType<T>;
   dataSource: T[];
-  // onRow?: TableProps<T>["onRow"];
   scroll?: number | { x?: number | true; y?: number };
   className?: string;
   loading?: boolean;
   onRow?: (record: T) => void;
+  isRowSelection?: boolean;
+  onSelectionChange?: (selectedRows: T[]) => void;
 };
 
 const TableComponent = <T extends { id: Key }>({
@@ -20,9 +21,27 @@ const TableComponent = <T extends { id: Key }>({
   className,
   loading,
   onRow,
+  isRowSelection = false,
+  onSelectionChange,
 }: Props<T>) => {
-  // add key to data for selection purpose
   const data = dataSource?.map((item: T) => ({ ...item, key: item.id }));
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
+
+  const onSelectChange = (newSelectedRowKeys: Key[]) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+    const selectedRows =
+      data?.filter((item) => newSelectedRowKeys.includes(item.key)) || [];
+
+    onSelectionChange?.(selectedRows);
+  };
+
+  const rowSelection = isRowSelection
+    ? {
+        selectedRowKeys,
+        onChange: onSelectChange,
+      }
+    : undefined;
 
   return (
     <Table
@@ -39,6 +58,7 @@ const TableComponent = <T extends { id: Key }>({
         className,
         "bg-white border rounded-md cursor-pointer"
       )}
+      rowSelection={rowSelection}
     />
   );
 };

@@ -1,43 +1,131 @@
-import { Button, Input, Select } from "antd";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Input, MenuProps, Select } from "antd";
+import { ColumnType } from "antd/es/table";
 import { useState } from "react";
+import { CiEdit } from "react-icons/ci";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { useListModelQuery } from "../../api/model.api";
+import { DeviceStatus, Model } from "../../api/types";
 import ActionPopup from "../../components/global/ActionPopup";
-import Danger from "/dangerSvg.svg";
-import {
-  OrderedListOutlined,
-  PlusOutlined,
-  SearchOutlined,
-  WarningOutlined,
-} from "@ant-design/icons";
 import Header from "../../components/global/Header";
-import SummaryCards from "../../components/global/SummaryCards";
-import { FaBan } from "react-icons/fa";
-import { VscVmActive } from "react-icons/vsc";
-import ModelTable from "../../components/tableItems/columns/ModelTable";
-import ModelForm from "../../components/inventory/model/ModelForm";
-import { useListModelQuery } from "../../api/model";
+import StatusTag from "../../components/global/StatusTag";
+import TableComponent from "../../components/global/TableComponent";
+import { usePopup } from "../../context/PopupContext";
+import { AddModelDrawer } from "../../drawers/inventory/AddModelDrawer";
+import Danger from "/dangerSvg.svg";
+import { EditModelDrawer } from "../../drawers/inventory/EditModelDrawer";
+import { ModelDetailDrawer } from "../../drawers/inventory/ModelDetailDrawer";
 
-export default function Model() {
+export default function InventoryModel() {
+  const { openDrawer } = usePopup();
+
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [newModel, setNewModel] = useState(false);
-  const [selectedRow, setSelectedRow] = useState(null);
-  const {data: Models} = useListModelQuery()
-  console.log(Models)
+  const listModels = useListModelQuery();
+  const models = listModels.data ?? [];
 
-  const summaryCard = [
+  // const summaryCard = [
+  //   {
+  //     label: "Total",
+  //     value: 22,
+  //     icon: <OrderedListOutlined />,
+  //   },
+  //   {
+  //     label: "Low on Stock",
+  //     value: 19,
+  //     icon: <VscVmActive />,
+  //   },
+  //   {
+  //     label: "Out of Stock",
+  //     value: 2,
+  //     icon: <FaBan />,
+  //   },
+  // ];
+
+  const actions = (model: Model): MenuProps["items"] => [
     {
-      label: "Total",
-      value: 22,
-      icon: <OrderedListOutlined />,
+      key: "2",
+      label: "Edit Details",
+      icon: <CiEdit />,
+      onClick: () => openDrawer(<EditModelDrawer model={model} />),
+    },
+  ];
+
+  const columns: ColumnType<Model>[] = [
+    {
+      title: "Model Number",
+      dataIndex: "number",
     },
     {
-      label: "Low on Stock",
-      value: 19,
-      icon: <VscVmActive />,
+      title: "Model",
+      dataIndex: "name",
+      //  width: 250,
     },
     {
-      label: "Out of Stock",
-      value: 2,
-      icon: <FaBan />,
+      title: "Category",
+      dataIndex: "category",
+    },
+    {
+      title: "Manufacturer",
+      dataIndex: "manufacturer",
+    },
+    {
+      title: "Total Stock",
+      dataIndex: "devices",
+      render: (devices) => <span>{devices.length}</span>,
+    },
+    {
+      title: "Availability",
+      dataIndex: "faulty",
+      render: (_, { devices }) => {
+        const availableDevices = devices.filter(
+          (d) => d.status === DeviceStatus.AVAILABLE
+        ).length;
+        if (availableDevices > 1 && availableDevices < 10) {
+          return (
+            <StatusTag
+              status="Low In Stock"
+              bgColor="#FDF7DD"
+              textColor="#B9A325"
+            />
+          );
+        }
+
+        if (availableDevices > 10) {
+          return (
+            <StatusTag
+              status="In Stock"
+              textColor="#379D51"
+              bgColor="#E3FFE6"
+            />
+          );
+        }
+
+        return (
+          <StatusTag
+            status="Out Of Stock"
+            textColor="#F05050"
+            bgColor="#FFE1E1"
+          />
+        );
+      },
+    },
+    {
+      title: "",
+      render: (_, record: any) => (
+        <div onClick={(e) => e.stopPropagation()}>
+          <Dropdown
+            trigger={["click"]}
+            menu={{
+              items: actions(record),
+            }}
+          >
+            <Button size="small" className="px-4 text-grey">
+              Action
+              <IoMdArrowDropdown />
+            </Button>
+          </Dropdown>
+        </div>
+      ),
     },
   ];
   return (
@@ -52,7 +140,7 @@ export default function Model() {
           <Button>Refresh</Button>
 
           <Button
-            onClick={() => setNewModel(true)}
+            onClick={() => openDrawer(<AddModelDrawer />)}
             className="flex items-center spacex-2"
             type="primary"
           >
@@ -62,19 +150,16 @@ export default function Model() {
         </section>
       </div>
 
-      <SummaryCards summaryData={summaryCard} />
+      {/* <SummaryCards summaryData={summaryCard} /> */}
 
-      <ModelTable
-        data={Models}
-        selectedRow={selectedRow}
-        setSelectedRow={setSelectedRow}
-        setNewModel={setNewModel}
-      />
-
-      <ModelForm
-        open={newModel}
-        setNewModel={setNewModel}
-        selectedRow={selectedRow}
+      <TableComponent<Model>
+        columns={columns}
+        dataSource={models}
+        scroll={800}
+        loading={listModels.isLoading}
+        onRow={(model) => {
+          openDrawer(<ModelDetailDrawer model={model} />);
+        }}
       />
 
       <ActionPopup

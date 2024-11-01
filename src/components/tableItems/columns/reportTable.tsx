@@ -1,9 +1,9 @@
-import { Button, Checkbox, Tag } from "antd";
-import { useState } from "react";
-import Reports from "../data/operatioData";
-import TableComponent from "../../global/TableComponent";
-import { useNavigate } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
+import { Button, Tag } from "antd";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import TableComponent from "../../global/TableComponent";
+import Reports from "../data/operatioData";
 
 export interface DataType {
   key: string;
