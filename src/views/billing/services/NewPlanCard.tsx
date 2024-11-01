@@ -114,6 +114,7 @@ const NewPlanCard = (props: Props) => {
           </div>
 
           <Form.Item
+            name="name"
             className="border-b h-12 flex items-center justify-center"
             rules={[{ required: true, message: "Enter tier name" }]}
           >
@@ -121,13 +122,13 @@ const NewPlanCard = (props: Props) => {
               className="w-[284px]"
               style={{ marginBottom: 0 }}
               placeholder="Enter tier name"
-              name="tierName"
               value={props.plan.tierName}
               onChange={(e) => handleUpdatePlan(e.target.name, e.target.value)}
             />
           </Form.Item>
 
           <Form.Item
+          name="description"
             className="h-20 flex items-center justify-center border-b remove-form-margin-bottom"
             rules={[{ required: true, message: "Provide a description" }]}
           >
@@ -150,6 +151,7 @@ const NewPlanCard = (props: Props) => {
             >
               {props.plan.tierFeatures?.map((feature) => (
                 <Form.Item
+                name="features"
                   key={feature.id}
                   className="flex items-center justify-center border-b pb-2"
                   rules={[{ required: true, message: "Cannot be empty!" }]}
@@ -182,6 +184,7 @@ const NewPlanCard = (props: Props) => {
         </div>
 
         <Form.Item
+        name="amount"
           rules={[{ required: true, message: "Cannot be empty!" }]}
           className={twMerge(
             "h-12 flex flex-col items-center justify-center px-2 border-b border-r -mr-[1px] -mb-[1px]"
@@ -190,7 +193,7 @@ const NewPlanCard = (props: Props) => {
           <Input
             prefix={<p className="text-gray-500">NGN</p>}
             className="w-[284px]"
-            name="tierPrice"
+            
             type="number"
             value={props.plan.tierPrice ?? props.plan.price}
             onChange={(e) => handleUpdatePlan(e.target.name, e.target.value)}

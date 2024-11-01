@@ -265,3 +265,30 @@ export type AssignDevice = {
   deviceIds: string[];
   assigneeId: string;
 };
+
+
+//services endpoints
+export enum BillingCycle {
+  MONTHLY,
+  YEARLY
+}
+
+export enum DiscountType {
+  FIXED,
+  PERCENTAGE
+}
+
+
+export type AddServicesInput = {
+  name: string;
+  description: string;
+  cycle: BillingCycle;
+  tiers: {
+    name: string;
+    description: string;
+    amount: number;
+    features: string[];
+   }[]
+  discount?: number;
+  discountType?: DiscountType;
+}
