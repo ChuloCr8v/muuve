@@ -1,9 +1,12 @@
 import { twMerge } from "tailwind-merge";
-import SummaryCardIcon from "../../hooks/useSummaryCardIcon";
 
-interface SummaryDataType {
+export interface SummaryDataType {
   label: string;
   value: number;
+  iconColor: string;
+  iconBg: string;
+  background: string;
+  icon: React.ReactNode;
 }
 
 type Props = {
@@ -11,32 +14,6 @@ type Props = {
 };
 
 const SummaryCards = ({ summaryData }: Props) => {
-  // const color = (label: string) => {
-  //   switch (label.toLowerCase()) {
-  //     case "total":
-  //       return "blue";
-  //     case "active"  && "assigned":
-  //       return "green";
-  //     case "deactivated" && "faulty":
-  //       return "red";
-  //     default:
-  //       return "yellow";
-  //   }
-  // };
-
-  const bgColor = (label: string) => {
-    switch (label.toLowerCase()) {
-      case "total":
-        return "hover:bg-blue-100 hover:border-blue-300 hover:text-blue-600";
-      case "active":
-        return "hover:bg-green-100 hover:border-green-300 hover:text-green-600";
-      case "deactivated":
-        return "hover:bg-red-100 hover:border-red-300 hover:text-red-600";
-      default:
-        return "hover:bg-yellow-100 hover:border-yellow-300 hover:text-yellow-600";
-    }
-  };
-
   const cardCount = summaryData.length;
   return (
     <div
@@ -49,18 +26,22 @@ const SummaryCards = ({ summaryData }: Props) => {
           key={item.label}
           className={twMerge(
             `group bg-white border p-2 px-4 flex items-center justify-between w-full rounded-md duration-150`,
-            item.label === 'Active' &&'Available' && 'Closed' && 'Assigned' ? 'bg-[#F0F9F2]' : item.label === 'Deactivated' && 'Out of Stock'&& 'Faulty' &&
-            'Inactive' && 'Open' ? 'bg-[#FBEEEE]' : item.label === 'Expiring' && 'Available' && 'Expiring Soon' &&'Low on Stock' ? 'bg-[#FAF8EE]' : 'bg-[#F2F9FC]'
+            item.background ? `bg-[${item.background}]` : "bg-[#F2F9FC]"
           )}
         >
           <div className="flex flex-col items-start gap-1">
             <p className="font-semibold">{item.value}</p>
-            <p className="text-grey group-hover:text-inherit duration-150 leading-none">
+            <p className="leading-none duration-150 text-grey group-hover:text-inherit">
               {item.label}
             </p>
           </div>
 
-          <SummaryCardIcon label={item.label} />
+          <div
+            style={{ color: item.iconColor, background: item.iconBg }}
+            className="flex items-center p-2 rounded-full"
+          >
+            {item.icon}
+          </div>
         </div>
       ))}
     </div>

@@ -5,19 +5,20 @@ import { useState } from "react";
 import { Button } from "antd";
 import { twMerge } from "tailwind-merge";
 import { FaChevronUp } from "react-icons/fa";
-import { SurveyLogInterface } from "../../types";
 import AttachmentCard from "../global/AttachmentCard";
 import { FaCircle } from "react-icons/fa6";
+import { Log } from "../../api/types";
 
 type Props = {
-  data: SurveyLogInterface;
+  log: Log;
 };
 
 dayjs.extend(relativeTime);
 
-const ProjectLogItem = ({ data }: Props) => {
-  const [closedLogs, setClosedLogs] = useState<Array<number>>([]);
-  const { action, to, by, comment, attachments, createdAt, id } = data;
+const ProjectLogItem = ({ log: logs }: Props) => {
+  const [closedLogs, setClosedLogs] = useState<Array<string>>([]);
+  const { action, toStaff, byStaff, comment, attachments, createdAt, id } =
+    logs;
 
   const toggle = () => {
     setClosedLogs((prev) => {
@@ -42,28 +43,20 @@ const ProjectLogItem = ({ data }: Props) => {
 
   return (
     <div className="w-full project-log">
-      <div className=" border-l flex w-full items-start gap-x-4">
+      <div className="flex items-start w-full border-l gap-x-4">
         <FaCircle
           className={twMerge(
             "-ml-[5px] mt-7 text-xl rounded-full log-icon ",
             color()
           )}
         />
-        <div className="space-y-2">
+        <div className="w-full space-y-2">
           <div className="flex items-center justify-between pt-6 log-header">
-            <p className="font-semibold capitalize">
-              Survey {action}
-              {action.toLowerCase() === "assigned" && (
-                <span className="lowercase">
-                  {" "}
-                  to <span className="capitalize"> {to}</span>
-                </span>
-              )}
-            </p>
+            <p className="font-semibold capitalize">{action}</p>
             <div className="flex items-center gap-4 text-grey">
               <p className="text-sm"> {dayjs().from(createdAt, true)} ago</p>
               <Button
-                className="w-fit h-fit p-1 rounded border"
+                className="p-1 border rounded w-fit h-fit"
                 onClick={toggle}
               >
                 <FaChevronUp
@@ -74,9 +67,14 @@ const ProjectLogItem = ({ data }: Props) => {
           </div>
 
           <p className="flex items-center gap-1 text-grey">
-            by <span className="font-medium text-primary">{by} </span>
-            <CgArrowRight />{" "}
-            <span className="font-medium text-primary">{to}</span>
+            by{" "}
+            <span className="font-medium text-primary">
+              {byStaff.staff.name}{" "}
+            </span>
+            {toStaff && <CgArrowRight />}{" "}
+            <span className="font-medium text-primary">
+              {toStaff ? toStaff.staff.name : ""}
+            </span>
           </p>
           <div
             className={twMerge(
@@ -85,16 +83,19 @@ const ProjectLogItem = ({ data }: Props) => {
                 "h-0 overflow-hidden transition-all duration-300 ease-in-out"
             )}
           >
-            <div className="border rounded p-3">{comment}</div>
-            <div className="grid grid-cols-2 gap-3">
-              {attachments.map((attachment) => (
-                <AttachmentCard
-                  name={attachment.name}
-                  size={attachment.size}
-                  key={attachment.name}
-                />
-              ))}
-            </div>
+            {comment && <div className="p-3 border rounded">{comment}</div>}
+            {attachments && (
+              <div className="grid grid-cols-2 gap-3">
+                {attachments.uploads.map((up) => (
+                  <AttachmentCard
+                    id={up.id}
+                    name={up.name}
+                    size={up.size}
+                    key={up.key}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

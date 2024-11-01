@@ -11,9 +11,12 @@ import {
 import TextArea from "antd/es/input/TextArea";
 import MultiUpload from "../../global/MultipleUpload";
 import { useEffect } from "react";
-import { useListModelQuery } from "../../../api/model";
+import { useListModelQuery } from "../../../api/model.api";
 import { toastApiError } from "../../../utils/error.util";
-import { useAddDeviceMutation, useUpdateDeviceMutation } from "../../../api/devices";
+import {
+  useAddDeviceMutation,
+  useUpdateDeviceMutation,
+} from "../../../api/devices";
 import dayjs from "dayjs";
 
 interface Prop {
@@ -24,14 +27,14 @@ interface Prop {
 
 export default function DeviceForm(props: Prop) {
   const { open, setnewDevice, selectedRow } = props;
-  const [addDevice, {isLoading}] = useAddDeviceMutation()
-  const [updateDevice, {isLoading: load}] = useUpdateDeviceMutation()
-  const {data: modelList} = useListModelQuery()
+  const [addDevice, { isLoading }] = useAddDeviceMutation();
+  const [updateDevice, { isLoading: load }] = useUpdateDeviceMutation();
+  const { data: modelList } = useListModelQuery();
 
-  console.log(selectedRow?.dateProcured)
+  console.log(selectedRow?.dateProcured);
 
   const [form] = Form.useForm();
-             
+
   useEffect(() => {
     if (selectedRow) {
       form.setFieldsValue({
@@ -58,43 +61,38 @@ export default function DeviceForm(props: Prop) {
       values.dateProcured = values.dateProcured.toISOString();
     }
     addDevice(values)
-    .unwrap()
-    .then(() => {
+      .unwrap()
+      .then(() => {
         message.success("Device Created");
-        setnewDevice(false)
-    })
-    .catch(toastApiError)
-  }
+        setnewDevice(false);
+      })
+      .catch(toastApiError);
+  };
 
   const EditDevice = async () => {
-      const values = await form.validateFields();
-      if (values.dateProcured) {
-        values.dateProcured = values.dateProcured.toDate();
-      }
-      // const { id, ...updatedValues } = values;
+    const values = await form.validateFields();
+    if (values.dateProcured) {
+      values.dateProcured = values.dateProcured.toDate();
+    }
+    // const { id, ...updatedValues } = values;
 
-      const data =   {...values, id: selectedRow.id }
-  
-      updateDevice(data).unwrap()
+    const data = { ...values, id: selectedRow.id };
+
+    updateDevice(data)
+      .unwrap()
       .then(() => {
         message.success("Device Updated Successfully");
         setnewDevice(false);
       })
-      .catch(toastApiError)
-    
+      .catch(toastApiError);
   };
-  
-  
 
   return (
     <Drawer
       closeIcon={null}
       footer={
         <footer className="flex items-center justify-end w-full gap-3 py-3 bg-white  shadow-lg shrink-0">
-          <Button
-            size="middle"
-            htmlType="button"
-          >
+          <Button size="middle" htmlType="button">
             Cancel
           </Button>
 
@@ -103,23 +101,19 @@ export default function DeviceForm(props: Prop) {
             type="primary"
             htmlType="submit"
             loading={selectedRow ? load : isLoading}
-            onClick={selectedRow ? EditDevice  : Submit}
+            onClick={selectedRow ? EditDevice : Submit}
             style={{ minWidth: "6em" }}
           >
-            {selectedRow ? "Edit Device" : "New Device"}
+            {selectedRow ? "Update" : "Submit"}
           </Button>
         </footer>
       }
       width={450}
-      title={selectedRow ? 'Edit Device' : 'New Device'}
+      title={selectedRow ? "Edit Device" : "New Device"}
       open={open}
       onClose={() => setnewDevice(false)}
     >
-      <Form
-        form={form}
-        layout="vertical"
-        className=""
-      >
+      <Form form={form} layout="vertical" className="">
         <main className="">
           <Form.Item
             name="name"
@@ -176,26 +170,29 @@ export default function DeviceForm(props: Prop) {
                 },
               ]}
             >
-              <Select className="w-[100%]" options={modelList?.map((t) => ({
+              <Select
+                className="w-[100%]"
+                options={modelList?.map((t) => ({
                   value: t.id,
-                  label:t.name,
-              }))}/>
+                  label: t.name,
+                }))}
+              />
             </Form.Item>
           </div>
           <div className="flex space-x-[16px] w-full">
-          <Form.Item
-            name="location"
-            label="Location"
-            required
-            rules={[
-              {
-                required: true,
-                message: "Input location",
-              },
-            ]}
-          >
-            <Input required />
-          </Form.Item>
+            <Form.Item
+              name="location"
+              label="Location"
+              required
+              rules={[
+                {
+                  required: true,
+                  message: "Input location",
+                },
+              ]}
+            >
+              <Input required />
+            </Form.Item>
 
             <Form.Item
               label="Vendor"
@@ -209,7 +206,7 @@ export default function DeviceForm(props: Prop) {
                 },
               ]}
             >
-               <Input required />
+              <Input required />
             </Form.Item>
           </div>
           <div className="flex space-x-[16px] w-full">
@@ -244,20 +241,18 @@ export default function DeviceForm(props: Prop) {
             </Form.Item>
           </div>
           <Form.Item
-              name="dateProcured"
-              label="Date Procured"
-              
-              required
-              rules={[
-                {
-                  required: true,
-                  message: "Input cost",
-                },
-              ]}
-            >
-              <DatePicker className="w-full"/>
-            </Form.Item>
-          
+            name="dateProcured"
+            label="Date Procured"
+            required
+            rules={[
+              {
+                required: true,
+                message: "Input cost",
+              },
+            ]}
+          >
+            <DatePicker className="w-full" />
+          </Form.Item>
 
           <Form.Item
             name="upload"
@@ -291,5 +286,3 @@ export default function DeviceForm(props: Prop) {
     </Drawer>
   );
 }
-
-

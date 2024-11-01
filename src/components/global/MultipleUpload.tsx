@@ -63,7 +63,7 @@ export default function MultiUpload({
 
   return (
     <div className={twMerge(className, "w-full")}>
-      <div className="flex flex-row items-center gap-2 w-full">
+      <div className="flex flex-row items-center w-full gap-2">
         <SelectedFiles files={files} handleRemoveFile={onRemove} />
 
         <label
@@ -98,7 +98,7 @@ export default function MultiUpload({
             </div>
             <button
               type="button"
-              className="flex items-center  self-stretch justify-center flex-shrink-0 px-3 border-l border-gray-300 hover:text-white hover:bg-red-500"
+              className="flex items-center self-stretch justify-center flex-shrink-0 px-3 border-l border-gray-300 hover:text-white hover:bg-red-500"
               onClick={() => onRemove(file)}
             >
               <CloseOutlined />

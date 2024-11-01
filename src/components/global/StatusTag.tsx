@@ -1,50 +1,22 @@
 import { Tag } from "antd";
-import { FaBan } from "react-icons/fa";
-import { FaRegCircleCheck } from "react-icons/fa6";
-import { MdOutlinePending } from "react-icons/md";
 
 type Props = {
-  status?: string;
+  status: string;
+  bgColor?: string;
+  textColor?: string;
 };
 
-const StatusTag = ({ status }: Props) => {
-  const color = () => {
-    switch (status?.toLowerCase()) {
-      case "completed":
-      case "resolved":
-      case "active":
-      case "closed":
-        return "green";
-      case "open":
-      case "deactivated":
-      case "inactive":
-        return "red";
-      default:
-        return "orange";
-    }
-  };
-  const icon = () => {
-    switch (status?.toLowerCase()) {
-      case "completed":
-      case "resolved":
-      case "closed":
-      case "active":
-        return <FaRegCircleCheck />;
-      case "open":
-      case "deactivated":
-        return <FaBan />;
-      default:
-        return <MdOutlinePending />;
-    }
-  };
+// TODO WORK ON THIS COMPONENT TO MAKE ALL COLORS DYNAMIC BASED ON WHATS PASSED
 
+const StatusTag = ({ status, textColor, bgColor }: Props) => {
   return (
     <Tag
-      color={color()}
+      color={bgColor ? bgColor : "#0A95CC1A"}
       className="rounded-full uppercase font-semibold text-xs flex items-center w-fit gap-1 py-0.5"
     >
-      <span className=""> {icon()}</span>
-      {status}
+      <span className={textColor ? `text-[${textColor}]` : "text-[#0A95CC]"}>
+        {status}
+      </span>
     </Tag>
   );
 };

@@ -1,4 +1,9 @@
 import { Dayjs } from "dayjs";
+import { SmModules } from "./api/types";
+
+export const AppModules = {
+  Projects: { SURVEY: SmModules.SURVEY, JOB_ORDER: SmModules.JOB_ORDER },
+};
 
 export interface TierTypes {
   id: number;

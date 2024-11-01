@@ -12,6 +12,7 @@ import { CustomDrawer } from "../../components/common/CustomDrawer";
 import { regions, statesInNigeria } from "../../constants";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
+import MultiUpload from "../../components/global/MultiUpload";
 
 interface Props {
   survey: Survey;
@@ -58,7 +59,6 @@ export const UpdateSurveyDrawer = ({ survey }: Props) => {
             bandwidth: survey.bandwidth,
             longitude: survey.longitude,
             lattitude: survey.lattitude,
-            comment: survey.comment,
             region: survey.region,
             state: survey.state,
             customerId: survey.customerId,
@@ -78,7 +78,7 @@ export const UpdateSurveyDrawer = ({ survey }: Props) => {
               optionFilterProp="label"
               options={customers?.map((u) => ({
                 label: u.customer.name,
-                value: u.customer.id,
+                value: u.id,
               }))}
             />
           </Form.Item>
@@ -142,7 +142,7 @@ export const UpdateSurveyDrawer = ({ survey }: Props) => {
                 optionFilterProp="label"
                 options={staff?.map((s) => ({
                   label: s.staff.name,
-                  value: s.staff.id,
+                  value: s.id,
                 }))}
               />
             </Form.Item>
@@ -209,6 +209,9 @@ export const UpdateSurveyDrawer = ({ survey }: Props) => {
           </div>
           <Form.Item label="Comment" name="comment">
             <TextArea />
+          </Form.Item>
+          <Form.Item label="Upload one or more files" name="attachments">
+            <MultiUpload />
           </Form.Item>
         </Form>
       </div>

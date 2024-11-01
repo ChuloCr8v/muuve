@@ -6,6 +6,7 @@ import { useAssignSurveyMutation } from "../../api/surveys.api";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
 import { Survey } from "../../api/types";
+import MultiUpload from "../../components/global/MultiUpload";
 
 interface Props {
   survey: Survey;
@@ -50,12 +51,19 @@ export const AssignSurveyModal = ({ survey }: Props) => {
               optionFilterProp="label"
               options={staffUser?.map((s) => ({
                 label: s.staff.name,
-                value: s.staff.id,
+                value: s.id,
               }))}
             />
           </Form.Item>
-          <Form.Item label="Comment" name="comment">
+          <Form.Item
+            label="Comment"
+            name="comment"
+            rules={[{ required: true, message: "Comment is required" }]}
+          >
             <TextArea />
+          </Form.Item>
+          <Form.Item label="Upload File" name="attachments">
+            <MultiUpload />
           </Form.Item>
         </Form>
       </div>

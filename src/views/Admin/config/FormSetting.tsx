@@ -107,7 +107,6 @@ export default function FormSettings({
             </div>
           ))}
         </SectionTable>
-        ,
       </>
     );
   };
@@ -122,7 +121,7 @@ export default function FormSettings({
             </h3>
             <DownOutlined
               onClick={() => setShowFormMenu(!showFormMenu)}
-              className="p-[6px] rounded border-[1.5px] border-[#D9DADC] rounded-full"
+              className="p-[6px] border-[1.5px] border-[#D9DADC] rounded-full"
             />
             <div
               className={twMerge(
@@ -148,7 +147,7 @@ export default function FormSettings({
           </div>
         </div>
         <Button type="primary" className="px-[40px}">
-          Save
+          Add Field
         </Button>
       </div>
       <ItemCard />

@@ -1,14 +1,12 @@
 import { FontSizeOutlined, SearchOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 
-const { TextArea } = Input;
-
-interface Prop{
-    setSelectedElements: any
+interface Prop {
+  setSelectedElements: any;
 }
 
-export default function FormElement(props: Prop) { 
-  const {setSelectedElements} = props
+export default function FormElement(props: Prop) {
+  const { setSelectedElements } = props;
   const elementList = [
     {
       title: "Text Element",
@@ -33,7 +31,7 @@ export default function FormElement(props: Prop) {
   ];
 
   const handleElementClick = (element: any) => {
-    setSelectedElements((prev: any) => [...prev, element]); 
+    setSelectedElements((prev: any) => [...prev, element]);
   };
 
   return (
@@ -48,7 +46,7 @@ export default function FormElement(props: Prop) {
                 <div
                   key={idx}
                   className="hover:shadow-sm flex space-x-1 items-center border-[1.5px] border-[#D9DADC] cursor-pointer hover:border-primary rounded-md px-[8px] py-[8px]"
-                  onClick={() => handleElementClick(item)} 
+                  onClick={() => handleElementClick(item)}
                 >
                   {item.Icon}
                   <p className="text-[#262626]">{item.name}</p>

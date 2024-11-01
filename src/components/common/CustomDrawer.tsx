@@ -1,6 +1,10 @@
 import { Button, Drawer } from "antd";
 import { ReactNode } from "react";
 import { usePopup } from "../../context/PopupContext";
+import {
+  UploaderProvider,
+  useUploaderProvider,
+} from "../../context/UploadContext";
 
 interface Props {
   title: string;
@@ -21,6 +25,8 @@ export const CustomDrawer = ({
   title,
   width = 450,
 }: Props) => {
+  const uploader = useUploaderProvider();
+
   const { closeDrawer, isDrawerOpen } = usePopup();
 
   return (
@@ -32,21 +38,23 @@ export const CustomDrawer = ({
       maskClosable={closable}
       width={width}
       footer={
-        <div className="text-right">
-          <Button
-            onClick={closeDrawer}
-            disabled={loading}
-            style={{ marginRight: 8 }}
-          >
-            Cancel
-          </Button>
-          <Button onClick={onSubmit} loading={loading} type="primary">
-            {okText}
-          </Button>
-        </div>
+        onSubmit && (
+          <div className="text-right">
+            <Button
+              onClick={closeDrawer}
+              disabled={loading}
+              style={{ marginRight: 8 }}
+            >
+              Cancel
+            </Button>
+            <Button onClick={onSubmit} loading={loading} type="primary">
+              {okText}
+            </Button>
+          </div>
+        )
       }
     >
-      {children}
+      <UploaderProvider value={uploader}>{children}</UploaderProvider>
     </Drawer>
   );
 };

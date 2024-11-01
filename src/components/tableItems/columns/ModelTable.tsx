@@ -1,23 +1,14 @@
-import { Button, Checkbox, Dropdown, MenuProps, Tag } from "antd";
-import TableComponent from "../../global/TableComponent";
-import {
-  ExclamationCircleOutlined,
-  CloseCircleOutlined,
-  CheckCircleOutlined,
-  DownOutlined,
-  EditOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
-import { twMerge } from "tailwind-merge";
-import ModelData from "../data/ModelData";
+import { DownOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { Button, Dropdown, MenuProps } from "antd";
 import { useState } from "react";
+import TableComponent from "../../global/TableComponent";
 import ModelDetails from "../../inventory/model/ModelDetails";
 
 interface Prop {
   selectedRow: any;
   setSelectedRow: any;
   setNewModel: any;
-  data: any
+  data: any;
 }
 
 export default function ModelTable(props: Prop) {
@@ -54,7 +45,7 @@ export default function ModelTable(props: Prop) {
     {
       title: "Model Number",
       dataIndex: "number",
-      render: (text: string) => <span>{`MD-${text.substring(0,5)}`}</span>
+      render: (text: string) => <span>{`MD-${text.substring(0, 5)}`}</span>,
     },
     {
       title: "Model",
@@ -70,11 +61,11 @@ export default function ModelTable(props: Prop) {
       dataIndex: "manufacturer",
     },
     {
-      title: "Number Available",
+      title: "Available",
       dataIndex: "available",
     },
     {
-      title: "Number Faulty",
+      title: "Faulty",
       dataIndex: "faulty",
     },
     // {

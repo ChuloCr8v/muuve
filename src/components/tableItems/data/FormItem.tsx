@@ -1,20 +1,25 @@
 import FormItem from "antd/es/form/FormItem";
+import { AppModules } from "../../../types";
 
 // Define the type for each item in the survey or similar arrays
 export interface FormItem {
   label: string;
   type: "custom" | "input" | "select" | "cordinate" | "upload" | "textarea";
-  options?: string[]
+  options?: string[];
 }
 
 // Now, define the arrays with the correct type
 export const Survey: FormItem[] = [
-  { label: "Request Type", type: "custom", },
+  { label: "Request Type", type: "custom" },
   { label: "Customer Name", type: "input" },
   { label: "Service Location Address", type: "input" },
-  { label: "Service Type", type: "select", options: [ ' bdsb c nbdc', 'nbsnmsw']},
-  { label: "Request Type", type: "select", options: [ 'nbwhjdwd', 'nbsnmsw'] },
-  { label: "Manager", type: "select", options: [ 'afctiom', 'nbsnmsw'] },
+  {
+    label: "Service Type",
+    type: "select",
+    options: [" bdsb c nbdc", "nbsnmsw"],
+  },
+  { label: "Request Type", type: "select", options: ["nbwhjdwd", "nbsnmsw"] },
+  { label: "Manager", type: "select", options: ["afctiom", "nbsnmsw"] },
   // { label: "Bandwidth", type: "select", options: [ 'afctiom', 'nbsnmsw'] },
   // { label: "State", type: "select", options: [ 'afctiom', 'nbsnmsw'] },
   // { label: "Region", type: "select", options: [ 'afctiom', 'nbsnmsw'] },
@@ -64,7 +69,6 @@ export const Staff: FormItem[] = [
 ];
 
 export const projectForm = [
-  {label: 'New Job Order', value: 'New Joborder'},
-  {label: 'New Survey Request', value: 'Survey Request'}
-]
-
+  { label: "New Survey Request", value: AppModules.Projects.SURVEY },
+  { label: "New Job Order", value: AppModules.Projects.JOB_ORDER },
+];

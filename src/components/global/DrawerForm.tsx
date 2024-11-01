@@ -168,7 +168,7 @@ const DynamicFormTable = (props: { survey: any[] }) => {
               </Form.Item>
             ))}
 
-          <Form.Item className="w-full flex mt-5">
+          <Form.Item className="flex w-full mt-5">
             <Button
               type="default"
               onClick={handleAddField}

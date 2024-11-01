@@ -10,7 +10,7 @@ interface ActionPopupProps {
   children: ReactNode;
   sendButtonStyle?: string;
   icon?: ReactNode;
-  onOk?: () => void;
+  onOk?: any
   footer?: boolean;
   loading?: boolean;
   actionBtnDisabled?: boolean;

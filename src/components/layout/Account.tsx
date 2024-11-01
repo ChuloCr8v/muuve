@@ -58,9 +58,11 @@ export default function Account({ user }: Props) {
   return (
     <Dropdown menu={{ items }} className="cursor-pointer">
       <div className="flex items-center space-x-[16px] w-fit">
-        <Avatar className="bg-[#EFF7FB] font-semibold  text-[#0A96CC]">
-          {getInitials(name)}
-        </Avatar>
+        {name && (
+          <Avatar className="bg-[#EFF7FB] font-semibold  text-[#0A96CC]">
+            {getInitials(name || "")}
+          </Avatar>
+        )}
         <div className="flex items-center space-x-3">
           <span className="text-[12px] font-semibold text-[#262626] w-fit">
             {name}

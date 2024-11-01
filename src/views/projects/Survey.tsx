@@ -3,29 +3,32 @@ import { ColumnType } from "antd/es/table";
 import { AiOutlineRollback } from "react-icons/ai";
 import { BiTrash } from "react-icons/bi";
 import { CgCloseO } from "react-icons/cg";
-import { CiEdit } from "react-icons/ci";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { CiEdit, CiRedo, CiViewList } from "react-icons/ci";
+import { IoMdArrowDropdown, IoMdCheckmarkCircleOutline } from "react-icons/io";
 import { IoCheckmark } from "react-icons/io5";
 import { LuUserCheck } from "react-icons/lu";
+import { MdOutlineCancel, MdOutlinePending } from "react-icons/md";
 import { PiUserSwitch } from "react-icons/pi";
 import { useListSurveysQuery } from "../../api/surveys.api";
-import { Customer, Survey } from "../../api/types";
+import { Survey, SurveyStatus } from "../../api/types";
 import DropdownCustomItem from "../../components/global/DropdownCustomItem";
 import PageHeader from "../../components/global/PageHeader";
-import SummaryCards from "../../components/global/SummaryCards";
+import SummaryCards, {
+  SummaryDataType,
+} from "../../components/global/SummaryCards";
 import TableComponent from "../../components/global/TableComponent";
 import TableRowData from "../../components/global/TableRowData";
-import SurveyDetailsDrawer from "../../components/projects/survey/SurveyDetailsDrawer";
+import SurveyDetailsDrawer from "../../drawers/projects/SurveyDetailsDrawer";
 import { usePopup } from "../../context/PopupContext";
 import { NewSurveyDrawer } from "../../drawers/projects/NewSurveyDrawer";
 import { UpdateSurveyDrawer } from "../../drawers/projects/UpdateSurveyDrawer";
 import { AssignSurveyModal } from "../../modals/projects/AssignSurveyModal";
+import { CompleteSurveyModal } from "../../modals/projects/CompleteSurveyModal";
+import { DeleteSurveyModal } from "../../modals/projects/DeleteSurveyModal";
+import { ReassignSurveyModal } from "../../modals/projects/ReassignSurveyModal";
 import { RejectSurveyModal } from "../../modals/projects/RejectSurveyModal";
 import { RevertSurveyModal } from "../../modals/projects/RevertSurveyModal";
 import { capitalizeFirstLetter } from "../../utils/capitalize.util";
-import { ReassignSurveyModal } from "../../modals/projects/ReassignSurveyModal";
-import { DeleteSurveyModal } from "../../modals/projects/DeleteSurveyModal";
-import { CompleteSurveyModal } from "../../modals/projects/CompleteSurveyModal";
 
 const ProjectSurvey = () => {
   const { openDrawer, openModal } = usePopup();
@@ -34,107 +37,154 @@ const ProjectSurvey = () => {
 
   const surveys = listSurvey.data ?? [];
 
-  const summaryData = [
+  const summaryData: SummaryDataType[] = [
     {
       label: "Total",
-      value: 22,
+      value: surveys.length || 0,
+      background: "#F2F9FC",
+      iconColor: "#0A95CC",
+      iconBg: "#0A95CC1A",
+      icon: <CiViewList size={24} />,
     },
     {
-      label: "Active",
-      value: 19,
+      label: "Pending",
+      background: "#FAF8EE",
+      value:
+        surveys.filter(
+          (s) =>
+            s.status !== SurveyStatus.REJECTED &&
+            s.status !== SurveyStatus.COMPLETED
+        ).length || 0,
+      icon: <MdOutlinePending size={24} />,
+      iconBg: "#B9A3251A",
+      iconColor: "#B9A325",
     },
     {
-      label: "Deactivated",
-      value: 2,
+      label: "Rejected",
+      value:
+        surveys.filter((s) => s.status === SurveyStatus.REJECTED).length || 0,
+      background: "#FBEEEE",
+      icon: <MdOutlineCancel size={24} />,
+      iconBg: "#C42A2A1A",
+      iconColor: "#C42A2A",
     },
     {
-      label: "Expiring",
-      value: 1,
+      label: "Completed",
+      value:
+        surveys.filter((s) => s.status === SurveyStatus.COMPLETED).length || 0,
+      background: "#F0F9F2",
+      icon: <IoMdCheckmarkCircleOutline size={24} />,
+      iconBg: "#40B5541A",
+      iconColor: "#40B554",
     },
   ];
 
-  const surveyActionItems = (survey: Survey): MenuProps["items"] => [
-    {
-      key: 0,
-      label: (
-        <DropdownCustomItem
-          label={"Complete"}
-          icon={<IoCheckmark />}
-          className="text-green-600"
-        />
-      ),
-      onClick: () => openModal(<CompleteSurveyModal survey={survey} />),
-    },
-    { type: "divider" },
-    {
-      key: 2,
-      label: (
-        <div className="">
-          <DropdownCustomItem
-            label={"Assign Survey"}
-            icon={<LuUserCheck className="" />}
-          />
-        </div>
-      ),
-      onClick: () => openModal(<AssignSurveyModal survey={survey} />),
-    },
-    {
-      key: 3,
-      label: (
-        <div className="">
-          <DropdownCustomItem
-            label={"Reassign"}
-            icon={<PiUserSwitch className="" />}
-          />
-        </div>
-      ),
-      onClick: () => openModal(<ReassignSurveyModal survey={survey} />),
-    },
-    {
-      key: 1,
-      label: <DropdownCustomItem label={"Edit Survey"} icon={<CiEdit />} />,
-      onClick: () => openDrawer(<UpdateSurveyDrawer survey={survey} />),
-    },
-    { type: "divider" },
-    {
-      key: 4,
-      label: (
-        <div>
-          <DropdownCustomItem
-            className="text-red-600"
-            label={"Revert"}
-            icon={<AiOutlineRollback className="" />}
-          />
-        </div>
-      ),
-      onClick: () => openModal(<RevertSurveyModal survey={survey} />),
-    },
-    {
-      key: 5,
-      label: (
-        <div>
-          <DropdownCustomItem
-            className="text-red-600"
-            label={"Reject Survey"}
-            icon={<CgCloseO className="" />}
-          />
-        </div>
-      ),
-      onClick: () => openModal(<RejectSurveyModal survey={survey} />),
-    },
-    {
-      key: 6,
-      label: (
-        <div>
-          <DropdownCustomItem
-            className="text-red-600"
-            label={"Delete"}
-            icon={<BiTrash className="" />}
-          />
-        </div>
-      ),
-      onClick: () => openModal(<DeleteSurveyModal survey={survey} />),
-    },
+  const actions = (survey: Survey): MenuProps["items"] => [
+    survey.status === SurveyStatus.ONGOING
+      ? {
+          key: 0,
+          label: (
+            <DropdownCustomItem
+              label={"Complete"}
+              icon={<IoCheckmark />}
+              className="text-green-600"
+            />
+          ),
+          onClick: () => openModal(<CompleteSurveyModal survey={survey} />),
+        }
+      : null,
+    // { key: 1, type: "divider" },
+    survey.status === SurveyStatus.REQUESTED && !survey.isAssigned
+      ? {
+          key: 2,
+          label: (
+            <div className="">
+              <DropdownCustomItem
+                label={"Assign Survey"}
+                icon={<LuUserCheck className="" />}
+              />
+            </div>
+          ),
+          onClick: () => openModal(<AssignSurveyModal survey={survey} />),
+        }
+      : null,
+    (survey.status === SurveyStatus.REQUESTED ||
+      survey.status === SurveyStatus.REVERTED) &&
+    survey.isAssigned
+      ? {
+          key: 3,
+          label: (
+            <div className="">
+              <DropdownCustomItem
+                label={"Reassign"}
+                icon={<PiUserSwitch className="" />}
+              />
+            </div>
+          ),
+          onClick: () => openModal(<ReassignSurveyModal survey={survey} />),
+        }
+      : null,
+    survey.status === SurveyStatus.REQUESTED && !survey.isAssigned
+      ? {
+          key: 4,
+          label: <DropdownCustomItem label={"Edit Survey"} icon={<CiEdit />} />,
+          onClick: () => openDrawer(<UpdateSurveyDrawer survey={survey} />),
+        }
+      : null,
+    survey.status === SurveyStatus.REJECTED
+      ? {
+          key: 5,
+          label: <DropdownCustomItem label={"Reopen"} icon={<CiRedo />} />,
+          onClick: () => openDrawer(<UpdateSurveyDrawer survey={survey} />),
+        }
+      : null,
+    // { key: 6, type: "divider" },
+    survey.status === SurveyStatus.ONGOING
+      ? {
+          key: 7,
+          label: (
+            <div>
+              <DropdownCustomItem
+                className="text-red-600"
+                label={"Revert"}
+                icon={<AiOutlineRollback className="" />}
+              />
+            </div>
+          ),
+          onClick: () => openModal(<RevertSurveyModal survey={survey} />),
+        }
+      : null,
+    survey.status === SurveyStatus.REQUESTED ||
+    survey.status === SurveyStatus.REVERTED
+      ? {
+          key: 8,
+          label: (
+            <div>
+              <DropdownCustomItem
+                className="text-red-600"
+                label={"Reject Survey"}
+                icon={<CgCloseO className="" />}
+              />
+            </div>
+          ),
+          onClick: () => openModal(<RejectSurveyModal survey={survey} />),
+        }
+      : null,
+    survey.status === SurveyStatus.REQUESTED && !survey.isAssigned
+      ? {
+          key: 9,
+          label: (
+            <div>
+              <DropdownCustomItem
+                className="text-red-600"
+                label={"Delete"}
+                icon={<BiTrash className="" />}
+              />
+            </div>
+          ),
+          onClick: () => openModal(<DeleteSurveyModal survey={survey} />),
+        }
+      : null,
   ];
 
   const columns: ColumnType<Survey>[] = [
@@ -147,8 +197,8 @@ const ProjectSurvey = () => {
       title: "Name",
       dataIndex: "customer",
       key: "customer",
-      render: (customer: Customer, record) => (
-        <TableRowData mainText={customer.name} tagText={record.address} />
+      render: (_, { customer, address }) => (
+        <TableRowData mainText={customer.customer.name} tagText={address} />
       ),
     },
     {
@@ -166,10 +216,10 @@ const ProjectSurvey = () => {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (_, record) => (
+      render: (_, { assignee, status }) => (
         <TableRowData
-          mainText={capitalizeFirstLetter(record.status)}
-          tagText={record.assignee?.name}
+          mainText={capitalizeFirstLetter(status)}
+          tagText={assignee?.staff.name}
         />
       ),
     },
@@ -189,25 +239,22 @@ const ProjectSurvey = () => {
       dataIndex: "actions",
       key: "actions",
       width: 150,
-      render: (_, record) => (
-        <Dropdown
-          trigger={["click"]}
-          menu={{
-            items: surveyActionItems(record),
-          }}
-        >
-          <Button
-            size="small"
-            className="px-4 text-grey"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            Action
-            <IoMdArrowDropdown />
-          </Button>
-        </Dropdown>
-      ),
+      render: (_, record) =>
+        record.status !== SurveyStatus.COMPLETED && (
+          <div onClick={(e) => e.stopPropagation()}>
+            <Dropdown
+              trigger={["click"]}
+              menu={{
+                items: actions(record),
+              }}
+            >
+              <Button size="small" className="px-4 text-grey">
+                Action
+                <IoMdArrowDropdown />
+              </Button>
+            </Dropdown>
+          </div>
+        ),
     },
   ];
 
@@ -221,26 +268,16 @@ const ProjectSurvey = () => {
       />
 
       <SummaryCards summaryData={summaryData} />
-      <TableComponent
+
+      <TableComponent<Survey>
         columns={columns}
         dataSource={surveys}
         scroll={800}
         loading={listSurvey.isFetching}
-        // onRow={(record: Array<{}>) => ({
-        //   onClick: () => handleRowClick(record),
-        // })}
+        onRow={(record) => {
+          openDrawer(<SurveyDetailsDrawer survey={record} />);
+        }}
       />
-
-      {/* New survey form */}
-      {/* <FormPopup
-        title={"New Survey Request"}
-        open={newSurvey}
-        close={() => setNewSurvey(false)}
-        submitText={"Submit"}
-      /> */}
-
-      {/* survey details drawer */}
-      <SurveyDetailsDrawer />
     </div>
   );
 };
