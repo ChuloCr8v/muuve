@@ -10,6 +10,7 @@ export const tagTypes = [
   "vendor",
   "model",
   "device",
+  "services",
   "dynamic-form",
   "project",
 ] as const;
@@ -18,7 +19,7 @@ const envUrl = import.meta.env.VITE_API_URL;
 const defaultUrl =
   "http://miro-sm-env.eba-yevmzjb3.us-west-2.elasticbeanstalk.com/";
 
-export const baseUrl = (envUrl || defaultUrl).replace(
+export const baseUrl = ( defaultUrl).replace(
   /\blocalhost\b/,
   window.location.hostname
 );

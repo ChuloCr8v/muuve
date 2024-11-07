@@ -581,4 +581,32 @@ export interface SubmitAsBuiltInput extends SubmitDesignInput {
   radioVersion: string;
   serviceProvider: string;
   lga: string;
+
+//services endpoints
+export enum BillingCycle {
+  MONTHLY,
+  YEARLY
+}
+
+export enum DiscountType {
+  FIXED,
+  PERCENTAGE
+}
+
+
+export type AddServicesInput = {
+  plans: any;
+  serviceName: any;
+  billingCycle: string | null | undefined;
+  name: string;
+  description: string;
+  cycle: BillingCycle;
+  tiers: {
+    name: string;
+    description: string;
+    amount: number;
+    features: string[];
+   }[]
+  discount?: number;
+  discountType?: DiscountType;
 }
