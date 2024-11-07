@@ -130,14 +130,12 @@ export default function Staff() {
 
       <SummaryCards summaryData={summaryData} />
 
-      <section className="rounded-lg border-[1.5px]  border-[#5656561A] shadow-sm shadow-[#5656561A]">
-        <TableComponent
-          scroll={{ x: 800 }}
-          columns={columns as any}
-          dataSource={filteredData.length > 0 ? filteredData : staff}
-          loading={listStaff.isFetching}
-        />
-      </section>
+      <TableComponent
+        scroll={{ x: 800 }}
+        columns={columns as any}
+        dataSource={filteredData.length > 0 ? filteredData : staff}
+        loading={listStaff.isFetching}
+      />
     </div>
   );
 }

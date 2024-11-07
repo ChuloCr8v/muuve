@@ -77,6 +77,20 @@ export type AddCustomerInput = {
   address: string;
 };
 
+export type NewTicketDataType = {
+  subject: string;
+  description: string;
+  customerId: string;
+  severity: string;
+  categoryId: string;
+};
+
+export type TicketCategoryDataType = {
+  id: string;
+  name: string;
+  orgId: string;
+};
+
 export type OrgServiceType = {
   id: string;
   name: string;
@@ -351,18 +365,16 @@ export type DynamicFieldInput = {
   module: SmModules;
 };
 
-
 //services endpoints
 export enum BillingCycle {
   MONTHLY,
-  YEARLY
+  YEARLY,
 }
 
 export enum DiscountType {
   FIXED,
-  PERCENTAGE
+  PERCENTAGE,
 }
-
 
 export type AddServicesInput = {
   plans: any;
@@ -376,7 +388,7 @@ export type AddServicesInput = {
     description: string;
     amount: number;
     features: string[];
-   }[]
+  }[];
   discount?: number;
   discountType?: DiscountType;
-}
+};

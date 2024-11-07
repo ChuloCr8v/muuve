@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Dropdown, Input, Table, Form, Drawer } from "antd";
+import { Button, Dropdown, Input, Table } from "antd";
 import { DownOutlined, SearchOutlined, SyncOutlined } from "@ant-design/icons";
 import Heading from "../../components/global/Header";
 import SummaryCards from "../../components/global/SummaryCards";
@@ -139,15 +139,13 @@ export default function Customer() {
         ]}
       />
 
-      <section className="rounded-lg border-[1.5px] border-[#5656561A] shadow-sm shadow-[#5656561A]">
-        <Table
-          scroll={{ x: 800 }}
-          size="small"
-          columns={columns as any}
-          dataSource={filteredData?.length > 0 ? filteredData : customers}
-          loading={listCustomers.isFetching}
-        />
-      </section>
+      <Table
+        scroll={{ x: 800 }}
+        size="small"
+        columns={columns as any}
+        dataSource={filteredData?.length > 0 ? filteredData : customers}
+        loading={listCustomers.isFetching}
+      />
 
       <UpdateCustomerDrawer />
     </div>
