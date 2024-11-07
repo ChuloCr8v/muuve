@@ -84,6 +84,20 @@ export type CommentDto = {
   attachments: Attachments;
 };
 
+export type NewTicketDataType = {
+  subject: string;
+  description: string;
+  customerId: string;
+  severity: string;
+  categoryId: string;
+};
+
+export type TicketCategoryDataType = {
+  id: string;
+  name: string;
+  orgId: string;
+};
+
 export type OrgServiceType = {
   id: string;
   name: string;
@@ -583,12 +597,6 @@ export interface SubmitAsBuiltInput extends SubmitDesignInput {
   lga: string;
 }
 
-//services endpoints
-export enum BillingCycle {
-  MONTHLY = "MONTHLY",
-  YEARLY = "YEARLY",
-}
-
 // export enum DiscountType {
 //   FIXED,
 //   PERCENTAGE
@@ -610,3 +618,30 @@ export enum BillingCycle {
 //   discount?: number;
 //   discountType?: DiscountType;
 // }
+//services endpoints
+export enum BillingCycle {
+  MONTHLY,
+  YEARLY,
+}
+
+export enum DiscountType {
+  FIXED,
+  PERCENTAGE,
+}
+
+export type AddServicesInput = {
+  plans: any;
+  serviceName: any;
+  billingCycle: string | null | undefined;
+  name: string;
+  description: string;
+  cycle: BillingCycle;
+  tiers: {
+    name: string;
+    description: string;
+    amount: number;
+    features: string[];
+  }[];
+  discount?: number;
+  discountType?: DiscountType;
+};

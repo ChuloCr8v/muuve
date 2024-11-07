@@ -13,6 +13,7 @@ import EscalateTicketModal from "../../views/incidence/EscalateTicketModal";
 import NewTicketDrawer from "../../views/incidence/NewTicketDrawer";
 import UpdateUserDrawer from "../../views/Admin/modals/UpdateUserDrawer";
 import UpdateUSerStatusModal from "../../views/Admin/modals/UpdateUserStatusModal";
+import AddTicketCategoryModal from "../../views/incidence/modals/AddTicketCategoryModal";
 
 export default function Layout(props: { children: ReactNode }) {
   const [collapse, setCollapse] = useState(false);
@@ -97,6 +98,7 @@ export default function Layout(props: { children: ReactNode }) {
       <EscalateTicketModal />
       <UpdateUSerStatusModal />
       <UpdateUserDrawer />
+      <AddTicketCategoryModal />
     </div>
   );
 }

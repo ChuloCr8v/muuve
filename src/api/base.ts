@@ -13,6 +13,7 @@ export const tagTypes = [
   "services",
   "dynamic-form",
   "project",
+  "ticket",
 ] as const;
 
 // const envUrl = import.meta.env.VITE_API_URL;

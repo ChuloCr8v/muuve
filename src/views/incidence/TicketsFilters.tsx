@@ -91,10 +91,7 @@ const TicketsFilters = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <Input
-        placeholder="Search Tickets"
-        className="max-w-[246px] w-full h-7"
-      />
+      <Input placeholder="Search Tickets" className="max-w-[246px] w-full" />
       {filterSelectOptions.map((item) => (
         <Select
           key={item.defaultLabel}
@@ -114,7 +111,9 @@ const TicketsFilters = () => {
         Refresh
       </Button>
       <Button
-        onClick={() => dispatch(openDrawer(DrawerState.NEW_TICKET_DRAWER))}
+        onClick={() => {
+          dispatch(openDrawer({ isOpen: DrawerState.NEW_TICKET_DRAWER }));
+        }}
         type={"primary"}
         icon={<BiPlus />}
         iconPosition="end"

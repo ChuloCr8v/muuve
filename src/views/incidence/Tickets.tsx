@@ -2,13 +2,17 @@ import { useNavigate } from "react-router-dom";
 import Heading from "../../components/global/Header";
 import SummaryCards from "../../components/global/SummaryCards";
 import TableComponent from "../../components/global/TableComponent";
-import { ticketsData } from "../../dummy/ticketsData";
 import useTicketsColumns from "../../hooks/incidence/useTicketsColumns";
 import TicketsFilters from "./TicketsFilters";
+import { useListTicketsQuery } from "../../api/ticket.api";
 
 export default function Tickets() {
   const { ticketTableColumns } = useTicketsColumns();
   const navigate = useNavigate();
+
+  const { data: ticketsData, isLoading } = useListTicketsQuery();
+
+  console.log(ticketsData);
 
   const summaryData = [
     {
@@ -39,6 +43,7 @@ export default function Tickets() {
 
         <SummaryCards summaryData={summaryData} />
         <TableComponent
+          loading={isLoading}
           onRow={(record) => ({
             onClick: () => handleRowClick(record.id),
           })}

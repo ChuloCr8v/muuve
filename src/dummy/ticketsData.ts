@@ -146,8 +146,7 @@ export const ticketSeverity = [
 export const newTicketFormFields = {
   subject: "",
   description: "",
-  customer: "",
+  customerId: "",
   severity: "",
-  required: true,
-  attachments: [],
+  categoryId: "",
 };
