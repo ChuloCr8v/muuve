@@ -1,8 +1,8 @@
 import { Dayjs } from "dayjs";
-import { SmModules } from "./api/types";
+import { SmSubModules } from "./api/types";
 
 export const AppModules = {
-  Projects: { SURVEY: SmModules.SURVEY, JOB_ORDER: SmModules.JOB_ORDER },
+  Projects: { SURVEY: SmSubModules.SURVEY, JOB_ORDER: SmSubModules.JOB_ORDER },
 };
 
 export interface TierTypes {
@@ -311,4 +311,9 @@ export interface ServiceType {
   dateCreated: Dayjs;
   billingCycle: string;
   plans: Array<PlanDataType>;
+}
+
+export enum AppForms {
+  REQUEST_SURVEY = "REQUEST_SURVEY",
+  CREATE_JOB_ORDER = "CREATE_JOB_ORDER",
 }

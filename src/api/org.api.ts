@@ -1,5 +1,11 @@
 import { api } from "./base";
-import { OrgRequestType, OrgServiceType } from "./types";
+import {
+  OrgModeOfDelivery,
+  OrgProjectCategory,
+  OrgProjectPhases,
+  OrgRequestType,
+  OrgServiceType,
+} from "./types";
 
 export const orgApi = api.injectEndpoints({
   endpoints: ({ query }) => ({
@@ -12,7 +18,28 @@ export const orgApi = api.injectEndpoints({
       query: () => "org/config/request-type",
       providesTags: ["org-config"],
     }),
+
+    listProjectModeOfDelivery: query<OrgModeOfDelivery[], void>({
+      query: () => "org/config/mode-of-delivery",
+      providesTags: ["org-config"],
+    }),
+
+    listProjectCategory: query<OrgProjectCategory[], void>({
+      query: () => "org/config/project-category",
+      providesTags: ["org-config"],
+    }),
+
+    listProjectPhases: query<OrgProjectPhases[], void>({
+      query: () => "org/config/project-phases",
+      providesTags: ["org-config"],
+    }),
   }),
 });
 
-export const { useListServiceTypesQuery, useListRequestTypesQuery } = orgApi;
+export const {
+  useListServiceTypesQuery,
+  useListRequestTypesQuery,
+  useListProjectCategoryQuery,
+  useListProjectModeOfDeliveryQuery,
+  useListProjectPhasesQuery,
+} = orgApi;

@@ -1,4 +1,4 @@
-import { DeleteOutlined, DownOutlined } from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -119,7 +119,7 @@ export default function FormSettings({
             <h3 className="text-[18px] text-[#777777] font-semibold">
               {selectedForm.label}
             </h3>
-            <DownOutlined
+            {/* <DownOutlined
               onClick={() => setShowFormMenu(!showFormMenu)}
               className="p-[6px] border-[1.5px] border-[#D9DADC] rounded-full"
             />
@@ -143,11 +143,11 @@ export default function FormSettings({
                   {formList.label}
                 </p>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
         <Button type="primary" className="px-[40px}">
-          Add Field
+          Save
         </Button>
       </div>
       <ItemCard />

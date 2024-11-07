@@ -1,3 +1,5 @@
+import { AppForms } from "@/types";
+
 export type AuthState = {
   token: string;
 };
@@ -77,12 +79,32 @@ export type AddCustomerInput = {
   address: string;
 };
 
+export type CommentDto = {
+  comment: string;
+  attachments: Attachments;
+};
+
 export type OrgServiceType = {
   id: string;
   name: string;
 };
 
 export type OrgRequestType = {
+  id: string;
+  name: string;
+};
+
+export type OrgProjectCategory = {
+  id: string;
+  name: string;
+};
+
+export type OrgModeOfDelivery = {
+  id: string;
+  name: string;
+};
+
+export type OrgProjectPhases = {
   id: string;
   name: string;
 };
@@ -240,6 +262,7 @@ export type Log = {
   attachments: Attachments;
   byStaff: User;
   toStaff: User;
+  toVendor?: User;
   changedStatus: SurveyStatus;
   comment: string;
   createdAt: string;
@@ -324,29 +347,238 @@ export type AssignDevice = {
   comment: string;
 };
 
-export enum FieldType {
-  TEXT = "TEXT",
-  NUMBER = "NUMBER",
-  SELECT = "SELECT",
-  DATE = "DATE",
+export enum SmModules {
+  PROJECT = "PROJECT",
+  INVENTORY = "INVENTORY",
 }
 
-export enum SmModules {
+export enum SmSubModules {
   SURVEY = "SURVEY",
   JOB_ORDER = "JOB_ORDER",
 }
 
-export type DyanamicField = {
+export enum ProjectStage {
+  // Project
+  NOT_STARTED = "NOT_STARTED",
+  LEAD_ASSIGNED = "LEAD_ASSIGNED",
+  IMPLEMENTATION = "IMPLEMENTATION",
+
+  // Design
+  DESIGN_REQUESTED = "DESIGN_REQUESTED",
+  DESIGN_ASSIGNED = "DESIGN_ASSIGNED",
+  DESIGN_SUBMITTED = "DESIGN_SUBMITTED",
+  DESIGN_REVERTED = "DESIGN_REVERTED",
+  DESIGN_REWORK = "DESIGN_REWORK",
+
+  SUSPENDED = "SUSPENDED",
+  CANCELLED = "CANCELLED",
+  COMPLETED = "COMPLETED",
+
+  // End Stage
+  CLOSED = "CLOSED",
+}
+
+export type VendorUpdate = {
   id: string;
-  label: string;
-  module: SmModules;
-  type: FieldType;
   createdAt: string;
-  orgId: string;
+  updatedAt: string;
+  projectId: string;
+  vendorId: string;
+  comment: string;
+  phase: string;
+  attachmentsId: string;
+  attachments: Attachments;
 };
 
-export type DynamicFieldInput = {
-  label: string;
-  type: FieldType;
-  module: SmModules;
+export type ProjectDesign = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  projectId: string;
+  designerId: string;
+  comment: string;
+  connectingSiteId: string;
+  connectingSiteName: string;
+  customerId: string;
+  frequency: string;
+  lanIp: string;
+  latitude: number;
+  longitude: number;
+  loopbackIp: string;
+  serviceVlan: string;
+  terminalEquipmentType: string;
+  txMedium: string;
+  upnCtnInterface: string;
+  wanIp: string;
+  attachmentsId: string;
+  attachments: Attachments;
+  designer: User;
 };
+
+export type ProjectAsBuilt = ProjectDesign & {
+  cpeType: string;
+  ceDevice: string;
+  accessPortNode: string;
+  antenna: string;
+  deviceOem: string;
+  indoor: string;
+  polarization: string;
+  radioVersion: string;
+  serviceProvider: string;
+  lga: string;
+};
+
+export type Project = {
+  id: string;
+  jobId: string;
+  designStage: ProjectStage;
+  projectStage: ProjectStage;
+  startDate: string;
+  designDueDate: Date;
+  designAssignedDate: Date;
+  designCompletedDate: Date;
+  projectDueDate: Date;
+  vendorAssignedDate: Date;
+  projectCompletedDate: Date;
+  isDesignSlaInWorkDays: boolean;
+  isProjectSlaInWorkDays: boolean;
+  acceptanceStage: ProjectStage;
+  unapprovedStage: ProjectStage;
+  isAssigned: boolean;
+  isVendorAssigned: boolean;
+  isDesignUploaded: boolean;
+  phase: string;
+  deleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+  description: string;
+  address: string;
+  bandwidth: string;
+  nrr: number;
+  mrr: number;
+  state: string;
+  region: string;
+  longitude: number;
+  latitude: number;
+  modeOfDeliveryId: string;
+  categoryId: string;
+  requestTypeId: string;
+  serviceTypeId: string;
+  requesterId: string;
+  customerId: string;
+  managerId: string;
+  leadId: string;
+  orgId: string;
+  manager: User;
+  customer: User;
+  lead: User;
+  assignee: User;
+  vendor: User;
+  requestType: OrgRequestType;
+  serviceType: OrgServiceType;
+  category: OrgProjectCategory;
+  modeOfDelivery: OrgModeOfDelivery;
+  logs: Log[];
+  vendorUpdates: VendorUpdate[];
+  design: ProjectDesign;
+  asBuilt: ProjectAsBuilt;
+};
+
+export type NewProjectInput = {
+  customerId: string;
+  managerId: string;
+  leadId: string;
+  serviceTypeId: string;
+  requestTypeId: string;
+  categoryId: string;
+  modeOfDeliveryId: string;
+  address: string;
+  bandwidth: string;
+  state: string;
+  region: string;
+  longitude: number;
+  latitude: number;
+  mrr: number;
+  nrr: number;
+  description: string;
+  attachments?: Attachments;
+  comment?: string;
+};
+
+export type AssignProjectInput = CommentDto & {
+  id: string;
+  assigneeId: string;
+  slaDays?: number;
+  isWorkingDays?: boolean;
+};
+
+export type CommentProjectInput = CommentDto & {
+  id: string;
+};
+
+export type EditProjectInput = NewProjectInput & {
+  id: string;
+};
+
+export type ReassignProjectLeadInput = CommentDto & {
+  id: string;
+  leadId: string;
+};
+
+export type AssignProjectVendorInput = CommentDto & {
+  id: string;
+  vendorId: string;
+  slaDays?: number;
+  isWorkingDays?: boolean;
+};
+
+export type ProjectVendorUpdate = CommentDto & {
+  id: string;
+  phase: string;
+  vendorId: string;
+};
+
+export type ProjectUpdatePhase = CommentDto & {
+  id: string;
+  phase: string;
+};
+
+export interface DynamicFormInput {
+  type: AppForms;
+  module: SmModules;
+  content: string;
+}
+
+export interface ListProjectsQuery {
+  atp: boolean;
+}
+
+export interface SubmitDesignInput extends CommentDto {
+  id: string;
+  txMedium: string;
+  frequency: string;
+  terminalEquipmentType: string;
+  loopbackIp: string;
+  wanIp: string;
+  lanIp: string;
+  upeCtnInterface: string;
+  serviceVlan: string;
+  customerId: string;
+  latitude: number;
+  longitude: number;
+  connectingSiteId: string;
+  connectingSiteName: string;
+}
+
+export interface SubmitAsBuiltInput extends SubmitDesignInput {
+  cpeType: string;
+  ceDevice: string;
+  accessPortNode: string;
+  antenna: string;
+  deviceOem: string;
+  indoor: string;
+  polarization: string;
+  radioVersion: string;
+  serviceProvider: string;
+  lga: string;
+}

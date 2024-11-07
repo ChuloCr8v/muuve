@@ -1,9 +1,9 @@
 import { api } from "./base";
-import { DyanamicField, DynamicFieldInput } from "./types";
+import { DynamicFormInput } from "./types";
 
 export const dynamicFormApi = api.injectEndpoints({
   endpoints: ({ query, mutation }) => ({
-    addField: mutation<void, DynamicFieldInput>({
+    addFormField: mutation<void, DynamicFormInput>({
       query: (body) => ({
         url: "dynamic-form",
         method: "POST",
@@ -12,11 +12,11 @@ export const dynamicFormApi = api.injectEndpoints({
       invalidatesTags: ["dynamic-form"],
     }),
 
-    listField: query<DyanamicField[], void>({
-      query: (module) => `dynamic-form/${module}`,
+    getFormField: query({
+      query: ({ module, type }) => `dynamic-form/${module}/form/${type}`,
       providesTags: ["dynamic-form"],
     }),
   }),
 });
 
-export const { useAddFieldMutation, useListFieldQuery } = dynamicFormApi;
+export const { useAddFormFieldMutation, useGetFormFieldQuery } = dynamicFormApi;

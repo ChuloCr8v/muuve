@@ -21,8 +21,8 @@ const AttachmentCard = ({ id, name, size }: Props) => {
       <div className="flex items-center gap-2">
         <CgAttachment />
         <div className="flex flex-col items-start">
-          <span className="text-sm ">{name}</span>
-          <span className="text-[11px] text-grey ">{formatFileSize(size)}</span>
+          <span className="max-w-xs text-sm truncate">{name}</span>
+          <span className="text-[11px] text-grey">{formatFileSize(size)}</span>
         </div>
       </div>
       {isDownloading && downloadingId === id ? (

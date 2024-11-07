@@ -34,7 +34,6 @@ const ProjectSurvey = () => {
   const { openDrawer, openModal } = usePopup();
 
   const listSurvey = useListSurveysQuery();
-
   const surveys = listSurvey.data ?? [];
 
   const summaryData: SummaryDataType[] = [
@@ -101,24 +100,19 @@ const ProjectSurvey = () => {
             <div className="">
               <DropdownCustomItem
                 label={"Assign Survey"}
-                icon={<LuUserCheck className="" />}
+                icon={<LuUserCheck />}
               />
             </div>
           ),
           onClick: () => openModal(<AssignSurveyModal survey={survey} />),
         }
       : null,
-    (survey.status === SurveyStatus.REQUESTED ||
-      survey.status === SurveyStatus.REVERTED) &&
     survey.isAssigned
       ? {
           key: 3,
           label: (
-            <div className="">
-              <DropdownCustomItem
-                label={"Reassign"}
-                icon={<PiUserSwitch className="" />}
-              />
+            <div>
+              <DropdownCustomItem label={"Reassign"} icon={<PiUserSwitch />} />
             </div>
           ),
           onClick: () => openModal(<ReassignSurveyModal survey={survey} />),
@@ -147,7 +141,7 @@ const ProjectSurvey = () => {
               <DropdownCustomItem
                 className="text-red-600"
                 label={"Revert"}
-                icon={<AiOutlineRollback className="" />}
+                icon={<AiOutlineRollback />}
               />
             </div>
           ),

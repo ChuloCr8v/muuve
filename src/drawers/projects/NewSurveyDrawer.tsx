@@ -37,7 +37,6 @@ export const NewSurveyDrawer = () => {
   return (
     <CustomDrawer
       title="Add Survey Request"
-      closable={false}
       width={500}
       onSubmit={submit}
       loading={isLoading}

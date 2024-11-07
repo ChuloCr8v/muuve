@@ -288,7 +288,7 @@ const NewJobOrderForm = () => {
         ))}
 
         <Form.Item
-          className="w-full mt-3 col-span-4"
+          className="w-full col-span-4 mt-3"
           label={
             <CustomLabel
               label="Upload one or more files"
@@ -300,7 +300,7 @@ const NewJobOrderForm = () => {
         </Form.Item>
       </Form>
 
-      <div className="w-full flex items-center justify-end gap-4 mt-4 pt-6 border-t">
+      <div className="flex items-center justify-end w-full gap-4 pt-6 mt-4 border-t">
         <Button
           className="w-[100px]"
           onClick={() => {

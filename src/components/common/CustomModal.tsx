@@ -14,6 +14,8 @@ interface Props {
   loading?: boolean;
   closable?: boolean;
   isDanger?: boolean;
+  width?: number;
+  center?: boolean;
 }
 
 export const CustomModal = ({
@@ -24,6 +26,8 @@ export const CustomModal = ({
   closable,
   title,
   isDanger = false,
+  width = 500,
+  center = false,
 }: Props) => {
   const uploader = useUploaderProvider();
 
@@ -40,6 +44,8 @@ export const CustomModal = ({
       confirmLoading={loading}
       closable={closable}
       maskClosable={closable}
+      width={width}
+      centered={center}
     >
       <UploaderProvider value={uploader}>{children}</UploaderProvider>
     </Modal>

@@ -43,6 +43,11 @@
   height: 28px;
 }
 
+:where(.css-dev-only-do-not-override-xg8f1o).ant-table-wrapper
+  .ant-table.ant-table-small {
+  font-size: 12px;
+}
+
 .tableAction {
   border: solid 1.5px #0a95cc66;
   color: #0a95cc;
@@ -104,7 +109,9 @@ body {
   margin-bottom: px;
 }
 
-:where(.css-dev-only-do-not-override-1eql6x0).ant-btn-default.ant-btn-dangerous {
+:where(
+    .css-dev-only-do-not-override-1eql6x0
+  ).ant-btn-default.ant-btn-dangerous {
   color: white;
   border-color: #ff4d4f;
 }

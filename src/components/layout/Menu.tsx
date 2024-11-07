@@ -35,12 +35,18 @@ const menuItems = [
         icon: Surveys,
         iconActive: SurveysActive,
       },
-      // {
-      //   title: "Job Orders",
-      //   url: "/projects/job-orders",
-      //   icon: JobOrders,
-      //   iconActive: JobOrdersActive,
-      // },
+      {
+        title: "Job Orders",
+        url: "/projects/job-orders",
+        icon: JobOrders,
+        iconActive: JobOrdersActive,
+      },
+      {
+        title: "Atp",
+        url: "/projects/atp",
+        icon: JobOrders,
+        iconActive: JobOrdersActive,
+      },
     ],
   },
   {
@@ -234,7 +240,7 @@ const Menu = ({ collapse }: Prop) => {
                 </Tooltip>
               ))}
               {/* Divider between menu items */}
-              <hr className="w-4/5 border-gray-300 my-1" />
+              <hr className="w-4/5 my-1 border-gray-300" />
             </div>
           )}
         </div>
