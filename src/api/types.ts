@@ -365,6 +365,9 @@ export enum DiscountType {
 
 
 export type AddServicesInput = {
+  plans: any;
+  serviceName: any;
+  billingCycle: string | null | undefined;
   name: string;
   description: string;
   cycle: BillingCycle;
