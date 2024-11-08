@@ -243,7 +243,7 @@ export const EditJobDrawer = ({ project }: Props) => {
               label="Latitude"
               required
               name="latitude"
-              rules={[{ required: true, message: "Lattitude is required" }]}
+              rules={[{ required: true }]}
             >
               <InputNumber className="w-full" />
             </Form.Item>

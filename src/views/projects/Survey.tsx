@@ -29,6 +29,9 @@ import { ReassignSurveyModal } from "../../modals/projects/ReassignSurveyModal";
 import { RejectSurveyModal } from "../../modals/projects/RejectSurveyModal";
 import { RevertSurveyModal } from "../../modals/projects/RevertSurveyModal";
 import { capitalizeFirstLetter } from "../../utils/capitalize.util";
+import { formatStatusEnum } from "@/utils/formatEnum";
+import { abbreviateLastName } from "@/utils/abbreviateName";
+import { calculateSlaDays } from "@/utils/calculateSlaDays";
 
 const ProjectSurvey = () => {
   const { openDrawer, openModal } = usePopup();
@@ -186,6 +189,9 @@ const ProjectSurvey = () => {
       title: "ID",
       dataIndex: "surveyId",
       key: "surveyId",
+      render: (_, { surveyId }) => (
+        <span className="font-semibold">{surveyId}</span>
+      ),
     },
     {
       title: "Name",
@@ -219,14 +225,27 @@ const ProjectSurvey = () => {
     },
     {
       title: "SLA",
-      dataIndex: ["sla", "due"],
-      key: "requestType",
-      // render: (_, record) => (
-      // <TableRowData
-      //   mainText={<SLATime sla={record.dueDate} status={record.status} />}
-      //   tagText={`Due: ${dayjs(record.dueDate).format("DD MMM YYYY")}`}
-      // />
-      // )
+      dataIndex: "status",
+      key: "status",
+      render: (_, record) =>
+        record.status === SurveyStatus.COMPLETED || !record.isAssigned ? (
+          "-"
+        ) : (
+          <TableRowData
+            mainText={formatStatusEnum(record.status)}
+            tagText={
+              record.isAssigned
+                ? `${abbreviateLastName(record.assignee.staff.name)} | SLA: ${
+                    calculateSlaDays(
+                      record.assignedDate,
+                      record.dueDate,
+                      record.isSlaInWorkDays
+                    ).slaText
+                  }`
+                : record.manager.staff.name
+            }
+          />
+        ),
     },
     {
       title: "Actions",

@@ -48,11 +48,13 @@ export const JobUploadAsBuiltModal = ({ project }: Props) => {
     >
       <div className="w-full">
         <Form form={form} layout="vertical">
-          <div className="flex justify-end mb-4">
-            <Button type="primary" size="small" onClick={prefillWithDesign}>
-              Use Values From Design
-            </Button>
-          </div>
+          {project.design && (
+            <div className="flex justify-end mb-4">
+              <Button type="primary" size="small" onClick={prefillWithDesign}>
+                Use Values From Design
+              </Button>
+            </div>
+          )}
           <div className="grid grid-cols-4 gap-2">
             <Form.Item
               label="Tx Medium"

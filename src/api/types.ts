@@ -84,18 +84,28 @@ export type CommentDto = {
   attachments: Attachments;
 };
 
-export type NewTicketDataType = {
+export type NewTicketInput = {
   subject: string;
   description: string;
   customerId: string;
-  severity: string;
+  severity: TicketSeverity;
   categoryId: string;
 };
 
-export type TicketCategoryDataType = {
+export type EditTicketInput = NewTicketInput & {
+  id: string;
+};
+
+export type TicketCategory = {
   id: string;
   name: string;
   orgId: string;
+};
+
+export type ReassignTicketInput = {
+  id: string;
+  assigneeId: string;
+  comment: string;
 };
 
 export type OrgServiceType = {
@@ -153,10 +163,15 @@ export type Survey = {
   id: string;
   surveyId: string;
   isAssigned: boolean;
+  startDate: Date;
+  dueDate: Date;
+  assignedDate: Date;
+  completedDate: Date;
+  isSlaInWorkDays: boolean;
   state: string;
   region: string;
   longitude: number;
-  lattitude: number;
+  latitude: number;
   address: string;
   customerId: string;
   orgId: string;
@@ -182,7 +197,7 @@ export type NewSurveyInput = {
   state: string;
   region: string;
   longitude: string;
-  lattitude: string;
+  latitude: string;
   comment?: string;
 };
 
@@ -196,6 +211,8 @@ export type AssignSurveyInput = {
   comment: string;
   surveyId: string;
   assigneeId: string;
+  slaDays?: number;
+  isWorkingDays?: boolean;
 };
 
 export type RevertSurveyInput = {
@@ -388,6 +405,13 @@ export enum ProjectStage {
   CANCELLED = "CANCELLED",
   COMPLETED = "COMPLETED",
 
+  ACCEPTANCE_REVIEW = "ACCEPTANCE_REVIEW",
+  ACCEPTANCE_REJECTED = "ACCEPTANCE_REJECTED",
+  PRE_ATP = "PRE_ATP",
+  FIELD_ATP = "FIELD_ATP",
+  PRE_ATP_FAILED = "PRE_ATP_FAILED",
+  FIELD_ATP_FAILED = "FIELD_ATP_FAILED",
+
   // End Stage
   CLOSED = "CLOSED",
 }
@@ -501,6 +525,7 @@ export type Project = {
 export type NewProjectInput = {
   customerId: string;
   managerId: string;
+  surveyId: string;
   leadId: string;
   serviceTypeId: string;
   requestTypeId: string;
@@ -595,6 +620,47 @@ export interface SubmitAsBuiltInput extends SubmitDesignInput {
   radioVersion: string;
   serviceProvider: string;
   lga: string;
+}
+
+export interface AsBuiltAction extends CommentDto {
+  id: string;
+}
+
+export interface SkipEatpInput extends CommentDto {
+  id: string;
+}
+
+export enum TicketSeverity {
+  LOW = "LOW",
+  HIGH = "HIGH",
+  MEDIUM = "MEDIUM",
+  CRITICAL = "CRITICAL",
+}
+
+enum TicketStatus {
+  CLOSED = "CLOSED",
+  RESOLVED = "RESOLVED",
+  ASSIGNED = "ASSIGNED",
+  ESCALATED = "ESCALATED",
+}
+
+export interface Ticket {
+  id: string;
+  ticketId: string;
+  subject: string;
+  description: string;
+  createdAt: Date;
+  categoryId: Date;
+  status: TicketStatus;
+  severity: TicketSeverity;
+  requesterId: string;
+  assigneeId: string;
+  customerId: string;
+  orgId: string;
+  assignee: User;
+  customer: User;
+  category: TicketCategory;
+  requester: User;
 }
 
 // export enum DiscountType {

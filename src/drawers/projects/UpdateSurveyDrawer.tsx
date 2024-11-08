@@ -183,10 +183,10 @@ export const UpdateSurveyDrawer = ({ survey }: Props) => {
             </Form.Item>
             <Form.Item
               className="w-1/2"
-              label="Lattitude"
+              label="Latitude"
               required
-              name="lattitude"
-              rules={[{ required: true, message: "Lattitude is required" }]}
+              name="latitude"
+              rules={[{ required: true }]}
             >
               <InputNumber className="w-full" />
             </Form.Item>

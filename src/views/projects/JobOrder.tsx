@@ -1,6 +1,6 @@
 import { abbreviateLastName } from "@/utils/abbreviateName";
 import { calculateSlaDays } from "@/utils/calculateSlaDays";
-import { DownOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, MenuProps } from "antd";
 import { ColumnType } from "antd/es/table";
 import { AiOutlineRedo, AiOutlineRollback } from "react-icons/ai";
@@ -24,7 +24,6 @@ import TableRowData from "../../components/global/TableRowData";
 import { usePopup } from "../../context/PopupContext";
 import { EditJobDrawer } from "../../drawers/projects/EditJobDrawer";
 import ProjectDetailsDrawer from "../../drawers/projects/JobDetailsDrawer";
-import { NewJobDrawer } from "../../drawers/projects/NewJobDrawer";
 import { AddJobCommentModal } from "../../modals/projects/AddJobCommentModal";
 import { AssignJobModal } from "../../modals/projects/AssignJobModal";
 import { AssignJobVendorModal } from "../../modals/projects/AssignJobVendorModal";
@@ -40,6 +39,7 @@ import { ReassignJobLeadModal } from "../../modals/projects/ReassignJobLeadModal
 import { ReassignJobModal } from "../../modals/projects/ReassignJobModal";
 import { SuspendJobModal } from "../../modals/projects/SuspendJobModal";
 import { formatStatusEnum } from "../../utils/formatEnum";
+import { NewJobDrawer } from "@/drawers/projects/NewJobDrawer";
 
 const JobOrder = () => {
   const { openDrawer, openModal } = usePopup();
@@ -225,7 +225,6 @@ const JobOrder = () => {
           onClick: () => openModal(<JobRevertModal project={project} />),
         }
       : null,
-    // project.isAssigned && project.projectStage === ProjectStage.DESIGN_SUBMITTED
     {
       key: 14,
       label: (
@@ -263,31 +262,6 @@ const JobOrder = () => {
         />
       ),
       onClick: () => openModal(<CancelJobModal project={project} />),
-    },
-  ];
-
-  const items: MenuProps["items"] = [
-    {
-      key: "1",
-      label: (
-        <Button
-          size="small"
-          type="link"
-          rel="noopener noreferrer"
-          className="text-sm text-black"
-        >
-          Create Job Order
-        </Button>
-      ),
-      onClick: () => openDrawer(<NewJobDrawer />),
-    },
-    {
-      key: "2",
-      label: (
-        <Button type="link" size="small" className="text-sm text-black">
-          Create Job Order From Survey
-        </Button>
-      ),
     },
   ];
 
@@ -410,12 +384,13 @@ const JobOrder = () => {
           <Button>Generate Report</Button>
           <Button>Refresh</Button>
 
-          <Dropdown menu={{ items }}>
-            <Button type="primary" className="flex items-center">
-              New Job Order
-              <DownOutlined />
-            </Button>
-          </Dropdown>
+          <Button
+            type="primary"
+            className="flex items-center"
+            onClick={() => openDrawer(<NewJobDrawer />)}
+          >
+            New Job Order
+          </Button>
         </section>
       </div>
 

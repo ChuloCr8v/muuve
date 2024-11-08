@@ -1,46 +1,31 @@
+import { useSubmitAsBuiltMutation } from "@/api/project.api";
 import { Form, Input, InputNumber, message, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { DeviceStatus, Project } from "../../api/types";
+import { Project } from "../../api/types";
 import { CustomModal } from "../../components/common/CustomModal";
 import MultiUpload from "../../components/global/MultiUpload";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
-import { useSubmitDesignMutation } from "@/api/project.api";
-import { useListDevicesQuery } from "@/api/devices.api";
 
 interface Props {
   project: Project;
 }
 
-export const JobUploadDesignModal = ({ project }: Props) => {
-  const { design } = project;
-
-  let initialValues = undefined;
-
-  if (design) {
-    const { attachments, comment, ...rest } = design;
-    initialValues = rest;
-  }
+export const JobResendAsBuiltModal = ({ project }: Props) => {
+  const { comment, attachments, ...rest } = project.asBuilt;
 
   const [form] = Form.useForm();
   const { closeModal } = usePopup();
 
-  const [uploadDesign, { isLoading }] = useSubmitDesignMutation();
-
-  const { data: devices } = useListDevicesQuery();
-
-  // TODO Come back here incase you can assign device to job
-  const availableDevices = devices
-    ? devices.filter((d) => d.status === DeviceStatus.AVAILABLE)
-    : [];
+  const [submitAsBuilt, { isLoading }] = useSubmitAsBuiltMutation();
 
   const submit = async () => {
     const values = await form.validateFields();
     const data = { ...values, id: project.id };
-    uploadDesign(data)
+    submitAsBuilt(data)
       .unwrap()
       .then(() => {
-        message.success("Design Submitted");
+        message.success("As-Built Submitted");
         closeModal();
       })
       .catch(toastApiError);
@@ -48,21 +33,14 @@ export const JobUploadDesignModal = ({ project }: Props) => {
 
   return (
     <CustomModal
-      title="Upload Design"
+      title="Resend As-Built"
       onSubmit={submit}
       loading={isLoading}
       width={950}
       center
     >
       <div className="w-full">
-        <Form
-          form={form}
-          layout="vertical"
-          initialValues={{
-            customerId: project.customer.customer.customerId,
-            ...initialValues,
-          }}
-        >
+        <Form form={form} layout="vertical" initialValues={rest}>
           <div className="grid grid-cols-4 gap-2">
             <Form.Item
               label="Tx Medium"
@@ -102,17 +80,7 @@ export const JobUploadDesignModal = ({ project }: Props) => {
               name="terminalEquipmentType"
               rules={[{ required: true, message: "Required" }]}
             >
-              {/* {availableDevices.length > 0 ? (
-                <Select
-                  size="small"
-                  options={availableDevices?.map((d) => ({
-                    label: d.name,
-                    value: d.name,
-                  }))}
-                />
-              ) : ( */}
               <Input size="small" />
-              {/* )} */}
             </Form.Item>
             <Form.Item
               label="Service VLAN"
@@ -125,7 +93,7 @@ export const JobUploadDesignModal = ({ project }: Props) => {
 
           <div className="grid grid-cols-4 gap-2">
             <Form.Item label="Customer ID" name="customerId">
-              <Input size="small" readOnly />
+              <Input size="small" />
             </Form.Item>
             <Form.Item
               label="Loopback IP"
@@ -150,13 +118,22 @@ export const JobUploadDesignModal = ({ project }: Props) => {
             </Form.Item>
           </div>
 
-          <Form.Item
-            label="UPE/CTN interface"
-            name="upeCtnInterface"
-            rules={[{ required: true, message: "Interface is required" }]}
-          >
-            <Input size="small" />
-          </Form.Item>
+          <div className="grid grid-cols-2 gap-2">
+            <Form.Item
+              label="UPE/CTN interface"
+              name="upeCtnInterface"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item
+              label="Access Port Node"
+              name="accessPortNode"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" required />
+            </Form.Item>
+          </div>
 
           <div className="grid grid-cols-4 gap-2">
             <Form.Item
@@ -180,10 +157,79 @@ export const JobUploadDesignModal = ({ project }: Props) => {
             >
               <Input size="small" />
             </Form.Item>
+
             <Form.Item
               label="Connecting Site Name"
               name="connectingSiteName"
               rules={[{ required: true, message: "LAN-IP is Required" }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+          </div>
+
+          <div className="grid grid-cols-4 gap-2">
+            <Form.Item label="LGA" name="lga" rules={[{ required: true }]}>
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item
+              label="Service Provider"
+              name="serviceProvider"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item
+              label="CPE Type"
+              name="cpeType"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item
+              label="CE Device"
+              name="ceDevice"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+          </div>
+
+          <div className="grid grid-cols-4 gap-2">
+            <Form.Item
+              label="Radio Version"
+              name="radioVersion"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item
+              label="Antenna"
+              name="antenna"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item
+              label="Indoor"
+              name="indoor"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+            <Form.Item
+              label="Polarization"
+              name="polarization"
+              rules={[{ required: true }]}
+            >
+              <Input size="small" />
+            </Form.Item>
+          </div>
+
+          <div className="grid grid-cols-4 gap-2">
+            <Form.Item
+              label="Device OEM"
+              name="deviceOem"
+              rules={[{ required: true }]}
             >
               <Input size="small" />
             </Form.Item>

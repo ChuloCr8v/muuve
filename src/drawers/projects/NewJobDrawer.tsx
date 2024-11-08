@@ -1,4 +1,4 @@
-import { Form, Input, InputNumber, message, Select } from "antd";
+import { Button, Form, Input, InputNumber, message, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useListCustomersQuery } from "../../api/customer.api";
 import {
@@ -14,8 +14,13 @@ import { regions, statesInNigeria } from "../../constants";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
 import { useCreateProjectMutation } from "../../api/project.api";
+import { RiSurveyLine } from "react-icons/ri";
+import { useState } from "react";
+import { useListSurveysQuery } from "@/api/surveys.api";
 
 export const NewJobDrawer = () => {
+  const [showSurvey, setShowSurvey] = useState(false);
+
   const [form] = Form.useForm();
   const [createProject, { isLoading }] = useCreateProjectMutation();
   const { closeDrawer } = usePopup();
@@ -26,6 +31,7 @@ export const NewJobDrawer = () => {
   const { data: requestTypes } = useListRequestTypesQuery();
   const { data: projectCategory } = useListProjectCategoryQuery();
   const { data: modeOfDelivery } = useListProjectModeOfDeliveryQuery();
+  const { data: surveys } = useListSurveysQuery();
 
   const submit = async () => {
     const values = await form.validateFields();
@@ -48,15 +54,50 @@ export const NewJobDrawer = () => {
     }
   };
 
+  const handleSurveyChange = (surveyId: string) => {
+    const selectedSurvey = surveys?.find((u) => u.id === surveyId);
+
+    if (selectedSurvey) {
+      form.setFieldsValue(selectedSurvey);
+    }
+  };
+
   return (
     <CustomDrawer
       title="New Customer Job Order"
-      width={500}
+      width={550}
       onSubmit={submit}
       loading={isLoading}
     >
       <div className="w-full">
+        <div className="flex justify-end">
+          <Button
+            size="small"
+            icon={<RiSurveyLine />}
+            onClick={() => setShowSurvey(true)}
+          >
+            Import From Survey
+          </Button>
+        </div>
         <Form form={form} layout="vertical">
+          {showSurvey && (
+            <Form.Item
+              label="Survey ID"
+              required
+              name="surveyId"
+              rules={[{ required: true }]}
+            >
+              <Select
+                showSearch
+                optionFilterProp="label"
+                options={surveys?.map((s) => ({
+                  label: s.surveyId,
+                  value: s.id,
+                }))}
+                onChange={handleSurveyChange}
+              />
+            </Form.Item>
+          )}
           <Form.Item
             label="Customer"
             required
@@ -248,7 +289,7 @@ export const NewJobDrawer = () => {
               label="Latitude"
               required
               name="latitude"
-              rules={[{ required: true, message: "Lattitude is required" }]}
+              rules={[{ required: true }]}
             >
               <InputNumber className="w-full" />
             </Form.Item>

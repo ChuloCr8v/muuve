@@ -1,5 +1,6 @@
 import { api } from "./base";
 import {
+  AsBuiltAction,
   AssignProjectInput,
   AssignProjectVendorInput,
   CommentProjectInput,
@@ -10,6 +11,7 @@ import {
   ProjectUpdatePhase,
   ProjectVendorUpdate,
   ReassignProjectLeadInput,
+  SkipEatpInput,
   SubmitAsBuiltInput,
   SubmitDesignInput,
 } from "./types";
@@ -182,6 +184,33 @@ export const projectsApi = api.injectEndpoints({
       }),
       invalidatesTags: ["project"],
     }),
+
+    rejectAsBuilt: mutation<void, AsBuiltAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/as-built/reject`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    acceptAsBuilt: mutation<void, AsBuiltAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/as-built/approve`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    skipEatp: mutation<void, SkipEatpInput>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/eatp/skip`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
   }),
 });
 
@@ -205,4 +234,7 @@ export const {
   useSubmitDesignMutation,
   useReworkProjectDesignMutation,
   useSubmitAsBuiltMutation,
+  useRejectAsBuiltMutation,
+  useAcceptAsBuiltMutation,
+  useSkipEatpMutation,
 } = projectsApi;

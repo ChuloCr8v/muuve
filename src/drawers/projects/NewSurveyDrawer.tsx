@@ -34,6 +34,16 @@ export const NewSurveyDrawer = () => {
       .catch(toastApiError);
   };
 
+  const handleCustomerChange = (cusId: string) => {
+    const selectedCustomer = customers?.find((u) => u.id === cusId);
+
+    if (selectedCustomer) {
+      form.setFieldsValue({
+        address: selectedCustomer.customer.address,
+      });
+    }
+  };
+
   return (
     <CustomDrawer
       title="Add Survey Request"
@@ -47,7 +57,7 @@ export const NewSurveyDrawer = () => {
             label="Customer"
             required
             name="customerId"
-            rules={[{ required: true, message: "Customer is required" }]}
+            rules={[{ required: true }]}
           >
             <Select
               showSearch
@@ -56,6 +66,7 @@ export const NewSurveyDrawer = () => {
                 label: u.customer.name,
                 value: u.id,
               }))}
+              onChange={handleCustomerChange}
             />
           </Form.Item>
           <Form.Item
@@ -169,16 +180,16 @@ export const NewSurveyDrawer = () => {
               label="Longitude"
               required
               name="longitude"
-              rules={[{ required: true, message: "Longitude is required" }]}
+              rules={[{ required: true }]}
             >
               <InputNumber className="w-full" />
             </Form.Item>
             <Form.Item
               className="w-1/2"
-              label="Lattitude"
+              label="Latitude"
               required
-              name="lattitude"
-              rules={[{ required: true, message: "Lattitude is required" }]}
+              name="latitude"
+              rules={[{ required: true }]}
             >
               <InputNumber className="w-full" />
             </Form.Item>

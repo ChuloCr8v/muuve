@@ -1,3 +1,10 @@
+import JobAtpDetailsDrawer from "@/drawers/projects/JobAtpDetailDrawer";
+import { AcceptAsBuiltModal } from "@/modals/projects/AcceptAsBuiltModal";
+import { AddJobCommentModal } from "@/modals/projects/AddJobCommentModal";
+import { SkipEatpModal } from "@/modals/projects/CloseAtpModal";
+import { JobUploadAsBuiltModal } from "@/modals/projects/JobUploadAsBuilt";
+import { RejectAsBuiltModal } from "@/modals/projects/RejectAsBuiltModal";
+import { JobResendAsBuiltModal } from "@/modals/projects/ResendAsBuilt";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Dropdown, Input, MenuProps } from "antd";
 import { ColumnType } from "antd/es/table";
@@ -6,7 +13,6 @@ import { FiUpload } from "react-icons/fi";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { IoCheckmark } from "react-icons/io5";
-import { TbArrowsExchange } from "react-icons/tb";
 import { useListProjectsQuery } from "../../api/project.api";
 import { Project, ProjectStage } from "../../api/types";
 import DropdownCustomItem from "../../components/global/DropdownCustomItem";
@@ -15,10 +21,7 @@ import StatusTag from "../../components/global/StatusTag";
 import TableComponent from "../../components/global/TableComponent";
 import TableRowData from "../../components/global/TableRowData";
 import { usePopup } from "../../context/PopupContext";
-import { JobRespondPhaseModal } from "../../modals/projects/JobRespondPhaseModal";
 import { formatStatusEnum } from "../../utils/formatEnum";
-import { JobUploadAsBuiltModal } from "@/modals/projects/JobUploadAsBuilt";
-import JobAtpDetailsDrawer from "@/drawers/projects/JobAtpDetailDrawer";
 
 const ProjectAtp = () => {
   const { openDrawer, openModal } = usePopup();
@@ -46,74 +49,73 @@ const ProjectAtp = () => {
   ];
 
   const actions = (project: Project): MenuProps["items"] => [
-    {
-      key: 0,
-      label: (
-        <DropdownCustomItem
-          label={"Upload As-Built"}
-          icon={<FiUpload />}
-          className="text-green-600"
-        />
-      ),
-      onClick: () => openModal(<JobUploadAsBuiltModal project={project} />),
-    },
-    {
-      key: 1,
-      label: (
-        <DropdownCustomItem
-          label={"Resend As-Built"}
-          icon={<FiUpload />}
-          className="text-green-600"
-        />
-      ),
-      onClick: () => openModal(<JobRespondPhaseModal project={project} />),
-    },
-    {
-      key: 2,
-      label: (
-        <DropdownCustomItem
-          label={"Pass"}
-          icon={<IoCheckmark />}
-          className="text-green-600"
-        />
-      ),
-      onClick: () => openModal(<JobRespondPhaseModal project={project} />),
-    },
-    {
-      key: 3,
-      label: (
-        <DropdownCustomItem
-          label={"Fail"}
-          icon={<HiOutlineXMark />}
-          className="text-red-600"
-        />
-      ),
-      onClick: () => openModal(<JobRespondPhaseModal project={project} />),
-    },
+    !project.asBuilt
+      ? {
+          key: 0,
+          label: (
+            <DropdownCustomItem
+              label={"Upload As-Built"}
+              icon={<FiUpload />}
+              className="text-green-600"
+            />
+          ),
+          onClick: () => openModal(<JobUploadAsBuiltModal project={project} />),
+        }
+      : null,
+    project.asBuilt &&
+    project.acceptanceStage === ProjectStage.ACCEPTANCE_REJECTED
+      ? {
+          key: 1,
+          label: (
+            <DropdownCustomItem
+              label={"Resend As-Built"}
+              icon={<FiUpload />}
+              className="text-green-600"
+            />
+          ),
+          onClick: () => openModal(<JobResendAsBuiltModal project={project} />),
+        }
+      : null,
+    project.acceptanceStage === ProjectStage.ACCEPTANCE_REVIEW
+      ? {
+          key: 2,
+          label: (
+            <DropdownCustomItem
+              label={"Pass"}
+              icon={<IoCheckmark />}
+              className="text-green-600"
+            />
+          ),
+          onClick: () => openModal(<AcceptAsBuiltModal project={project} />),
+        }
+      : null,
+    project.acceptanceStage === ProjectStage.ACCEPTANCE_REVIEW
+      ? {
+          key: 3,
+          label: (
+            <DropdownCustomItem
+              label={"Fail"}
+              icon={<HiOutlineXMark />}
+              className="text-red-600"
+            />
+          ),
+          onClick: () => openModal(<RejectAsBuiltModal project={project} />),
+        }
+      : null,
     { key: 4, type: "divider" },
-    {
-      key: 5,
-      label: (
-        <DropdownCustomItem
-          label={"Reassign Lead"}
-          icon={<TbArrowsExchange />}
-        />
-      ),
-      onClick: () => openModal(<JobRespondPhaseModal project={project} />),
-    },
     {
       key: 6,
       label: (
         <DropdownCustomItem label={"Close ATP Now"} icon={<IoCheckmark />} />
       ),
-      onClick: () => openModal(<JobRespondPhaseModal project={project} />),
+      onClick: () => openModal(<SkipEatpModal project={project} />),
     },
     {
       key: 7,
       label: (
         <DropdownCustomItem label={"Add Comment"} icon={<FaRegCommentDots />} />
       ),
-      onClick: () => openModal(<JobRespondPhaseModal project={project} />),
+      onClick: () => openModal(<AddJobCommentModal project={project} />),
     },
   ];
 

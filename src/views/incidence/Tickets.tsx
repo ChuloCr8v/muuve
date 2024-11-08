@@ -1,18 +1,146 @@
-import { useNavigate } from "react-router-dom";
-import Heading from "../../components/global/Header";
-import SummaryCards from "../../components/global/SummaryCards";
-import TableComponent from "../../components/global/TableComponent";
-import useTicketsColumns from "../../hooks/incidence/useTicketsColumns";
-import TicketsFilters from "./TicketsFilters";
+import { Ticket } from "@/api/types";
+import TableComponent from "@/components/global/TableComponent";
+import TableRowData from "@/components/global/TableRowData";
+import { usePopup } from "@/context/PopupContext";
+import { NewTicketDrawer } from "@/drawers/ticketing/NewTicketDrawer";
+import { PlusOutlined, SearchOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Input, MenuProps } from "antd";
+import { ColumnType } from "antd/es/table";
+import { differenceInMinutes } from "date-fns";
+import dayjs from "dayjs";
+import { CiEdit } from "react-icons/ci";
 import { useListTicketsQuery } from "../../api/ticket.api";
+import Header from "../../components/global/Header";
+import TicketSeverityTag from "./TicketSeverityTag";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { PiUserSwitch } from "react-icons/pi";
+import { VscIssueReopened } from "react-icons/vsc";
+import { EditTicketDrawer } from "@/drawers/ticketing/EditTicketDrawer";
+import { ReassignTicketModal } from "@/modals/ticketing/ReassignTicketModal";
 
 export default function Tickets() {
-  const { ticketTableColumns } = useTicketsColumns();
-  const navigate = useNavigate();
+  const { openDrawer, openModal } = usePopup();
 
-  const { data: ticketsData, isLoading } = useListTicketsQuery();
+  const listTickets = useListTicketsQuery();
+  const tickets = listTickets.data ?? [];
 
-  console.log(ticketsData);
+  const actions = (ticket: Ticket): MenuProps["items"] => [
+    {
+      key: "1",
+      label: "Edit",
+      icon: <CiEdit size={20} />,
+      onClick: () => openDrawer(<EditTicketDrawer ticket={ticket} />),
+    },
+    {
+      key: "2",
+      label: "Resssign",
+      icon: <PiUserSwitch size={20} />,
+      onClick: () => openModal(<ReassignTicketModal ticket={ticket} />),
+    },
+    {
+      key: "3",
+      label: "Reopen",
+      icon: <VscIssueReopened size={20} />,
+      // onClick: () => openModal(<AssignDeviceModal devices={[device]} />),
+    },
+  ];
+
+  const columns: ColumnType<Ticket>[] = [
+    {
+      title: "ID",
+      dataIndex: "ticketId",
+      key: "ticketId",
+      render: (_, { ticketId }) => (
+        <span className="font-semibold">{ticketId}</span>
+      ),
+    },
+    {
+      title: "Subject",
+      dataIndex: "subject",
+      key: "subject",
+      render: (_, record) => {
+        return (
+          <TableRowData
+            mainText={record.subject}
+            tagText={record.category.name}
+            tagTextStyle="!text-primary"
+          />
+        );
+      },
+    },
+    {
+      title: "Customer",
+      dataIndex: "customer",
+      key: "customer",
+      render: (_, { customer }) => {
+        return (
+          <TableRowData
+            mainText={customer.customer.name}
+            tagText={customer.customer.address}
+            tagTextStyle="!text-primary"
+          />
+        );
+      },
+    },
+    {
+      title: "Severity",
+      dataIndex: "severity",
+      key: "severity",
+      render: (_, record) => {
+        return <TicketSeverityTag severity={record.severity} />;
+      },
+    },
+    {
+      title: "Date",
+      dataIndex: "date",
+      key: "date",
+      render: (_, record) => {
+        return (
+          <TableRowData
+            mainText={dayjs(record.createdAt).format("MMM DD YYYY, h:mm a")}
+            tagText={`${Math.floor(
+              differenceInMinutes(new Date(), new Date(record.createdAt)) / 60
+            )}h:${
+              differenceInMinutes(new Date(), new Date(record.createdAt)) % 60
+            }m`}
+          />
+        );
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (_, record) => {
+        return (
+          <TableRowData
+            mainText={record.status}
+            tagTextStyle="!text-primary"
+            tagText={record.assignee.staff.name}
+          />
+        );
+      },
+    },
+    {
+      title: "",
+      dataIndex: "",
+      render: (_, record: any) => (
+        <div onClick={(e) => e.stopPropagation()}>
+          <Dropdown
+            trigger={["click"]}
+            menu={{
+              items: actions(record),
+            }}
+          >
+            <Button size="small" className="px-4 text-grey">
+              Action
+              <IoMdArrowDropdown />
+            </Button>
+          </Dropdown>
+        </div>
+      ),
+    },
+  ];
 
   const summaryData = [
     {
@@ -29,28 +157,40 @@ export default function Tickets() {
     },
   ];
 
-  const handleRowClick = (ticketID: string) => {
-    navigate(`/incidence/tickets/${ticketID}`);
-  };
-
   return (
-    <div className="p-4 pt-8">
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <Heading heading="Tickets" />
-          <TicketsFilters />
-        </div>
+    <div className="p-8 space-y-3">
+      <div className="flex items-center justify-between">
+        <Header heading={"Tickets"} />
 
-        <SummaryCards summaryData={summaryData} />
-        <TableComponent
-          loading={isLoading}
-          onRow={(record) => ({
-            onClick: () => handleRowClick(record.id),
-          })}
-          columns={ticketTableColumns}
-          dataSource={ticketsData}
-        />
+        <section className="flex items-center gap-[16px]">
+          <Input className="w-[400px]" prefix={<SearchOutlined />} />
+          <Button>Generate Report</Button>
+          <Button>Refresh</Button>
+
+          <Button
+            className="flex items-center spacex-2"
+            type="primary"
+            onClick={() => openDrawer(<NewTicketDrawer />)}
+          >
+            <span>New Ticket</span>
+            <PlusOutlined />
+          </Button>
+        </section>
       </div>
+
+      {/* <SummaryCards summaryData={summaryCard} /> */}
+
+      <TableComponent<Ticket>
+        columns={columns}
+        dataSource={tickets}
+        scroll={800}
+        loading={listTickets.isFetching}
+        // isRowSelection
+        // onSelectionChange={(d) => setSelectedDevices(d)}
+        // onRow={(device) => {
+        //   openDrawer(<DeviceDetailDrawer device={device} />);
+        // }}
+      />
     </div>
   );
 }

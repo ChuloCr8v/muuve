@@ -1,4 +1,4 @@
-import { Form, message, Select } from "antd";
+import { Form, InputNumber, message, Select } from "antd";
 import { CustomModal } from "../../components/common/CustomModal";
 import { useListStaffQuery } from "../../api/staff.api";
 import TextArea from "antd/es/input/TextArea";
@@ -7,12 +7,15 @@ import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
 import { Survey } from "../../api/types";
 import MultiUpload from "../../components/global/MultiUpload";
+import { useState } from "react";
 
 interface Props {
   survey: Survey;
 }
 
 export const AssignSurveyModal = ({ survey }: Props) => {
+  const [slaType, setSlaType] = useState("Working Days");
+
   const [form] = Form.useForm();
   const { closeModal } = usePopup();
 
@@ -21,7 +24,13 @@ export const AssignSurveyModal = ({ survey }: Props) => {
 
   const submit = async () => {
     const values = await form.validateFields();
-    const data = { ...values, surveyId: survey.surveyId, id: survey.id };
+    const isWorkingDays = slaType === "Working Days" ? true : false;
+    const data = {
+      ...values,
+      surveyId: survey.surveyId,
+      id: survey.id,
+      isWorkingDays,
+    };
     assignSurvey(data)
       .unwrap()
       .then(() => {
@@ -53,6 +62,26 @@ export const AssignSurveyModal = ({ survey }: Props) => {
                 label: s.staff.name,
                 value: s.id,
               }))}
+            />
+          </Form.Item>
+          <Form.Item
+            label="Survey Due Date"
+            required
+            name="slaDays"
+            rules={[{ required: true }]}
+          >
+            <InputNumber
+              className="w-full"
+              addonAfter={
+                <Select
+                  onChange={(v) => setSlaType(v)}
+                  defaultValue={"Working Days"}
+                  options={[
+                    { label: "Working Days", value: "Working Days" },
+                    { label: "All Days", value: "All Days" },
+                  ]}
+                />
+              }
             />
           </Form.Item>
           <Form.Item

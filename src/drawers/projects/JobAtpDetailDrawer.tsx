@@ -58,6 +58,10 @@ const JobAtpDetailsDrawer = ({ project }: Props) => {
       value: <StatusTag status={formatStatusEnum(project.designStage)} />,
     },
     {
+      label: "Acceptance Stage",
+      value: <StatusTag status={formatStatusEnum(project.acceptanceStage)} />,
+    },
+    {
       label: "Manager",
       value: project.manager.staff.name,
     },

@@ -16,6 +16,7 @@ interface Props {
   isDanger?: boolean;
   width?: number;
   center?: boolean;
+  disabled?: boolean;
 }
 
 export const CustomModal = ({
@@ -28,20 +29,22 @@ export const CustomModal = ({
   isDanger = false,
   width = 500,
   center = false,
+  disabled = false,
 }: Props) => {
   const uploader = useUploaderProvider();
 
   const { closeModal, isModalOpen } = usePopup();
+  const { isUploading } = uploader;
 
   return (
     <Modal
       title={title}
-      okText={okText || "Submit"}
+      okText={isUploading ? "Uploading files..." : okText || "Submit"}
       onOk={onSubmit}
-      okButtonProps={{ danger: isDanger }}
+      okButtonProps={{ danger: isDanger, disabled }}
       open={isModalOpen}
       onCancel={closeModal}
-      confirmLoading={loading}
+      confirmLoading={loading || isUploading}
       closable={closable}
       maskClosable={closable}
       width={width}

@@ -199,29 +199,6 @@ export interface TicketsHistoryDataType {
   attachments: Array<FileInterface>;
 }
 
-export interface TicketsDataType {
-  id: string;
-  description: string;
-  subject: string;
-  category: string;
-  customer: string;
-  organization: string;
-  severity: string;
-  sla: number;
-  status: string;
-  assignee?: string;
-  assigner?: string;
-  requestDate: number;
-  attachments: Array<FileInterface>;
-  replies?: Array<{
-    user: { firstName: string; lastName: string };
-    date: number;
-    message: string;
-    attachments?: Array<FileInterface>;
-  }>;
-  history?: Array<TicketsHistoryDataType>;
-}
-
 export interface NewRoleFormDataTypes {
   label: string;
   name: string;

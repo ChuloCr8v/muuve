@@ -16,8 +16,7 @@ interface Props {
 export const AssignJobVendorModal = ({ project }: Props) => {
   const [form] = Form.useForm();
   const { closeModal } = usePopup();
-  const [isChecked, setIsChecked] = useState(false);
-  const [isCheckboxError, setIsCheckboxError] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   const [slaType, setSlaType] = useState("Working Days");
 
   const { data: vendorUser } = useListVendorQuery();
@@ -25,14 +24,6 @@ export const AssignJobVendorModal = ({ project }: Props) => {
 
   const submit = async () => {
     const values = await form.validateFields();
-
-    // Check if the checkbox is selected
-    if (!isChecked) {
-      setIsCheckboxError(true);
-      return;
-    } else {
-      setIsCheckboxError(false);
-    }
 
     const isWorkingDays = slaType === "Working Days" ? true : false;
     const data = { ...values, id: project.id, isWorkingDays };
@@ -52,6 +43,7 @@ export const AssignJobVendorModal = ({ project }: Props) => {
       onSubmit={submit}
       okText="Assign"
       loading={isLoading}
+      disabled={!confirm}
     >
       <div className="w-full">
         <Form form={form} layout="vertical">
@@ -108,17 +100,9 @@ export const AssignJobVendorModal = ({ project }: Props) => {
           </Form.Item>
 
           <Form.Item>
-            <Checkbox
-              checked={isChecked}
-              onChange={(e) => setIsChecked(e.target.checked)}
-            >
-              I confirm that the project implementation has kicked off.
+            <Checkbox onChange={(e) => setConfirm(e.target.checked)}>
+              I confirm that ATP should be skipped for this job.
             </Checkbox>
-            {isCheckboxError && (
-              <div className="mt-1 text-xs text-red-500">
-                This field is required
-              </div>
-            )}
           </Form.Item>
         </Form>
       </div>

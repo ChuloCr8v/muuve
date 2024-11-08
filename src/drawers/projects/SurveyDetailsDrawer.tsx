@@ -37,7 +37,7 @@ const SurveyDetailsDrawer = ({ survey }: Props) => {
     },
     {
       label: "coordinates",
-      value: survey.longitude + "," + survey?.lattitude,
+      value: survey.longitude + "," + survey?.latitude,
     },
     {
       label: "bandwidth",
