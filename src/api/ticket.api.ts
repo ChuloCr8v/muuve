@@ -32,6 +32,11 @@ export const ticketApi = api.injectEndpoints({
       providesTags: ["ticket"],
     }),
 
+    getTicket: query<Ticket, { id: string }>({
+      query: ({ id }) => `tickets/${id}`,
+      providesTags: ["ticket"],
+    }),
+
     createTicketCategory: mutation<void, { name: string }>({
       query: (body) => ({
         url: "tickets/category",
@@ -60,6 +65,7 @@ export const ticketApi = api.injectEndpoints({
 export const {
   useCreateTicketMutation,
   useListTicketsQuery,
+  useGetTicketQuery,
   useCreateTicketCategoryMutation,
   useUpdateTicketMutation,
   useListTicketCategoriesQuery,

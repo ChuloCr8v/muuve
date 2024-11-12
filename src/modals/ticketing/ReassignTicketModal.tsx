@@ -6,6 +6,7 @@ import { useListStaffQuery } from "../../api/staff.api";
 import { CustomModal } from "../../components/common/CustomModal";
 import { usePopup } from "../../context/PopupContext";
 import { toastApiError } from "../../utils/error.util";
+import MultiUpload from "@/components/global/MultiUpload";
 
 interface Props {
   ticket: Ticket;
@@ -60,6 +61,13 @@ export const ReassignTicketModal = ({ ticket }: Props) => {
             rules={[{ required: true }]}
           >
             <TextArea />
+          </Form.Item>
+          <Form.Item
+            label="Upload files"
+            name="attachments"
+            rules={[{ required: true }]}
+          >
+            <MultiUpload />
           </Form.Item>
         </Form>
       </div>

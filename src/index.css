@@ -19,6 +19,10 @@
   font-family: "inter", sans-serif;
 }
 
+:where(.css-dev-only-do-not-override-xg8f1o).ant-btn {
+  height: 28px;
+}
+
 :where(.css-dev-only-do-not-override-1tj953w).ant-form-item
   .ant-form-item-label
   > label.ant-form-item-required:not(

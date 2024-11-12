@@ -6,7 +6,6 @@ import { twMerge } from "tailwind-merge";
 type Props<T> = {
   columns: ColumnsType<T>;
   dataSource: T[];
-  scroll?: number | { x?: number | true; y?: number };
   className?: string;
   loading?: boolean;
   onRow?: (record: T) => void;
@@ -17,7 +16,6 @@ type Props<T> = {
 const TableComponent = <T extends { id: Key }>({
   columns,
   dataSource,
-  scroll,
   className,
   loading,
   onRow,
@@ -52,7 +50,8 @@ const TableComponent = <T extends { id: Key }>({
       onRow={(record) => ({
         onClick: () => onRow?.(record),
       })}
-      scroll={typeof scroll === "number" ? { x: scroll } : scroll}
+      // scroll={typeof scroll === "number" ? { x: scroll } : scroll}
+      scroll={{ y: 430, x: 1100 }}
       size="small"
       className={twMerge(
         className,

@@ -101,7 +101,7 @@ export const AssignJobVendorModal = ({ project }: Props) => {
 
           <Form.Item>
             <Checkbox onChange={(e) => setConfirm(e.target.checked)}>
-              I confirm that ATP should be skipped for this job.
+              I confirm that project implementation has started
             </Checkbox>
           </Form.Item>
         </Form>

@@ -1,7 +1,7 @@
 import { useDownloadAttachment } from "@/hooks/useDownloadAttachment";
 import { Spin, Tabs, TabsProps } from "antd";
 import { GoDownload } from "react-icons/go";
-import { Project } from "../../api/types";
+import { Project, User } from "../../api/types";
 import { CustomDrawer } from "../../components/common/CustomDrawer";
 import LogComponent from "../../components/global/Log";
 import StatusTag from "../../components/global/StatusTag";
@@ -11,10 +11,15 @@ import { formatStatusEnum } from "../../utils/formatEnum";
 
 interface Props {
   project: Project;
+  user?: User;
 }
 
-const ProjectDetailsDrawer = ({ project }: Props) => {
+const ProjectDetailsDrawer = ({ project, user }: Props) => {
   const { download, downloadingId, isDownloading } = useDownloadAttachment();
+
+  function addItem(condition: boolean, item: { label: string; value: any }) {
+    return condition ? item : null;
+  }
 
   const projectData = [
     {
@@ -34,6 +39,14 @@ const ProjectDetailsDrawer = ({ project }: Props) => {
       value: project.requestType.name,
     },
     {
+      label: "Mode Of Delivery",
+      value: project.modeOfDelivery.name,
+    },
+    {
+      label: "Project Category",
+      value: project.category.name,
+    },
+    {
       label: "State",
       value: project.state,
     },
@@ -49,19 +62,23 @@ const ProjectDetailsDrawer = ({ project }: Props) => {
       label: "bandwidth",
       value: project.bandwidth,
     },
-    {
+    addItem(!user?.customer, {
       label: "Project Stage",
       value: <StatusTag status={formatStatusEnum(project.projectStage)} />,
-    },
-    {
+    }),
+    addItem(!user?.customer, {
       label: "Design Stage",
       value: <StatusTag status={formatStatusEnum(project.designStage)} />,
-    },
-    {
+    }),
+    addItem(!user?.customer, {
       label: "Manager",
       value: project.manager.staff.name,
+    }),
+    {
+      label: "service description",
+      value: project.description,
     },
-  ];
+  ].filter((item) => item !== null);
 
   const designData = project.design
     ? [
@@ -95,7 +112,7 @@ const ProjectDetailsDrawer = ({ project }: Props) => {
         },
         {
           label: "UPE/CTN interface",
-          value: project.design.upnCtnInterface,
+          value: project.design.upeCtnInterface,
         },
         {
           label: "Latitude",
@@ -146,7 +163,7 @@ const ProjectDetailsDrawer = ({ project }: Props) => {
       label: "Order Details",
       children: <ProjectDetails data={projectData} />,
     },
-    ...(project.design
+    ...(project.design && !user?.customer
       ? [
           {
             key: "3",
@@ -155,7 +172,7 @@ const ProjectDetailsDrawer = ({ project }: Props) => {
           },
         ]
       : []),
-    ...(project.isVendorAssigned
+    ...(project.isVendorAssigned && !user?.customer
       ? [
           {
             key: "2",
@@ -164,11 +181,15 @@ const ProjectDetailsDrawer = ({ project }: Props) => {
           },
         ]
       : []),
-    {
-      key: "4",
-      label: "Logs",
-      children: <LogComponent logs={project.logs} />,
-    },
+    ...(!user?.customer
+      ? [
+          {
+            key: "4",
+            label: "Logs",
+            children: <LogComponent logs={project.logs} />,
+          },
+        ]
+      : []),
   ];
 
   return (

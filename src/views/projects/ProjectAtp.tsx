@@ -22,6 +22,12 @@ import TableComponent from "../../components/global/TableComponent";
 import TableRowData from "../../components/global/TableRowData";
 import { usePopup } from "../../context/PopupContext";
 import { formatStatusEnum } from "../../utils/formatEnum";
+import { JobAcceptancePassModal } from "@/modals/projects/JobAcceptancePassModal";
+import { JobAcceptanceFailModal } from "@/modals/projects/JobAcceptanceFailModal";
+import { JobPreAtpFailModal } from "@/modals/projects/JobPreAtpFailModal";
+import { JobPreAtpPassModal } from "@/modals/projects/JobPreAtpPassModal";
+import { JobFieldAtpFailModal } from "@/modals/projects/JobFieldAtpFailModal";
+import { JobFieldAtpPassModal } from "@/modals/projects/JobFieldAtpPassModal";
 
 const ProjectAtp = () => {
   const { openDrawer, openModal } = usePopup();
@@ -62,8 +68,12 @@ const ProjectAtp = () => {
           onClick: () => openModal(<JobUploadAsBuiltModal project={project} />),
         }
       : null,
-    project.asBuilt &&
-    project.acceptanceStage === ProjectStage.ACCEPTANCE_REJECTED
+    (project.asBuilt &&
+      project.acceptanceStage === ProjectStage.ACCEPTANCE_REJECTED) ||
+    (project.asBuilt &&
+      project.acceptanceStage === ProjectStage.AS_BUILT_REJECTED) ||
+    project.acceptanceStage === ProjectStage.PRE_ATP_FAILED ||
+    project.acceptanceStage === ProjectStage.FIELD_ATP_FAILED
       ? {
           key: 1,
           label: (
@@ -76,12 +86,12 @@ const ProjectAtp = () => {
           onClick: () => openModal(<JobResendAsBuiltModal project={project} />),
         }
       : null,
-    project.acceptanceStage === ProjectStage.ACCEPTANCE_REVIEW
+    project.acceptanceStage === ProjectStage.AS_BUILT_REVIEW
       ? {
           key: 2,
           label: (
             <DropdownCustomItem
-              label={"Pass"}
+              label={"Approve As-Built"}
               icon={<IoCheckmark />}
               className="text-green-600"
             />
@@ -89,12 +99,12 @@ const ProjectAtp = () => {
           onClick: () => openModal(<AcceptAsBuiltModal project={project} />),
         }
       : null,
-    project.acceptanceStage === ProjectStage.ACCEPTANCE_REVIEW
+    project.acceptanceStage === ProjectStage.AS_BUILT_REVIEW
       ? {
           key: 3,
           label: (
             <DropdownCustomItem
-              label={"Fail"}
+              label={"Reject As-Built"}
               icon={<HiOutlineXMark />}
               className="text-red-600"
             />
@@ -102,16 +112,56 @@ const ProjectAtp = () => {
           onClick: () => openModal(<RejectAsBuiltModal project={project} />),
         }
       : null,
-    { key: 4, type: "divider" },
+    project.acceptanceStage === ProjectStage.ACCEPTANCE_REVIEW ||
+    project.acceptanceStage === ProjectStage.PRE_ATP ||
+    project.acceptanceStage === ProjectStage.FIELD_ATP
+      ? {
+          key: 4,
+          label: (
+            <DropdownCustomItem
+              label={"Pass"}
+              icon={<IoCheckmark />}
+              className="text-green-600"
+            />
+          ),
+          onClick: () =>
+            project.acceptanceStage === ProjectStage.PRE_ATP
+              ? openModal(<JobPreAtpPassModal project={project} />)
+              : project.acceptanceStage === ProjectStage.FIELD_ATP
+              ? openModal(<JobFieldAtpPassModal project={project} />)
+              : openModal(<JobAcceptancePassModal project={project} />),
+        }
+      : null,
+    project.acceptanceStage === ProjectStage.ACCEPTANCE_REVIEW ||
+    project.acceptanceStage === ProjectStage.PRE_ATP ||
+    project.acceptanceStage === ProjectStage.FIELD_ATP
+      ? {
+          key: 5,
+          label: (
+            <DropdownCustomItem
+              label={"Fail"}
+              icon={<HiOutlineXMark />}
+              className="text-red-600"
+            />
+          ),
+          onClick: () =>
+            project.acceptanceStage === ProjectStage.PRE_ATP
+              ? openModal(<JobPreAtpFailModal project={project} />)
+              : project.acceptanceStage === ProjectStage.FIELD_ATP
+              ? openModal(<JobFieldAtpFailModal project={project} />)
+              : openModal(<JobAcceptanceFailModal project={project} />),
+        }
+      : null,
+    { key: 6, type: "divider" },
     {
-      key: 6,
+      key: 7,
       label: (
         <DropdownCustomItem label={"Close ATP Now"} icon={<IoCheckmark />} />
       ),
       onClick: () => openModal(<SkipEatpModal project={project} />),
     },
     {
-      key: 7,
+      key: 8,
       label: (
         <DropdownCustomItem label={"Add Comment"} icon={<FaRegCommentDots />} />
       ),
@@ -163,21 +213,22 @@ const ProjectAtp = () => {
       dataIndex: "actions",
       key: "actions",
       width: 150,
-      render: (_, record) => (
-        <div onClick={(e) => e.stopPropagation()}>
-          <Dropdown
-            trigger={["click"]}
-            menu={{
-              items: actions(record),
-            }}
-          >
-            <Button size="small" className="px-4 text-grey">
-              Action
-              <IoMdArrowDropdown />
-            </Button>
-          </Dropdown>
-        </div>
-      ),
+      render: (_, record) =>
+        record.acceptanceStage !== ProjectStage.CLOSED && (
+          <div onClick={(e) => e.stopPropagation()}>
+            <Dropdown
+              trigger={["click"]}
+              menu={{
+                items: actions(record),
+              }}
+            >
+              <Button size="small" className="px-4 text-grey">
+                Action
+                <IoMdArrowDropdown />
+              </Button>
+            </Dropdown>
+          </div>
+        ),
     },
   ];
 

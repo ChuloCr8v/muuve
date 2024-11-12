@@ -1,9 +1,13 @@
 import { abbreviateLastName } from "@/utils/abbreviateName";
 import { calculateSlaDays } from "@/utils/calculateSlaDays";
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Dropdown, Input, MenuProps } from "antd";
+import { Avatar, Button, Dropdown, Input, MenuProps } from "antd";
 import { ColumnType } from "antd/es/table";
-import { AiOutlineRedo, AiOutlineRollback } from "react-icons/ai";
+import {
+  AiOutlineRedo,
+  AiOutlineRollback,
+  AiOutlineSignature,
+} from "react-icons/ai";
 import { BiCommentCheck } from "react-icons/bi";
 import { CiEdit } from "react-icons/ci";
 import { FaRegCommentDots } from "react-icons/fa";
@@ -40,11 +44,17 @@ import { ReassignJobModal } from "../../modals/projects/ReassignJobModal";
 import { SuspendJobModal } from "../../modals/projects/SuspendJobModal";
 import { formatStatusEnum } from "../../utils/formatEnum";
 import { NewJobDrawer } from "@/drawers/projects/NewJobDrawer";
+import { JobSignoffModal } from "@/modals/projects/JobSignoffModal";
+import { useGetAuthUserQuery } from "@/api/auth.api";
+import { getInitials } from "@/utils/getInitials";
+import { JobCustomerSignoffModal } from "@/modals/projects/JobCustomerSignoffModal";
 
 const JobOrder = () => {
   const { openDrawer, openModal } = usePopup();
 
-  const listProjects = useListProjectsQuery();
+  const { data: user } = useGetAuthUserQuery();
+
+  const listProjects = useListProjectsQuery({ customer: !!user?.customer });
   const projects = listProjects.data ?? [];
 
   const summaryData = [
@@ -67,6 +77,19 @@ const JobOrder = () => {
   ];
 
   const actions = (project: Project): MenuProps["items"] => [
+    project.projectStage === ProjectStage.PROJECT_SIGNOFF
+      ? {
+          key: 0,
+          label: (
+            <DropdownCustomItem
+              label={"Sign Off"}
+              icon={<AiOutlineSignature />}
+              className="text-green-600"
+            />
+          ),
+          onClick: () => openModal(<JobSignoffModal project={project} />),
+        }
+      : null,
     project.unapprovedStage
       ? {
           key: 0,
@@ -265,7 +288,7 @@ const JobOrder = () => {
     },
   ];
 
-  const columns: ColumnType<Project>[] = [
+  const adminColumns: ColumnType<Project>[] = [
     {
       title: "ID",
       dataIndex: "jobId",
@@ -299,7 +322,7 @@ const JobOrder = () => {
         <TableRowData
           mainText={formatStatusEnum(record.designStage)}
           tagText={
-            record.isAssigned
+            record.isAssigned && !record.design
               ? `${abbreviateLastName(record.assignee.staff.name)} | SLA: ${
                   calculateSlaDays(
                     record.designAssignedDate,
@@ -364,11 +387,86 @@ const JobOrder = () => {
               items: actions(record),
             }}
           >
-            <Button size="small" className="px-4 text-grey">
+            <Button className="px-4 text-grey">
               Action
               <IoMdArrowDropdown />
             </Button>
           </Dropdown>
+        </div>
+      ),
+    },
+  ];
+
+  const customerColumns: ColumnType<Project>[] = [
+    {
+      title: "ID",
+      dataIndex: "jobId",
+      key: "jobId",
+      render: (jobId) => <span className="font-semibold">{jobId}</span>,
+    },
+    {
+      title: "Service Description",
+      dataIndex: "description",
+      key: "description",
+      width: 400,
+    },
+    {
+      title: "Service",
+      dataIndex: "serviceType",
+      key: "serviceType",
+      render: (_, record) => (
+        <TableRowData
+          mainText={record.serviceType.name}
+          tagText={record.requestType.name}
+        />
+      ),
+    },
+    {
+      title: "Coordinator",
+      dataIndex: "lead",
+      render: (_, { lead }) => (
+        <div className="flex space-x-2">
+          <Avatar
+            className="bg-[#EFF7FB] font-semibold text-[#0A96CC] text-[3px]"
+            size={24}
+          >
+            {getInitials(lead.staff.name)}
+          </Avatar>
+          <p>{lead.staff.name}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (_, { projectStage }) =>
+        projectStage === ProjectStage.CLOSED ||
+        projectStage === ProjectStage.CANCELLED ||
+        projectStage === ProjectStage.SUSPENDED ? (
+          <StatusTag status={projectStage} />
+        ) : (
+          <StatusTag status={"Ongoing"} />
+        ),
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      key: "actions",
+      width: 150,
+      render: (_, project) => (
+        <div onClick={(e) => e.stopPropagation()}>
+          {project.projectStage === ProjectStage.CUSTOMER_SIGNOFF && (
+            <Button
+              className="px-4 text-white bg-primary"
+              size="small"
+              onClick={() =>
+                openModal(<JobCustomerSignoffModal project={project} />)
+              }
+            >
+              Sign Off
+            </Button>
+          )}
         </div>
       ),
     },
@@ -384,25 +482,28 @@ const JobOrder = () => {
           <Button>Generate Report</Button>
           <Button>Refresh</Button>
 
-          <Button
-            type="primary"
-            className="flex items-center"
-            onClick={() => openDrawer(<NewJobDrawer />)}
-          >
-            New Job Order
-          </Button>
+          {/* Roles and permissions will take over customer */}
+
+          {!user?.customer && (
+            <Button
+              type="primary"
+              className="flex items-center"
+              onClick={() => openDrawer(<NewJobDrawer />)}
+            >
+              New Job Order
+            </Button>
+          )}
         </section>
       </div>
 
       {/* <SummaryCards summaryData={summaryData} /> */}
 
       <TableComponent<Project>
-        columns={columns}
+        columns={user?.customer ? customerColumns : adminColumns}
         dataSource={projects}
-        scroll={800}
         loading={listProjects.isFetching}
         onRow={(project) => {
-          openDrawer(<ProjectDetailsDrawer project={project} />);
+          openDrawer(<ProjectDetailsDrawer project={project} user={user} />);
         }}
       />
     </div>

@@ -10,6 +10,7 @@ import ServiceDetails from "../views/billing/services/ServiceDetails";
 import Services from "../views/billing/services/Services";
 import SubscriptionDetails from "../views/billing/subscription/SubscriptionDetails";
 import FormConfig from "@/views/Admin/form/FormConfig";
+import { useGetAuthUserQuery } from "@/api/auth.api";
 
 const ImportCustomerList = lazy(
   () => import("../components/customer/ImportCustomerList")
@@ -44,10 +45,12 @@ const InitiatePayment = lazy(
 const ProjectAtp = lazy(() => import("../views/projects/ProjectAtp"));
 
 const ProtectedRoutes = () => {
+  const { data: user } = useGetAuthUserQuery();
+
   return (
     <Routes>
       {/* Projects */}
-      <Route path="/" element={<Survey />} />
+      <Route path="/" element={user?.customer ? <JobOrder /> : <Survey />} />
       <Route path="/projects/surveys" element={<Survey />} />
       <Route path="/projects/job-orders" element={<JobOrder />} />
       <Route path="/projects/atp" element={<ProjectAtp />} />

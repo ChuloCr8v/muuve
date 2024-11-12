@@ -15,18 +15,19 @@ type Props = {
 
 dayjs.extend(relativeTime);
 
-const ProjectLogItem = ({ log: logs }: Props) => {
+const ProjectLogItem = ({ log }: Props) => {
   const [closedLogs, setClosedLogs] = useState<Array<string>>([]);
   const {
     action,
     toStaff,
     toVendor,
     byStaff,
+    byCustomer,
     comment,
     attachments,
     createdAt,
     id,
-  } = logs;
+  } = log;
 
   const toggle = () => {
     setClosedLogs((prev) => {
@@ -61,7 +62,8 @@ const ProjectLogItem = ({ log: logs }: Props) => {
           <p className="flex items-center gap-1 text-grey">
             by{" "}
             <span className="font-medium text-primary">
-              {byStaff.staff.name}{" "}
+              {byStaff && byStaff.staff.name}{" "}
+              {byCustomer && byCustomer.customer.name}{" "}
             </span>
             {(toStaff || toVendor) && <CgArrowRight />}{" "}
             <span className="font-medium text-primary">

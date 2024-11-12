@@ -17,9 +17,12 @@ import { PiUserSwitch } from "react-icons/pi";
 import { VscIssueReopened } from "react-icons/vsc";
 import { EditTicketDrawer } from "@/drawers/ticketing/EditTicketDrawer";
 import { ReassignTicketModal } from "@/modals/ticketing/ReassignTicketModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Tickets() {
   const { openDrawer, openModal } = usePopup();
+
+  const navigate = useNavigate();
 
   const listTickets = useListTicketsQuery();
   const tickets = listTickets.data ?? [];
@@ -183,13 +186,8 @@ export default function Tickets() {
       <TableComponent<Ticket>
         columns={columns}
         dataSource={tickets}
-        scroll={800}
         loading={listTickets.isFetching}
-        // isRowSelection
-        // onSelectionChange={(d) => setSelectedDevices(d)}
-        // onRow={(device) => {
-        //   openDrawer(<DeviceDetailDrawer device={device} />);
-        // }}
+        onRow={(ticket) => navigate(`/incidence/tickets/${ticket.id}`)}
       />
     </div>
   );

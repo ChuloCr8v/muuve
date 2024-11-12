@@ -1,19 +1,23 @@
 import { api } from "./base";
 import {
+  Project,
+  AcceptanceAction,
   AsBuiltAction,
   AssignProjectInput,
   AssignProjectVendorInput,
+  AtpAction,
   CommentProjectInput,
   EditProjectInput,
   ListProjectsQuery,
   NewProjectInput,
-  Project,
   ProjectUpdatePhase,
   ProjectVendorUpdate,
   ReassignProjectLeadInput,
   SkipEatpInput,
   SubmitAsBuiltInput,
   SubmitDesignInput,
+  ProjectSignoffInput,
+  CustomerSignoffInput,
 } from "./types";
 
 export const projectsApi = api.injectEndpoints({
@@ -211,6 +215,78 @@ export const projectsApi = api.injectEndpoints({
       }),
       invalidatesTags: ["project"],
     }),
+
+    approveReview: mutation<void, AcceptanceAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/review/pass`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    rejectReview: mutation<void, AcceptanceAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/review/fail`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    passPreAtp: mutation<void, AtpAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/pre-atp/pass`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    failPreAtp: mutation<void, AtpAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/pre-atp/fail`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    passFieldAtp: mutation<void, AtpAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/field-atp/pass`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    failFieldAtp: mutation<void, AtpAction>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/field-atp/fail`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    signoff: mutation<void, ProjectSignoffInput>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/signoff`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
+
+    customerSignoff: mutation<void, CustomerSignoffInput>({
+      query: ({ id, ...rest }) => ({
+        url: `projects/${id}/signoff/customer`,
+        method: "POST",
+        body: rest,
+      }),
+      invalidatesTags: ["project"],
+    }),
   }),
 });
 
@@ -237,4 +313,12 @@ export const {
   useRejectAsBuiltMutation,
   useAcceptAsBuiltMutation,
   useSkipEatpMutation,
+  useApproveReviewMutation,
+  useRejectReviewMutation,
+  usePassPreAtpMutation,
+  useFailPreAtpMutation,
+  usePassFieldAtpMutation,
+  useFailFieldAtpMutation,
+  useSignoffMutation,
+  useCustomerSignoffMutation,
 } = projectsApi;

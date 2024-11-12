@@ -62,14 +62,15 @@ export type User = {
   name: any;
   id: string;
   email: string;
+  orgId: string;
   verified: string;
+  signature: string;
   isAdmin: string;
   isActive: boolean;
-  orgId: string;
   staff: Staff;
+  vendor: Vendor;
   customer: Customer;
   createdAt: string;
-  vendor: Vendor;
 };
 
 export type AddCustomerInput = {
@@ -292,6 +293,7 @@ export type Log = {
   action: string;
   attachments: Attachments;
   byStaff: User;
+  byCustomer: User;
   toStaff: User;
   toVendor?: User;
   changedStatus: SurveyStatus;
@@ -405,12 +407,20 @@ export enum ProjectStage {
   CANCELLED = "CANCELLED",
   COMPLETED = "COMPLETED",
 
+  AS_BUILT = "AS_BUILT",
+  AS_BUILT_REVIEW = "AS_BUILT_REVIEW",
+  AS_BUILT_REJECTED = "AS_BUILT_REJECTED",
   ACCEPTANCE_REVIEW = "ACCEPTANCE_REVIEW",
   ACCEPTANCE_REJECTED = "ACCEPTANCE_REJECTED",
+
   PRE_ATP = "PRE_ATP",
   FIELD_ATP = "FIELD_ATP",
   PRE_ATP_FAILED = "PRE_ATP_FAILED",
   FIELD_ATP_FAILED = "FIELD_ATP_FAILED",
+
+  PROJECT_SIGNOFF = "PROJECT_SIGNOFF",
+  CUSTOMER_SIGNOFF = "CUSTOMER_SIGNOFF",
+  SIGNOFF_SUSPENDED = "SIGNOFF_SUSPENDED",
 
   // End Stage
   CLOSED = "CLOSED",
@@ -446,7 +456,7 @@ export type ProjectDesign = {
   serviceVlan: string;
   terminalEquipmentType: string;
   txMedium: string;
-  upnCtnInterface: string;
+  upeCtnInterface: string;
   wanIp: string;
   attachmentsId: string;
   attachments: Attachments;
@@ -476,6 +486,7 @@ export type Project = {
   designAssignedDate: Date;
   designCompletedDate: Date;
   projectDueDate: Date;
+  billingDate: Date;
   vendorAssignedDate: Date;
   projectCompletedDate: Date;
   isDesignSlaInWorkDays: boolean;
@@ -589,7 +600,8 @@ export interface DynamicFormInput {
 }
 
 export interface ListProjectsQuery {
-  atp: boolean;
+  atp?: boolean;
+  customer?: boolean;
 }
 
 export interface SubmitDesignInput extends CommentDto {
@@ -630,6 +642,14 @@ export interface SkipEatpInput extends CommentDto {
   id: string;
 }
 
+export interface AcceptanceAction extends CommentDto {
+  id: string;
+}
+
+export interface AtpAction extends CommentDto {
+  id: string;
+}
+
 export enum TicketSeverity {
   LOW = "LOW",
   HIGH = "HIGH",
@@ -661,6 +681,19 @@ export interface Ticket {
   customer: User;
   category: TicketCategory;
   requester: User;
+  log: Log[];
+}
+
+export interface ProjectSignoffInput {
+  id: string;
+  signature?: string;
+  billingDate?: string;
+  contactEmail?: string;
+}
+
+export interface CustomerSignoffInput extends CommentDto {
+  id: string;
+  signature?: string;
 }
 
 // export enum DiscountType {

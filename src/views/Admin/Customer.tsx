@@ -1,13 +1,22 @@
+import { User } from "@/api/types";
+import DropdownCustomItem from "@/components/global/DropdownCustomItem";
+import TableComponent from "@/components/global/TableComponent";
+import { usePopup } from "@/context/PopupContext";
+import { AddCustomerDrawer } from "@/drawers/customer/AddCustomerDrawer";
+import { EditCustomerDrawer } from "@/drawers/customer/EditCustomerDrawer";
+import { getInitials } from "@/utils/getInitials";
+import {
+  DownOutlined,
+  EditOutlined,
+  SearchOutlined,
+  SyncOutlined,
+} from "@ant-design/icons";
+import { Avatar, Button, Dropdown, Input, MenuProps } from "antd";
+import { ColumnType } from "antd/es/table";
 import { useState } from "react";
-import { Button, Dropdown, Input, Table } from "antd";
-import { DownOutlined, SearchOutlined, SyncOutlined } from "@ant-design/icons";
-import Heading from "../../components/global/Header";
-import SummaryCards from "../../components/global/SummaryCards";
-import CustomerDropButton from "../../components/customer/CustomerDropDown";
 import { useListCustomersQuery } from "../../api/customer.api";
+import Heading from "../../components/global/Header";
 import StatusTag from "../../components/global/StatusTag";
-import CustomerActionItems from "./adminUtils/CustomerActionItems";
-import UpdateCustomerDrawer from "./modals/UpdateCustomerDrawer";
 
 interface CustomerData {
   id: string;
@@ -24,48 +33,85 @@ export interface ActionProps {
 }
 
 export default function Customer() {
-  const [selectedCustomer, setSelectedCustomer] = useState<CustomerData>();
+  const { openDrawer } = usePopup();
 
   const listCustomers = useListCustomersQuery();
-
-  const customerUsers = listCustomers.data ?? [];
-
-  const customers = customerUsers.map((u) => ({
-    id: u.id,
-    email: u.email,
-    name: u.customer.name,
-    phone: u.customer.phone,
-    address: u.customer.address,
-    status: u.isActive ? "Active" : "Deactivated",
-    customerId: u.customer.customerId,
-  }));
+  const users = listCustomers.data ?? [];
 
   const [searchText, setSearchText] = useState<string>(""); // Added state for search input
-  const [filteredData, setFilteredData] = useState(customers); // State for filtered data
+  // const [filteredData, setFilteredData] = useState(customers); // State for filtered data
 
-  const { items } = CustomerActionItems({ customer: selectedCustomer });
+  const actions = (user: User): MenuProps["items"] => [
+    {
+      key: "1",
+      label: <DropdownCustomItem label={"Edit"} icon={<EditOutlined />} />,
+      onClick: () => openDrawer(<EditCustomerDrawer user={user} />),
+    },
+    // {
+    //   key: "2",
+    //   label: (
+    //     <DropdownCustomItem
+    //       className={twMerge("!text-green-600", isActive() && "!text-red-600")}
+    //       label={isActive() ? "Deactivate" : "Activate"}
+    //       icon={
+    //         isActive() ? (
+    //           <CloseCircleOutlined className="!text-base" />
+    //         ) : (
+    //           <CheckCircleOutlined className="!text-base" />
+    //         )
+    //       }
+    //     />
+    //   ),
+    //   onClick: () => {
+    //     dispatch(
+    //       openPopup({
+    //         isOpen: isActive()
+    //           ? PopupState.DEACTIVATE_CUSTOMER
+    //           : PopupState.ACTIVATE_CUSTOMER,
+    //         id: props.customer?.id,
+    //         isEditingData: true,
+    //         action: isActive() ? "deactivate" : "activate",
+    //       })
+    //     );
+    //   },
+    // },
+  ];
 
-  const handleSearch = (value: string) => {
-    setSearchText(value);
-    const filtered = customers?.filter(
-      (c) =>
-        c.name.toLowerCase().includes(value.toLowerCase()) ||
-        c.email.toLowerCase().includes(value.toLowerCase()) ||
-        c.phone.includes(value)
-    );
-    setFilteredData(filtered);
-  };
+  // const handleSearch = (value: string) => {
+  //   setSearchText(value);
+  //   const filtered = customers?.filter(
+  //     (c) =>
+  //       c.name.toLowerCase().includes(value.toLowerCase()) ||
+  //       c.email.toLowerCase().includes(value.toLowerCase()) ||
+  //       c.phone.includes(value)
+  //   );
+  //   setFilteredData(filtered);
+  // };
 
-  const columns = [
+  const columns: ColumnType<User>[] = [
     {
       title: "ID",
       dataIndex: "customerId",
       key: "id",
+      render: (_, { customer }) => (
+        <span className="font-semibold">{customer.customerId}</span>
+      ),
     },
     {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      render: (_, { customer }) => (
+        <div className="flex space-x-2">
+          <Avatar
+            className="bg-[#EFF7FB] font-semibold text-[#0A96CC] text-[3px]"
+            size={24}
+          >
+            {getInitials(customer.name)}
+          </Avatar>
+          <p>{customer.name}</p>
+        </div>
+      ),
     },
     {
       title: "Email Address",
@@ -76,31 +122,33 @@ export default function Customer() {
       title: "Phone No",
       dataIndex: "phone",
       key: "phone",
+      render: (_, { customer }) => <span>{customer.phone}</span>,
     },
     {
       title: "Address",
       dataIndex: "address",
       key: "address",
+      render: (_, { customer }) => <span>{customer.address}</span>,
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
-      render: (_: string, record: CustomerData) => (
-        <StatusTag status={record.status} />
+      dataIndex: "isActive",
+      key: "isActive",
+      render: (isActive) => (
+        <StatusTag status={isActive ? "Active" : "Inactive"} />
       ),
     },
     {
       title: "Action",
       key: "action",
-      render: (_: any, record: CustomerData) => (
-        <Dropdown menu={{ items }} trigger={["click"]}>
-          <Button
-            onClick={() => setSelectedCustomer(record)}
-            className="flex items-center h-7"
-            icon={<DownOutlined />}
-            iconPosition="end"
-          >
+      render: (_, user) => (
+        <Dropdown
+          menu={{
+            items: actions(user),
+          }}
+          trigger={["click"]}
+        >
+          <Button icon={<DownOutlined />} iconPosition="end" size="small">
             Action
           </Button>
         </Dropdown>
@@ -117,37 +165,39 @@ export default function Customer() {
             className="w-[400px]"
             prefix={<SearchOutlined />}
             value={searchText}
-            onChange={(e) => handleSearch(e.target.value)} // Search handler added
+            // onChange={(e) => handleSearch(e.target.value)}
             placeholder="Search by name, email, or phone"
           />
           <Button
             className="flex items-center"
-            onClick={() => setFilteredData(customers)}
+            // onClick={() => setFilteredData(customers)}
           >
             <span>Refresh</span>
             <SyncOutlined />
           </Button>
-          <CustomerDropButton />
+          <Button
+            type="primary"
+            className="flex items-center"
+            onClick={() => openDrawer(<AddCustomerDrawer />)}
+          >
+            Add Customer
+          </Button>
         </div>
       </section>
 
-      <SummaryCards
+      {/* <SummaryCards
         summaryData={[
           { label: "Total", value: 22 },
           { label: "Active", value: 19 },
           { label: "Deactivated", value: 2 },
         ]}
-      />
+      /> */}
 
-      <Table
-        scroll={{ x: 800 }}
-        size="small"
-        columns={columns as any}
-        dataSource={filteredData?.length > 0 ? filteredData : customers}
+      <TableComponent<User>
+        columns={columns}
+        dataSource={users}
         loading={listCustomers.isFetching}
       />
-
-      <UpdateCustomerDrawer />
     </div>
   );
 }
