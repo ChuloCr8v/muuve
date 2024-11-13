@@ -10,9 +10,6 @@ import NewPlanCard from "./NewPlanCard";
 import TextArea from "antd/es/input/TextArea";
 import { useParams } from "react-router-dom";
 import { servicesData } from "../../../dummy/servicesData";
-import { AddServicesInput, BillingCycle } from "../../../api/types";
-
-const { Option } = Select;
 
 const serviceFormFields = {
   id: "",
@@ -60,14 +57,7 @@ export interface ServiceFormDataTypes {
 
 const NewService = () => {
   const [formData, setFormData] =
-    useState<AddServicesInput>({
-      name: '',
-      description: '',
-      cycle: BillingCycle.MONTHLY,
-      tiers: [],
-      discount: undefined,
-      discountType: undefined,
-    });
+    useState<ServiceFormDataTypes>(serviceFormFields);
   const [planCount, setPlanCount] = useState(1);
 
   const { id } = useParams();
@@ -104,13 +94,6 @@ const NewService = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
     console.log(formData);
   };
-
-  const selectAfter = (
-    <Select defaultValue="Percentage (%)">
-      <Option value="Percentage (%)">Percentage (%)</Option>
-      <Option value="Amount">Amount</Option>
-    </Select>
-  );
 
   return (
     <div className="p-8 space-y-4 bg-white w-full min-h-screen">
@@ -193,7 +176,7 @@ const NewService = () => {
 
           <div className="grid space-y-4 mt-2">
             <p className="text-xs font-semibold text-gray-400 uppercase">
-              Tiers
+              Plans
             </p>
 
             <div className="flex w-full h-full gap-2">
@@ -248,9 +231,46 @@ const NewService = () => {
           {formData.plans?.length ? (
             <div className="grid gap-2 mt-14">
               <p className="text-[13px] font-[500]">Discount</p>
-              <Form.Item className="md:w-[40%]">
-                <Input addonAfter={selectAfter}/>
-              </Form.Item>
+              <div className="flex border rounded w-fit">
+                <Input
+                  value={formData.discount?.amount}
+                  type="number"
+                  className="w-[144px] rounded-none border-0 !border-r"
+                  placeholder="00:00"
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      discount: {
+                        amount: Number(e.target.value),
+                        type: formData.discount.type ?? "",
+                      },
+                    }))
+                  }
+                />
+
+                <ConfigProvider
+                  theme={{ components: { Select: { colorBorder: "false" } } }}
+                >
+                  <Select
+                    placeholder="Discount type"
+                    className="w-[144px] !border-0"
+                    value={formData.discount?.type ?? undefined}
+                    options={[
+                      { label: "Percentage %", value: "percentage" },
+                      { label: "Fixed", value: "fixed" },
+                    ]}
+                    onChange={(value) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        discount: {
+                          type: value,
+                          amount: prev.discount?.amount ?? 0,
+                        },
+                      }));
+                    }}
+                  />
+                </ConfigProvider>
+              </div>
             </div>
           ) : (
             ""
