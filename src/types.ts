@@ -1,8 +1,8 @@
 import { Dayjs } from "dayjs";
-import { SmModules } from "./api/types";
+import { SmSubModules } from "./api/types";
 
 export const AppModules = {
-  Projects: { SURVEY: SmModules.SURVEY, JOB_ORDER: SmModules.JOB_ORDER },
+  Projects: { SURVEY: SmSubModules.SURVEY, JOB_ORDER: SmSubModules.JOB_ORDER },
 };
 
 export interface TierTypes {
@@ -199,29 +199,6 @@ export interface TicketsHistoryDataType {
   attachments: Array<FileInterface>;
 }
 
-export interface TicketsDataType {
-  id: string;
-  description: string;
-  subject: string;
-  category: string;
-  customer: string;
-  organization: string;
-  severity: string;
-  sla: number;
-  status: string;
-  assignee?: string;
-  assigner?: string;
-  requestDate: number;
-  attachments: Array<FileInterface>;
-  replies?: Array<{
-    user: { firstName: string; lastName: string };
-    date: number;
-    message: string;
-    attachments?: Array<FileInterface>;
-  }>;
-  history?: Array<TicketsHistoryDataType>;
-}
-
 export interface NewRoleFormDataTypes {
   label: string;
   name: string;
@@ -311,4 +288,9 @@ export interface ServiceType {
   dateCreated: Dayjs;
   billingCycle: string;
   plans: Array<PlanDataType>;
+}
+
+export enum AppForms {
+  REQUEST_SURVEY = "REQUEST_SURVEY",
+  CREATE_JOB_ORDER = "CREATE_JOB_ORDER",
 }

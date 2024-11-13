@@ -1,15 +1,16 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import FormConfig from "../views/Admin/config/FormConfig";
-import Staff from "../views/Admin/Staff";
+import SLAConfig from "../views/Admin/config/SLA/SLAConfig";
 import Customer from "../views/Admin/Customer";
 import CustomerPage from "../views/Admin/CustomerPage";
+import Staff from "../views/Admin/Staff";
 import Vendor from "../views/Admin/Vendor";
-import SubscriptionDetails from "../views/billing/subscription/SubscriptionDetails";
 import NewService from "../views/billing/services/NewService";
-import Services from "../views/billing/services/Services";
 import ServiceDetails from "../views/billing/services/ServiceDetails";
-import SLAConfig from "../views/Admin/config/SLA/SLAConfig";
+import Services from "../views/billing/services/Services";
+import SubscriptionDetails from "../views/billing/subscription/SubscriptionDetails";
+import FormConfig from "@/views/Admin/form/FormConfig";
+import { useGetAuthUserQuery } from "@/api/auth.api";
 
 const ImportCustomerList = lazy(
   () => import("../components/customer/ImportCustomerList")
@@ -17,7 +18,7 @@ const ImportCustomerList = lazy(
 const ReportDetails = lazy(
   () => import("../components/operations/reports/ReportDetails")
 );
-const JobOrder = lazy(() => import("../views/projects/JobOrders"));
+const JobOrder = lazy(() => import("../views/projects/JobOrder"));
 const Billing = lazy(() => import("../views/accounts/Billing"));
 const PlanUpdate = lazy(() => import("../views/accounts/PlanUpdate"));
 const ProfileSetting = lazy(() => import("../views/accounts/ProfileSetting"));
@@ -41,12 +42,19 @@ const Survey = lazy(() => import("../views/projects/Survey"));
 const InitiatePayment = lazy(
   () => import("../views/projects/surveys/InitiatePayment")
 );
+const ProjectAtp = lazy(() => import("../views/projects/ProjectAtp"));
 
 const ProtectedRoutes = () => {
+  const { data: user } = useGetAuthUserQuery();
+
   return (
     <Routes>
-      <Route path="/" element={<Survey />} />
+      {/* Projects */}
+      <Route path="/" element={user?.customer ? <JobOrder /> : <Survey />} />
       <Route path="/projects/surveys" element={<Survey />} />
+      <Route path="/projects/job-orders" element={<JobOrder />} />
+      <Route path="/projects/atp" element={<ProjectAtp />} />
+
       <Route
         path="/projects/surveys/initiate-payment"
         element={<InitiatePayment />}
@@ -79,7 +87,6 @@ const ProtectedRoutes = () => {
       />
       <Route path="/billing/services/plan/:id" element={<ServiceDetails />} />
 
-      <Route path="/projects/job-orders" element={<JobOrder />} />
       <Route path="/program" element={<Programs />} />
       <Route path="/admin/config" element={<FormConfig />} />
       <Route path="/admin/config/sla" element={<SLAConfig />} />

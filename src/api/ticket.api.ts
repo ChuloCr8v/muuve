@@ -1,9 +1,15 @@
 import { api } from "./base";
-import { NewTicketDataType, TicketCategoryDataType, User } from "./types";
+import {
+  EditTicketInput,
+  NewTicketInput,
+  ReassignTicketInput,
+  Ticket,
+  TicketCategory,
+} from "./types";
 
 export const ticketApi = api.injectEndpoints({
   endpoints: ({ query, mutation }) => ({
-    createTicket: mutation<void, NewTicketDataType>({
+    createTicket: mutation<void, NewTicketInput>({
       query: (body) => ({
         url: "tickets",
         method: "POST",
@@ -12,17 +18,22 @@ export const ticketApi = api.injectEndpoints({
       invalidatesTags: ["ticket"],
     }),
 
-    updateTicket: mutation({
-      query: ({ id, body }) => ({
-        url: `/customer/${id}`,
+    updateTicket: mutation<void, EditTicketInput>({
+      query: ({ id, ...body }) => ({
+        url: `/tickets/${id}`,
         method: "PATCH",
         body,
       }),
       invalidatesTags: ["ticket"],
     }),
 
-    listTickets: query<User[], void>({
+    listTickets: query<Ticket[], void>({
       query: () => "tickets",
+      providesTags: ["ticket"],
+    }),
+
+    getTicket: query<Ticket, { id: string }>({
+      query: ({ id }) => `tickets/${id}`,
       providesTags: ["ticket"],
     }),
 
@@ -35,9 +46,18 @@ export const ticketApi = api.injectEndpoints({
       invalidatesTags: ["ticket"],
     }),
 
-    listTicketCategories: query<TicketCategoryDataType[], void>({
+    listTicketCategories: query<TicketCategory[], void>({
       query: () => "tickets/category",
       providesTags: ["ticket"],
+    }),
+
+    reassignTicket: mutation<void, ReassignTicketInput>({
+      query: ({ id, ...body }) => ({
+        url: `tickets/${id}/reassign`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["ticket"],
     }),
   }),
 });
@@ -45,6 +65,9 @@ export const ticketApi = api.injectEndpoints({
 export const {
   useCreateTicketMutation,
   useListTicketsQuery,
+  useGetTicketQuery,
   useCreateTicketCategoryMutation,
+  useUpdateTicketMutation,
   useListTicketCategoriesQuery,
+  useReassignTicketMutation,
 } = ticketApi;

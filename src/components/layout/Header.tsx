@@ -42,24 +42,25 @@ export default function Header(props: Prop) {
         />
       </div>
       <div className="flex items-center justify-end space-x-4 w-fit">
-        {menuList.map((list, idx) => {
-          const CurrentPage = list.url;
-          return (
-            <Link to={list.url} key={idx}>
-              <span
-                onClick={() => handleChange(CurrentPage)}
-                className={twMerge(
-                  selectedMenu === CurrentPage
-                    ? "text-primary font-semibold "
-                    : "text-[#595959]",
-                  "text-[13px] "
-                )}
-              >
-                {list.label}
-              </span>
-            </Link>
-          );
-        })}
+        {data?.isAdmin &&
+          menuList.map((list, idx) => {
+            const CurrentPage = list.url;
+            return (
+              <Link to={list.url} key={idx}>
+                <span
+                  onClick={() => handleChange(CurrentPage)}
+                  className={twMerge(
+                    selectedMenu === CurrentPage
+                      ? "text-primary font-semibold "
+                      : "text-[#595959]",
+                    "text-[13px] "
+                  )}
+                >
+                  {list.label}
+                </span>
+              </Link>
+            );
+          })}
 
         {!isLoading && data ? <Account user={data} /> : <Spin />}
       </div>

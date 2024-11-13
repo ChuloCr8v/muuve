@@ -1,4 +1,5 @@
 import { Tag } from "antd";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
   status: string;
@@ -12,9 +13,15 @@ const StatusTag = ({ status, textColor, bgColor }: Props) => {
   return (
     <Tag
       color={bgColor ? bgColor : "#0A95CC1A"}
-      className="rounded-full uppercase font-semibold text-xs flex items-center w-fit gap-1 py-0.5"
+      className={twMerge(
+        "rounded-full font-semibold text-xs flex items-center w-fit gap-1 py-0.5"
+      )}
     >
-      <span className={textColor ? `text-[${textColor}]` : "text-[#0A95CC]"}>
+      <span
+        className={twMerge(
+          textColor ? `text-[${textColor}]` : "text-[#0A95CC]"
+        )}
+      >
         {status}
       </span>
     </Tag>

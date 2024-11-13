@@ -9,6 +9,7 @@ import PageError from "./components/PageError";
 import { PopupProvider } from "./context/PopupContext";
 import AppRoutes from "./routes/AppRoutes";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
+import DesignerContextProvider from "./context/DesignerContext";
 
 function App() {
   return (
@@ -32,9 +33,11 @@ function App() {
               }}
             >
               <PopupProvider>
-                <BrowserRouter>
-                  <AppRoutes />
-                </BrowserRouter>
+                <DesignerContextProvider>
+                  <BrowserRouter>
+                    <AppRoutes />
+                  </BrowserRouter>
+                </DesignerContextProvider>
               </PopupProvider>
             </ConfigProvider>
           </PersistGate>

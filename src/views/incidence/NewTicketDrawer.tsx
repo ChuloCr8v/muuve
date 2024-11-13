@@ -214,12 +214,12 @@ const NewTicketDrawer = () => {
             />
           }
         >
-          <MultiUpload
+          {/* <MultiUpload
             files={newTicketFormData?.attachments}
             setFiles={(value: FileInterface[]) =>
               handleInputChange("attachments", value)
             }
-          />
+          /> */}
         </Form.Item>
       </Form>
     </Drawer>

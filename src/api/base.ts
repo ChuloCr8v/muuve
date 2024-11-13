@@ -12,12 +12,15 @@ export const tagTypes = [
   "device",
   "services",
   "dynamic-form",
+  "project",
   "ticket",
 ] as const;
 
-const envUrl = import.meta.env.VITE_API_URL;
-const defaultUrl =
-  "http://miro-sm-env.eba-yevmzjb3.us-west-2.elasticbeanstalk.com/";
+// const envUrl = import.meta.env.VITE_API_URL;
+// const defaultUrl =
+//   "http://miro-sm-env.eba-yevmzjb3.us-west-2.elasticbeanstalk.com/";
+
+const defaultUrl = "http://localhost:4000";
 
 export const baseUrl = defaultUrl.replace(
   /\blocalhost\b/,

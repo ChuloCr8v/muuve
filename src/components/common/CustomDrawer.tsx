@@ -28,6 +28,7 @@ export const CustomDrawer = ({
   const uploader = useUploaderProvider();
 
   const { closeDrawer, isDrawerOpen } = usePopup();
+  const { isUploading } = uploader;
 
   return (
     <Drawer
@@ -42,13 +43,17 @@ export const CustomDrawer = ({
           <div className="text-right">
             <Button
               onClick={closeDrawer}
-              disabled={loading}
+              disabled={loading || isUploading}
               style={{ marginRight: 8 }}
             >
               Cancel
             </Button>
-            <Button onClick={onSubmit} loading={loading} type="primary">
-              {okText}
+            <Button
+              onClick={onSubmit}
+              loading={loading || isUploading}
+              type="primary"
+            >
+              {isUploading ? "Uploading files..." : okText}
             </Button>
           </div>
         )

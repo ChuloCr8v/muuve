@@ -1,14 +1,14 @@
 import { ReactNode } from "react";
-import TableRowData from "../../global/TableRowData";
-import FileCard from "../../global/FileCard";
+import TableRowData from "../global/TableRowData";
+import FileCard from "../global/FileCard";
 import { twMerge } from "tailwind-merge";
-import { FileInterface } from "../../../types";
+import { FileInterface } from "../../types";
 
 interface Props {
-  surveyData: Array<{ label: string; value: ReactNode | any }>;
+  data: Array<{ label: string; value: ReactNode | any }>;
 }
 
-const SurveyDetails = ({ surveyData }: Props) => {
+const ProjectDetails = ({ data }: Props) => {
   const value = (label: string, value: any) => {
     if (label.toLowerCase() === "uploads") {
       return (
@@ -31,16 +31,18 @@ const SurveyDetails = ({ surveyData }: Props) => {
   return (
     <div className="mt-2">
       <div className="grid grid-cols-2 gap-2">
-        {surveyData.map((data) => (
+        {data.map((d) => (
           <div
             className={twMerge(
-              data.label.toLowerCase() === "comment" && "col-span-2"
+              (d.label.toLowerCase() === "comment" ||
+                d.label.toLowerCase() === "attachments") &&
+                "col-span-2"
             )}
-            key={data.label}
+            key={d.label}
           >
             <TableRowData
-              mainText={data.label}
-              tagText={value(data.label, data.value)}
+              mainText={d.label}
+              tagText={value(d.label, d.value)}
               mainTextStyle="text-sm text-grey uppercase leading-loose"
               tagTextStyle="!text-black !text-[13px]"
             />
@@ -51,4 +53,4 @@ const SurveyDetails = ({ surveyData }: Props) => {
   );
 };
 
-export default SurveyDetails;
+export default ProjectDetails;

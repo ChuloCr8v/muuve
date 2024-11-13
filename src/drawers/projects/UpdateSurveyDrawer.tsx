@@ -45,28 +45,12 @@ export const UpdateSurveyDrawer = ({ survey }: Props) => {
     <CustomDrawer
       title="Update Survey Request"
       okText="Update"
-      closable={false}
       width={500}
       onSubmit={submit}
       loading={isLoading}
     >
       <div className="w-full">
-        <Form
-          form={form}
-          layout="vertical"
-          initialValues={{
-            address: survey.address,
-            bandwidth: survey.bandwidth,
-            longitude: survey.longitude,
-            lattitude: survey.lattitude,
-            region: survey.region,
-            state: survey.state,
-            customerId: survey.customerId,
-            serviceTypeId: survey.serviceTypeId,
-            requestTypeId: survey.requestTypeId,
-            managerId: survey.managerId,
-          }}
-        >
+        <Form form={form} layout="vertical" initialValues={survey}>
           <Form.Item
             label="Customer"
             required
@@ -199,10 +183,10 @@ export const UpdateSurveyDrawer = ({ survey }: Props) => {
             </Form.Item>
             <Form.Item
               className="w-1/2"
-              label="Lattitude"
+              label="Latitude"
               required
-              name="lattitude"
-              rules={[{ required: true, message: "Lattitude is required" }]}
+              name="latitude"
+              rules={[{ required: true }]}
             >
               <InputNumber className="w-full" />
             </Form.Item>

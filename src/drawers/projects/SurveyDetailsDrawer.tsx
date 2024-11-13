@@ -1,9 +1,9 @@
 import { Tabs, TabsProps } from "antd";
 import { Survey } from "../../api/types";
 import { CustomDrawer } from "../../components/common/CustomDrawer";
-import StatusTag from "../../components/global/StatusTag";
 import LogComponent from "../../components/global/Log";
-import SurveyDetails from "../../components/projects/survey/SurveyDetails";
+import StatusTag from "../../components/global/StatusTag";
+import ProjectDetails from "../../components/projects/ProjectDetails";
 
 interface Props {
   survey: Survey;
@@ -37,7 +37,7 @@ const SurveyDetailsDrawer = ({ survey }: Props) => {
     },
     {
       label: "coordinates",
-      value: survey.longitude + "," + survey?.lattitude,
+      value: survey.longitude + "," + survey?.latitude,
     },
     {
       label: "bandwidth",
@@ -57,7 +57,7 @@ const SurveyDetailsDrawer = ({ survey }: Props) => {
     {
       key: "1",
       label: "Survey Details",
-      children: <SurveyDetails surveyData={surveyData} />,
+      children: <ProjectDetails data={surveyData} />,
     },
     {
       key: "2",

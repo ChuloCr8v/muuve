@@ -23,8 +23,9 @@ import StaffActive from "/nav-icons/staff-active.svg";
 import Customers from "/nav-icons/customers.svg";
 import CustomersActive from "/nav-icons/customers-active.svg";
 import { Tooltip } from "antd";
+import { useGetAuthUserQuery } from "@/api/auth.api";
 
-const menuItems = [
+const adminMenuItems = [
   {
     id: 1,
     title: "Projects",
@@ -35,12 +36,18 @@ const menuItems = [
         icon: Surveys,
         iconActive: SurveysActive,
       },
-      // {
-      //   title: "Job Orders",
-      //   url: "/projects/job-orders",
-      //   icon: JobOrders,
-      //   iconActive: JobOrdersActive,
-      // },
+      {
+        title: "Job Orders",
+        url: "/projects/job-orders",
+        icon: JobOrders,
+        iconActive: JobOrdersActive,
+      },
+      {
+        title: "ATP",
+        url: "/projects/atp",
+        icon: JobOrders,
+        iconActive: JobOrdersActive,
+      },
     ],
   },
   {
@@ -141,11 +148,30 @@ const menuItems = [
   },
 ];
 
+const customerMenuItems = [
+  {
+    id: 1,
+    title: "Projects",
+    submenuItems: [
+      {
+        title: "Job Orders",
+        url: "/projects/job-orders",
+        icon: JobOrders,
+        iconActive: JobOrdersActive,
+      },
+    ],
+  },
+];
+
 interface Prop {
   collapse: boolean;
 }
 
 const Menu = ({ collapse }: Prop) => {
+  const { data: user } = useGetAuthUserQuery();
+
+  const menuItems = user?.customer ? customerMenuItems : adminMenuItems;
+
   const [openMenuItem, setOpenMenuItem] = useState<number>(0);
   const location = useLocation();
   const currentPath = location.pathname;
@@ -234,7 +260,7 @@ const Menu = ({ collapse }: Prop) => {
                 </Tooltip>
               ))}
               {/* Divider between menu items */}
-              <hr className="w-4/5 border-gray-300 my-1" />
+              <hr className="w-4/5 my-1 border-gray-300" />
             </div>
           )}
         </div>

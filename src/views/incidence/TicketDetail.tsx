@@ -44,10 +44,10 @@ const TicketDetail = () => {
         </Dropdown>
       </div>
 
-      <div className="grid gap-4 grid-cols-5">
+      <div className="grid grid-cols-5 gap-4">
         {/* left */}
-        <div className="space-y-4 col-span-3">
-          <div className="border p-4 py-4 rounded-md bg-white space-y-4">
+        <div className="col-span-3 space-y-4">
+          <div className="p-4 py-4 space-y-4 bg-white border rounded-md">
             <TableRowData
               mainText="Description"
               mainTextStyle="text-grey uppercase font-semibold"
@@ -57,7 +57,7 @@ const TicketDetail = () => {
             />
 
             <div className="space-y-2">
-              <p className="text-grey font-semibold">
+              <p className="font-semibold text-grey">
                 {currentTicket?.attachments.length} Attachment
                 {currentTicket?.attachments.length &&
                   currentTicket?.attachments.length > 1 &&
@@ -88,7 +88,7 @@ const TicketDetail = () => {
 
         {/* Right */}
         <div className="col-span-2 space-y-4">
-          <div className="w-full border pb-6 rounded-md bg-white space-y-4 h-fit">
+          <div className="w-full pb-6 space-y-4 bg-white border rounded-md h-fit">
             <TableRowData
               mainText="Ticket Details"
               wrapperClassName="border-b p-4"
@@ -171,7 +171,7 @@ const TicketDetail = () => {
             </div>
           </div>
 
-          <div className="border p-4 rounded-md bg-white space-y-4 h-fit">
+          <div className="p-4 space-y-4 bg-white border rounded-md h-fit">
             <TableRowData
               mainText="History"
               mainTextStyle="!text-grey font-semibold"
@@ -180,7 +180,7 @@ const TicketDetail = () => {
             <Input
               type="text"
               placeholder="Search history, action, user"
-              prefix={<FaSearch className="text-grey mr-2" />}
+              prefix={<FaSearch className="mr-2 text-grey" />}
             />
 
             <div className="w-full pt-4">

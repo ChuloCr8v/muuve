@@ -1,5 +1,4 @@
-import FormItem from "antd/es/form/FormItem";
-import { AppModules } from "../../../types";
+import { SmSubModules } from "@/api/types";
 
 // Define the type for each item in the survey or similar arrays
 export interface FormItem {
@@ -69,6 +68,6 @@ export const Staff: FormItem[] = [
 ];
 
 export const projectForm = [
-  { label: "New Survey Request", value: AppModules.Projects.SURVEY },
-  { label: "New Job Order", value: AppModules.Projects.JOB_ORDER },
+  { name: "New Survey Request", subModule: SmSubModules.SURVEY },
+  { name: "New Job Order", subModule: SmSubModules.JOB_ORDER },
 ];

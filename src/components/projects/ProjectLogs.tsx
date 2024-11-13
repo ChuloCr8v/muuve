@@ -1,13 +1,13 @@
+import { Button } from "antd";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { CgArrowRight } from "react-icons/cg";
 import { useState } from "react";
-import { Button } from "antd";
-import { twMerge } from "tailwind-merge";
+import { CgArrowRight } from "react-icons/cg";
 import { FaChevronUp } from "react-icons/fa";
-import AttachmentCard from "../global/AttachmentCard";
 import { FaCircle } from "react-icons/fa6";
+import { twMerge } from "tailwind-merge";
 import { Log } from "../../api/types";
+import AttachmentCard from "../global/AttachmentCard";
 
 type Props = {
   log: Log;
@@ -15,10 +15,19 @@ type Props = {
 
 dayjs.extend(relativeTime);
 
-const ProjectLogItem = ({ log: logs }: Props) => {
+const ProjectLogItem = ({ log }: Props) => {
   const [closedLogs, setClosedLogs] = useState<Array<string>>([]);
-  const { action, toStaff, byStaff, comment, attachments, createdAt, id } =
-    logs;
+  const {
+    action,
+    toStaff,
+    toVendor,
+    byStaff,
+    byCustomer,
+    comment,
+    attachments,
+    createdAt,
+    id,
+  } = log;
 
   const toggle = () => {
     setClosedLogs((prev) => {
@@ -30,26 +39,10 @@ const ProjectLogItem = ({ log: logs }: Props) => {
     });
   };
 
-  const color = () => {
-    switch (action.toLowerCase()) {
-      case "completed":
-        return "text-[#379D51]";
-      case "reverted":
-        return "text-[#F05050]";
-      default:
-        return "text-[#B9A325]";
-    }
-  };
-
   return (
     <div className="w-full project-log">
       <div className="flex items-start w-full border-l gap-x-4">
-        <FaCircle
-          className={twMerge(
-            "-ml-[5px] mt-7 text-xl rounded-full log-icon ",
-            color()
-          )}
-        />
+        <FaCircle className="-ml-[5px] mt-7 text-xl rounded-full log-icon text-[#0A96CC]" />
         <div className="w-full space-y-2">
           <div className="flex items-center justify-between pt-6 log-header">
             <p className="font-semibold capitalize">{action}</p>
@@ -69,11 +62,14 @@ const ProjectLogItem = ({ log: logs }: Props) => {
           <p className="flex items-center gap-1 text-grey">
             by{" "}
             <span className="font-medium text-primary">
-              {byStaff.staff.name}{" "}
+              {byStaff && byStaff.staff.name}{" "}
+              {byCustomer && byCustomer.customer.name}{" "}
             </span>
-            {toStaff && <CgArrowRight />}{" "}
+            {(toStaff || toVendor) && <CgArrowRight />}{" "}
             <span className="font-medium text-primary">
-              {toStaff ? toStaff.staff.name : ""}
+              {toStaff && toStaff.staff.name}
+              {toVendor &&
+                `${toVendor.vendor.companyName} | ${toVendor.vendor.spocName}`}
             </span>
           </p>
           <div

@@ -29,12 +29,14 @@ import { ReassignSurveyModal } from "../../modals/projects/ReassignSurveyModal";
 import { RejectSurveyModal } from "../../modals/projects/RejectSurveyModal";
 import { RevertSurveyModal } from "../../modals/projects/RevertSurveyModal";
 import { capitalizeFirstLetter } from "../../utils/capitalize.util";
+import { formatStatusEnum } from "@/utils/formatEnum";
+import { abbreviateLastName } from "@/utils/abbreviateName";
+import { calculateSlaDays } from "@/utils/calculateSlaDays";
 
 const ProjectSurvey = () => {
   const { openDrawer, openModal } = usePopup();
 
   const listSurvey = useListSurveysQuery();
-
   const surveys = listSurvey.data ?? [];
 
   const summaryData: SummaryDataType[] = [
@@ -101,24 +103,19 @@ const ProjectSurvey = () => {
             <div className="">
               <DropdownCustomItem
                 label={"Assign Survey"}
-                icon={<LuUserCheck className="" />}
+                icon={<LuUserCheck />}
               />
             </div>
           ),
           onClick: () => openModal(<AssignSurveyModal survey={survey} />),
         }
       : null,
-    (survey.status === SurveyStatus.REQUESTED ||
-      survey.status === SurveyStatus.REVERTED) &&
     survey.isAssigned
       ? {
           key: 3,
           label: (
-            <div className="">
-              <DropdownCustomItem
-                label={"Reassign"}
-                icon={<PiUserSwitch className="" />}
-              />
+            <div>
+              <DropdownCustomItem label={"Reassign"} icon={<PiUserSwitch />} />
             </div>
           ),
           onClick: () => openModal(<ReassignSurveyModal survey={survey} />),
@@ -147,7 +144,7 @@ const ProjectSurvey = () => {
               <DropdownCustomItem
                 className="text-red-600"
                 label={"Revert"}
-                icon={<AiOutlineRollback className="" />}
+                icon={<AiOutlineRollback />}
               />
             </div>
           ),
@@ -192,6 +189,9 @@ const ProjectSurvey = () => {
       title: "ID",
       dataIndex: "surveyId",
       key: "surveyId",
+      render: (_, { surveyId }) => (
+        <span className="font-semibold">{surveyId}</span>
+      ),
     },
     {
       title: "Name",
@@ -225,14 +225,27 @@ const ProjectSurvey = () => {
     },
     {
       title: "SLA",
-      dataIndex: ["sla", "due"],
-      key: "requestType",
-      // render: (_, record) => (
-      // <TableRowData
-      //   mainText={<SLATime sla={record.dueDate} status={record.status} />}
-      //   tagText={`Due: ${dayjs(record.dueDate).format("DD MMM YYYY")}`}
-      // />
-      // )
+      dataIndex: "status",
+      key: "status",
+      render: (_, record) =>
+        record.status === SurveyStatus.COMPLETED || !record.isAssigned ? (
+          "-"
+        ) : (
+          <TableRowData
+            mainText={formatStatusEnum(record.status)}
+            tagText={
+              record.isAssigned
+                ? `${abbreviateLastName(record.assignee.staff.name)} | SLA: ${
+                    calculateSlaDays(
+                      record.assignedDate,
+                      record.dueDate,
+                      record.isSlaInWorkDays
+                    ).slaText
+                  }`
+                : record.manager.staff.name
+            }
+          />
+        ),
     },
     {
       title: "Actions",

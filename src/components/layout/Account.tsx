@@ -11,7 +11,11 @@ interface Props {
 }
 
 export default function Account({ user }: Props) {
-  const name = user.staff ? user.staff.name : "";
+  const name = user.staff
+    ? user.staff.name
+    : user.customer
+    ? user.customer.name
+    : user.vendor.spocName;
 
   const [logout] = useLogoutMutation();
   const authState = useAuthState();

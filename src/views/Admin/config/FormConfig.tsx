@@ -45,12 +45,12 @@ export default function FormConfig() {
               onClick={() => setSelectedForm(formList)}
               className={twMerge(
                 "cursor-pointer px-2 py-3 text-[13px] hover:bg-[#EFF7FB] hover:text-primary hover:font-semibold",
-                selectedForm.label === formList.label
+                selectedForm.name === formList.name
                   ? "text-primary font-semibold"
                   : ""
               )}
             >
-              {formList.label}
+              {formList.name}
             </p>
           ))}
         </div>
