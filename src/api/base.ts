@@ -17,10 +17,10 @@ export const tagTypes = [
 ] as const;
 
 // const envUrl = import.meta.env.VITE_API_URL;
-// const defaultUrl =
-//   "http://miro-sm-env.eba-yevmzjb3.us-west-2.elasticbeanstalk.com/";
+const defaultUrl =
+  "http://miro-sm-env.eba-yevmzjb3.us-west-2.elasticbeanstalk.com/";
 
-const defaultUrl = "http://localhost:4000";
+// const defaultUrl = "http://localhost:4000";
 
 export const baseUrl = defaultUrl.replace(
   /\blocalhost\b/,

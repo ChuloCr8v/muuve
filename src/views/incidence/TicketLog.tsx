@@ -47,7 +47,7 @@ const TicketLogItem = ({ data }: Props) => {
             color()
           )}
         />
-        <div className="space-y-2 w-full">
+        <div className="space-y-2 w-full text-sm">
           <div className="flex items-center justify-between pt-6 log-header">
             <p className="capitalize">{action}</p>
             <div className="flex items-center gap-4 text-grey">
@@ -63,7 +63,7 @@ const TicketLogItem = ({ data }: Props) => {
             </div>
           </div>
 
-          <p className="flex items-center gap-1 text-grey">
+          <p className="flex items-center gap-1 text-grey leading-none">
             by <span className="capitalize text-primary">{by}</span>
             {action.toLowerCase() === "assigned ticket" && (
               <>
@@ -91,6 +91,7 @@ const TicketLogItem = ({ data }: Props) => {
                   name={attachment.name}
                   size={attachment.size}
                   key={attachment.name}
+                  id={""}
                 />
               ))}
             </div>

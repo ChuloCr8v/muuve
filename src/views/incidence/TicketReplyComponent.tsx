@@ -1,9 +1,11 @@
-import { Select } from "antd";
+import { Button, Select } from "antd";
 
 import { ticketStatusData } from "../../dummy/ticketStatusData";
 import { users } from "../../dummy/users";
 import CustomEditor from "../../components/global/CustomEditor";
 import UserAvatar from "../../components/global/UserAvatar";
+import TextArea from "antd/es/input/TextArea";
+import { FaPlaneArrival, FaPlaneDeparture } from "react-icons/fa";
 
 interface Props {
   setReplyContent: (arg: string) => void;
@@ -11,16 +13,11 @@ interface Props {
 }
 
 const TicketReplyComponent = (props: Props) => {
-  const mentions = users.map((user) => ({
-    text: user.label,
-    value: user.label,
-  }));
-
   return (
     <div className="border p-4 py-6 rounded-md bg-white space-y-4">
       <div className="flex items-center gap-2">
         <UserAvatar firstName={"Modesta"} lastName={"Ekeh"} />
-        <span className="">Reply to:</span>
+        <span className="text-sm">Reply to:</span>
         <Select
           dropdownStyle={{ maxWidth: "fit-content", width: "100%" }}
           placeholder={"Select user"}
@@ -31,8 +28,8 @@ const TicketReplyComponent = (props: Props) => {
         />
       </div>
 
-      <div className="">
-        <p className="">Select Status</p>
+      <div className="space-y-2">
+        <p className="text-sm">Select Status</p>
         <Select
           className="w-full"
           placeholder="Status"
@@ -43,12 +40,14 @@ const TicketReplyComponent = (props: Props) => {
         />
       </div>
 
-      <div className="">
-        <CustomEditor
-          mentions={mentions}
-          text={props.replyContent}
-          setText={props.setReplyContent}
+      <div className="flex flex-col items-end gap-2">
+        <TextArea
+          placeholder="Type here..."
+          onChange={(e) => props.setReplyContent(e.target.value)}
         />
+        <Button type="primary" className="w-[114px] h-7">
+          Reply
+        </Button>
       </div>
     </div>
   );

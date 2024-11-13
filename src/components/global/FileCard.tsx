@@ -15,7 +15,7 @@ const FileCard = ({ fileType, name, size }: Props) => {
       <div className="flex items-center gap-2">
         <img src={fileIcon(fileType)} alt={name} className=" w-7" />
         <div className="flex flex-col items-start">
-          <span className="">{name}</span>
+          <span className="text-sm">{name}</span>
           <span className="text-[11px] text-grey">{size}mb</span>
         </div>
       </div>
