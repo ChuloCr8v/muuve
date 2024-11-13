@@ -27,6 +27,7 @@ const AccountSidebar = () => {
         <div className="flex flex-col items-start w-full gap-2">
           {menuItems.map((item) => (
             <Link
+              key={item.label}
               className={twMerge(
                 "w-full hover:text-primary hover:bg-primary !bg-opacity-20 rounded-md p-1 px-2 text-grey duration-150 capitalize text-sm",
                 pathname === item.url && "text-primary bg-primary "

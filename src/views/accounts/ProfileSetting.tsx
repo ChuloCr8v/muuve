@@ -1,16 +1,17 @@
+import { useGetAuthUserQuery } from "@/api/auth.api";
 import { Button, Form, Input, Select, Tag } from "antd";
+import { E164Number } from "libphonenumber-js";
+import { useEffect, useState } from "react";
+import PhoneInput from "react-phone-number-input/input";
+import { twMerge } from "tailwind-merge";
 import Heading from "../../components/global/Header";
 import TableRowData from "../../components/global/TableRowData";
-import AccountLayout from "./AccountLayout";
-import { useEffect, useState } from "react";
+import CustomLabel from "../../components/onboarding/CustomLabel";
 import {
   OrganizationInformationType,
   orgInfo,
 } from "../../dummy/organizationInfo";
-import CustomLabel from "../../components/onboarding/CustomLabel";
-import PhoneInput from "react-phone-number-input/input";
-import { E164Number } from "libphonenumber-js";
-import { twMerge } from "tailwind-merge";
+import AccountLayout from "./AccountLayout";
 
 const ProfileSetting = () => {
   const [companyFormData, setCompanyFormData] =
@@ -23,6 +24,8 @@ const ProfileSetting = () => {
   const handleChange = (name: string, value: string | E164Number) => {
     setCompanyFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const { data } = useGetAuthUserQuery();
 
   return (
     <AccountLayout>
@@ -37,12 +40,10 @@ const ProfileSetting = () => {
               className="h-full w-full object-cover"
             />
           </div>
-          <p className="text-2xl text-customBlack">
-            {" "}
-            Backbone Connectivity Network
-          </p>
+          <p className="text-2xl text-customBlack"> {data?.staff.name}</p>
           <Tag color="green" className="rounded-full text-grey">
-            Tracking ID: <span className="font-semibold">CUS20111</span>
+            Tracking ID:{" "}
+            <span className="font-semibold">{data?.staff.orgId}</span>
           </Tag>
         </div>
 
@@ -81,7 +82,7 @@ const ProfileSetting = () => {
                 <Input
                   type="text"
                   name="companyName"
-                  value={companyFormData?.companyName}
+                  value={data?.staff.name}
                   onChange={(e) => handleChange(e.target.name, e.target.value)}
                 />
               </Form.Item>
@@ -90,17 +91,15 @@ const ProfileSetting = () => {
                 <Input
                   type="email"
                   name="emailAddress"
-                  value={companyFormData?.emailAddress}
+                  value={data?.email}
                   onChange={(e) => handleChange(e.target.name, e.target.value)}
                 />
               </Form.Item>
               <Form.Item label={<CustomLabel label="Phone Number" />}>
-                <PhoneInput
+                <Input
                   className="h-7 w-full p-2 rounded-md border focus:border-primary hover:border-primary"
                   value={companyFormData?.phoneNumber}
-                  onChange={(value) =>
-                    handleChange("phoneNumber", value as E164Number)
-                  }
+                  onChange={(e) => handleChange("phoneNumber", e.target.value)}
                 />
               </Form.Item>
               <Form.Item label={<CustomLabel label="Industry" />}>
