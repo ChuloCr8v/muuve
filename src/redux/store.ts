@@ -1,5 +1,6 @@
 // src/redux/store.ts
 import { configureStore } from "@reduxjs/toolkit";
+import authSlice from "./authSlice";
 import {
   persistStore,
   persistReducer,
@@ -12,8 +13,12 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
+import tweetsSlice from "./tweetsSlice";
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  auth: authSlice,
+  tweets: tweetsSlice,
+});
 
 const persistConfig = {
   key: "root",

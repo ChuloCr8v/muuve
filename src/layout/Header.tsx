@@ -1,11 +1,11 @@
+import useConnectAccount from "@/hooks/useConnectAccount";
+import useShortenWalletAddress from "@/hooks/useShortenWalletAddress";
+import { logOut } from "@/redux/authSlice";
 import { Avatar } from "antd";
 import { BsTwitterX } from "react-icons/bs";
-import { FaBan, FaUser } from "react-icons/fa";
+import { FaArtstation, FaBan, FaUser } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { useDispatch } from "react-redux";
-import useConnectAccount from "../../hooks/useConnectAccount";
-import useShortenWalletAddress from "../../hooks/useShortenWalletAddress";
-import { logOut } from "../../redux/authSlice";
 
 const Header = () => {
   const { connectedAccount } = useConnectAccount();
@@ -14,11 +14,12 @@ const Header = () => {
   const dispatch = useDispatch();
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full flex flex-col items-center justify-center p-6">
+    <header className="backdrop-blur-3xl text-white fixed top-0 left-0 z-50 w-full flex flex-col items-center justify-center p-6">
       <div className="max-w-7xl w-full flex items-center justify-between">
         {" "}
         <h2 className="font-semibold  text-xl flex items-center gap-2">
-          <BsTwitterX className="text-teal-500 text-xl " /> Twitter Dapp
+          <FaArtstation className="text-teal-500 text-xl " />
+          Logo
         </h2>
         {connectedAccount ? (
           <div className="flex items-center gap-6">

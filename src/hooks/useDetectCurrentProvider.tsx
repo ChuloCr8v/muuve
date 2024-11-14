@@ -1,3 +1,5 @@
+import { message } from "antd";
+
 const useDetectCurrentProvider = () => {
   const detectCurrentProvider = () => {
     let provider;
@@ -7,6 +9,7 @@ const useDetectCurrentProvider = () => {
       provider = window.web3.currentProvider;
     } else {
       console.log("Non ethereum browser detected, please install Metamask");
+      message.error("Non ethereum browser detected, please install Metamask");
     }
 
     return provider;

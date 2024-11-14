@@ -1,19 +1,24 @@
+import useConnectAccount from "@/hooks/useConnectAccount";
 import { lazy } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
-const Home = lazy(
-  () => import("../views/Home")
-);
+const UserPages = lazy(() => import("../views/UserPages"));
+const ConnectAccount = lazy(() => import("../views/ConnectAccount"));
 
 const AppRoutes = () => {
+  const { connectedAccount } = useConnectAccount();
+  const navigate = useNavigate();
+
+  if (!connectedAccount) {
+    navigate("/connect");
+  }
+
+  console.log(connectedAccount);
+
   return (
     <Routes>
-      
-      <Route
-        path="/"
-        element={<Home />}
-      />
-      <Route path="/*" element={<Home />} />
+      <Route path="/connect" element={<ConnectAccount />} />
+      <Route path="/*" element={<UserPages />} />
     </Routes>
   );
 };
