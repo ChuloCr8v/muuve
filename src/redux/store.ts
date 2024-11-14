@@ -1,6 +1,5 @@
 // src/redux/store.ts
 import { configureStore } from "@reduxjs/toolkit";
-import productsReducer from "./productsSlice";
 import {
   persistStore,
   persistReducer,
@@ -13,12 +12,8 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
-import popupSlice from "./popupSlice";
 
-const rootReducer = combineReducers({
-  products: productsReducer,
-  popups: popupSlice,
-});
+const rootReducer = combineReducers({});
 
 const persistConfig = {
   key: "root",

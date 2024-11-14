@@ -3,13 +3,20 @@ import { Suspense } from "react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
-import { persistor, store } from "./api/data/store";
-import { Loading } from "./components/common/Loading";
-import PageError from "./components/PageError";
-import { PopupProvider } from "./context/PopupContext";
+
 import AppRoutes from "./routes/AppRoutes";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
-import DesignerContextProvider from "./context/DesignerContext";
+import { store, persistor } from "./redux/store";
+import { Loading } from "./components/Loading";
+import PageError from "./components/PageError";
+
+declare global {
+  interface Window {
+    ethereum?: any;
+    web3?: any;
+  }
+}
+
 
 function App() {
   return (
@@ -32,13 +39,9 @@ function App() {
                 },
               }}
             >
-              <PopupProvider>
-                <DesignerContextProvider>
-                  <BrowserRouter>
-                    <AppRoutes />
-                  </BrowserRouter>
-                </DesignerContextProvider>
-              </PopupProvider>
+              <BrowserRouter>
+                <AppRoutes />
+              </BrowserRouter>
             </ConfigProvider>
           </PersistGate>
         </Provider>
