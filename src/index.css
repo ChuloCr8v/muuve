@@ -18,7 +18,7 @@
   box-sizing: border-box;
   font-family: "inter", sans-serif;
 }
-
+/* 
 body {
   background-repeat: no-repeat;
   background-position: center;
@@ -30,12 +30,12 @@ body {
       transparent 59%
     ),
     radial-gradient(at 82% 65%, hsl(218.18, 86%, 45%) 0, transparent 55%);
-}
-
+} */
+/* 
 .blur-card {
   backdrop-filter: blur(24px) saturate(152%);
   -webkit-backdrop-filter: blur(24px) saturate(152%);
   background-color: rgba(17, 25, 40, 0.44);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
-}
+} */

@@ -5,18 +5,10 @@ import { BrowserRouter } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 
 import AppRoutes from "./routes/AppRoutes";
-import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import { store, persistor } from "./redux/store";
 import { Loading } from "./components/Loading";
 import PageError from "./components/PageError";
-
-declare global {
-  interface Window {
-    ethereum?: any;
-    web3?: any;
-  }
-}
-
+import { ErrorBoundary } from "react-error-boundary";
 
 function App() {
   return (
