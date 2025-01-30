@@ -17,6 +17,7 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "inter", sans-serif;
+  font-size: 13px;
 }
 /* 
 body {
@@ -39,3 +40,13 @@ body {
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.125);
 } */
+
+/* Light Mode */
+body {
+  @apply bg-white text-gray-900 transition-colors;
+}
+
+/* Dark Mode */
+.dark body {
+  @apply bg-gray-900 text-white transition-colors;
+}

@@ -9,7 +9,7 @@ const Layout = (props: Props) => {
   return (
     <div className="layout h-screen w-screen overflow-y-auto">
       <Header />
-      {props.children}
+      <div className="min-h-100vh h-full">{props.children}</div>
     </div>
   );
 };
