@@ -1,20 +1,24 @@
-import { useEffect, useState } from "react";
+import { setDarkMode, setLightMode } from "@/redux/themeSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function useTheme() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const { darkMode } = useSelector(
+    (state: { theme: { darkMode: boolean } }) => state.theme
+  );
 
+  const dispatch = useDispatch();
   useEffect(() => {
-    if (theme === "dark") {
+    if (darkMode) {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+  }, [darkMode]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    dispatch(darkMode ? setLightMode() : setDarkMode());
   };
 
-  return { theme, toggleTheme };
+  return { darkMode, toggleTheme };
 }

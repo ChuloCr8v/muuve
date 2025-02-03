@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import Header from "./Header";
+import Footer from "./Footer";
 
 type Props = {
   children: ReactNode;
@@ -7,9 +8,10 @@ type Props = {
 
 const Layout = (props: Props) => {
   return (
-    <div className="layout h-screen w-screen overflow-y-auto">
+    <div className=" w-screen flex flex-col items-center justify-center overflow-x-hidden ">
       <Header />
-      <div className="min-h-100vh h-full">{props.children}</div>
+      <div className="h-full max-w-7xl body_wrapper">{props.children}</div>
+      <Footer />
     </div>
   );
 };
