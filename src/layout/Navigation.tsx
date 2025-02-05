@@ -1,3 +1,5 @@
+import { toggleNav } from "@/redux/navSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
@@ -31,12 +33,20 @@ const navItems = [
 const Navigation = () => {
   const route = useLocation();
 
+  const { isOpen } = useSelector((state: any) => state.nav);
+  const dispatch = useDispatch();
+
   return (
-    <nav className="top-20 w-full absolute md:relative">
-      <div className="flex flex-col md:flex-row items-start md:items-center gap-6 bg-black bg-opacity-40 backdrop-blur-sm px-4 py-6 rounded-lg">
+    <nav
+      className={twMerge(
+        "top-12 z-[99999999] w-full md:w-fit fixed md:top-0 md:translate-y-0 px-2 mt-4 -translate-y-[100vh] duration-300",
+        isOpen && "translate-y-0"
+      )}
+    >
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-6 bg-black/20 nav-mobile !backdrop-blur-xl px-4 py-6 md:p-0 rounded-lg md:bg-transparent md:backdrop-filter-none">
         {navItems.map((item) => (
           <a
-            onClick={() => console.log(route.hash)}
+            onClick={() => dispatch(toggleNav())}
             key={item.label}
             href={item.url}
             className={twMerge(

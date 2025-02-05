@@ -13,9 +13,11 @@ import {
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import themeSlice from "./themeSlice";
+import navSlice from "./navSlice";
 
 const rootReducer = combineReducers({
   theme: themeSlice,
+  nav: navSlice,
 });
 
 const persistConfig = {
