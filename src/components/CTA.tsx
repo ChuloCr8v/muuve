@@ -14,8 +14,8 @@ const CTA = () => {
       <img
         src="./ballon.webp"
         alt="travel agency website designer"
-        className="absolute max-w-[500px] md:max-w-[700px] -z-20 -top-[70%] md:-top-[80%]"
-        style={{ transform: `translateY(${offsetY * 0.37}px)` }}
+        className="absolute max-w-[500px] md:max-w-[700px] -z-20 -top-[100%] md:-top-[140%]"
+        style={{ transform: `translateY(${offsetY * 0.5}px)` }}
       />
       <div
         className={twMerge(

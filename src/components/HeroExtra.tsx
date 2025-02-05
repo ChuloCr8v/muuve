@@ -44,7 +44,7 @@ const HeroExtra = () => {
           <div className="flex items-start gap-2" key={index}>
             <p
               className={twMerge(
-                "text-xs text-gray-600",
+                "text-sm text-gray-600",
                 darkMode && "text-white/80"
               )}
             >
@@ -54,13 +54,15 @@ const HeroExtra = () => {
               <img
                 src={item.image}
                 alt={item.title}
-                className="rounded-full h-12 w-12 object-cover"
+                className="rounded-xl h-20 w-20 object-cover"
               />
               <div className="">
-                <p className="font-semibold text-sm">{item.title}</p>
+                <p className="font-semibold text-xl text-primary">
+                  {item.title}
+                </p>
                 <p
                   className={twMerge(
-                    "text-gray-600 text-xs break-words w-60 lg:w-full",
+                    "text-gray-600 text-base break-words w-60 lg:w-full",
                     darkMode && "text-white/80"
                   )}
                 >

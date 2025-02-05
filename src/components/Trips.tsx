@@ -105,7 +105,9 @@ const Trips = () => {
                   </p>
                   <div className="absolute space-y-2 p- bottom-1 trip-details-animation">
                     <div className=" bg-black rounded-b-lg backdrop-blur-sm bg-opacity-50 p-2">
-                      <p className="text-xs text-center">{item.description}</p>
+                      <p className="text-sm md:text-xs text-center">
+                        {item.description}
+                      </p>
                     </div>
                     <Button
                       type="primary"

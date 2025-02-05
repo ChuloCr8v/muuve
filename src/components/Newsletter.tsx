@@ -33,7 +33,7 @@ const Newsletter = () => {
                   your inbox.{" "}
                 </p>
               </div>
-              <div className="space-y-2 bg-gray-200 p-4 text-right w-[350px] md:max-w-[500px] md:w-full -rotate-[10deg] relative -z-0 shadow-xl -mt-6">
+              <div className="space-y-2 bg-gray-200 p-4 text-right w-[350px] md:max-w-[500px] md:w-full -rotate-[10deg] relative z-0 shadow-xl -mt-6">
                 <Input
                   type="email"
                   placeholder="Enter email address"
@@ -47,7 +47,7 @@ const Newsletter = () => {
                       darkMode && "text-primary"
                     )}
                   >
-                    Enter your valid email to start getting updates.
+                    Enter your valid email to recieve updates.
                   </p>
                   <Button
                     size="small"
@@ -70,46 +70,38 @@ const Newsletter = () => {
         </div>
       </div>
 
-      <div
+      {/* <div
         className={twMerge(
-          " hidden  items-center gap-20 w-full justify-start -mt-40",
-          darkMode && "opacity-80"
+          "flex items-center gap-20 w-full justify-center absolute top-[20%]"
         )}
-        // style={{
-        //   transform: `translateX(${offsetY * 0.3}px)`,
-        // }}
+        style={{
+          transform: `translateY(${offsetY * 0.1}px)`,
+        }}
       >
         <img
-          className="h-32 translate-x-20"
+          className="h-32 xl:h-20 translate-x-20"
           src="./cloud.webp"
           alt="website developer"
         />
         <img
-          className="h-24 lg:h-32 place-self-center translate-y-10"
+          className="h-24 lg:h-60 place-self-center translate-y-10"
           src="./cloud.png"
           alt="website developer"
         />
         <img
-          className="h-40 translate-y-12 translate-x-20"
+          className="h-40 -translate-y-12 translat-x-20"
           src="./cloudy.png"
           alt="website developer"
         />
 
-        <img
-          className="h-20 -translate-x-[100vw] translate-y-6"
-          src="./cloud.webp"
-          alt="website developer"
-        />
+        <img className="h-20" src="./cloud.webp" alt="website developer" />
       </div>
 
-      <div className="absolute -translate-y-[200%]md:-translate-y-[00%]">
-        <img
-          style={{ transform: `translateY(${offsetY * 0.25}px)` }}
-          src="./ballon.webp"
-          alt="travel agency website designer"
-          className="max-w-[500px] md:max-w-[700px] -z-20 "
-        />
-      </div>
+      <img
+        className="h-20 z-50 max-w-[450px] absolute top-[210%]"
+        src="./cloud.webp"
+        alt="website developer"
+      /> */}
     </div>
   );
 };

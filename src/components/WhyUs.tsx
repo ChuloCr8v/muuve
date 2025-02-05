@@ -8,9 +8,9 @@ const WhyUs = () => {
   const { darkMode } = useTheme();
 
   return (
-    <div className="flex flex-col justify-center items-center relative -translate-y-[80rem] md:-translate-y-[30rem] md:mt-40">
+    <div className="flex flex-col justify-center items-center relative -translate-y-[70rem] md:-translate-y-[30rem] md:mt-40 xl:mt-80">
       <img
-        className="h-20 md:h-32 md:-translate-x-20 lg:translate-y-10 lg:left-56 z-[99999] absolute"
+        className="h-20 md:h-32 md:-translate-x-20 xl:-translate-x-0 lg:translate-y-20 lg:left-56 z-[99999] absolute"
         src="./cloud.webp"
         alt="website developer"
       />
@@ -22,14 +22,14 @@ const WhyUs = () => {
         //   transform: `translateX(${offsetY * 0.2}px)`,
         // }}
       >
-        <img
+        {/* <img
           className="h-40 opacity-"
           src="./cloudy.png"
           alt="website developer"
-        />
+        /> */}
 
         <img
-          className="h-32 lg:h-40 lg:-translate-x-96"
+          className="h-32 lg:h-40"
           src="./cloud.png"
           alt="website developer"
         />
@@ -63,11 +63,11 @@ const WhyUs = () => {
           // }}
           className="flex items-center justify-start -translate-y-[70rem] md:-translate-y-[650px] w-full"
         >
-          <div className="flex flex-col md:flex-row items-start gap-3 h-full w-full px-4">
+          <div className="flex flex-col md:flex-row gap-3 h-full w-full px-4">
             {whyUs.map((item, index) => (
               <div
                 className={twMerge(
-                  "border bg-white rounded-lg px-4 py-6 max-w-[400px] md:max-w-[450px] w-full shadow-md space-y-3 h-full",
+                  "border bg-white rounded-lg px-4 py-6 max-w-[400px] md:max-w-[450px] lg:max-w-[350px] w-full shadow-md space-y-3",
                   index === 0 && "border-primary shadow-pink-500 ",
                   index === 1 && "border-pink-500 shadow-primary",
                   index === 2 && "border-orange-500 shadow-pink-500",
@@ -90,7 +90,14 @@ const WhyUs = () => {
                 </div>
                 <div className="space-y-1">
                   <p className="font-semibold text-lg">{item.title}</p>
-                  <p className="text-sm">{item.description}</p>
+                  <p
+                    className={twMerge(
+                      "text-gray-600 text-base",
+                      darkMode && "text-gray-400"
+                    )}
+                  >
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}
